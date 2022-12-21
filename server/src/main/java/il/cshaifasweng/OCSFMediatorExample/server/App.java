@@ -24,7 +24,12 @@ import java.util.List;
  */
 public class App 
 {
-	private static Session session;
+    static Session session;
+
+    public static Session getSession() {
+        return session;
+    }
+
     private static SessionFactory getSessionFactory(){
         Configuration configuration=new Configuration();
         configuration.addAnnotatedClass(Parking.class);

@@ -3,7 +3,7 @@ package il.cshaifasweng.OCSFMediatorExample.entities;
 import java.io.Serializable;
 import java.time.LocalTime;
 
-public class Warning implements Serializable {
+public class Message implements Serializable {
 
 	/**
 	 * 
@@ -12,6 +12,15 @@ public class Warning implements Serializable {
 	
 	private String message;
 	private LocalTime time;
+	private Object list;
+
+	public void setList(Object list) {
+		this.list = list;
+	}
+
+	public Object getList() {
+		return list;
+	}
 
 	public String getMessage() {
 		return message;
@@ -21,7 +30,7 @@ public class Warning implements Serializable {
 		this.message = message;
 	}
 
-	public Warning(String message) {
+	public Message(String message) {
 		this.message = message;
 		this.time = LocalTime.now();
 	}

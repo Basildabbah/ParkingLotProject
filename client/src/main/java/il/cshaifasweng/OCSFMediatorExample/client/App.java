@@ -52,6 +52,7 @@ public class App extends Application {
     
     @Subscribe
     public void onWarningEvent(WarningEvent event) {
+        PrimaryController.setStr(event.getWarning().getMessage());
     	Platform.runLater(() -> {
     		Alert alert = new Alert(AlertType.WARNING,
         			String.format("Message: %s\nTimestamp: %s\n",
@@ -59,8 +60,9 @@ public class App extends Application {
         					event.getWarning().getTime().toString())
         	);
         	alert.show();
+
     	});
-    	
+
     }
 
 	public static void main(String[] args) {
