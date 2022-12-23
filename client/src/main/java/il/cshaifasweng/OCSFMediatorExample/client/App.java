@@ -52,6 +52,7 @@ public class App extends Application {
     
     @Subscribe
     public void onWarningEvent(WarningEvent event) {
+        System.out.println("aaa");
         PrimaryController.setStr(event.getWarning().getMessage());
     	Platform.runLater(() -> {
     		Alert alert = new Alert(AlertType.WARNING,

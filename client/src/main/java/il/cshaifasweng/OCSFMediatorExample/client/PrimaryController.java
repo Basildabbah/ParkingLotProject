@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.Parking;
+import il.cshaifasweng.OCSFMediatorExample.entities.Price;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -61,12 +62,47 @@ public class PrimaryController {
 	private TableColumn<Parking, Integer> tableid;
 
 	@FXML
-	private TableColumn<?, ?> tablesize;
+	private TableColumn<Parking, String> tablename;
+	@FXML
+	private TableColumn<Parking, Integer> tabledepth;
+
+	@FXML
+	private TableColumn<Parking, Integer> tablesize;
+
+	@FXML
+	private TableColumn<Parking, Integer> tablehight;
+
+	@FXML
+	private TableColumn<Parking, Integer> tablewidth;
+
+	@FXML
+	private TableView<Price> table2;
+
+	@FXML
+	private TableColumn<Price, Integer> table2PAymentMethoud;
+
+	@FXML
+	private TableColumn<Price, Integer> table2id;
+
+	@FXML
+	private TableColumn<Price, Integer> table2price;
+
+	@FXML
+	private TableColumn<Price, Integer> table2typeOfParking;
+
 
 	@FXML
 	void okfun(ActionEvent event) {
+		String tmp="#okey";
+		tmp+=idprice.getText();
+		tmp+=",";
+		tmp+=newprice.getText();
+		System.out.println(tmp);
+		newprice.clear();
+		idprice.clear();
+
 		try {
-			SimpleClient.getClient().sendToServer("okey");
+			SimpleClient.getClient().sendToServer(tmp);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -74,21 +110,22 @@ public class PrimaryController {
 
 	@FXML
 	void setnewprice(ActionEvent event) {
-		try {
-			SimpleClient.getClient().sendToServer("setNewPrice");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
+			//SimpleClient.getClient().sendToServer("setNewPrice");
+			idprice.setVisible(true);
+			newprice.setVisible(true);
+			ok.setVisible(true);
+			table.setVisible(false);
+			table2.setVisible(false);
+
+
 	}
 
 	@FXML
 	void showparkfun(ActionEvent event) {
 		try {
 			SimpleClient.getClient().sendToServer("#showparkfun");
-			labelshow.setVisible(true);
-//			System.out.println(str);
-//			labelshow.setText(str);
-		} catch (IOException e) {
+			} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -96,8 +133,7 @@ public class PrimaryController {
 	@FXML
 	void showpricefun(ActionEvent event) {
 		try {
-			SimpleClient.getClient().sendToServer("showpricefun");
-			labelshow.setVisible(true);
+			SimpleClient.getClient().sendToServer("#showpricefun");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -105,12 +141,56 @@ public class PrimaryController {
 	@Subscribe
 	public void setLabelshow(WarningEvent c) {
 		Platform.runLater(()->{
-			System.out.println("in setLabelshow");
-			labelshow.setText(c.getWarning().getMessage());
-			tableid.setCellValueFactory(new PropertyValueFactory<Parking,Integer>("id"));
-			ObservableList<Parking> list= FXCollections.observableList((ArrayList<Parking>)c.getWarning().getList());
-			table.setItems(list);
+				labelshow.setText(c.getWarning().getMessage());
+				tableid.setCellValueFactory(new PropertyValueFactory<Parking, Integer>("id"));
+				tablesize.setCellValueFactory(new PropertyValueFactory<Parking, Integer>("size"));
+				tabledepth.setCellValueFactory(new PropertyValueFactory<Parking, Integer>("depth"));
+				tablehight.setCellValueFactory(new PropertyValueFactory<Parking, Integer>("hight"));
+				tablename.setCellValueFactory(new PropertyValueFactory<Parking, String>("name"));
+				tablewidth.setCellValueFactory(new PropertyValueFactory<Parking, Integer>("width"));
+
+			ObservableList<Parking> list = FXCollections.observableList((ArrayList<Parking>) c.getWarning().getList());
+			idprice.setVisible(false);
+			newprice.setVisible(false);
+			ok.setVisible(false);
+				table.setVisible(true);
+				table2.setVisible(false);
+				table.setItems(list);
+
 		});
+
+	}
+
+
+	@Subscribe
+	public void setLabelshow(PriceEvent c) {
+		Platform.runLater(()->{
+			labelshow.setText(c.getWarning().getMessage());
+			table2id.setCellValueFactory(new PropertyValueFactory<Price, Integer>("id"));
+			table2price.setCellValueFactory(new PropertyValueFactory<Price, Integer>("Price"));
+			table2typeOfParking.setCellValueFactory(new PropertyValueFactory<Price, Integer>("typeOfParking"));
+			table2PAymentMethoud.setCellValueFactory(new PropertyValueFactory<Price, Integer>("PAymentMethoud"));
+
+			ObservableList<Price> list = FXCollections.observableList((ArrayList<Price>) c.getWarning().getList());
+			idprice.setVisible(false);
+			newprice.setVisible(false);
+			ok.setVisible(false);
+			table.setVisible(false);
+			table2.setVisible(true);
+			table2.setItems(list);
+/*	@FXML
+	private TableColumn<Price, Integer> table2PAymentMethoud;
+
+	@FXML
+	private TableColumn<Price, Integer> table2id;
+
+	@FXML
+	private TableColumn<Price, Integer> table2price;
+
+	@FXML
+	private TableColumn<Price, Integer> table2typeOfParking;*/
+		});
+
 	}
 
 	@FXML
