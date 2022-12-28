@@ -155,6 +155,8 @@ public class SimpleServer extends AbstractServer {
 				{
 					System.out.println(p.getPrice());
 					p.setPrice(Integer.parseInt(tmp2));
+					session.update(p);
+					session.getTransaction().commit();
 					System.out.println(p.getPrice());
 
 				}
