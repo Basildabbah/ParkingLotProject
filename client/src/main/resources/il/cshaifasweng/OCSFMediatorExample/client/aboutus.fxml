@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.effect.DisplacementMap?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.FloatMap?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="1000.0" prefWidth="1000.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.aboutus">
+   <children>
+      <AnchorPane layoutX="132.0" layoutY="14.0" prefHeight="45.0" prefWidth="578.0">
+         <children>
+            <ButtonBar layoutX="-92.0" layoutY="12.0" prefHeight="40.0" prefWidth="737.0">
+               <buttons>
+                  <Button fx:id="homebut" mnemonicParsing="false" onAction="#homebutfun" style="-fx-background-color: #00BFFF;" text="Home" textFill="RED" textOverrun="CLIP">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <effect>
+                        <DisplacementMap>
+                           <mapData>
+                              <FloatMap />
+                           </mapData>
+                           <input>
+                              <DropShadow />
+                           </input>
+                        </DisplacementMap>
+                     </effect>
+                  </Button>
+                  <Button fx:id="about" mnemonicParsing="false" onAction="#aboutus" style="-fx-background-color: #00BFFF;" text="About Us" textFill="RED" textOverrun="CLIP">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <effect>
+                        <DisplacementMap>
+                           <mapData>
+                              <FloatMap />
+                           </mapData>
+                           <input>
+                              <DropShadow />
+                           </input>
+                        </DisplacementMap>
+                     </effect>
+                  </Button>
+                  <Button fx:id="Prices" mnemonicParsing="false" onAction="#Pricesfun" style="-fx-background-color: #00BFFF;" text="Prices" textFill="RED" textOverrun="CLIP">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <effect>
+                        <DisplacementMap>
+                           <mapData>
+                              <FloatMap />
+                           </mapData>
+                           <input>
+                              <DropShadow />
+                           </input>
+                        </DisplacementMap>
+                     </effect>
+                  </Button>
+                  <Button fx:id="login" mnemonicParsing="false" onAction="#loginfun" style="-fx-background-color: #00BFFF;" text="Login As Admin" textFill="RED" textOverrun="CLIP">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <effect>
+                        <DisplacementMap>
+                           <mapData>
+                              <FloatMap />
+                           </mapData>
+                           <input>
+                              <DropShadow />
+                           </input>
+                        </DisplacementMap>
+                     </effect>
+                  </Button>
+               </buttons>
+            </ButtonBar>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="339.0" layoutY="279.0" prefHeight="200.0" prefWidth="200.0" />
+      <Label alignment="CENTER" layoutX="378.0" layoutY="120.0" prefHeight="62.0" prefWidth="199.0" text="Parking Lots" textFill="#991010" wrapText="true">
+         <font>
+            <Font name="Californian FB Italic" size="28.0" />
+         </font>
+         <effect>
+            <Bloom />
+         </effect>
+      </Label>
+      <Label alignment="CENTER" layoutX="98.0" layoutY="202.0" prefHeight="128.0" prefWidth="738.0" text="Our parking lot application is designed to make parking easier and more convenient for both individuals and businesses. With our app, users can easily find and reserve parking spots in garages and lots near their destination." wrapText="true">
+         <font>
+            <Font name="Arial Italic" size="15.0" />
+         </font>
+         <effect>
+            <Bloom />
+         </effect>
+      </Label>
+      <Label alignment="CENTER" layoutX="98.0" layoutY="298.0" prefHeight="128.0" prefWidth="738.0" text="We understand the frustration of driving around aimlessly searching for a parking spot, and we believe our app can help alleviate that stress. Our user-friendly interface allows users to quickly find and reserve a spot, as well as pay for their parking directly through the app." textAlignment="JUSTIFY" wrapText="true">
+         <font>
+            <Font name="Arial Italic" size="15.0" />
+         </font>
+         <effect>
+            <Bloom />
+         </effect>
+      </Label>
+      <Label alignment="CENTER" layoutX="98.0" layoutY="426.0" prefHeight="128.0" prefWidth="738.0" text="We are constantly working to improve and expand our app, and we value the feedback of our users. If you have any suggestions or comments, please don't hesitate to reach out to us. Thank you for choosing our parking lot application!" textAlignment="JUSTIFY" wrapText="true">
+         <font>
+            <Font name="Arial Italic" size="15.0" />
+         </font>
+         <effect>
+            <Bloom />
+         </effect>
+      </Label>
+      <ImageView fitHeight="135.0" fitWidth="139.0" layoutX="416.0" layoutY="561.0">
+         <image>
+            <Image url="@../../../../images/about-us-icon-15.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
