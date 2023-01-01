@@ -17,21 +17,12 @@ public class SimpleClient extends AbstractClient {
 
 	@Override
 	protected void handleMessageFromServer(Object msg) {
-
 		Message message = (Message) msg;
-		if(((Message) msg).getMessage().equals("showparkfun")) {
-			EventBus.getDefault().post(new WarningEvent(message));
-			setStr(message.getMessage());
-		}
-		if(((Message) msg).getMessage().equals("showpricefun")) {
-			EventBus.getDefault().post(new PriceEvent(message));
-			setStr(message.getMessage());
-		}
 	}
 
 	public static SimpleClient getClient() {
 		if (client == null) {
-			client = new SimpleClient("localhost", 5555);
+			client = new SimpleClient("localhost", 3000);
 		}
 		return client;
 	}
