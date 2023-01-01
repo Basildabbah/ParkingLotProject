@@ -14,6 +14,8 @@ public class Subscriber extends Client{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int subscriberId;
 
+    private String password;
+
     private int remainingHours;
 
     private String subscriptionExpiryDate;

@@ -5,6 +5,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -28,6 +29,17 @@ public class App
 
     private static SessionFactory getSessionFactory(){
         Configuration configuration=new Configuration();
+        configuration.addAnnotatedClass(Admin.class);
+        configuration.addAnnotatedClass(CanceledOrder.class);
+        configuration.addAnnotatedClass(Car.class);
+        configuration.addAnnotatedClass(Client.class);
+        configuration.addAnnotatedClass(Complaint.class);
+        configuration.addAnnotatedClass(OneTimeCustomer.class);
+        configuration.addAnnotatedClass(OnSiteCustomer.class);
+        configuration.addAnnotatedClass(Order.class);
+        configuration.addAnnotatedClass(ParkingLot.class);
+        configuration.addAnnotatedClass(RegularSubscriber.class);
+        configuration.addAnnotatedClass(Subscriber.class);
         ServiceRegistry serviceRegistry=new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
         return configuration.buildSessionFactory(serviceRegistry);
     }

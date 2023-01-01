@@ -19,8 +19,6 @@ public class Client {
 
     private String email;
 
-    private String password;
-
     private String visaCard;
 
     private String timeOfEntrance;
