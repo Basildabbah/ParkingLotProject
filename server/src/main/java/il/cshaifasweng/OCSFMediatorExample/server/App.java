@@ -84,7 +84,7 @@ public class App
             session.close();
             session.getSessionFactory().close();
         }
-        server = new SimpleServer(3000);
+        server = new SimpleServer(5555);
         server.listen();
     }
 }
