@@ -30,4 +30,16 @@ public class ParkingLot {
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "parkinglot")
     private List<Order> allOrders;
+
+    public ParkingLot(int rows, int columns, int depth, byte[] matrix) {
+        super();
+        this.rows = rows;
+        this.columns = columns;
+        this.depth = depth;
+        this.matrix = matrix;
+    }
+
+    public ParkingLot() {
+
+    }
 }

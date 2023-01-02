@@ -1,12 +1,12 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.AbstractServer;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
 
 import java.io.IOException;
 import java.util.List;
 
-import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -26,6 +26,17 @@ public class SimpleServer extends AbstractServer {
 	private static Session session;
 	private static SessionFactory getSessionFactory(){
 		Configuration configuration=new Configuration();
+		configuration.addAnnotatedClass(Admin.class);
+		configuration.addAnnotatedClass(CanceledOrder.class);
+		configuration.addAnnotatedClass(Car.class);
+		configuration.addAnnotatedClass(Client.class);
+		configuration.addAnnotatedClass(Complaint.class);
+		configuration.addAnnotatedClass(OneTimeCustomer.class);
+		configuration.addAnnotatedClass(OnSiteCustomer.class);
+		configuration.addAnnotatedClass(Order.class);
+		configuration.addAnnotatedClass(ParkingLot.class);
+		configuration.addAnnotatedClass(RegularSubscriber.class);
+		configuration.addAnnotatedClass(Subscriber.class);
 		ServiceRegistry serviceRegistry=new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
 		return configuration.buildSessionFactory(serviceRegistry);
 	}
@@ -57,36 +68,3 @@ public class SimpleServer extends AbstractServer {
 		}
 	}
 }
-
-
-//	String hostname = "localhost";
-//			int port = 3306;
-//			String database = "software";
-//			String username = "root";
-//			String password = "0547952152AZaz";
-//
-//			// Build the connection URL
-//			String url = "jdbc:mysql://" + hostname + ":" + port + "/" + database;
-//			String tmp="";
-//			ResultSet rs=null;
-//			// Establish the connection
-//			try (Connection conn = DriverManager.getConnection(url, username, password)) {
-//				Statement stmt = conn.createStatement();
-//
-//				// Execute a SELECT query
-//				rs = stmt.executeQuery("SELECT * FROM Parking");
-//
-//				// Process the results
-////				while (rs.next()) {
-////					// Get the column values
-////					int id = rs.getInt("id");
-////					String name = rs.getString("name");
-////					int size = rs.getInt("size");
-////
-////					String x=String.format("ID: %d  size: %d \n",id,size );
-////					tmp=tmp+x;
-////				}
-//
-//			} catch (SQLException e) {
-//				System.out.println("Unable to get data from table: " + e.getMessage());
-//			}

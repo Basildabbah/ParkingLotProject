@@ -45,6 +45,26 @@ public class App
     }
     private static void initializeData(){
 
+        Admin parkingLotManager = new ParkingLotManager("John", "Doe", "john.doe@company.com", "12345", "Parking Lot Manager", 1);
+        Admin chainManager = new Admin("Jane", "Smith", "jane.smith@company.com", "abcde", "Chain Manager");
+        Admin customerService = new Admin("Bob", "Johnson", "bob.johnson@company.com", "password", "Customer Service");
+        Admin parkingLotEmployee = new ParkingLotEmployee("Alice", "Williams", "alice.williams@company.com", "qwerty", "Parking Lot Employee", 2);
+
+        session.save(parkingLotManager);
+        session.save(chainManager);
+        session.save(customerService);
+        session.save(parkingLotEmployee);
+
+        ParkingLot parkingLot1 = new ParkingLot(5, 10, 2, new byte[5*10*2]);
+        ParkingLot parkingLot2 = new ParkingLot(6, 12, 3, new byte[6*12*3]);
+        ParkingLot parkingLot3 = new ParkingLot(7, 14, 4, new byte[7*14*4]);
+
+
+        session.save(parkingLot1);
+        session.save(parkingLot2);
+        session.save(parkingLot3);
+
+
     }
     public static <T> List<T> getAll(Class<T> object){
         CriteriaBuilder builder=session.getCriteriaBuilder();

@@ -5,7 +5,6 @@ import org.greenrobot.eventbus.EventBus;
 import il.cshaifasweng.OCSFMediatorExample.client.ocsf.AbstractClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 
-import static il.cshaifasweng.OCSFMediatorExample.client.PrimaryController.setStr;
 
 public class SimpleClient extends AbstractClient {
 	
