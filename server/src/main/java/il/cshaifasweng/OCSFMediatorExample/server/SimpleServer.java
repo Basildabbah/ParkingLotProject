@@ -19,24 +19,27 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 public class SimpleServer extends AbstractServer {
+	private static Session session;
+	private static SessionFactory sessionFactory = getSessionFactory();
+
 	public SimpleServer(int port) {
 		super(port);
 
 	}
-	private static Session session;
 	private static SessionFactory getSessionFactory(){
 		Configuration configuration=new Configuration();
 		configuration.addAnnotatedClass(Admin.class);
 		configuration.addAnnotatedClass(CanceledOrder.class);
 		configuration.addAnnotatedClass(Car.class);
-		configuration.addAnnotatedClass(Client.class);
 		configuration.addAnnotatedClass(Complaint.class);
 		configuration.addAnnotatedClass(OneTimeCustomer.class);
 		configuration.addAnnotatedClass(OnSiteCustomer.class);
 		configuration.addAnnotatedClass(Order.class);
 		configuration.addAnnotatedClass(ParkingLot.class);
 		configuration.addAnnotatedClass(RegularSubscriber.class);
-		configuration.addAnnotatedClass(Subscriber.class);
+		configuration.addAnnotatedClass(ParkingLotManager.class);
+		configuration.addAnnotatedClass(ParkingLotEmployee.class);
+		configuration.addAnnotatedClass(FullSubscriber.class);
 		ServiceRegistry serviceRegistry=new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
 		return configuration.buildSessionFactory(serviceRegistry);
 	}
@@ -66,5 +69,31 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 		}
+
+//		if(msgString.equals("#addcar")){
+//			session = sessionFactory.openSession();
+//			session.beginTransaction();
+//			List<Car> carList = getAll(Car.class);
+//			List<Client> clientList = getAll((Client.class));
+//			Message msg1 = ((Message) msg);
+//			int carNumber = (int) msg1.getObject1();
+//			int user_id = (int) msg1.getObject2();
+//			for (Client client1 : clientList){
+//				if (client1.getId() == user_id){
+//					Object object = client1;
+//				}
+//			}
+//			for (Car car : carList){
+//				if (car.getCarNumber() == carNumber){
+//					if (car.getOneTimeCustomer() == null && car.getOnSiteCustomer() == null &&
+//					car.getSubscriber() == null){
+//						Car car1 = new Car(carNumber);
+//						car1
+//					}
+//				}
+//			}
+//		}
+
+
 	}
 }

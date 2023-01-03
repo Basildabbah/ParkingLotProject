@@ -3,6 +3,7 @@ package il.cshaifasweng.OCSFMediatorExample.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -23,15 +24,12 @@ public class Admin {
 
     private String occupation;
 
-    private int parkingLotId;
-
     public Admin(String firstName, String lastName, String email, String password, String occupation) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.occupation = occupation;
-        this.parkingLotId = -1;
     }
 
     public Admin() {

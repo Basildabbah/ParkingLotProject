@@ -18,7 +18,7 @@ public class Order {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "parkinglot_id")
-    private ParkingLot parkingLot;
+    private ParkingLot parkinglot;
 
 
     private String entryTime;

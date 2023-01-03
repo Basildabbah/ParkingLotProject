@@ -16,20 +16,29 @@ public class Car {
     private int carNumber;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "oneTimeCustomer_id", referencedColumnName = "id")
-    private OneTimeCustomer oneTimeCustomer;
+    @JoinColumn(name = "onetimecustomer_id")
+    private OneTimeCustomer onetimecustomer;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "onSiteCustomer_id", referencedColumnName = "id")
-    private OnSiteCustomer onSiteCustomer;
+    @JoinColumn(name = "onsitecustomer_id")
+    private OnSiteCustomer onsitecustmoer;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "subscriber_id")
-    private Subscriber subscriber;
+    @JoinColumn(name = "fullsubscriber_id")
+    private FullSubscriber fullsubscriber;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "regularsubscriber_id")
+    private RegularSubscriber regularsubscriber;
 
+    public Car() {
+    }
+
+    public Car(int carNumber) {
+        this.carNumber = carNumber;
+    }
 }

@@ -19,4 +19,13 @@ public class CanceledOrder {
 
     private int subId;
 
+    public CanceledOrder(int orderId, double refundedMoney, int subId) {
+        this.orderId = orderId;
+        this.refundedMoney = refundedMoney;
+        this.subId = subId;
+    }
+
+    public CanceledOrder() {
+
+    }
 }

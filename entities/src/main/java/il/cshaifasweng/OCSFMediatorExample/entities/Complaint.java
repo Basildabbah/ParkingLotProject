@@ -22,4 +22,13 @@ public class Complaint {
     private String status;
 
     private double refund;
+
+    public Complaint() {
+    }
+
+    public Complaint(String complaintMessage,int parkingLotId) {
+        this.complaintMessage = complaintMessage;
+        this.parkingLotId = parkingLotId;
+        this.status = "no response yet";
+    }
 }

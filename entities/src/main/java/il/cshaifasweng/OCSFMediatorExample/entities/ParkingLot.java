@@ -1,10 +1,8 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
 import lombok.Data;
-import org.hibernate.annotations.CollectionId;
 
 import javax.persistence.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,26 +15,53 @@ public class ParkingLot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int rows;
+    private int numberOfRows;
 
-    private int columns;
+    private int numberOfColumns;
 
     private int depth;
+
+    private int emptySpots;
+
+    private int numberOfOrders;
+
+    private int numberOfCancelledOrders;
+
+    private int numberOfLateArrivals;
+
+    private int numberOfInactiveParkings;
+
 
     //deserialize and serialize after
     @Lob
     @Column(name = "matrix", columnDefinition = "BLOB")
     private byte[] matrix;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "parkinglotmanager_id")
+    private ParkingLotManager parkinglotmanager;
+
+    //this field will contain all the orders that are currently registered to this parking lot
+    //which means it will include all the cars tha are parked at the moment in addition to all the reservations that have been made
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "parkinglot")
     private List<Order> allOrders;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parkinglot")
+    private List<ParkingLotEmployee> parkingLotEmployeeList;
+
     public ParkingLot(int rows, int columns, int depth, byte[] matrix) {
         super();
-        this.rows = rows;
-        this.columns = columns;
+        this.numberOfRows = rows;
+        this.numberOfColumns = columns;
         this.depth = depth;
         this.matrix = matrix;
+        emptySpots = rows * columns * depth;
+        numberOfOrders = 0;
+        numberOfInactiveParkings = 0;
+        numberOfCancelledOrders = 0;
+        numberOfLateArrivals = 0;
+        this.allOrders = new ArrayList<Order>();
+        this.parkingLotEmployeeList = new ArrayList<ParkingLotEmployee>();
     }
 
     public ParkingLot() {
