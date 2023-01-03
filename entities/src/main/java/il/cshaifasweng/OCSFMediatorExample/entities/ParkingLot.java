@@ -41,6 +41,10 @@ public class ParkingLot {
     @JoinColumn(name = "parkinglotmanager_id")
     private ParkingLotManager parkinglotmanager;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "prices_id")
+    private Prices price;
+
     //this field will contain all the orders that are currently registered to this parking lot
     //which means it will include all the cars tha are parked at the moment in addition to all the reservations that have been made
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "parkinglot")

@@ -13,6 +13,8 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.crypto.Cipher;
@@ -61,6 +63,7 @@ public class App
         configuration.addAnnotatedClass(ParkingLotManager.class);
         configuration.addAnnotatedClass(ParkingLotEmployee.class);
         configuration.addAnnotatedClass(FullSubscriber.class);
+        configuration.addAnnotatedClass(Prices.class);
         ServiceRegistry serviceRegistry=new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
         return configuration.buildSessionFactory(serviceRegistry);
     }
@@ -72,11 +75,28 @@ public class App
         ParkingLot parkingLot3 = new ParkingLot(7, 14, 4, new byte[7*14*4]);
 
 
+        List<String> typeOfParking1 = Arrays.asList("Short-term parking", "Long-term parking");
+        List<String> paymentMethod1 = Arrays.asList("Cash", "Credit card");
+        List<String> valueNote1 = Arrays.asList("10 EUR", "50 EUR");
+        Prices price1 = new Prices(typeOfParking1, paymentMethod1, valueNote1 , parkingLot1);
+
+        List<String> typeOfParking2 = Collections.singletonList("Valet parking");
+        List<String> paymentMethod2 = Collections.singletonList("PayPal");
+        List<String> valueNote2 = Collections.singletonList("100 EUR");
+        Prices price2 = new Prices(typeOfParking2, paymentMethod2, valueNote2 , parkingLot2);
+
+        List<String> typeOfParking3 = Arrays.asList("Self-service parking", "Valet parking");
+        List<String> paymentMethod3 = Arrays.asList("Cash", "Credit card", "PayPal");
+        List<String> valueNote3 = Arrays.asList("5 EUR", "25 EUR", "75 EUR");
+        Prices price3 = new Prices(typeOfParking3, paymentMethod3, valueNote3 , parkingLot3);
+
         session.save(parkingLot1);
         session.save(parkingLot2);
         session.save(parkingLot3);
 
-        session.flush();
+        session.save(price1);
+        session.save(price2);
+        session.save(price3);
 
         ParkingLotManager parkingLotManager1 = new ParkingLotManager("John", "Doe", "john.doe@company.com", "12345", parkingLot1);
         ParkingLotManager parkingLotManager2 = new ParkingLotManager("ada", "ada", "ada.ada@company.com", "15794", parkingLot2);

@@ -3,11 +3,14 @@ package il.cshaifasweng.OCSFMediatorExample.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Entity
 @Table(name = "cars")
-public class Car {
+public class Car implements Serializable {
+
+    private static final long serialVersionUID = 7030377024343093717L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

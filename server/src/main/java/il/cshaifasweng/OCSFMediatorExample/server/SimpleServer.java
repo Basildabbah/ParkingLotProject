@@ -40,6 +40,7 @@ public class SimpleServer extends AbstractServer {
 		configuration.addAnnotatedClass(ParkingLotManager.class);
 		configuration.addAnnotatedClass(ParkingLotEmployee.class);
 		configuration.addAnnotatedClass(FullSubscriber.class);
+		configuration.addAnnotatedClass(Prices.class);
 		ServiceRegistry serviceRegistry=new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
 		return configuration.buildSessionFactory(serviceRegistry);
 	}
@@ -58,7 +59,7 @@ public class SimpleServer extends AbstractServer {
 	}
 
 	@Override
-	protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
+	protected void handleMessageFromClient(Object msg, ConnectionToClient client) throws IOException {
 		String msgString = msg.toString();
 		if (msgString.startsWith("#warning")) {
 			Message message = new Message("Warning from server!");
@@ -70,30 +71,84 @@ public class SimpleServer extends AbstractServer {
 			}
 		}
 
-//		if(msgString.equals("#addcar")){
-//			session = sessionFactory.openSession();
-//			session.beginTransaction();
-//			List<Car> carList = getAll(Car.class);
-//			List<Client> clientList = getAll((Client.class));
-//			Message msg1 = ((Message) msg);
-//			int carNumber = (int) msg1.getObject1();
-//			int user_id = (int) msg1.getObject2();
-//			for (Client client1 : clientList){
-//				if (client1.getId() == user_id){
-//					Object object = client1;
-//				}
-//			}
-//			for (Car car : carList){
-//				if (car.getCarNumber() == carNumber){
-//					if (car.getOneTimeCustomer() == null && car.getOnSiteCustomer() == null &&
-//					car.getSubscriber() == null){
-//						Car car1 = new Car(carNumber);
-//						car1
-//					}
-//				}
-//			}
-//		}
+		if(msgString.equals("#addcar")){
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			List<Car> carList = getAll(Car.class);
+			List<FullSubscriber> fullSubscriberList = getAll(FullSubscriber.class);
+			List<RegularSubscriber> regularSubscriberList = getAll(RegularSubscriber.class);
+			Message msg1 = ((Message) msg);
+			int carNumber = (int) msg1.getObject1();
+			int sub_id = (int) msg1.getObject2();
+			String typeOfSub = (String) msg1.getObject3();
+			for (Car car : carList){
+				if (car.getCarNumber() == carNumber){
+					client.sendToClient(new Message("#caralreadylinked"));
+				}
+			}
+			Car car = new Car(carNumber);
+			if (typeOfSub.equals("fullSub")) {
+				for (FullSubscriber fullSubscriber : fullSubscriberList) {
+					if (fullSubscriber.getId() == sub_id) {
+						fullSubscriber.addCar(car);
+						session.update(fullSubscriber);
+					}
+				}
+			}
+			else {
+				for (RegularSubscriber regularSubscriber : regularSubscriberList) {
+					if (regularSubscriber.getId() == sub_id) {
+						regularSubscriber.addCar(car);
+						session.update(regularSubscriber);
+					}
+				}
+			}
+			session.save(car);
+			session.flush();
+			session.getTransaction().commit();
+		}
+
+		if(msgString.equals("#removecar")){
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			List<Car> carList = getAll(Car.class);
+			List<FullSubscriber> fullSubscriberList = getAll(FullSubscriber.class);
+			List<RegularSubscriber> regularSubscriberList = getAll(RegularSubscriber.class);
+			Message msg1 = ((Message) msg);
+			int carNumber = (int) msg1.getObject1();
+			int sub_id = (int) msg1.getObject2();
+			String typeOfSub = (String) msg1.getObject3();
+
+			for (Car car : carList){
+				if (car.getCarNumber() == carNumber){
+					if (typeOfSub.equals("fullSub")) {
+						for (FullSubscriber fullSubscriber : fullSubscriberList) {
+							if (fullSubscriber.getId() == sub_id) {
+								fullSubscriber.removeCar(car);
+								session.update(fullSubscriber);
+							}
+						}
+					}
+					else {
+						for (RegularSubscriber regularSubscriber : regularSubscriberList) {
+							if (regularSubscriber.getId() == sub_id) {
+								regularSubscriber.addCar(car);
+								session.update(regularSubscriber);
+							}
+						}
+					}
+					session.delete(car);
+				}
+			}
+			session.flush();
+			session.getTransaction().commit();
+		}
+
+
+
+
+
+		}
 
 
 	}
-}
