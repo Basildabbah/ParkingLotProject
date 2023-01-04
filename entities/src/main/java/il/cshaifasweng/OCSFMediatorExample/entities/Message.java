@@ -159,4 +159,7 @@ public class Message implements Serializable {
 	public void setObject1(Object object1) {
 		this.object1 = object1;
 	}
+	public String toString() {
+		return this.message;
+	}
 }

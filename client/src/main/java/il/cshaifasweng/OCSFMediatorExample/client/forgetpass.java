@@ -1,14 +1,19 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import il.cshaifasweng.OCSFMediatorExample.entities.Message;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
 
 public class forgetpass {
+
     @FXML
     private Button Prices;
 
@@ -28,6 +33,9 @@ public class forgetpass {
     private Button homebut;
 
     @FXML
+    private TextField id;
+
+    @FXML
     private Label invaild;
 
     @FXML
@@ -35,6 +43,7 @@ public class forgetpass {
 
     @FXML
     private Button login;
+
     @FXML
     void Pricesfun(ActionEvent event) throws IOException {
         App.setRoot("prices");
@@ -56,15 +65,39 @@ public class forgetpass {
     void loginfun(ActionEvent event) throws IOException {
         App.setRoot("loginadmin");
     }
+
     @FXML
     void forgetpass(ActionEvent event) throws IOException {
-        if(firstname.getText()==""||lastname.getText()==""||email.getText()=="")
-        {
-            invaild.setVisible(true);
+        Message m = new Message("#admin_forgetpass", id.getText(), firstname.getText(), lastname.getText(), email.getText());
+        try {
+            SimpleClient.getClient().sendToServer(m);
+        } catch (IOException e) {
+            e.printStackTrace();
+
         }
-        else
-        {
-            App.setRoot("newpass");
-        }
+    }
+    @Subscribe
+    public void setLabelshow(loginadminEvent c)throws IOException {
+        Platform.runLater(()->{
+            if (c.getWarning().getObject1().equals("yes"))
+            {
+            String x= (String) c.getWarning().getObject2();
+            newpass.idd= Integer.parseInt(x);
+                try {
+                    System.out.println(    newpass.idd);
+                    App.setRoot("newpass");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            else
+            {
+                invaild.setVisible(true);
+            }
+        });
+    }
+    @FXML
+    void initialize() {
+        EventBus.getDefault().register(this);
     }
 }

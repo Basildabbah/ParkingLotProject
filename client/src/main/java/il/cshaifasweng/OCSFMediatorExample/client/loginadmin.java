@@ -1,15 +1,32 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import il.cshaifasweng.OCSFMediatorExample.entities.Admin;
+import il.cshaifasweng.OCSFMediatorExample.entities.Message;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class loginadmin {
+    public static String str=" ";
+    public static void setStr(String str) {
+        il.cshaifasweng.OCSFMediatorExample.client.loginadmin.str=str;
+    }
+    public static String getStr() {
+        return str;
+    }
     @FXML
     private Button Prices;
 
@@ -32,7 +49,7 @@ public class loginadmin {
     private Button login;
 
     @FXML
-    private Button loginadmin;
+    private static Button loginadmin;
 
     @FXML
     private Label loginasguest;
@@ -44,9 +61,11 @@ public class loginadmin {
     private TextField pass;
     @FXML
     void loginbutton(ActionEvent event) {
-        if(id.getText()==""||pass.getText()=="")
-        {
-            invaild.setVisible(true);
+        Message m=new Message("#loginadmin",id.getText(),pass.getText());
+        try {
+            SimpleClient.getClient().sendToServer(m);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -73,7 +92,6 @@ public class loginadmin {
         App.setRoot("forgetpass");
 
     }
-
     @FXML
     void loginguest(MouseEvent event) throws IOException {
         App.setRoot("loginasguest");
@@ -83,6 +101,44 @@ public class loginadmin {
     @FXML
     void loginsubscriber(MouseEvent event) throws IOException {
         App.setRoot("loginassubscriber");
-
     }
+    @Subscribe
+    public void setLabelshow(loginadminEvent c)throws IOException {
+        Platform.runLater(()->{
+        if (c.getWarning().getObject1().equals("yes Chain Manager"))
+        {
+            try {
+                App.setRoot("ChainManagerBoundary");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        if (c.getWarning().getObject1().equals("yes Customer Service"))
+        {
+            try {
+                App.setRoot("CustomerServiceBoundary");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+            if (c.getWarning().getObject1().equals("yes parkinglotmanagers"))
+            {
+                try {
+                    App.setRoot("ParkingLotManagerBoundary");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        else
+        {
+            invaild.setVisible(true);
+        }
+        });
+    }
+    @FXML
+    void initialize() {
+        EventBus.getDefault().register(this);
+    }
+
 }

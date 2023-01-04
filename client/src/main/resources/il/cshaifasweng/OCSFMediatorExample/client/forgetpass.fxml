@@ -98,11 +98,11 @@
                   <Font name="System Bold Italic" size="30.0" />
                </font>
             </Label>
-            <Label layoutX="58.0" layoutY="135.0" prefHeight="18.0" prefWidth="67.0" text="Firstname:" />
-            <TextField fx:id="firstname" layoutX="58.0" layoutY="160.0" prefHeight="26.0" prefWidth="211.0" promptText="Type Your Firstname" />
-            <Label layoutX="58.0" layoutY="203.0" prefHeight="18.0" prefWidth="67.0" text="Lastname:" />
-            <TextField fx:id="lastname" layoutX="58.0" layoutY="227.0" prefHeight="26.0" prefWidth="211.0" promptText="Type Your lastname" />
-            <Button fx:id="forgetpass" layoutX="58.0" layoutY="372.0" mnemonicParsing="false" onAction="#forgetpass" prefHeight="26.0" prefWidth="211.0" style="-fx-background-color: #7272cb;" text="Forget The Password" textFill="WHITE">
+            <Label layoutX="58.0" layoutY="135.0" prefHeight="18.0" prefWidth="67.0" text="User Id:" />
+            <TextField fx:id="id" layoutX="58.0" layoutY="160.0" prefHeight="26.0" prefWidth="211.0" promptText="Type Your Id" />
+            <Label layoutX="58.0" layoutY="203.0" prefHeight="18.0" prefWidth="67.0" text="FirstName:" />
+            <TextField fx:id="firstname" layoutX="58.0" layoutY="227.0" prefHeight="26.0" prefWidth="211.0" promptText="Type Your Firstname" />
+            <Button fx:id="forgetpass" layoutX="58.0" layoutY="428.0" mnemonicParsing="false" onAction="#forgetpass" prefHeight="26.0" prefWidth="211.0" style="-fx-background-color: #7272cb;" text="Forget The Password" textFill="WHITE">
                <effect>
                   <Blend mode="RED">
                      <topInput>
@@ -111,9 +111,11 @@
                   </Blend>
                </effect>
             </Button>
-            <Label layoutX="58.0" layoutY="268.0" prefHeight="18.0" prefWidth="67.0" text="Email:" />
-            <TextField fx:id="email" layoutX="58.0" layoutY="302.0" prefHeight="26.0" prefWidth="211.0" promptText="Type Your Email" />
-            <Label fx:id="invaild" layoutX="58.0" layoutY="336.0" prefHeight="18.0" prefWidth="211.0" text="Firstname,Lastname Or Email is invalid." textFill="RED" visible="false" />
+            <Label layoutX="58.0" layoutY="268.0" prefHeight="18.0" prefWidth="67.0" text="LastName:" />
+            <TextField fx:id="lastname" layoutX="58.0" layoutY="295.0" prefHeight="26.0" prefWidth="211.0" promptText="Type Your LastName:" />
+            <Label fx:id="invaild" layoutX="58.0" layoutY="402.0" prefHeight="18.0" prefWidth="211.0" text="Firstname,Lastname Or Email is invalid." textFill="RED" visible="false" />
+            <Label layoutX="58.0" layoutY="336.0" prefHeight="18.0" prefWidth="67.0" text="Email:" />
+            <TextField fx:id="email" layoutX="58.0" layoutY="365.0" prefHeight="26.0" prefWidth="211.0" promptText="Type Your Email" />
          </children>
       </AnchorPane>
     </children>

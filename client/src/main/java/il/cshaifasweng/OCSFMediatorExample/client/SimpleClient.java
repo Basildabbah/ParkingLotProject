@@ -5,6 +5,8 @@ import org.greenrobot.eventbus.EventBus;
 import il.cshaifasweng.OCSFMediatorExample.client.ocsf.AbstractClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 
+import static il.cshaifasweng.OCSFMediatorExample.client.loginadmin.setStr;
+
 
 public class SimpleClient extends AbstractClient {
 	
@@ -17,8 +19,19 @@ public class SimpleClient extends AbstractClient {
 	@Override
 	protected void handleMessageFromServer(Object msg) {
 		Message message = (Message) msg;
+		if(((Message) msg).getMessage().equals("loginadmin")) {
+			EventBus.getDefault().post(new loginadminEvent(message));
+		}
+		if(((Message) msg).getMessage().equals("loginsubscriber")) {
+			EventBus.getDefault().post(new loginadminEvent(message));
+		}
+		if(((Message) msg).getMessage().equals("admin_forgetpass")) {
+			EventBus.getDefault().post(new loginadminEvent(message));
+		}
+		if(((Message) msg).getMessage().equals("newpassadmin")) {
+			EventBus.getDefault().post(new loginadminEvent(message));
+		}
 	}
-
 	public static SimpleClient getClient() {
 		if (client == null) {
 			client = new SimpleClient("localhost", 3000);

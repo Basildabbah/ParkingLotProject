@@ -1,11 +1,15 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import il.cshaifasweng.OCSFMediatorExample.entities.Message;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
 
@@ -65,11 +69,60 @@ public class loginassubscriber {
     }
     @FXML
     void loginbutton(ActionEvent event) throws IOException {
-        App.setRoot("home");
+        Message m=new Message("#loginsubscriber",accountid.getText(),password.getText());
+        try {
+            SimpleClient.getClient().sendToServer(m);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     @FXML
     void ForgetPassword(MouseEvent event)  throws IOException {
         App.setRoot("forgetpasssubscriber");
+    }
+
+
+
+
+
+
+    @Subscribe
+    public void setLabelshow(loginadminEvent c)throws IOException {
+        Platform.runLater(()->{
+            if (c.getWarning().getObject1().equals("yes full_subscriber"))
+            {
+                Subscribeboundry.idd=accountid.getText();
+                Subscribeboundry.type="full_subscriber";
+                System.out.println("full_subscriber");
+                try {
+                    App.setRoot("subscribeboundry");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            if (c.getWarning().getObject1().equals("yes regular_subscriber"))
+            {
+                Subscribeboundry.idd=accountid.getText();
+                Subscribeboundry.type="regular_subscriber";
+                System.out.println("regular_subscriber");
+                try {
+                    App.setRoot("subscribeboundry");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            else
+            {
+                invaild.setVisible(true);
+            }
+        });
+    }
+    @FXML
+    void initialize() {
+        EventBus.getDefault().register(this);
     }
 }

@@ -13,6 +13,8 @@ import java.util.List;
 public class RegularSubscriber {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int subscriberId;
     private int id;
 
     private String firstName;
@@ -29,8 +31,7 @@ public class RegularSubscriber {
 
     private int parkingLotId;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int subscriberId;
+
 
     private String password;
 

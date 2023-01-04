@@ -9,6 +9,8 @@
 <?import javafx.scene.effect.DisplacementMap?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.FloatMap?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -98,9 +100,9 @@
                         <Font name="System Bold Italic" size="30.0" />
                     </font>
                 </Label>
-                <Label layoutX="58.0" layoutY="135.0" prefHeight="18.0" prefWidth="91.0" text="New Passowrd" />
+                <Label fx:id="ss" layoutX="58.0" layoutY="135.0" prefHeight="18.0" prefWidth="91.0" text="New Passowrd" />
                 <TextField fx:id="Password1" layoutX="58.0" layoutY="160.0" prefHeight="26.0" prefWidth="211.0" promptText="Password" />
-                <Label layoutX="58.0" layoutY="203.0" prefHeight="18.0" prefWidth="110.0" text="Confirm Password" />
+                <Label fx:id="sss" layoutX="58.0" layoutY="203.0" prefHeight="18.0" prefWidth="110.0" text="Confirm Password" />
                 <TextField fx:id="Password2" layoutX="58.0" layoutY="227.0" prefHeight="26.0" prefWidth="211.0" promptText="Password" />
                 <Button fx:id="Confirm" layoutX="58.0" layoutY="327.0" mnemonicParsing="false" onAction="#Confirm" prefHeight="26.0" prefWidth="211.0" style="-fx-background-color: #7272cb;" text="Confirm" textFill="WHITE">
                     <effect>
@@ -112,6 +114,12 @@
                     </effect>
                 </Button>
                 <Label fx:id="invaild" layoutX="38.0" layoutY="271.0" prefHeight="38.0" prefWidth="281.0" text="Password and confirm password does not match" textFill="RED" visible="false" />
+            <Label fx:id="s" layoutX="76.0" layoutY="282.0" prefHeight="18.0" prefWidth="199.0" text="password change successfully" textFill="#00ff22" visible="false" />
+            <ImageView fx:id="im" fitHeight="169.0" fitWidth="175.0" layoutX="69.0" layoutY="113.0" visible="false">
+               <image>
+                  <Image url="@../../../../images/z.png" />
+               </image>
+            </ImageView>
             </children>
         </AnchorPane>
     </children>

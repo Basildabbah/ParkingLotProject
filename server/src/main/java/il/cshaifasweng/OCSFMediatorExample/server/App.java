@@ -103,6 +103,11 @@ public class App
         ParkingLotManager parkingLotManager3 = new ParkingLotManager("bs", "dsf", "bs.dsf@company.com", "14973", parkingLot3);
         Admin chainManager = new Admin("Jane", "Smith", "jane.smith@company.com", "abcde", "Chain Manager");
         Admin customerService = new Admin("Bob", "Johnson", "bob.johnson@company.com", "password", "Customer Service");
+        String encryptedString_ = encrypt(chainManager.getPassword() , secretKey);
+        chainManager.setPassword(encryptedString_);
+        String encryptedString_1 = encrypt(customerService.getPassword() , secretKey);
+        customerService.setPassword(encryptedString_1);
+
         ParkingLotEmployee parkingLotEmployee = new ParkingLotEmployee("Alice", "Williams", "alice.williams@company.com", "qwerty",  parkingLot2);
 
         String encryptedString1 = encrypt(parkingLotManager1.getPassword() , secretKey);
@@ -121,8 +126,14 @@ public class App
         session.save(customerService);
         session.save(parkingLotEmployee);
 
-        FullSubscriber fullSubscriber = new FullSubscriber(149,"Jane", "Smith", "jane.smith@company.com", "abcde", "111");
-        RegularSubscriber regularSubscriber = new RegularSubscriber(123,"Jane", "Smith", "jane.smith@company.com", "abcde", "333");
+        FullSubscriber fullSubscriber = new FullSubscriber(149,"Jane", "Smith", "jane.smith@company.com", "2", "111");
+        String x = encrypt(fullSubscriber.getPassword() , secretKey);
+        fullSubscriber.setPassword(x);
+
+
+        RegularSubscriber regularSubscriber = new RegularSubscriber(123,"John", "Smith", "jane.smith@company.com", "1", "333");
+         x = encrypt(regularSubscriber.getPassword() , secretKey);
+        regularSubscriber.setPassword(x);
         Car car1 = new Car(2132456);
         Car car2 = new Car(4525242);
 
@@ -165,6 +176,7 @@ public class App
             session.beginTransaction();
 
             initializeData();
+
 
             List<ParkingLotManager> parkingLotManagers = getAll(ParkingLotManager.class);
             String secretKey = "1234567812345678";

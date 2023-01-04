@@ -112,8 +112,8 @@
                     </effect>
                 </Button>
                 <Label fx:id="loginasguest" layoutX="208.0" layoutY="367.0" onMouseClicked="#loginguest" prefHeight="18.0" prefWidth="116.0" text="Login As Guest" textFill="#3c00ff" underline="true" />
-                <Label fx:id="invaild" layoutX="58.0" layoutY="277.0" prefHeight="18.0" prefWidth="211.0" text="Account Id or Password is invalid." textFill="RED" />
-            <Label fx:id="ForgetPassword" layoutX="14.0" layoutY="367.0" onMouseClicked="#ForgetPassword" prefHeight="18.0" prefWidth="116.0" text="Forget Password" textFill="#3c00ff" underline="true" />
+                <Label fx:id="invaild" layoutX="58.0" layoutY="277.0" prefHeight="18.0" prefWidth="211.0" text="Account Id or Password is invalid." textFill="RED" visible="false" />
+            <Label fx:id="ForgetPassword" layoutX="14.0" layoutY="367.0" onMouseClicked="#ForgetPassword" prefHeight="18.0" prefWidth="116.0" text="Forget Password" textFill="#3c00ff" underline="true" visible="false" />
             </children>
         </AnchorPane>
     </children>
