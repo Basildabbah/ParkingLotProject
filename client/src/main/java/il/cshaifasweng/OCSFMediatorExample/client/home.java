@@ -3,6 +3,7 @@ package il.cshaifasweng.OCSFMediatorExample.client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -29,7 +30,6 @@ public class home {
 
     @FXML
     private Button loginsubscriber;
-
     @FXML
     private Button subs;
 
@@ -62,5 +62,6 @@ public class home {
     @FXML
     void subsfun(ActionEvent event) throws IOException {
         App.setRoot("subscribe");
+
     }
 }

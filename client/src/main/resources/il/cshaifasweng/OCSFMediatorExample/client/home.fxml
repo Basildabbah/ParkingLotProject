@@ -85,7 +85,7 @@
       </AnchorPane>
       <AnchorPane layoutX="148.0" layoutY="484.0" prefHeight="253.0" prefWidth="660.0">
          <children>
-            <Button fx:id="loginguist" layoutX="14.0" layoutY="114.0" mnemonicParsing="false" onAction="#loginguistfun" prefHeight="62.0" prefWidth="172.0" style="-fx-background-color: #1E90FF;" text="LOGIN AS GUEST">
+            <Button fx:id="loginguist" layoutX="24.0" layoutY="114.0" mnemonicParsing="false" onAction="#loginguistfun" prefHeight="62.0" prefWidth="172.0" style="-fx-background-color: #1E90FF;" text="GUEST?">
                <effect>
                   <SepiaTone />
                </effect>
@@ -109,7 +109,7 @@
                   <Bloom />
                </effect>
             </Label>
-            <Button fx:id="loginsubscriber" layoutX="406.0" layoutY="114.0" mnemonicParsing="false" onAction="#loginsubscriberfun" prefHeight="62.0" prefWidth="214.0" style="-fx-background-color: #1E90FF;" text="LOGIN AS SUBSCRIBER">
+            <Button fx:id="loginsubscriber" layoutX="406.0" layoutY="114.0" mnemonicParsing="false" onAction="#loginsubscriberfun" prefHeight="62.0" prefWidth="214.0" style="-fx-background-color: #1E90FF;" text="SUBSCRIBER?">
                <effect>
                   <SepiaTone />
                </effect>

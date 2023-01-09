@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import java.io.IOException;
 
 public class ChainManagerBoundary {
-
+    public static String name;
     @FXML
     private Button CurrentParkingLotStatus;
 
@@ -21,6 +21,7 @@ public class ChainManagerBoundary {
 
     @FXML
     void CurrentParkingLotStatusfun(ActionEvent event) {
+        System.out.println(name);
 
     }
 

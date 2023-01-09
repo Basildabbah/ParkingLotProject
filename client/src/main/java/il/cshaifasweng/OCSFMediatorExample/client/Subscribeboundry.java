@@ -107,8 +107,8 @@ public class Subscribeboundry {
     }
 
     @FXML
-    void logoutfun(ActionEvent event) {
-
+    void logoutfun(ActionEvent event) throws IOException {
+    App.setRoot("home");
     }
 
     @FXML

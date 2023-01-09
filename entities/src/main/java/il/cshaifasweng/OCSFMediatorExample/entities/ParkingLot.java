@@ -3,13 +3,14 @@ package il.cshaifasweng.OCSFMediatorExample.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Entity
 @Table(name = "parkinglots")
-public class ParkingLot {
+public class ParkingLot implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

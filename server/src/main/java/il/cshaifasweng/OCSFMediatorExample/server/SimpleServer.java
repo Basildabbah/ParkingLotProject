@@ -83,11 +83,70 @@ public class SimpleServer extends AbstractServer {
 	@Override
 	protected void handleMessageFromClient(Object msg, ConnectionToClient client) throws Exception {
 		String msgString = msg.toString();
+		if (msgString.startsWith("prices_")) {
 
+
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			List<Prices> parks=getAll(Prices.class);
+			Message message = new Message("showpricefun");
+			String t= String.valueOf(msgString.charAt(7));
+			String m="";
+			String []mm ={"","",""};
+			int i=0;
+
+			for (Prices p : parks) {
+				if (p.getId()==Integer. parseInt(t)) {
+					message.setObject4(p.getValueNote().get(0));
+					message.setObject2(p.getValueNote().get(1));
+					m = parks.get(i).getPaymentMethod().get(0);
+					mm[0]=m;
+					m+=",";
+					m += parks.get(i).getPaymentMethod().get(1);
+					mm[1]=parks.get(i).getPaymentMethod().get(1);
+
+					m+=",";
+					m += parks.get(i).getPaymentMethod().get(2);
+					mm[2]=parks.get(i).getPaymentMethod().get(2);
+					message.setObject3(mm);
+					message.setObject5(p.getValueNote().get(2));
+					message.setObject6(p.getValueNote().get(3));
+					message.setObject7(p.getValueNote().get(4));
+
+				}
+
+			}
+			message.setObject1(t);
+			try {
+				client.sendToClient(message);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}
+		if (msgString.startsWith("test")) {
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			System.out.println("1");
+			List<Prices> parks=getAll(Prices.class);
+			for (Prices x :parks)
+			{
+				System.out.println(x.getPaymentMethod());
+			}
+			System.out.println("2");
+			Message message = new Message("test");
+			System.out.println("3");
+
+			message.setList(parks);
+			System.out.println("4");
+
+
+		}
 		if (msgString.equals("#loginadmin")) {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
 			Message message = new Message("loginadmin");
+
 			List<Admin> listadmin = getAll(Admin.class);
 			List<ParkingLotManager> listadmin2 = getAll(ParkingLotManager.class);
 			Message msg1 = ((Message) msg);
@@ -291,19 +350,35 @@ public class SimpleServer extends AbstractServer {
 			}*/
 		}
 
-
-		if (msgString.equals("#addcar_full_subscriber")) {
+		if (msgString.equals("#newsubscribe")) {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
-			Message message = new Message("addcar_full_subscriber");
-			List<Car> listadmin = getAll(Car.class);
+
 			Message msg1 = ((Message) msg);
-			System.out.format(msg1.getObject2().toString());
-			/*try {
-				client.sendToClient(message);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}*/
+			List<FullSubscriber> listadmin = getAll(FullSubscriber.class);
+			System.out.println((Integer.parseInt((String) msg1.getObject1())));
+
+			if (msg1.getObject7().toString().equals("full")) {
+				FullSubscriber x = new FullSubscriber((Integer.parseInt(msg1.getObject1().toString())), msg1.getObject2().toString(),
+						msg1.getObject3().toString(), msg1.getObject4().toString(),  encrypt((String) msg1.getObject5(), "1234567812345678"),
+						msg1.getObject6().toString());
+
+				session.save(x);
+				session.update(x);
+			}
+			else
+			{
+				RegularSubscriber y=new RegularSubscriber((Integer.parseInt(msg1.getObject1().toString())), msg1.getObject2().toString(),
+						msg1.getObject3().toString(), msg1.getObject4().toString(), encrypt((String) msg1.getObject5(), "1234567812345678"),
+						msg1.getObject6().toString());
+				session.save(y);
+				session.update(y);
+			}
+
+			session.flush();
+			session.getTransaction().commit();
+
 		}
+
 	}
 }

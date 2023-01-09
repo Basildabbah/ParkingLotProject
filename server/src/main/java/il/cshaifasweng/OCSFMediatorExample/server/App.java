@@ -25,7 +25,7 @@ import java.util.Base64;
  * Hello world!
  *
  */
-public class App 
+public class App
 {
     static Session session;
 
@@ -62,6 +62,8 @@ public class App
         configuration.addAnnotatedClass(RegularSubscriber.class);
         configuration.addAnnotatedClass(ParkingLotManager.class);
         configuration.addAnnotatedClass(ParkingLotEmployee.class);
+
+        configuration.addAnnotatedClass(test.class);
         configuration.addAnnotatedClass(FullSubscriber.class);
         configuration.addAnnotatedClass(Prices.class);
         ServiceRegistry serviceRegistry=new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
@@ -70,11 +72,32 @@ public class App
     private static void initializeData() throws Exception {
         String secretKey = "1234567812345678";
 
+
+
+
         ParkingLot parkingLot1 = new ParkingLot(5, 10, 2, new byte[5*10*2]);
         ParkingLot parkingLot2 = new ParkingLot(6, 12, 3, new byte[6*12*3]);
         ParkingLot parkingLot3 = new ParkingLot(7, 14, 4, new byte[7*14*4]);
 
+        List<String> typeOfParking11 = Arrays.asList("mezdament", "one time","client for one car","client for more car","full subscribtion");
+        List<String> PAymentMethoud11 = Arrays.asList("paypal", "Credit card","visa");
+        List<String> valueNote11 = Arrays.asList("8$ Per Hour","7 Per Hour","60 hour","54 hour","72 hour");
+        Prices price11 = new Prices(typeOfParking11, PAymentMethoud11, valueNote11 , parkingLot1);
+        session.save(price11);
+        List<String> typeOfParking22 = Arrays.asList("mezdament", "one time","client for one car","client for more car","full subscribtion");
+        List<String> PAymentMethoud22 = Arrays.asList("paypal", "Credit card","visa");
+        List<String> valueNote22 = Arrays.asList("6$ Per Hour","6 Per Hour","60 hour","54 hour","72 hour");
+        Prices price22= new Prices(typeOfParking22, PAymentMethoud22, valueNote22 , parkingLot2);
+        session.save(price22);
 
+
+        List<String> typeOfParking33 = Arrays.asList("mezdament", "one time","client for one car","client for more car","full subscribtion");
+        List<String> PAymentMethoud33 = Arrays.asList("paypal", "Credit card","visa");
+        List<String> valueNote33 = Arrays.asList("10$ Per Hour","6 Per Hour","60 hour","54 hour","72 hour");
+        Prices price33= new Prices(typeOfParking33, PAymentMethoud33, valueNote33 , parkingLot3);
+        session.save(price33);
+/*
+/*
         List<String> typeOfParking1 = Arrays.asList("Short-term parking", "Long-term parking");
         List<String> paymentMethod1 = Arrays.asList("Cash", "Credit card");
         List<String> valueNote1 = Arrays.asList("10 EUR", "50 EUR");
@@ -88,15 +111,15 @@ public class App
         List<String> typeOfParking3 = Arrays.asList("Self-service parking", "Valet parking");
         List<String> paymentMethod3 = Arrays.asList("Cash", "Credit card", "PayPal");
         List<String> valueNote3 = Arrays.asList("5 EUR", "25 EUR", "75 EUR");
-        Prices price3 = new Prices(typeOfParking3, paymentMethod3, valueNote3 , parkingLot3);
+        Prices price3 = new Prices(typeOfParking3, paymentMethod3, valueNote3 , parkingLot3);*/
 
         session.save(parkingLot1);
         session.save(parkingLot2);
         session.save(parkingLot3);
 
-        session.save(price1);
+        /*session.save(price1);
         session.save(price2);
-        session.save(price3);
+        session.save(price3);*/
 
         ParkingLotManager parkingLotManager1 = new ParkingLotManager("John", "Doe", "john.doe@company.com", "12345", parkingLot1);
         ParkingLotManager parkingLotManager2 = new ParkingLotManager("ada", "ada", "ada.ada@company.com", "15794", parkingLot2);

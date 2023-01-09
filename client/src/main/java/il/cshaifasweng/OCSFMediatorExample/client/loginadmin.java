@@ -59,8 +59,11 @@ public class loginadmin {
 
     @FXML
     private TextField pass;
+
     @FXML
     void loginbutton(ActionEvent event) {
+        if(pass.getText()=="")pass.setStyle("-fx-border-color: red");
+        if(id.getText()=="")id.setStyle("-fx-border-color: red");
         Message m=new Message("#loginadmin",id.getText(),pass.getText());
         try {
             SimpleClient.getClient().sendToServer(m);
@@ -103,11 +106,13 @@ public class loginadmin {
         App.setRoot("loginassubscriber");
     }
     @Subscribe
-    public void setLabelshow(loginadminEvent c)throws IOException {
+    public void setLabelshow(WarningEvent c)throws IOException {
         Platform.runLater(()->{
         if (c.getWarning().getObject1().equals("yes Chain Manager"))
         {
             try {
+                ChainManagerBoundary.name=id.getText();
+
                 App.setRoot("ChainManagerBoundary");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -117,19 +122,20 @@ public class loginadmin {
         if (c.getWarning().getObject1().equals("yes Customer Service"))
         {
             try {
+                CustomerServiceBoundary.name=id.getText();
                 App.setRoot("CustomerServiceBoundary");
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-            if (c.getWarning().getObject1().equals("yes parkinglotmanagers"))
-            {
+        if (c.getWarning().getObject1().equals("yes parkinglotmanagers"))
+        {
                 try {
                     App.setRoot("ParkingLotManagerBoundary");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
+        }
         else
         {
             invaild.setVisible(true);
