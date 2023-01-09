@@ -6,6 +6,7 @@ import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
 
 import java.io.IOException;
 import java.security.Key;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -83,70 +84,10 @@ public class SimpleServer extends AbstractServer {
 	@Override
 	protected void handleMessageFromClient(Object msg, ConnectionToClient client) throws Exception {
 		String msgString = msg.toString();
-		if (msgString.startsWith("prices_")) {
-
-
-			session = sessionFactory.openSession();
-			session.beginTransaction();
-			List<Prices> parks=getAll(Prices.class);
-			Message message = new Message("showpricefun");
-			String t= String.valueOf(msgString.charAt(7));
-			String m="";
-			String []mm ={"","",""};
-			int i=0;
-
-			for (Prices p : parks) {
-				if (p.getId()==Integer. parseInt(t)) {
-					message.setObject4(p.getValueNote().get(0));
-					message.setObject2(p.getValueNote().get(1));
-					m = parks.get(i).getPaymentMethod().get(0);
-					mm[0]=m;
-					m+=",";
-					m += parks.get(i).getPaymentMethod().get(1);
-					mm[1]=parks.get(i).getPaymentMethod().get(1);
-
-					m+=",";
-					m += parks.get(i).getPaymentMethod().get(2);
-					mm[2]=parks.get(i).getPaymentMethod().get(2);
-					message.setObject3(mm);
-					message.setObject5(p.getValueNote().get(2));
-					message.setObject6(p.getValueNote().get(3));
-					message.setObject7(p.getValueNote().get(4));
-
-				}
-
-			}
-			message.setObject1(t);
-			try {
-				client.sendToClient(message);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
-		}
-		if (msgString.startsWith("test")) {
-			session = sessionFactory.openSession();
-			session.beginTransaction();
-			System.out.println("1");
-			List<Prices> parks=getAll(Prices.class);
-			for (Prices x :parks)
-			{
-				System.out.println(x.getPaymentMethod());
-			}
-			System.out.println("2");
-			Message message = new Message("test");
-			System.out.println("3");
-
-			message.setList(parks);
-			System.out.println("4");
-
-
-		}
 		if (msgString.equals("#loginadmin")) {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
 			Message message = new Message("loginadmin");
-
 			List<Admin> listadmin = getAll(Admin.class);
 			List<ParkingLotManager> listadmin2 = getAll(ParkingLotManager.class);
 			Message msg1 = ((Message) msg);
@@ -350,35 +291,87 @@ public class SimpleServer extends AbstractServer {
 			}*/
 		}
 
-		if (msgString.equals("#newsubscribe")) {
+
+		if (msgString.equals("#addcar_full_subscriber")) {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
-
+			Message message = new Message("addcar_full_subscriber");
+			List<Car> listadmin = getAll(Car.class);
 			Message msg1 = ((Message) msg);
-			List<FullSubscriber> listadmin = getAll(FullSubscriber.class);
-			System.out.println((Integer.parseInt((String) msg1.getObject1())));
+			System.out.format(msg1.getObject2().toString());
+			/*try {
+				client.sendToClient(message);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}*/
+		}
+		if(msgString.startsWith("newCompliain"))
+		{
 
-			if (msg1.getObject7().toString().equals("full")) {
-				FullSubscriber x = new FullSubscriber((Integer.parseInt(msg1.getObject1().toString())), msg1.getObject2().toString(),
-						msg1.getObject3().toString(), msg1.getObject4().toString(),  encrypt((String) msg1.getObject5(), "1234567812345678"),
-						msg1.getObject6().toString());
-
-				session.save(x);
-				session.update(x);
-			}
-			else
-			{
-				RegularSubscriber y=new RegularSubscriber((Integer.parseInt(msg1.getObject1().toString())), msg1.getObject2().toString(),
-						msg1.getObject3().toString(), msg1.getObject4().toString(), encrypt((String) msg1.getObject5(), "1234567812345678"),
-						msg1.getObject6().toString());
-				session.save(y);
-				session.update(y);
-			}
-
+			String[] a=msgString.split("\\^");
+			Complaint c=new Complaint(a[1],Integer.parseInt( a[2]));
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			session.save(c);
 			session.flush();
 			session.getTransaction().commit();
+			client.sendToClient(new Message("add compliant succ",c.getId()));
 
 		}
+		if(((Message) msg).getMessage().startsWith("bring"))
+		{
 
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			String[] a=msgString.split("\\^");
+			List<Complaint> c=getAll(Complaint.class);
+			List<Complaint> complaints=new ArrayList<Complaint>();
+
+			for(Complaint e:c){
+				if(e.getParkingLotId()==Integer.parseInt(a[1])) {
+					complaints.add(e);
+					System.out.println(e);
+				}
+			}
+			System.out.println("wwwwwwwwwwwwwwww");
+			try {
+				client.sendToClient(new Message("complaints",complaints));
+			}catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		if(((Message) msg).getMessage().startsWith("#response"))
+		{
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			Message m=(Message) msg;
+			List<Complaint> c=getAll(Complaint.class);
+			for(Complaint e:c){
+				if(e.getId()==Integer.parseInt(m.getObject1().toString())) {
+					e.setStatus("answered");
+					e.setResponse(m.getObject2().toString());
+					session.update(e);
+
+				}
+			}
+			session.flush();
+			session.getTransaction().commit();
+		}
+		if(((Message) msg).getMessage().startsWith("#bringall")){
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			List<Complaint> c=getAll(Complaint.class);
+			client.sendToClient(new Message("allComplaints",c));
+		}
+		if(((Message) msg).getMessage().startsWith("#2bringall")){
+			System.out.println("in server refresh table1");
+			session = sessionFactory.openSession();
+			System.out.println("in server refresh table2");
+			if(!session.isConnected() || session==null )
+				session.beginTransaction();
+			System.out.println("in server refresh table");
+			List<Complaint> c=getAll(Complaint.class);
+			client.sendToClient(new Message("2allComplaints",c));
+		}
 	}
 }

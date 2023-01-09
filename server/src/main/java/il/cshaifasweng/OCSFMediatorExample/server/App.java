@@ -174,7 +174,12 @@ public class App
         OnSiteCustomer onSiteCustomer = new OnSiteCustomer(149,"Jane", "Smith", "jane.smith@company.com", "789" , car2);
         session.save(oneTimeCustomer);
         session.save(onSiteCustomer);
-
+        Complaint c1=new Complaint("aaaaaaa1",1);
+        Complaint c2=new Complaint("bbbbb1",1);
+        Complaint c3=new Complaint("aaa2",2);
+        session.save(c1);
+        session.save(c2);
+        session.save(c3);
         session.getTransaction().commit();
 
 
