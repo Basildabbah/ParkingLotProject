@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.effect.DisplacementMap?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.FloatMap?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.handlecomplain">
+    <children>
+        <AnchorPane prefHeight="1010.0" prefWidth="1010.0" style="-fx-background-color: #7293ab;">
+            <children>
+                <AnchorPane layoutX="132.0" layoutY="14.0" prefHeight="45.0" prefWidth="578.0" />
+                <Label alignment="CENTER" layoutX="415.0" layoutY="86.0" prefHeight="62.0" prefWidth="199.0" text="Parking Lots" textFill="#991010" wrapText="true">
+                    <font>
+                        <Font name="Californian FB Italic" size="28.0" />
+                    </font>
+                    <effect>
+                        <Bloom />
+                    </effect>
+                </Label>
+                <ButtonBar layoutX="-58.0" layoutY="40.0" prefHeight="40.0" prefWidth="867.0">
+                    <buttons>
+                        <Button fx:id="HandleComplains" mnemonicParsing="false" onAction="#HandleComplainsfun" prefHeight="37.0" prefWidth="199.0" style="-fx-background-color: #00BFFF;" text="Handle Complains" textFill="RED" textOverrun="CLIP">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                            <effect>
+                                <DisplacementMap>
+                                    <mapData>
+                                        <FloatMap />
+                                    </mapData>
+                                    <input>
+                                        <DropShadow />
+                                    </input>
+                                </DisplacementMap>
+                            </effect>
+                        </Button>
+                        <Button fx:id="ReserveParking" mnemonicParsing="false" onAction="#ReserveParkingfun" style="-fx-background-color: #00BFFF;" text="Reserve Parking" textFill="RED" textOverrun="CLIP">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                            <effect>
+                                <DisplacementMap>
+                                    <mapData>
+                                        <FloatMap />
+                                    </mapData>
+                                    <input>
+                                        <DropShadow />
+                                    </input>
+                                </DisplacementMap>
+                            </effect>
+                        </Button>
+                        <Button fx:id="logout" mnemonicParsing="false" onAction="#logoutfun" style="-fx-background-color: #00BFFF;" text="Log Out" textFill="RED" textOverrun="CLIP">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                            <effect>
+                                <DisplacementMap>
+                                    <mapData>
+                                        <FloatMap />
+                                    </mapData>
+                                    <input>
+                                        <DropShadow />
+                                    </input>
+                                </DisplacementMap>
+                            </effect>
+                        </Button>
+                    </buttons>
+                </ButtonBar>
+                <Label fx:id="userid" layoutX="81.0" layoutY="86.0" prefHeight="23.0" prefWidth="134.0" text="User ID:" />
+            <AnchorPane layoutX="238.0" layoutY="161.0" prefHeight="374.0" prefWidth="553.0" style="-fx-background-color: #5a758a;">
+               <children>
+                  <TableView fx:id="table2" layoutX="19.0" layoutY="23.0" prefHeight="190.0" prefWidth="519.0">
+                     <columns>
+                        <TableColumn fx:id="c1" prefWidth="75.0" text="C1" />
+                        <TableColumn fx:id="c2" prefWidth="75.0" text="C2" />
+                        <TableColumn fx:id="c3" prefWidth="113.33331298828125" text="Column X" />
+                        <TableColumn fx:id="c4" prefWidth="124.0" text="Column X" />
+                        <TableColumn fx:id="c5" prefWidth="154.6666259765625" text="Column X" />
+                     </columns>
+                  </TableView>
+                  <TextField fx:id="idSer" layoutX="153.0" layoutY="235.0" prefHeight="26.0" prefWidth="166.0" promptText="Type ID of the complain" />
+                  <TextField fx:id="respText" layoutX="56.0" layoutY="280.0" prefHeight="74.0" prefWidth="430.0" promptText="Type Your Response" />
+                  <Button fx:id="response" layoutX="227.0" layoutY="381.0" mnemonicParsing="false" onAction="#response" prefHeight="38.0" prefWidth="85.0" text="Response" />
+               </children>
+            </AnchorPane>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

@@ -24,15 +24,15 @@ public class Admin {
 
     private String occupation;
 
+    private String isConnected;
 
-
-    public Admin(String firstName, String lastName, String email, String password, String occupation) {
+    public Admin(String firstName, String lastName, String email, String password, String occupation,String x) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.occupation = occupation;
-
+        this.isConnected=x;
     }
 
     public Admin() {

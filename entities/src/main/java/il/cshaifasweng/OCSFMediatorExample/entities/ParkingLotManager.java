@@ -21,14 +21,18 @@ public class ParkingLotManager {
 
     private String password;
 
+
+
+    private String isConnected;
     @OneToOne(mappedBy = "parkinglotmanager")
     private ParkingLot parkinglot;
 
-    public ParkingLotManager(String firstName, String lastName, String email, String password,ParkingLot parkinglot) {
+    public ParkingLotManager(String firstName, String lastName, String email, String password,ParkingLot parkinglot,String x) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.isConnected=x;
         setParkingLot(parkinglot);
     }
 

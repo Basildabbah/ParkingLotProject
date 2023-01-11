@@ -19,7 +19,12 @@ import java.util.ArrayList;
 
 
 public class prices {
-
+    @FXML
+    private Button FAQ;
+    @FXML
+    void FAQ(ActionEvent event) throws IOException {
+        App.setRoot("faq0");
+    }
     @FXML
     private Button Prices;
 

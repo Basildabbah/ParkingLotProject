@@ -1,20 +1,30 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
 
-public class Subscribeboundry {
-    public static String idd;
+public class NewComplaint1 {
+    static String idd;
     static String type;
-
+    ///////////////////////
+    @FXML
+    private TextField textC;
+    @FXML
+    private TextField id;
+    @FXML
+    private Button send;
+    ///////////////////////
     @FXML
     private Button RenewSubscription;
 
@@ -53,7 +63,8 @@ public class Subscribeboundry {
 
     @FXML
     private Button removecar;
-
+    @FXML
+    private Label complainnum;
 
     @FXML
     private Button addreviewfun;
@@ -63,8 +74,7 @@ public class Subscribeboundry {
 
     @FXML
     private Button submit_add_car;
-    @FXML
-    private Label labelid;
+
     @FXML
     void RenewSubscriptionfun(ActionEvent event) {
 
@@ -73,6 +83,15 @@ public class Subscribeboundry {
     void addreviewfun(ActionEvent event) throws IOException {
         review.idd=idd;
         App.setRoot("review");
+    }
+    @FXML
+    void send(ActionEvent event) {
+        try {
+
+            SimpleClient.getClient().sendToServer(new Message("newCompliain^"+textC.getText()+"^" +idd));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -94,10 +113,8 @@ public class Subscribeboundry {
     }
 
     @FXML
-    void checkcomplainfun(ActionEvent event) throws IOException {
-        StatusComplain_SUBSCRIBER.idd=idd;
-        App.setRoot("StatusComplain_SUBSCRIBER");
-    //App.setRoot("StatusComplaint");
+    void checkcomplainfun(ActionEvent event) {
+
     }
 
     @FXML
@@ -122,12 +139,6 @@ public class Subscribeboundry {
 
     @FXML
     void logoutfun(ActionEvent event) throws IOException {
-        Message m=new Message("#logoutsubscirber",idd);
-        try {
-            SimpleClient.getClient().sendToServer(m);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         App.setRoot("home");
     }
 
@@ -138,8 +149,7 @@ public class Subscribeboundry {
 
     @FXML
     void sendcomplainfun(ActionEvent event) throws IOException {
-        NewComplaint1.idd=idd;
-    App.setRoot("NewComplaint1");
+        App.setRoot("NewComplaint");
     }
     @FXML
     void submit_add_carfun(ActionEvent event) {
@@ -151,9 +161,33 @@ public class Subscribeboundry {
             e.printStackTrace();
         }
     }
+
     @FXML
     void initialize() {
-        labelid.setText("User ID:"+idd);
 
+        id.setText(idd);
+        id.setDisable(true);
+        EventBus.getDefault().register(this);
     }
+    @Subscribe
+    public void onEvent(NewComplaintEvent e){
+        Platform.runLater(()-> {
+            complainnum.setText(complainnum.getText()+" "+e.getWarning().getObject1().toString());
+             complainnum.setVisible(true);
+
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION,
+                    String.format("Your Complain Number is: %s\nTimestamp: %s\n",
+                            e.getWarning().getObject1(),
+                            e.getWarning().getTime().toString())
+            );
+            alert.show();
+            try {
+                App.setRoot("subscribeboundry");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+    }
+
 }

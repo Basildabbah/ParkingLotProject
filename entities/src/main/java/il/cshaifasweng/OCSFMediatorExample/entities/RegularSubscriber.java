@@ -30,7 +30,7 @@ public class RegularSubscriber {
     private String timeOfExit;
 
     private int parkingLotId;
-
+    private String isConnected;
 
 
     private String password;
@@ -46,7 +46,7 @@ public class RegularSubscriber {
     public RegularSubscriber() {
     }
 
-    public RegularSubscriber(int id, String firstName, String lastName, String email, String password , String visaCard) {
+    public RegularSubscriber(int id, String firstName, String lastName, String email, String password , String visaCard,String x) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -59,6 +59,7 @@ public class RegularSubscriber {
         this.remainingHours = 14;
         this.carList = new ArrayList<Car>();
         this.flagDay = false;
+        isConnected=x;
     }
 
         public void addCar(Car car){

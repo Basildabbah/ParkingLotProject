@@ -23,7 +23,7 @@ public class SimpleClient extends AbstractClient {
 	protected void handleMessageFromServer(Object msg) {
 		Message message = (Message) msg;
 		if(((Message) msg).getMessage().equals("loginadmin")) {
-			EventBus.getDefault().post(new WarningEvent(message));
+			EventBus.getDefault().post(new loginadminEvent(message));
 		}
 		if(((Message) msg).getMessage().equals("loginsubscriber")) {
 			EventBus.getDefault().post(new loginadminEvent(message));
@@ -31,10 +31,26 @@ public class SimpleClient extends AbstractClient {
 		if(((Message) msg).getMessage().equals("admin_forgetpass")) {
 			EventBus.getDefault().post(new loginadminEvent(message));
 		}
+		if(((Message) msg).getMessage().equals("id is used before")) {
+			EventBus.getDefault().post(new loginadminEvent(message));
+		}
+		if(((Message) msg).getMessage().equals("email is used before")) {
+
+			EventBus.getDefault().post(new loginadminEvent(message));
+		}
+		if(((Message) msg).getMessage().equals("2clients")) {
+			EventBus.getDefault().post(new twoclientEVENT(message));
+		}
 		if(((Message) msg).getMessage().equals("newpassadmin")) {
 			EventBus.getDefault().post(new loginadminEvent(message));
 		}
 		if(((Message) msg).getMessage().equals("showpricefun")) {
+			EventBus.getDefault().post(new loginadminEvent(message));
+		}
+		if(((Message) msg).getMessage().equals("yes")) {
+			EventBus.getDefault().post(new loginadminEvent(message));
+		}
+			if(((Message) msg).getMessage().equals("#caralreadylinked")) {
 			EventBus.getDefault().post(new loginadminEvent(message));
 		}
 		if(((Message) msg).getMessage().equals("test")) {
@@ -59,7 +75,7 @@ public class SimpleClient extends AbstractClient {
 	}
 	public static SimpleClient getClient() {
 		if (client == null) {
-			client = new SimpleClient("localhost", 3000);
+			client = new SimpleClient("localhost", 6666);
 		}
 		return client;
 	}

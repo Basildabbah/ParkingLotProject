@@ -36,7 +36,7 @@ public class FullSubscriber {
     private String password;
 
     private int remainingHours;
-
+    private String isConnected;
     private LocalDateTime subscriptionExpiryDate;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "fullsubscriber")
@@ -45,8 +45,9 @@ public class FullSubscriber {
     public FullSubscriber() {
     }
 
-    public FullSubscriber(int id, String firstName, String lastName, String email, String password , String visaCard) {
+    public FullSubscriber(int id, String firstName, String lastName, String email, String password , String visaCard,String x) {
         this.id = id;
+
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -57,6 +58,7 @@ public class FullSubscriber {
         //??
         this.remainingHours = 14;
         this.carList = new ArrayList<Car>();
+        isConnected=x;
     }
 
 

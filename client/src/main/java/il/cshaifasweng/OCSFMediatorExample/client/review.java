@@ -4,15 +4,14 @@ import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 
-public class Subscribeboundry {
-    public static String idd;
+public class review<Static> {
+    static String idd;
     static String type;
 
     @FXML
@@ -26,6 +25,9 @@ public class Subscribeboundry {
 
     @FXML
     private Button cancelorder;
+
+    @FXML
+    private TextField review_id;
 
     @FXML
     private TextField carnumbertextbox;
@@ -63,16 +65,15 @@ public class Subscribeboundry {
 
     @FXML
     private Button submit_add_car;
-    @FXML
-    private Label labelid;
+
     @FXML
     void RenewSubscriptionfun(ActionEvent event) {
 
     }
     @FXML
-    void addreviewfun(ActionEvent event) throws IOException {
-        review.idd=idd;
-        App.setRoot("review");
+    void addreviewfun(ActionEvent event) {
+
+
     }
 
     @FXML
@@ -94,10 +95,8 @@ public class Subscribeboundry {
     }
 
     @FXML
-    void checkcomplainfun(ActionEvent event) throws IOException {
-        StatusComplain_SUBSCRIBER.idd=idd;
-        App.setRoot("StatusComplain_SUBSCRIBER");
-    //App.setRoot("StatusComplaint");
+    void checkcomplainfun(ActionEvent event) {
+
     }
 
     @FXML
@@ -122,12 +121,6 @@ public class Subscribeboundry {
 
     @FXML
     void logoutfun(ActionEvent event) throws IOException {
-        Message m=new Message("#logoutsubscirber",idd);
-        try {
-            SimpleClient.getClient().sendToServer(m);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         App.setRoot("home");
     }
 
@@ -137,13 +130,12 @@ public class Subscribeboundry {
     }
 
     @FXML
-    void sendcomplainfun(ActionEvent event) throws IOException {
-        NewComplaint1.idd=idd;
-    App.setRoot("NewComplaint1");
+    void sendcomplainfun(ActionEvent event) {
+
     }
+
     @FXML
     void submit_add_carfun(ActionEvent event) {
-        System.out.println(idd.toString());
         Message m=new Message("#addcar_full_subscriber",idd,carnumbertextbox.getText());
         try {
             SimpleClient.getClient().sendToServer(m);
@@ -151,9 +143,10 @@ public class Subscribeboundry {
             e.printStackTrace();
         }
     }
+
     @FXML
     void initialize() {
-        labelid.setText("User ID:"+idd);
-
+        review_id.setText(idd);
+        review_id.setDisable(true);
     }
 }

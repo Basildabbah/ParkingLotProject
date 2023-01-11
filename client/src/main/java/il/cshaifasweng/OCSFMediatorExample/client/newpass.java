@@ -67,7 +67,9 @@ public class newpass {
             Password2.setVisible(false);
             ss.setVisible(false);
             sss.setVisible(false);
+            invaild.setVisible(false);
             im.setVisible(true);
+
         }
     }
     @FXML

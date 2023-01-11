@@ -20,6 +20,8 @@ public class home {
     private Button about;
 
     @FXML
+    private Button FAQ;
+    @FXML
     private Button homebut;
 
     @FXML
@@ -53,7 +55,11 @@ public class home {
     }
     @FXML
     void loginguistfun(ActionEvent event) throws IOException {
-        App.setRoot("loginasguest");
+        App.setRoot("GUESTT");
+    }
+    @FXML
+    void FAQ(ActionEvent event) throws IOException {
+        App.setRoot("faq0");
     }
     @FXML
     void loginsubscriberfun(ActionEvent event) throws IOException {

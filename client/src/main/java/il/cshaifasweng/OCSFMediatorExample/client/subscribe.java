@@ -1,20 +1,30 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import il.cshaifasweng.OCSFMediatorExample.entities.Admin;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class subscribe {
-
+    @FXML
+    private Button FAQ;
+    @FXML
+    void FAQ(ActionEvent event) throws IOException {
+        App.setRoot("faq0");
+    }
     @FXML
     private Button Prices;
 
@@ -95,24 +105,29 @@ public class subscribe {
     @FXML
     void Subscribebuttom(ActionEvent event) throws IOException {
         String type="";
-        if(id.getText().matches("\\d+"))
+        if(id.getText().equals("")||visa.getText().equals("")||password.getText().equals("")
+        ||email.getText().equals("")||lastname.getText().equals("")||firstname.getText().equals(""))
         {
-
-            System.out.println("Input is all digits");
-
+            invaild.setText("Fill All The Data");
+            invaild.setVisible(true);
         }
-        else
+       else if(!id.getText().matches("\\d+"))
         {
             id.setStyle("-fx-border-color: red");
+
         }
-        if(full.isSelected()&&regular.isSelected())
+       else if(full.isSelected()&&regular.isSelected())
         {
            full.setSelected(false);
            regular.setSelected(false);
         }
+       else if(full.isSelected()==false&&regular.isSelected()==false)
+        {
+            invaild.setText("Choose Type");
+            invaild.setVisible(true);
+        }
         else
         {
-            System.out.println("hi");
             if(full.isSelected())
             {
                 type="full";
@@ -131,5 +146,35 @@ public class subscribe {
         }
 
     }
+    @Subscribe
+    public void setLabelshow(loginadminEvent c)throws IOException {
+        Platform.runLater(()->{
+            System.out.println("as");
+            invaild.setVisible(true);
+            if(c.getWarning().getObject1().toString().equals("email is used before"))
+            invaild.setText("email is used before,Change it");
+            if(c.getWarning().getObject1().toString().equals("id is used before"))
+                invaild.setText("id is used before,Change it");
+            if(c.getWarning().getObject1().toString().equals("yes"))
+            {
+                Subscribeboundry.idd=id.getText().toString();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION,
+                        String.format("Success: %s\nTimestamp: %s\n",
+                                c.getWarning().getObject1(),
+                                c.getWarning().getTime().toString())
+                );
+                alert.show();
+                try {
+                    App.setRoot("loginassubscriber");
 
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+    @FXML
+    void initialize() {
+        EventBus.getDefault().register(this);
+    }
 }

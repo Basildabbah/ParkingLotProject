@@ -63,17 +63,15 @@ public class App
         configuration.addAnnotatedClass(ParkingLotManager.class);
         configuration.addAnnotatedClass(ParkingLotEmployee.class);
 
-        configuration.addAnnotatedClass(test.class);
+
         configuration.addAnnotatedClass(FullSubscriber.class);
         configuration.addAnnotatedClass(Prices.class);
+
         ServiceRegistry serviceRegistry=new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
         return configuration.buildSessionFactory(serviceRegistry);
     }
     private static void initializeData() throws Exception {
         String secretKey = "1234567812345678";
-
-
-
 
         ParkingLot parkingLot1 = new ParkingLot(5, 10, 2, new byte[5*10*2]);
         ParkingLot parkingLot2 = new ParkingLot(6, 12, 3, new byte[6*12*3]);
@@ -121,11 +119,11 @@ public class App
         session.save(price2);
         session.save(price3);*/
 
-        ParkingLotManager parkingLotManager1 = new ParkingLotManager("John", "Doe", "john.doe@company.com", "12345", parkingLot1);
-        ParkingLotManager parkingLotManager2 = new ParkingLotManager("ada", "ada", "ada.ada@company.com", "15794", parkingLot2);
-        ParkingLotManager parkingLotManager3 = new ParkingLotManager("bs", "dsf", "bs.dsf@company.com", "14973", parkingLot3);
-        Admin chainManager = new Admin("Jane", "Smith", "jane.smith@company.com", "abcde", "Chain Manager");
-        Admin customerService = new Admin("Bob", "Johnson", "bob.johnson@company.com", "password", "Customer Service");
+        ParkingLotManager parkingLotManager1 = new ParkingLotManager("John", "Doe", "john.doe@company.com", "12345", parkingLot1,"0");
+        ParkingLotManager parkingLotManager2 = new ParkingLotManager("ada", "ada", "ada.ada@company.com", "15794", parkingLot2,"0");
+        ParkingLotManager parkingLotManager3 = new ParkingLotManager("bs", "dsf", "bs.dsf@company.com", "14973", parkingLot3,"0");
+        Admin chainManager = new Admin("Jane", "Smith", "jane.smith@company.com", "abcde", "Chain Manager","0");
+        Admin customerService = new Admin("Bob", "Johnson", "bob.johnson@company.com", "password", "Customer Service","0");
         String encryptedString_ = encrypt(chainManager.getPassword() , secretKey);
         chainManager.setPassword(encryptedString_);
         String encryptedString_1 = encrypt(customerService.getPassword() , secretKey);
@@ -149,12 +147,12 @@ public class App
         session.save(customerService);
         session.save(parkingLotEmployee);
 
-        FullSubscriber fullSubscriber = new FullSubscriber(149,"Jane", "Smith", "jane.smith@company.com", "2", "111");
+        FullSubscriber fullSubscriber = new FullSubscriber(149,"Jane", "Smith", "jane.smith@company.com", "2", "111","0");
         String x = encrypt(fullSubscriber.getPassword() , secretKey);
         fullSubscriber.setPassword(x);
 
 
-        RegularSubscriber regularSubscriber = new RegularSubscriber(123,"John", "Smith", "jane.smith@company.com", "1", "333");
+        RegularSubscriber regularSubscriber = new RegularSubscriber(123,"John", "Smith", "jane.smith@company.com", "1", "333","0");
          x = encrypt(regularSubscriber.getPassword() , secretKey);
         regularSubscriber.setPassword(x);
         Car car1 = new Car(2132456);
@@ -198,7 +196,7 @@ public class App
 	private static SimpleServer server;
     public static void main( String[] args ) throws IOException {
         try {
-            server = new SimpleServer(3000);
+            server = new SimpleServer(6666);
             SessionFactory sessionFactory = getSessionFactory();
             session = sessionFactory.openSession();
             session.beginTransaction();

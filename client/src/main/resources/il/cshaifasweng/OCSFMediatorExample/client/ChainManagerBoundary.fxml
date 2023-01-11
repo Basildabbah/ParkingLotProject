@@ -92,5 +92,6 @@
                 </Label>
             </children>
         </AnchorPane>
+      <Label fx:id="userid" layoutX="91.0" layoutY="96.0" prefHeight="23.0" prefWidth="134.0" text="User ID:" />
     </children>
 </AnchorPane>

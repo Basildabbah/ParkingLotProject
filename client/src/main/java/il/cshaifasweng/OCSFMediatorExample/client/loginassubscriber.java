@@ -4,6 +4,7 @@ import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -14,6 +15,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.io.IOException;
 
 public class loginassubscriber {
+
     @FXML
     private Button Prices;
 
@@ -125,5 +127,16 @@ public class loginassubscriber {
     @FXML
     void initialize() {
         EventBus.getDefault().register(this);
+    }
+    @Subscribe
+    public void setLabelshow(twoclientEVENT c)throws IOException {
+        Platform.runLater(()->{
+            Alert alert = new Alert(Alert.AlertType.WARNING,
+                    String.format("Message: %s\nTimestamp: %s\n",
+                            "You Cant join With Same User From 2 Clients",
+                            c.getWarning().getTime().toString())
+            );
+            alert.show();
+        });
     }
 }

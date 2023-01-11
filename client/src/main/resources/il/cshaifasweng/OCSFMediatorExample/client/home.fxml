@@ -64,6 +64,21 @@
                         </DisplacementMap>
                      </effect>
                   </Button>
+                  <Button fx:id="FAQ" mnemonicParsing="false" onAction="#FAQ" style="-fx-background-color: #00BFFF;" text="FAQ" textFill="RED" textOverrun="CLIP">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <effect>
+                        <DisplacementMap>
+                           <mapData>
+                              <FloatMap />
+                           </mapData>
+                           <input>
+                              <DropShadow />
+                           </input>
+                        </DisplacementMap>
+                     </effect>
+                  </Button>
                   <Button fx:id="loginadmin" mnemonicParsing="false" onAction="#loginadminfun" style="-fx-background-color: #00BFFF;" text="Login As Admin" textFill="RED" textOverrun="CLIP">
                      <font>
                         <Font size="16.0" />

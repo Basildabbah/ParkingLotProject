@@ -84,6 +84,42 @@ public class SimpleServer extends AbstractServer {
 	@Override
 	protected void handleMessageFromClient(Object msg, ConnectionToClient client) throws Exception {
 		String msgString = msg.toString();
+
+		if (msgString.startsWith("prices_")) {
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			List<Prices> parks = getAll(Prices.class);
+			Message message = new Message("showpricefun");
+			String t = String.valueOf(msgString.charAt(7));
+			String m = "";
+			String[] mm = {"", "", ""};
+			int i = 0;
+			for (Prices p : parks) {
+				if (p.getId() == Integer.parseInt(t)) {
+					message.setObject4(p.getValueNote().get(0));
+					message.setObject2(p.getValueNote().get(1));
+					m = parks.get(i).getPaymentMethod().get(0);
+					mm[0] = m;
+					m += ",";
+					m += parks.get(i).getPaymentMethod().get(1);
+					mm[1] = parks.get(i).getPaymentMethod().get(1);
+					m += ",";
+					m += parks.get(i).getPaymentMethod().get(2);
+					mm[2] = parks.get(i).getPaymentMethod().get(2);
+					message.setObject3(mm);
+					message.setObject5(p.getValueNote().get(2));
+					message.setObject6(p.getValueNote().get(3));
+					message.setObject7(p.getValueNote().get(4));
+				}
+			}
+			message.setObject1(t);
+			try {
+				client.sendToClient(message);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
 		if (msgString.equals("#loginadmin")) {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
@@ -93,34 +129,156 @@ public class SimpleServer extends AbstractServer {
 			Message msg1 = ((Message) msg);
 			int c = 0;
 			int c2 = 0;
+			int twoconnectedclients=0;
 			for (Admin p : listadmin) {
 				String tmp = "";
 				tmp += p.getId();
-				if (p.getOccupation().equals("Chain Manager") && tmp.equals(msg1.getObject1()) && decrypt(p.getPassword(), "1234567812345678").equals(msg1.getObject2())) {
+				if (p.getIsConnected().equals("1")&&p.getOccupation().equals("Chain Manager") && tmp.equals(msg1.getObject1()) && decrypt(p.getPassword(), "1234567812345678").equals(msg1.getObject2())) {
+					twoconnectedclients=-1;
+				}
+				if (p.getIsConnected().equals("0")&&p.getOccupation().equals("Chain Manager") && tmp.equals(msg1.getObject1()) && decrypt(p.getPassword(), "1234567812345678").equals(msg1.getObject2())) {
 					c = 1;
+					p.setIsConnected("1");
+					session.save(p);
+					session.update(p);
+					twoconnectedclients=1;
 					message.setObject1("yes Chain Manager");
 				}
-				if (p.getOccupation().equals("Customer Service") && tmp.equals(msg1.getObject1()) && decrypt(p.getPassword(), "1234567812345678").equals(msg1.getObject2())) {
+				if (p.getIsConnected().equals("1")&&p.getOccupation().equals("Customer Service") && tmp.equals(msg1.getObject1()) && decrypt(p.getPassword(), "1234567812345678").equals(msg1.getObject2())) {
+					twoconnectedclients=-1;
+				}
+				if (p.getIsConnected().equals("0")&&p.getOccupation().equals("Customer Service") && tmp.equals(msg1.getObject1()) && decrypt(p.getPassword(), "1234567812345678").equals(msg1.getObject2())) {
 					c = 1;
+					twoconnectedclients=1;
+					p.setIsConnected("1");
+					session.save(p);
+					session.update(p);
 					message.setObject1("yes Customer Service");
 				}
+
 			}
 			for (ParkingLotManager p : listadmin2) {
 				String tmp = "";
 				tmp += p.getId();
-				if ( tmp.equals(msg1.getObject1()) && decrypt(p.getPassword(), "1234567812345678").equals(msg1.getObject2())) {
+				if (p.getIsConnected().equals("1")&& tmp.equals(msg1.getObject1()) && decrypt(p.getPassword(), "1234567812345678").equals(msg1.getObject2())) {
+					twoconnectedclients=-1;
+					System.out.println("aaa");
+				}
+				if ( p.getIsConnected().equals("0")&&tmp.equals(msg1.getObject1()) && decrypt(p.getPassword(), "1234567812345678").equals(msg1.getObject2())) {
 					c = 1;
+					twoconnectedclients=1;
+					p.setIsConnected("1");
+					session.save(p);
+					session.update(p);
 					message.setObject1("yes parkinglotmanagers");
 				}
 			}
 
 
+			if(twoconnectedclients==0)
+			{
+				message.setObject1("no");
+			}
 
-			if (c == 0) message.setObject1("no");
+			if(twoconnectedclients==-1)
+			{
+				message.setMessage("2clients");
+				message.setObject1("2clients");
+			}
 			try {
+				System.out.println(message.getObject1().toString());
 				client.sendToClient(message);
 			} catch (IOException e) {
 				e.printStackTrace();
+			}
+		}
+
+		if (msgString.equals("#logoutsubscirber")) {
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			Message message = new Message("logoutsubscirber");
+			List<FullSubscriber> listadmin = getAll(FullSubscriber.class);
+			List<RegularSubscriber> listadmin2 = getAll(RegularSubscriber.class);
+			Message msg1 = ((Message) msg);
+			for (FullSubscriber p : listadmin) {
+				String tmp="";
+				tmp+=p.getId();
+				if(tmp.equals(msg1.getObject1()))
+				{
+					System.out.println(tmp+"logout succse");
+					p.setIsConnected("0");
+					session.save(p);
+					session.update(p);
+				}
+			}
+			for (RegularSubscriber p : listadmin2) {
+				String tmp="";
+				tmp+=p.getId();
+				if(tmp.equals(msg1.getObject1()))
+				{
+					System.out.println(tmp+"logout succse");
+					p.setIsConnected("0");
+					session.save(p);
+					session.update(p);
+				}
+			}
+
+		}
+
+		if (msgString.equals("#logoutlotmanager")) {
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			Message message = new Message("logoutlotmanager");
+			List<ParkingLotManager> listadmin = getAll(ParkingLotManager.class);
+			Message msg1 = ((Message) msg);
+			for (ParkingLotManager p : listadmin) {
+				String tmp="";
+				tmp+=p.getId();
+				if(tmp.equals(msg1.getObject1()))
+				{
+					System.out.println(tmp+"logout succse");
+					p.setIsConnected("0");
+					session.save(p);
+					session.update(p);
+				}
+			}
+
+		}
+
+		if (msgString.equals("#logoutchain")) {
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			Message message = new Message("logoutchain");
+			List<Admin> listadmin = getAll(Admin.class);
+			Message msg1 = ((Message) msg);
+			for (Admin p : listadmin) {
+			String tmp="";
+			tmp+=p.getId();
+			if(tmp.equals(msg1.getObject1()))
+			{
+				System.out.println(tmp+"logout succse");
+				p.setIsConnected("0");
+				session.save(p);
+				session.update(p);
+			}
+			}
+		}
+		if (msgString.equals("#logoutcusservices")) {
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			Message message = new Message("logoutchain");
+			List<Admin> listadmin = getAll(Admin.class);
+			Message msg1 = ((Message) msg);
+			for (Admin p : listadmin) {
+				String tmp="";
+				tmp+=p.getId();
+				if(tmp.equals(msg1.getObject1()))
+				{
+					System.out.println(tmp+"logout succse");
+					p.setIsConnected("0");
+					session.save(p);
+					session.update(p);
+				}
 			}
 		}
 
@@ -130,33 +288,62 @@ public class SimpleServer extends AbstractServer {
 			Message message = new Message("loginsubscriber");
 			List<FullSubscriber> listadmin = getAll(FullSubscriber.class);
 			List<RegularSubscriber> listadmin2 = getAll(RegularSubscriber.class);
+
 			Message msg1 = ((Message) msg);
 			int c = 0;
 			int c2 = 0;
+			int twoconnectedclients=0;
 			for (FullSubscriber p : listadmin) {
 				String tmp = "";
 				tmp += p.getId();
-				if (tmp.equals(msg1.getObject1()) && decrypt(p.getPassword(), "1234567812345678").equals(msg1.getObject2())) {
+				if (p.getIsConnected().equals("1")&&tmp.equals(msg1.getObject1()) && decrypt(p.getPassword(), "1234567812345678").equals(msg1.getObject2())) {
+					twoconnectedclients=-1;
+				}
+				if (p.getIsConnected().equals("0")&&tmp.equals(msg1.getObject1()) && decrypt(p.getPassword(), "1234567812345678").equals(msg1.getObject2())) {
 					c = 1;
+					p.setIsConnected("1");
+					session.save(p);
+					session.update(p);
+					twoconnectedclients=1;
 					message.setObject1("yes full_subscriber");
 				}
 			}
 			for (RegularSubscriber p : listadmin2) {
 				String tmp = "";
 				tmp += p.getId();
-				if (tmp.equals(msg1.getObject1()) && decrypt(p.getPassword(), "1234567812345678").equals(msg1.getObject2())) {
-					c = 1;
+				if (p.getIsConnected().equals("1")&&tmp.equals(msg1.getObject1()) && decrypt(p.getPassword(), "1234567812345678").equals(msg1.getObject2())) {
+					twoconnectedclients=-1;
+				}
+					if (p.getIsConnected().equals("0")&&tmp.equals(msg1.getObject1()) && decrypt(p.getPassword(), "1234567812345678").equals(msg1.getObject2())) {
+						p.setIsConnected("1");
+						session.save(p);
+						session.update(p);
+						twoconnectedclients=1;
 					message.setObject1("yes regular_subscriber");
 				}
 			}
-			if (c == 0) message.setObject1("no");
+
+			if(twoconnectedclients==0)
+			{
+				message.setObject1("no");
+			}
+
+			if(twoconnectedclients==-1)
+			{
+				message.setMessage("2clients");
+				message.setObject1("2clients");
+			}
 			try {
+				System.out.println(message.getObject1().toString());
+				client.sendToClient(message);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}			try {
 				client.sendToClient(message);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-
 		if (msgString.equals("#admin_forgetpass")) {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
@@ -183,7 +370,6 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 		}
-
 		if (msgString.startsWith("#warning")) {
 			Message message = new Message("Warning from server!");
 			try {
@@ -193,7 +379,6 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 		}
-
 		if (msgString.equals("#addcar")) {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
@@ -229,7 +414,6 @@ public class SimpleServer extends AbstractServer {
 			session.flush();
 			session.getTransaction().commit();
 		}
-
 		if (msgString.equals("#removecar")) {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
@@ -264,7 +448,6 @@ public class SimpleServer extends AbstractServer {
 			session.flush();
 			session.getTransaction().commit();
 		}
-
 		if (msgString.equals("#newpassadmin")) {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
@@ -274,8 +457,7 @@ public class SimpleServer extends AbstractServer {
 			for (Admin p : listadmin) {
 				String tmp = "";
 				tmp += p.getId();
-				if (tmp.equals(msg1.getObject1().toString()))
-				{
+				if (tmp.equals(msg1.getObject1().toString())) {
 					System.out.format(msg1.getObject1().toString());
 					p.setPassword(encrypt((String) msg1.getObject2(), "1234567812345678"));
 					message.setObject1("yes");
@@ -291,87 +473,136 @@ public class SimpleServer extends AbstractServer {
 			}*/
 		}
 
-
-		if (msgString.equals("#addcar_full_subscriber")) {
-			session = sessionFactory.openSession();
-			session.beginTransaction();
-			Message message = new Message("addcar_full_subscriber");
-			List<Car> listadmin = getAll(Car.class);
-			Message msg1 = ((Message) msg);
-			System.out.format(msg1.getObject2().toString());
-			/*try {
-				client.sendToClient(message);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}*/
-		}
-		if(msgString.startsWith("newCompliain"))
-		{
-
-			String[] a=msgString.split("\\^");
-			Complaint c=new Complaint(a[1],Integer.parseInt( a[2]));
-			session = sessionFactory.openSession();
-			session.beginTransaction();
-			session.save(c);
-			session.flush();
-			session.getTransaction().commit();
-			client.sendToClient(new Message("add compliant succ",c.getId()));
-
-		}
-		if(((Message) msg).getMessage().startsWith("bring"))
-		{
-
-			session = sessionFactory.openSession();
-			session.beginTransaction();
-			String[] a=msgString.split("\\^");
-			List<Complaint> c=getAll(Complaint.class);
-			List<Complaint> complaints=new ArrayList<Complaint>();
-
-			for(Complaint e:c){
-				if(e.getParkingLotId()==Integer.parseInt(a[1])) {
-					complaints.add(e);
-					System.out.println(e);
-				}
-			}
-			System.out.println("wwwwwwwwwwwwwwww");
-			try {
-				client.sendToClient(new Message("complaints",complaints));
-			}catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		if(((Message) msg).getMessage().startsWith("#response"))
-		{
-			session = sessionFactory.openSession();
-			session.beginTransaction();
-			Message m=(Message) msg;
-			List<Complaint> c=getAll(Complaint.class);
-			for(Complaint e:c){
-				if(e.getId()==Integer.parseInt(m.getObject1().toString())) {
-					e.setStatus("answered");
-					e.setResponse(m.getObject2().toString());
-					session.update(e);
-
-				}
-			}
-			session.flush();
-			session.getTransaction().commit();
-		}
-		if(((Message) msg).getMessage().startsWith("#bringall")){
-			session = sessionFactory.openSession();
-			session.beginTransaction();
-			List<Complaint> c=getAll(Complaint.class);
-			client.sendToClient(new Message("allComplaints",c));
-		}
-		if(((Message) msg).getMessage().startsWith("#2bringall")){
-			System.out.println("in server refresh table1");
-			session = sessionFactory.openSession();
-			System.out.println("in server refresh table2");
-			if(!session.isConnected() || session==null )
+			if (msgString.equals("#newsubscribe")) {
+				session = sessionFactory.openSession();
+				int flag=1;
 				session.beginTransaction();
-			System.out.println("in server refresh table");
-			List<Complaint> c=getAll(Complaint.class);
-			client.sendToClient(new Message("2allComplaints",c));
-		}
+				Message msg1 = ((Message) msg);
+				System.out.format(msg1.getObject2().toString());
+				List<FullSubscriber> listadmin = getAll(FullSubscriber.class);
+				List<RegularSubscriber> listadmin1 = getAll(RegularSubscriber.class);
+				for (FullSubscriber p:listadmin)
+				{
+					String tmp="";tmp+=p.getId();
+					if(tmp.equals(msg1.getObject1().toString()))
+					{
+						flag=0;
+					}
+					if((p.getEmail().equals(msg1.getObject4().toString())))
+					{
+						flag=-1;
+					}
+				}
+				for (RegularSubscriber p:listadmin1)
+				{
+					String tmp="";tmp+=p.getId();
+					if(tmp.equals(msg1.getObject1().toString()))
+					{
+						flag=0;
+					}
+					if((p.getEmail().equals(msg1.getObject4().toString())))
+					{
+						flag=-1;
+					}
+				}
+				if ((msg1.getObject7().toString().equals("full"))&&flag==1) {
+					FullSubscriber x = new FullSubscriber((Integer.parseInt(msg1.getObject1().toString())), msg1.getObject2().toString(),
+							msg1.getObject3().toString(), msg1.getObject4().toString(), encrypt((String) msg1.getObject5(), "1234567812345678"),
+							msg1.getObject6().toString(),"0");
+
+					session.save(x);
+					session.update(x);
+				} if ((msg1.getObject7().toString().equals("regular"))&&flag==1){
+					RegularSubscriber y = new RegularSubscriber((Integer.parseInt(msg1.getObject1().toString())), msg1.getObject2().toString(),
+							msg1.getObject3().toString(), msg1.getObject4().toString(), encrypt((String) msg1.getObject5(), "1234567812345678"),
+							msg1.getObject6().toString(),"0");
+					session.save(y);
+					session.update(y);
+				}
+				if (flag==0)
+				{
+					client.sendToClient(new Message("id is used before","id is used before"));
+				}
+				if (flag==-1)
+				{
+					client.sendToClient(new Message("email is used before","email is used before"));
+				}
+				if (flag==1)
+				{
+					client.sendToClient(new Message("yes","yes"));
+				}
+			}
+		//}
+		if (msgString.startsWith("newCompliain")) {
+
+					String[] a = msgString.split("\\^");
+					Complaint c = new Complaint(a[1], Integer.parseInt(a[2]));
+					session = sessionFactory.openSession();
+					session.beginTransaction();
+					session.save(c);
+					session.flush();
+					session.getTransaction().commit();
+					client.sendToClient(new Message("add compliant succ", c.getId()));
+
+				}
+		if (((Message) msg).getMessage().startsWith("bring")) {
+
+					session = sessionFactory.openSession();
+					session.beginTransaction();
+					String[] a = msgString.split("\\^");
+					List<Complaint> c = getAll(Complaint.class);
+					List<Complaint> complaints = new ArrayList<Complaint>();
+
+					for (Complaint e : c) {
+						if (e.getParkingLotId() == Integer.parseInt(a[1])) {
+							complaints.add(e);
+							System.out.println(e);
+						}
+					}
+					try {
+						client.sendToClient(new Message("complaints", complaints));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+		if (((Message) msg).getMessage().startsWith("#response")) {
+					session = sessionFactory.openSession();
+					session.beginTransaction();
+					Message m = (Message) msg;
+					List<Complaint> c = getAll(Complaint.class);
+					for (Complaint e : c) {
+						if (e.getId() == Integer.parseInt(m.getObject1().toString())) {
+							e.setStatus("answered");
+							e.setResponse(m.getObject2().toString());
+							session.update(e);
+
+						}
+					}
+					session.flush();
+					session.getTransaction().commit();
+				}
+		if (((Message) msg).getMessage().startsWith("#bringall")) {
+					session = sessionFactory.openSession();
+					session.beginTransaction();
+					List<Complaint> c = getAll(Complaint.class);
+					client.sendToClient(new Message("allComplaints", c));
+				}
+		if (((Message) msg).getMessage().startsWith("#2bringall")) {
+					System.out.println("in server refresh table1");
+					session = sessionFactory.openSession();
+					System.out.println("in server refresh table2");
+					if (!session.isConnected() || session == null)
+						session.beginTransaction();
+					System.out.println("in server refresh table");
+					List<Complaint> c = getAll(Complaint.class);
+					client.sendToClient(new Message("2allComplaints", c));
+				}
+
+				session.flush();
+				session.getTransaction().commit();
+
+
+		session.flush();
+		session.getTransaction().commit();
 	}
 }

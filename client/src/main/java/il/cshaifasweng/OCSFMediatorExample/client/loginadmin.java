@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -85,7 +86,12 @@ public class loginadmin {
     void homebutfun(ActionEvent event) throws IOException {
         App.setRoot("home");
     }
-
+    @FXML
+    private Button FAQ;
+    @FXML
+    void FAQ(ActionEvent event) throws IOException {
+        App.setRoot("faq0");
+    }
     @FXML
     void loginfun(ActionEvent event) throws IOException {
         App.setRoot("loginadmin");
@@ -105,14 +111,19 @@ public class loginadmin {
     void loginsubscriber(MouseEvent event) throws IOException {
         App.setRoot("loginassubscriber");
     }
+    @FXML
+    void initialize() {
+        EventBus.getDefault().register(this);
+    }
     @Subscribe
-    public void setLabelshow(WarningEvent c)throws IOException {
+    public void setLabelshow1(loginadminEvent c)throws IOException {
         Platform.runLater(()->{
         if (c.getWarning().getObject1().equals("yes Chain Manager"))
         {
+
             try {
                 ChainManagerBoundary.name=id.getText();
-
+                ChainManagerBoundary.idd=id.getText();
                 App.setRoot("ChainManagerBoundary");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -123,6 +134,7 @@ public class loginadmin {
         {
             try {
                 CustomerServiceBoundary.name=id.getText();
+                CustomerServiceBoundary.idd=id.getText();
                 App.setRoot("CustomerServiceBoundary");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -130,6 +142,7 @@ public class loginadmin {
         }
         if (c.getWarning().getObject1().equals("yes parkinglotmanagers"))
         {
+            ParkingLotManagerBoundary.idd=id.getText();
                 try {
                     App.setRoot("ParkingLotManagerBoundary");
                 } catch (IOException e) {
@@ -138,13 +151,23 @@ public class loginadmin {
         }
         else
         {
+            invaild.setText("Invalid Data");
             invaild.setVisible(true);
         }
         });
     }
-    @FXML
-    void initialize() {
-        EventBus.getDefault().register(this);
+
+    @Subscribe
+    public void setLabelshow(twoclientEVENT c)throws IOException {
+        Platform.runLater(()->{
+            Alert alert = new Alert(Alert.AlertType.WARNING,
+                    String.format("Message: %s\nTimestamp: %s\n",
+                            "You Cant join With Same User From 2 Clients",
+                            c.getWarning().getTime().toString())
+            );
+            alert.show();
+        });
     }
+
 
 }

@@ -10,6 +10,12 @@ import java.io.IOException;
 
 public class faq5 {
     @FXML
+    private Button FAQ;
+    @FXML
+    void FAQ(ActionEvent event) throws IOException {
+        App.setRoot("faq0");
+    }
+    @FXML
     private Button Prices;
 
     @FXML
@@ -42,24 +48,24 @@ public class faq5 {
     @FXML
     private Label quest6;
 
-    @FXML
-    void Pricesfun(ActionEvent event) {
-    }
-    @FXML
-    void aboutus(ActionEvent event) {
-
-    }
 
     @FXML
-    void homebutfun(ActionEvent event) {
-
+    void Pricesfun(ActionEvent event) throws IOException {
+        App.setRoot("prices");
     }
-
     @FXML
-    void loginadminfun(ActionEvent event) {
+    void aboutus(ActionEvent event) throws IOException {
+        App.setRoot("aboutus");
+    }
+    @FXML
+    void homebutfun(ActionEvent event) throws IOException {
+        App.setRoot("home");
+    }
+    @FXML
+    void loginadminfun(ActionEvent event) throws IOException {
+        App.setRoot("loginadmin");
 
     }
-
     @FXML
     void quest1fun(MouseEvent event) throws IOException {
         App.setRoot("faq1");

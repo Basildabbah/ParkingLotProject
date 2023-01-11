@@ -1,13 +1,17 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
+import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import il.cshaifasweng.OCSFMediatorExample.entities.Prices;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 import java.io.IOException;
 
 public class CustomerServiceBoundary {
     public static String name;
+    public static String idd;
+
     @FXML
     private Button HandleComplains;
 
@@ -16,10 +20,12 @@ public class CustomerServiceBoundary {
 
     @FXML
     private Button logout;
-
     @FXML
-    void HandleComplainsfun(ActionEvent event) {
-        System.out.println(name);
+    private Label userid;
+    @FXML
+    void HandleComplainsfun(ActionEvent event) throws IOException {
+        handlecomplain.idd=idd;
+        App.setRoot("handlecomplain");
     }
 
     @FXML
@@ -29,7 +35,16 @@ public class CustomerServiceBoundary {
 
     @FXML
     void logoutfun(ActionEvent event) throws IOException {
-    App.setRoot("home");
+        Message m=new Message("#logoutcusservices",idd);
+        try {
+            SimpleClient.getClient().sendToServer(m);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        App.setRoot("home");
     }
-
+    @FXML
+    void initialize() {
+        userid.setText(userid.getText()+idd);
+    }
 }

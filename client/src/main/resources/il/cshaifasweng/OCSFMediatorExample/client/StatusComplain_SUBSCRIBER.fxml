@@ -3,6 +3,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.effect.DisplacementMap?>
@@ -11,7 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="1000.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Subscribeboundry">
+<AnchorPane prefHeight="1000.0" prefWidth="1000.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.StatusComplain_SUBSCRIBER">
     <children>
         <AnchorPane layoutX="64.0" layoutY="17.0" prefHeight="45.0" prefWidth="578.0" />
         <AnchorPane layoutX="14.0" layoutY="142.0" prefHeight="518.0" prefWidth="200.0">
@@ -244,5 +246,18 @@
          </children>
       </AnchorPane>
       <Label fx:id="labelid" layoutX="28.0" layoutY="31.0" prefHeight="18.0" prefWidth="94.0" text="Label" />
+      <AnchorPane layoutX="254.0" layoutY="218.0" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <TableView fx:id="table" layoutX="93.0" layoutY="109.0" prefHeight="200.0" prefWidth="372.0">
+               <columns>
+                  <TableColumn fx:id="idc" prefWidth="75.0" text="C1" />
+                  <TableColumn fx:id="complaintc" prefWidth="149.99996948242188" text="C2" />
+                  <TableColumn fx:id="statusc" prefWidth="145.3333740234375" text="Column X" />
+               </columns>
+            </TableView>
+            <TextField fx:id="idS" layoutX="93.0" layoutY="45.0" />
+            <Button fx:id="bring" layoutX="347.0" layoutY="45.0" mnemonicParsing="false" onAction="#bring" text="bring" />
+         </children>
+      </AnchorPane>
     </children>
 </AnchorPane>

@@ -1,14 +1,17 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 import java.io.IOException;
 
 public class ParkingLotManagerBoundary {
-
-
+    public static String idd;
+    @FXML
+    private Label userid;
     @FXML
     private Button Logout;
 
@@ -28,8 +31,14 @@ public class ParkingLotManagerBoundary {
     private Button showprices;
 
     @FXML
-    void Logoutfun(ActionEvent event) throws IOException {
-    App.setRoot("home");
+    void Logoutfun(ActionEvent event) throws IOException  {
+        Message m=new Message("#logoutlotmanager",idd);
+        try {
+            SimpleClient.getClient().sendToServer(m);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        App.setRoot("home");
     }
 
     @FXML
@@ -55,5 +64,9 @@ public class ParkingLotManagerBoundary {
     @FXML
     void setpricefun(ActionEvent event) {
 
+    }
+    @FXML
+    void initialize() {
+        userid.setText(userid.getText()+idd);
     }
 }

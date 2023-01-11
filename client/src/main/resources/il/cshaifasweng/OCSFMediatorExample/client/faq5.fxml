@@ -195,7 +195,7 @@
                                     </DisplacementMap>
                                  </effect>
                               </Button>
-                              <Button fx:id="loginadmin" mnemonicParsing="false" onAction="#loginadminfun" style="-fx-background-color: #e88200;" text="Login As Admin" textOverrun="CLIP">
+                              <Button fx:id="FAQ" mnemonicParsing="false" onAction="#FAQ" style="-fx-background-color: #e88200;" text="FAQ" textOverrun="CLIP">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
