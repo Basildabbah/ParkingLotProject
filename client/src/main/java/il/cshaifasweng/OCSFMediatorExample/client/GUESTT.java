@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import org.greenrobot.eventbus.Subscribe;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -106,8 +107,8 @@ public class GUESTT {
     }
 
     @FXML
-    void homebutfun(ActionEvent event) {
-
+    void homebutfun(ActionEvent event) throws IOException {
+        App.setRoot("home");
     }
 
     @FXML
@@ -122,6 +123,14 @@ public class GUESTT {
 
     @FXML
     void loginfun(ActionEvent event) {
+        try {
+            SimpleClient.getClient().sendToServer( new Message("#loginguest",email.getText()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @Subscribe
+    public void onEvent(logingusetsuccEvent e){
 
     }
 

@@ -30,4 +30,15 @@ public class Order {
 
     // ??
     private int subId;
+    private String email;
+    private int isConnected;
+
+    public Order() {
+
+    }
+    public Order(Car c1,String email) {
+        this.car=c1;
+        this.email=email;
+        this.isConnected=0;
+    }
 }

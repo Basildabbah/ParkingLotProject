@@ -178,6 +178,8 @@ public class App
         session.save(c1);
         session.save(c2);
         session.save(c3);
+        Order o1=new Order(car1,"m@gmail.com");
+        session.save(o1);
         session.getTransaction().commit();
 
 

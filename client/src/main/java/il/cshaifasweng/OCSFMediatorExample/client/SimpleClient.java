@@ -35,7 +35,6 @@ public class SimpleClient extends AbstractClient {
 			EventBus.getDefault().post(new loginadminEvent(message));
 		}
 		if(((Message) msg).getMessage().equals("email is used before")) {
-
 			EventBus.getDefault().post(new loginadminEvent(message));
 		}
 		if(((Message) msg).getMessage().equals("2clients")) {
@@ -50,7 +49,7 @@ public class SimpleClient extends AbstractClient {
 		if(((Message) msg).getMessage().equals("yes")) {
 			EventBus.getDefault().post(new loginadminEvent(message));
 		}
-			if(((Message) msg).getMessage().equals("#caralreadylinked")) {
+		if(((Message) msg).getMessage().equals("#caralreadylinked")) {
 			EventBus.getDefault().post(new loginadminEvent(message));
 		}
 		if(((Message) msg).getMessage().equals("test")) {
@@ -64,13 +63,18 @@ public class SimpleClient extends AbstractClient {
 			EventBus.getDefault().post(new StatusComplaintEvent(message));
 		}
 		if(message.getMessage().equals("allComplaints")) {
-			System.out.println("hereeeee");
 			EventBus.getDefault().post(new ResponseComplaintEvent(message));
 		}
 		if(message.getMessage().equals("2allComplaints")) {
-			System.out.println("refresh in simple client");
 			EventBus.getDefault().post(new RefreshComplaintsEvent(message));
 		}
+		if(message.getMessage().equals("loginguesttrue")) {
+			EventBus.getDefault().post(new logingusetsuccEvent(message));
+		}
+		if(message.getMessage().equals("loginguestfail")) {
+			EventBus.getDefault().post(new loginguestfailEvent(message));
+		}
+
 
 	}
 	public static SimpleClient getClient() {
