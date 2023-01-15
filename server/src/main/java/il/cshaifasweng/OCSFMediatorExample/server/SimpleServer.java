@@ -662,20 +662,37 @@ public class SimpleServer extends AbstractServer {
 					client.sendToClient(new Message("allComplaints", c));
 				}
 		if (((Message) msg).getMessage().startsWith("#2bringall")) {
-					System.out.println("in server refresh table1");
-					session = sessionFactory.openSession();
-					System.out.println("in server refresh table2");
-					if (!session.isConnected() || session == null)
-						session.beginTransaction();
-					System.out.println("in server refresh table");
-					List<Complaint> c = getAll(Complaint.class);
-					client.sendToClient(new Message("2allComplaints", c));
+			System.out.println("in server refresh table1");
+			session = sessionFactory.openSession();
+			System.out.println("in server refresh table2");
+			if (!session.isConnected() || session == null)
+				session.beginTransaction();
+			System.out.println("in server refresh table");
+			List<Complaint> c = getAll(Complaint.class);
+			client.sendToClient(new Message("2allComplaints", c));
+		}
+		if (msgString.equals("#loginguest")) {
+			session=sessionFactory.openSession();
+			session.beginTransaction();
+			List<Order> orders=getAll(Order.class);
+			int flag=0;
+			for(Order o1:orders)
+			{
+				if(o1.getEmail().equals(((Message) msg).getObject1().toString())) {
+					o1.setIsConnected(1);
+					session.save(o1);
+					client.sendToClient("loginguesttrue");
+					flag=1;
 				}
-
+				if(flag==0){
+					client.sendToClient("loginguestfail");
+				}
 				session.flush();
 				session.getTransaction().commit();
 
+			}
 
+		}
 		session.flush();
 		session.getTransaction().commit();
 	}
