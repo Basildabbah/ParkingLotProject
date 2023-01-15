@@ -114,7 +114,7 @@
             <Image url="@../../../../images/Image-4-1.png" />
          </image>
       </ImageView>
-      <AnchorPane fx:id="textbox" blendMode="COLOR_BURN" cache="true" layoutX="384.0" layoutY="254.0" prefHeight="198.0" prefWidth="282.0" style="-fx-background-color: white;" visible="false">
+      <AnchorPane fx:id="textbox" blendMode="COLOR_BURN" cache="true" layoutX="384.0" layoutY="254.0" prefHeight="198.0" prefWidth="282.0" style="-fx-background-color: white;">
          <children>
             <Label alignment="CENTER" layoutX="5.0" layoutY="27.0" prefHeight="18.0" prefWidth="88.0" text="Park Id:" textAlignment="CENTER" />
             <Label fx:id="label1" alignment="CENTER" layoutX="78.0" layoutY="27.0" prefHeight="18.0" prefWidth="133.0" text="label" textAlignment="CENTER" />
@@ -129,9 +129,9 @@
             <Label alignment="CENTER" layoutY="167.0" prefHeight="18.0" prefWidth="115.0" text="full subscribtion" textAlignment="CENTER" />
             <Label fx:id="label11111" alignment="CENTER" layoutX="78.0" layoutY="140.0" prefHeight="18.0" prefWidth="133.0" text="label" textAlignment="CENTER" />
             <Label fx:id="label111111" alignment="CENTER" layoutX="78.0" layoutY="167.0" prefHeight="18.0" prefWidth="133.0" text="label" textAlignment="CENTER" />
-            <Button fx:id="reserve" layoutX="23.0" layoutY="219.0" mnemonicParsing="false" onAction="#reservefun" prefHeight="46.0" prefWidth="68.0" text="Reserve" textFill="#ff0b0b" />
-            <Button fx:id="order" layoutX="119.0" layoutY="219.0" mnemonicParsing="false" onAction="#order" prefHeight="46.0" prefWidth="68.0" text="Order" textFill="#ff0b0b" />
-            <Label fx:id="hasorder" layoutX="212.0" layoutY="233.0" onMouseClicked="#alreadyhasorder" prefHeight="18.0" prefWidth="116.0" text="Already Has Order?" textFill="#3c00ff" underline="true" />
+            <Button fx:id="reserve" layoutX="23.0" layoutY="219.0" mnemonicParsing="false" onAction="#reservefun" prefHeight="46.0" prefWidth="68.0" text="Reserve" textFill="#ff0b0b" visible="false" />
+            <Button fx:id="order" layoutX="119.0" layoutY="219.0" mnemonicParsing="false" onAction="#order" prefHeight="46.0" prefWidth="68.0" text="Order" textFill="#ff0b0b" visible="false" />
+            <Label fx:id="hasorder" layoutX="212.0" layoutY="233.0" onMouseClicked="#alreadyhasorder" prefHeight="18.0" prefWidth="116.0" text="Already Has Order?" textFill="#3c00ff" underline="true" visible="false" />
          </children>
          <effect>
             <Blend />

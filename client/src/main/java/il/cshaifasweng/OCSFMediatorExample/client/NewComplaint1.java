@@ -113,10 +113,10 @@ public class NewComplaint1 {
     }
 
     @FXML
-    void checkcomplainfun(ActionEvent event) {
-
+    void checkcomplainfun(ActionEvent event) throws IOException {
+        StatusComplain_SUBSCRIBER.idd=idd;
+        App.setRoot("StatusComplain_SUBSCRIBER");
     }
-
     @FXML
     void checkorderfun(ActionEvent event) {
 
@@ -149,7 +149,7 @@ public class NewComplaint1 {
 
     @FXML
     void sendcomplainfun(ActionEvent event) throws IOException {
-        App.setRoot("NewComplaint");
+        App.setRoot("NewComplaint1");
     }
     @FXML
     void submit_add_carfun(ActionEvent event) {

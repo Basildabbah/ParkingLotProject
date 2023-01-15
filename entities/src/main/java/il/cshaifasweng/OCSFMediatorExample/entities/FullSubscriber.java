@@ -56,7 +56,7 @@ public class FullSubscriber {
         LocalDateTime now = LocalDateTime.now();
         subscriptionExpiryDate = now.plusDays(28);
         //??
-        this.remainingHours = 14;
+        this.remainingHours = 72;
         this.carList = new ArrayList<Car>();
         isConnected=x;
     }

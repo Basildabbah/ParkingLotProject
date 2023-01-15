@@ -180,8 +180,8 @@ public class prices {
             SimpleClient.getClient().sendToServer("prices_2");
         } catch (IOException e) {
             e.printStackTrace();
-        }        reserveanch.setVisible(false);
-
+        }
+        reserveanch.setVisible(false);
         textbox.setVisible(true);
         ordernumber111121.setText("2");
         ordernumber111121.setDisable(true);

@@ -100,7 +100,7 @@ public class StatusComplain_SUBSCRIBER {
 
     @FXML
     void checkcomplainfun(ActionEvent event) throws IOException {
-    App.setRoot("StatusComplaint");
+    App.setRoot("StatusComplain_SUBSCRIBER");
     }
 
     @FXML

@@ -135,7 +135,7 @@
                         </DisplacementMap>
                     </effect>
                 </Button>
-                <Button fx:id="cancelcomplain" mnemonicParsing="false" onAction="#cancelcomplainfun" style="-fx-background-color: #5dc2a2;" text="Cancel Complain" textFill="RED" textOverrun="CLIP">
+                <Button fx:id="cancelcomplain" mnemonicParsing="false" onAction="#cancelcomplainfun" style="-fx-background-color: #5dc2a2;" text="Cancel Complain" textFill="RED" textOverrun="CLIP" visible="false">
                     <font>
                         <Font size="16.0" />
                     </font>

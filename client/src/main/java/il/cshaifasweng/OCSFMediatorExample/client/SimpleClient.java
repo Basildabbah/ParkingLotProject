@@ -32,17 +32,17 @@ public class SimpleClient extends AbstractClient {
 			EventBus.getDefault().post(new admin_forgetpass_EVENT(message));
 		}
 		if(((Message) msg).getMessage().equals("id is used before")) {
-			EventBus.getDefault().post(new loginadminEvent(message));
+			EventBus.getDefault().post(new new_subscirber_EVENT(message));
 		}
 		if(((Message) msg).getMessage().equals("email is used before")) {
 
-			EventBus.getDefault().post(new loginadminEvent(message));
+			EventBus.getDefault().post(new new_subscirber_EVENT(message));
 		}
 		if(((Message) msg).getMessage().equals("2clients")) {
 			EventBus.getDefault().post(new twoclientEVENT(message));
 		}
 		if(((Message) msg).getMessage().equals("newpassadmin")) {
-			EventBus.getDefault().post(new loginadminEvent(message));
+			EventBus.getDefault().post(new newpassadmin_EVENT(message));
 		}
 		if(((Message) msg).getMessage().equals("showpricefun")) {
 			EventBus.getDefault().post(new loginadminEvent(message));
@@ -51,7 +51,7 @@ public class SimpleClient extends AbstractClient {
 			EventBus.getDefault().post(new loginadminEvent2(message));
 		}
 		if(((Message) msg).getMessage().equals("yes")) {
-			EventBus.getDefault().post(new loginadminEvent(message));
+			EventBus.getDefault().post(new new_subscirber_EVENT(message));
 		}
 		if(((Message) msg).getMessage().equals("writeareview")) {
 			EventBus.getDefault().post(new reviewEvent(message));

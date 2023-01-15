@@ -28,22 +28,21 @@ public class NewComplaint {
 
     @FXML
     void send(ActionEvent event) {
-        try {
-            System.out.println("send new complaint");
-            SimpleClient.getClient().sendToServer(new Message("newCompliain^"+textC.getText()+"^" +id.getText()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            System.out.println("send new complaint");
+//            SimpleClient.getClient().sendToServer(new Message("newCompliain^"+textC.getText()+"^" +id.getText()));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
     @FXML
     void initialize() {
         EventBus.getDefault().register(this);
     }
-    @Subscribe
-    public void onEvent(NewComplaintEvent e){
-        Platform.runLater(()-> {
-            newid.setText("your complaint id is: "+e.getWarning().getObject1().toString()+" remember it to see the answer");
-        });
-    }
+    //    public void onEvent(NewComplaintEvent e){
+//        Platform.runLater(()-> {
+//            newid.setText("your complaint id is: "+e.getWarning().getObject1().toString()+" remember it to see the answer");
+//        });
+//    }
 
 }

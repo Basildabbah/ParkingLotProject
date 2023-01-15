@@ -316,9 +316,6 @@ public class SimpleServer extends AbstractServer {
 		}
 
 
-
-
-
 		if (msgString.equals("#logoutchain")) {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
@@ -614,8 +611,6 @@ public class SimpleServer extends AbstractServer {
 					session = sessionFactory.openSession();
 					session.beginTransaction();
 					session.save(c);
-					session.flush();
-					session.getTransaction().commit();
 					client.sendToClient(new Message("add compliant succ", c.getId()));
 
 				}

@@ -94,7 +94,7 @@ public class newpass {
         App.setRoot("loginadmin");
     }
     @Subscribe
-    public void setLabelshow(loginadminEvent c)throws IOException {
+    public void setLabelshow(newpassadmin_EVENT c)throws IOException {
         Platform.runLater(()->{
             if (c.getWarning().getObject1().equals("yes"))
             {

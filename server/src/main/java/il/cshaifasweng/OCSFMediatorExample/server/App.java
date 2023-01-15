@@ -104,6 +104,14 @@ public class App
         List<String> valueNote33 = Arrays.asList("10$ Per Hour","6 Per Hour","60 hour","54 hour","72 hour");
         Prices price33= new Prices(typeOfParking33, PAymentMethoud33, valueNote33 , parkingLot3);
         session.save(price33);
+
+
+        List<String> typeOfParking44 = Arrays.asList("mezdament", "one time","client for one car","client for more car","full subscribtion");
+        List<String> PAymentMethoud44 = Arrays.asList("paypal", "Credit card","visa");
+        List<String> valueNote44 = Arrays.asList("7 Per Hour","9 Per Hour","60 hour","54 hour","72 hour");
+        Prices price44= new Prices(typeOfParking33, PAymentMethoud33, valueNote33 , parkingLot3);
+        session.save(price44);
+
 /*
 /*
         List<String> typeOfParking1 = Arrays.asList("Short-term parking", "Long-term parking");

@@ -147,7 +147,7 @@ public class subscribe {
 
     }
     @Subscribe
-    public void setLabelshow(loginadminEvent c)throws IOException {
+    public void setLabelshow(new_subscirber_EVENT c)throws IOException {
         Platform.runLater(()->{
             System.out.println("as");
             invaild.setVisible(true);
