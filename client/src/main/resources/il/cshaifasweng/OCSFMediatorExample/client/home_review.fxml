@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.effect.DisplacementMap?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.FloatMap?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="1000.0" prefWidth="1000.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.home_review">
+   <children>
+      <AnchorPane layoutX="132.0" layoutY="14.0" prefHeight="45.0" prefWidth="578.0">
+         <children>
+            <ButtonBar layoutX="-92.0" layoutY="12.0" prefHeight="40.0" prefWidth="737.0">
+               <buttons>
+                  <Button fx:id="homebut" mnemonicParsing="false" onAction="#homebutfun" style="-fx-background-color: #00BFFF;" text="Home" textFill="RED" textOverrun="CLIP">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <effect>
+                        <DisplacementMap>
+                           <mapData>
+                              <FloatMap />
+                           </mapData>
+                           <input>
+                              <DropShadow />
+                           </input>
+                        </DisplacementMap>
+                     </effect>
+                  </Button>
+                  <Button fx:id="about" mnemonicParsing="false" onAction="#aboutus" style="-fx-background-color: #00BFFF;" text="About Us" textFill="RED" textOverrun="CLIP">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <effect>
+                        <DisplacementMap>
+                           <mapData>
+                              <FloatMap />
+                           </mapData>
+                           <input>
+                              <DropShadow />
+                           </input>
+                        </DisplacementMap>
+                     </effect>
+                  </Button>
+                  <Button fx:id="Prices" mnemonicParsing="false" onAction="#Pricesfun" style="-fx-background-color: #00BFFF;" text="Prices" textFill="RED" textOverrun="CLIP">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <effect>
+                        <DisplacementMap>
+                           <mapData>
+                              <FloatMap />
+                           </mapData>
+                           <input>
+                              <DropShadow />
+                           </input>
+                        </DisplacementMap>
+                     </effect>
+                  </Button>
+                  <Button fx:id="FAQ" mnemonicParsing="false" onAction="#FAQ" style="-fx-background-color: #00BFFF;" text="FAQ" textFill="RED" textOverrun="CLIP">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <effect>
+                        <DisplacementMap>
+                           <mapData>
+                              <FloatMap />
+                           </mapData>
+                           <input>
+                              <DropShadow />
+                           </input>
+                        </DisplacementMap>
+                     </effect>
+                  </Button>
+                  <Button fx:id="login" mnemonicParsing="false" onAction="#loginfun" style="-fx-background-color: #00BFFF;" text="Login As Admin" textFill="RED" textOverrun="CLIP">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <effect>
+                        <DisplacementMap>
+                           <mapData>
+                              <FloatMap />
+                           </mapData>
+                           <input>
+                              <DropShadow />
+                           </input>
+                        </DisplacementMap>
+                     </effect>
+                  </Button>
+               </buttons>
+            </ButtonBar>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="anchreview" layoutX="314.0" layoutY="277.0" prefHeight="234.0" prefWidth="451.0" style="-fx-background-color: white;">
+         <children>
+            <Label fx:id="nickname" layoutX="25.0" prefHeight="52.0" prefWidth="133.0" text="Leo Messi" textFill="#1b11ac">
+               <font>
+                  <Font name="Bell MT" size="23.0" />
+               </font>
+            </Label>
+            <Label fx:id="text" layoutX="25.0" layoutY="52.0" prefHeight="98.0" prefWidth="415.0" text="Label" />
+            <Button fx:id="next" layoutX="385.0" layoutY="176.0" mnemonicParsing="false" onAction="#next" prefHeight="26.0" prefWidth="61.0" text="Next" />
+            <Button fx:id="prev" layoutX="317.0" layoutY="176.0" mnemonicParsing="false" onAction="#prev" prefHeight="26.0" prefWidth="61.0" text="Prev" />
+            <AnchorPane layoutX="14.0" layoutY="139.0" prefHeight="74.0" prefWidth="303.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fx:id="star1" fitHeight="46.0" fitWidth="53.0" layoutX="14.0" layoutY="28.0">
+                     <image>
+                        <Image url="@../../../../images/images.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="star2" fitHeight="46.0" fitWidth="53.0" layoutX="67.0" layoutY="28.0">
+                     <image>
+                        <Image url="@../../../../images/images.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="star3" fitHeight="46.0" fitWidth="53.0" layoutX="120.0" layoutY="28.0">
+                     <image>
+                        <Image url="@../../../../images/images.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="star4" fitHeight="46.0" fitWidth="53.0" layoutX="173.0" layoutY="28.0">
+                     <image>
+                        <Image url="@../../../../images/images.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="gold1" fitHeight="40.0" fitWidth="53.0" layoutX="14.0" layoutY="31.0" visible="false">
+                     <image>
+                        <Image url="@../../../../images/stargold.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="gold5" fitHeight="40.0" fitWidth="53.0" layoutX="226.0" layoutY="31.0" visible="false">
+                     <image>
+                        <Image url="@../../../../images/stargold.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="gold4" fitHeight="40.0" fitWidth="53.0" layoutX="173.0" layoutY="31.0" visible="false">
+                     <image>
+                        <Image url="@../../../../images/stargold.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="gold2" fitHeight="40.0" fitWidth="53.0" layoutX="67.0" layoutY="31.0" visible="false">
+                     <image>
+                        <Image url="@../../../../images/stargold.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="gold3" fitHeight="40.0" fitWidth="53.0" layoutX="120.0" layoutY="31.0" visible="false">
+                     <image>
+                        <Image url="@../../../../images/stargold.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="star5" fitHeight="46.0" fitWidth="53.0" layoutX="226.0" layoutY="28.0">
+                     <image>
+                        <Image url="@../../../../images/images.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </children></AnchorPane>
+      <Label alignment="CENTER" layoutX="378.0" layoutY="120.0" prefHeight="62.0" prefWidth="199.0" text="Parking Lots" textFill="#991010" wrapText="true">
+         <font>
+            <Font name="Californian FB Italic" size="28.0" />
+         </font>
+         <effect>
+            <Bloom />
+         </effect>
+      </Label>
+      <Label layoutX="341.0" layoutY="232.0" prefHeight="18.0" prefWidth="74.0" text="Review">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="reviewnum" layoutX="402.0" layoutY="232.0" prefHeight="18.0" prefWidth="74.0" text="0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

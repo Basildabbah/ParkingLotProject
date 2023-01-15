@@ -11,6 +11,8 @@ import java.io.IOException;
 public class home {
 
     @FXML
+    private Button Review;
+    @FXML
     private Button ContactUs;
 
     @FXML
@@ -70,4 +72,9 @@ public class home {
         App.setRoot("subscribe");
 
     }
+    @FXML
+    void Review(ActionEvent event)  throws IOException {
+        App.setRoot("home_review");
+    }
+
 }

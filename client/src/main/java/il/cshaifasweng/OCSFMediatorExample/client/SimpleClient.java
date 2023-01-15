@@ -29,7 +29,7 @@ public class SimpleClient extends AbstractClient {
 			EventBus.getDefault().post(new loginadminEvent(message));
 		}
 		if(((Message) msg).getMessage().equals("admin_forgetpass")) {
-			EventBus.getDefault().post(new loginadminEvent(message));
+			EventBus.getDefault().post(new admin_forgetpass_EVENT(message));
 		}
 		if(((Message) msg).getMessage().equals("id is used before")) {
 			EventBus.getDefault().post(new loginadminEvent(message));
@@ -47,11 +47,23 @@ public class SimpleClient extends AbstractClient {
 		if(((Message) msg).getMessage().equals("showpricefun")) {
 			EventBus.getDefault().post(new loginadminEvent(message));
 		}
+		if(((Message) msg).getMessage().equals("showpricefun2")) {
+			EventBus.getDefault().post(new loginadminEvent2(message));
+		}
 		if(((Message) msg).getMessage().equals("yes")) {
 			EventBus.getDefault().post(new loginadminEvent(message));
 		}
+		if(((Message) msg).getMessage().equals("writeareview")) {
+			EventBus.getDefault().post(new reviewEvent(message));
+		}
+		if(((Message) msg).getMessage().equals("review_0")) {
+			EventBus.getDefault().post(new reviewEvent(message));
+		}
+		if(((Message) msg).getMessage().equals("review_-1")) {
+			EventBus.getDefault().post(new home_review_Event(message));
+		}
 			if(((Message) msg).getMessage().equals("#caralreadylinked")) {
-			EventBus.getDefault().post(new loginadminEvent(message));
+				EventBus.getDefault().post(new loginadminEvent(message));
 		}
 		if(((Message) msg).getMessage().equals("test")) {
 			System.out.println("h");

@@ -71,7 +71,8 @@ public class loginassubscriber {
     }
     @FXML
     void loginbutton(ActionEvent event) throws IOException {
-        System.out.println("m");
+
+
         Message m=new Message("#loginsubscriber",accountid.getText(),password.getText());
         try {
             SimpleClient.getClient().sendToServer(m);

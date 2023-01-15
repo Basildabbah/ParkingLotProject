@@ -63,6 +63,7 @@ public class App
         configuration.addAnnotatedClass(ParkingLotManager.class);
         configuration.addAnnotatedClass(ParkingLotEmployee.class);
 
+        configuration.addAnnotatedClass(review.class);
 
         configuration.addAnnotatedClass(FullSubscriber.class);
         configuration.addAnnotatedClass(Prices.class);
@@ -72,7 +73,16 @@ public class App
     }
     private static void initializeData() throws Exception {
         String secretKey = "1234567812345678";
-
+        review l1=new review("messi","very bad","1");
+        session.save(l1);
+        review l2=new review("shir","bad ","2");
+        session.save(l2);
+        review l3=new review("ronaldo","good","5");
+        session.save(l3);
+        review l4=new review("speed","nice","4");
+        session.save(l4);
+        review l5=new review("zohal","awesome","5");
+        session.save(l5);
         ParkingLot parkingLot1 = new ParkingLot(5, 10, 2, new byte[5*10*2]);
         ParkingLot parkingLot2 = new ParkingLot(6, 12, 3, new byte[6*12*3]);
         ParkingLot parkingLot3 = new ParkingLot(7, 14, 4, new byte[7*14*4]);

@@ -77,7 +77,7 @@ public class forgetpass {
         }
     }
     @Subscribe
-    public void setLabelshow(loginadminEvent c)throws IOException {
+    public void setLabelshow(admin_forgetpass_EVENT c)throws IOException {
         Platform.runLater(()->{
             if (c.getWarning().getObject1().equals("yes"))
             {

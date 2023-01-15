@@ -206,7 +206,7 @@ public class prices {
     textbox.setVisible(false);
     }
     @Subscribe
-    public void setLabelshow(loginadminEvent c) {
+    public void setLabelshow(loginadminEvent2 c) {
         Platform.runLater(() -> {
             String m="You Can Pay By ";
             String[] n = (String[]) c.getWarning().getObject3();

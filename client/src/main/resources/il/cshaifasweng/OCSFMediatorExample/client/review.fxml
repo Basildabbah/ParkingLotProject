@@ -8,6 +8,8 @@
 <?import javafx.scene.effect.DisplacementMap?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.FloatMap?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -236,8 +238,80 @@
             <DropShadow />
          </effect>
       </Label>
-      <TextField fx:id="review_id" layoutX="404.0" layoutY="275.0" prefHeight="26.0" prefWidth="168.0" promptText="ssssss" />
+      <TextField fx:id="review_id" layoutX="419.0" layoutY="275.0" prefHeight="26.0" prefWidth="168.0" promptText="ssssss" />
       <Label layoutX="343.0" layoutY="279.0" prefHeight="18.0" prefWidth="66.0" text="User Id:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="343.0" layoutY="326.0" prefHeight="18.0" prefWidth="66.0" text="NickName:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="nickname" layoutX="419.0" layoutY="322.0" prefHeight="26.0" prefWidth="168.0" promptText="Type Your NickName" />
+      <AnchorPane layoutX="328.0" layoutY="387.0" prefHeight="270.0" prefWidth="319.0" style="-fx-background-color: white;">
+         <children>
+            <ImageView fx:id="star1" fitHeight="46.0" fitWidth="53.0" layoutX="14.0" layoutY="28.0" onMouseClicked="#star1">
+               <image>
+                  <Image url="@../../../../images/images.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="star2" fitHeight="46.0" fitWidth="53.0" layoutX="67.0" layoutY="28.0" onMouseClicked="#star2">
+               <image>
+                  <Image url="@../../../../images/images.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="star3" fitHeight="46.0" fitWidth="53.0" layoutX="120.0" layoutY="28.0" onMouseClicked="#star3">
+               <image>
+                  <Image url="@../../../../images/images.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="star4" fitHeight="46.0" fitWidth="53.0" layoutX="173.0" layoutY="28.0" onMouseClicked="#star4">
+               <image>
+                  <Image url="@../../../../images/images.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="star5" fitHeight="46.0" fitWidth="53.0" layoutX="226.0" layoutY="28.0" onMouseClicked="#star5">
+               <image>
+                  <Image url="@../../../../images/images.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="gold1" fitHeight="40.0" fitWidth="53.0" layoutX="14.0" layoutY="31.0" onMouseClicked="#star1" visible="false">
+               <image>
+                  <Image url="@../../../../images/stargold.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="gold5" fitHeight="40.0" fitWidth="53.0" layoutX="226.0" layoutY="31.0" onMouseClicked="#star5" visible="false">
+               <image>
+                  <Image url="@../../../../images/stargold.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="gold4" fitHeight="40.0" fitWidth="53.0" layoutX="173.0" layoutY="31.0" onMouseClicked="#star4" visible="false">
+               <image>
+                  <Image url="@../../../../images/stargold.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="gold2" fitHeight="40.0" fitWidth="53.0" layoutX="67.0" layoutY="31.0" onMouseClicked="#star2" visible="false">
+               <image>
+                  <Image url="@../../../../images/stargold.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="gold3" fitHeight="40.0" fitWidth="53.0" layoutX="120.0" layoutY="31.0" onMouseClicked="#star3" visible="false">
+               <image>
+                  <Image url="@../../../../images/stargold.png" />
+               </image>
+            </ImageView>
+            <TextField fx:id="textboxreview" layoutX="14.0" layoutY="113.0" prefHeight="108.0" prefWidth="291.0" promptText="Write a Reveiw" />
+            <Button fx:id="Submit" layoutX="134.0" layoutY="231.0" mnemonicParsing="false" onAction="#Submit" text="Submit" />
+         </children>
+      </AnchorPane>
+      <Label layoutX="597.0" layoutY="326.0" prefHeight="18.0" prefWidth="291.0" text="The name will be shown in home page.  " textFill="#635b5b">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="597.0" layoutY="348.0" prefHeight="18.0" prefWidth="291.0" text="You Can leave him empty." textFill="#635b5b">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

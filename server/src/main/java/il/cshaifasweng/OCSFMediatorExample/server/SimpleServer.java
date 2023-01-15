@@ -47,6 +47,8 @@ public class SimpleServer extends AbstractServer {
 		configuration.addAnnotatedClass(ParkingLotEmployee.class);
 		configuration.addAnnotatedClass(FullSubscriber.class);
 		configuration.addAnnotatedClass(Prices.class);
+		configuration.addAnnotatedClass(review.class);
+
 		ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
 		return configuration.buildSessionFactory(serviceRegistry);
 	}
@@ -89,7 +91,7 @@ public class SimpleServer extends AbstractServer {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
 			List<Prices> parks = getAll(Prices.class);
-			Message message = new Message("showpricefun");
+			Message message = new Message("showpricefun2");
 			String t = String.valueOf(msgString.charAt(7));
 			String m = "";
 			String[] mm = {"", "", ""};
@@ -244,6 +246,78 @@ public class SimpleServer extends AbstractServer {
 			}
 
 		}
+		if (msgString.equals("#writeareview")) {
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			Message msg1 = ((Message) msg);
+			msg1.setMessage("writeareview");
+			review l=new review(msg1.getObject1().toString(),msg1.getObject2().toString(),msg1.getObject3().toString());
+			session.save(l);
+			session.update(l);
+			try {
+				client.sendToClient(msg1);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		if (msgString.equals("#review_0")) {
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			List<review> listadmin = getAll(review.class);
+			System.out.println("x.getId()");
+			Message msg1 = ((Message) msg);
+			msg1.setMessage("review_0");
+			msg1.setObject7("no");
+
+			for (review x:listadmin)
+			{
+				String tmp="";
+				tmp+=x.getId();
+				System.out.println("x.getId()");
+				if(msg1.getObject1().equals(tmp))
+				{
+					msg1.setObject7("yes");
+					msg1.setObject1(x.getName());
+					msg1.setObject2(x.getStar());
+					msg1.setObject3(x.getText());
+				}
+			}
+			try {
+				client.sendToClient(msg1);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		if (msgString.equals("#review_-1")) {
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			List<review> listadmin = getAll(review.class);
+			Message msg1 = ((Message) msg);
+			msg1.setMessage("review_-1");
+			msg1.setObject7("no");
+			for (review x:listadmin)
+			{
+				String tmp="";
+				tmp+=x.getId();
+				if(msg1.getObject1().equals(tmp))
+				{
+					msg1.setObject7("yes");
+					msg1.setObject1(x.getName());
+					msg1.setObject2(x.getStar());
+					msg1.setObject3(x.getText());
+				}
+			}
+			try {
+				client.sendToClient(msg1);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+
+
+
 
 		if (msgString.equals("#logoutchain")) {
 			session = sessionFactory.openSession();

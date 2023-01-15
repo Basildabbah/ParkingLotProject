@@ -15,9 +15,9 @@
 
 <AnchorPane prefHeight="1000.0" prefWidth="1000.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.home">
    <children>
-      <AnchorPane layoutX="132.0" layoutY="14.0" prefHeight="45.0" prefWidth="578.0">
+      <AnchorPane layoutX="60.0" layoutY="14.0" prefHeight="46.0" prefWidth="1000.0">
          <children>
-            <ButtonBar layoutX="-81.0" layoutY="3.0" prefHeight="40.0" prefWidth="737.0">
+            <ButtonBar layoutY="3.0" prefHeight="86.0" prefWidth="888.0">
               <buttons>
                  <Button fx:id="homebut" mnemonicParsing="false" onAction="#homebutfun" style="-fx-background-color: #00BFFF;" text="Home" textFill="RED" textOverrun="CLIP">
                     <font>
@@ -35,6 +35,21 @@
                     </effect>
                  </Button>
                   <Button fx:id="about" mnemonicParsing="false" onAction="#aboutus" style="-fx-background-color: #00BFFF;" text="About Us" textFill="RED" textOverrun="CLIP">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <effect>
+                        <DisplacementMap>
+                           <mapData>
+                              <FloatMap />
+                           </mapData>
+                           <input>
+                              <DropShadow />
+                           </input>
+                        </DisplacementMap>
+                     </effect>
+                  </Button>
+                  <Button fx:id="Review" minWidth="4.0" mnemonicParsing="false" onAction="#Review" prefHeight="38.0" prefWidth="285.0" style="-fx-background-color: #00BFFF;" text="Review" textFill="RED" textOverrun="CLIP">
                      <font>
                         <Font size="16.0" />
                      </font>
