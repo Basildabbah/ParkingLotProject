@@ -3,6 +3,7 @@ package il.cshaifasweng.OCSFMediatorExample.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,9 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "fullsubscirbers")
-public class FullSubscriber {
+public class FullSubscriber implements Serializable {
+
+    private static final long serialVersionUID = 7030977024343093717L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

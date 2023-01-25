@@ -11,7 +11,9 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "prices")
-public class Prices  {
+public class Prices  implements Serializable{
+
+    private static final long serialVersionUID = 7030377594343093717L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

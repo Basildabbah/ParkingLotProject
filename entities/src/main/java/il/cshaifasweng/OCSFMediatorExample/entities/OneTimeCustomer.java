@@ -6,11 +6,14 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Data
 @Entity
 @Table(name = "onetimecustomers")
-public class OneTimeCustomer {
+public class OneTimeCustomer implements Serializable {
+
+    private static final long serialVersionUID = 7030377025543093717L;
 
     @Id
     private int id;

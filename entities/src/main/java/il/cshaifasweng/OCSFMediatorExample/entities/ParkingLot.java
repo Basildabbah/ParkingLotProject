@@ -12,6 +12,8 @@ import java.util.List;
 @Table(name = "parkinglots")
 public class ParkingLot implements Serializable {
 
+    private static final long serialVersionUID = 7030377114343093717L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

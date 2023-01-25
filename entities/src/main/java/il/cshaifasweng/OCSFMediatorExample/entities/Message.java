@@ -6,10 +6,10 @@ import java.time.LocalTime;
 public class Message implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -8224097662914849956L;
-	
+
 	private String message;
 	private Object object1;
 	private Object object2;
@@ -18,6 +18,13 @@ public class Message implements Serializable {
 	private Object object5;
 	private Object object6;
 	private Object object7;
+	private Object object8;
+	private Object object9;
+	private Object object10;
+	private Object object11;
+	private Object object12;
+	private Object object13;
+	private Object object14;
 	private LocalTime time;
 	private Object list;
 
@@ -100,6 +107,111 @@ public class Message implements Serializable {
 		this.object7 = obj7;
 	}
 
+	public Message(String msg, Object obj1, Object obj2, Object obj3, Object obj4, Object obj5, Object obj6 ,Object obj7,Object obj8) {
+		this.message = msg;
+		this.object1 = obj1;
+		this.object2 = obj2;
+		this.object3 = obj3;
+		this.object4 = obj4;
+		this.object5=obj5;
+		this.object6=obj6;
+		this.object7 = obj7;
+		this.object8 = obj8;
+	}
+
+	public Message(String msg, Object obj1, Object obj2, Object obj3, Object obj4, Object obj5, Object obj6 ,Object obj7,Object obj8,Object obj9) {
+		this.message = msg;
+		this.object1 = obj1;
+		this.object2 = obj2;
+		this.object3 = obj3;
+		this.object4 = obj4;
+		this.object5=obj5;
+		this.object6=obj6;
+		this.object7 = obj7;
+		this.object8 = obj8;
+		this.object9= obj9;
+	}
+
+	public Message(String msg, Object obj1, Object obj2, Object obj3, Object obj4, Object obj5, Object obj6 ,Object obj7,Object obj8,Object obj9,Object obj10) {
+		this.message = msg;
+		this.object1 = obj1;
+		this.object2 = obj2;
+		this.object3 = obj3;
+		this.object4 = obj4;
+		this.object5=obj5;
+		this.object6=obj6;
+		this.object7 = obj7;
+		this.object8 = obj8;
+		this.object9= obj9;
+		this.object10 = obj10;
+	}
+
+	public Message(String msg, Object obj1, Object obj2, Object obj3, Object obj4, Object obj5, Object obj6 ,Object obj7,Object obj8,Object obj9,Object obj10,Object obj11) {
+		this.message = msg;
+		this.object1 = obj1;
+		this.object2 = obj2;
+		this.object3 = obj3;
+		this.object4 = obj4;
+		this.object5=obj5;
+		this.object6=obj6;
+		this.object7 = obj7;
+		this.object8 = obj8;
+		this.object9= obj9;
+		this.object10 = obj10;
+		this.object11 = obj11;
+	}
+
+	public Message(String msg, Object obj1, Object obj2, Object obj3, Object obj4, Object obj5, Object obj6 ,Object obj7,Object obj8,Object obj9,Object obj10,Object obj11,Object obj12) {
+		this.message = msg;
+		this.object1 = obj1;
+		this.object2 = obj2;
+		this.object3 = obj3;
+		this.object4 = obj4;
+		this.object5=obj5;
+		this.object6=obj6;
+		this.object7 = obj7;
+		this.object8 = obj8;
+		this.object9= obj9;
+		this.object10 = obj10;
+		this.object11 = obj11;
+		this.object12 = obj12;
+	}
+
+	public Message(String msg, Object obj1, Object obj2, Object obj3, Object obj4, Object obj5, Object obj6 ,Object obj7,Object obj8,Object obj9,Object obj10,Object obj11,Object obj12,Object obj13) {
+		this.message = msg;
+		this.object1 = obj1;
+		this.object2 = obj2;
+		this.object3 = obj3;
+		this.object4 = obj4;
+		this.object5=obj5;
+		this.object6=obj6;
+		this.object7 = obj7;
+		this.object8 = obj8;
+		this.object9= obj9;
+		this.object10 = obj10;
+		this.object11 = obj11;
+		this.object12 = obj12;
+		this.object13 = obj13;
+	}
+
+	public Message(String msg, Object obj1, Object obj2, Object obj3, Object obj4, Object obj5, Object obj6 ,Object obj7,Object obj8,Object obj9,Object obj10,Object obj11,Object obj12,Object obj13,Object obj14) {
+		this.message = msg;
+		this.object1 = obj1;
+		this.object2 = obj2;
+		this.object3 = obj3;
+		this.object4 = obj4;
+		this.object5=obj5;
+		this.object6=obj6;
+		this.object7 = obj7;
+		this.object8 = obj8;
+		this.object9= obj9;
+		this.object10 = obj10;
+		this.object11 = obj11;
+		this.object12 = obj12;
+		this.object13 = obj13;
+		this.object14 = obj14;
+	}
+
 	public LocalTime getTime() {
 		return time;
 	}
@@ -107,6 +219,11 @@ public class Message implements Serializable {
 	public Object getObject1() {
 		return object1;
 	}
+
+	public void setObject1(Object object1) {
+		this.object1 = object1;
+	}
+
 
 	public Object getObject2() {
 		return object2;
@@ -156,9 +273,52 @@ public class Message implements Serializable {
 		this.object7 = object7;
 	}
 
-	public void setObject1(Object object1) {
-		this.object1 = object1;
+	public Object getObject8() {
+		return object8;
 	}
+
+	public void setObject8(Object object8) {
+		this.object8 = object8;
+	}
+
+	public Object getObject9() {
+		return object9;
+	}
+
+	public void setObject9(Object object9) {
+		this.object9 = object9;
+	}
+
+	public Object getObject10(){ return object10; }
+
+	public void setObject10(Object object10) {
+		this.object10 = object10;
+	}
+
+	public Object getObject11(){ return object11; }
+
+	public void setObject11(Object object11) {
+		this.object11 = object11;
+	}
+
+	public Object getObject12(){ return object12; }
+
+	public void setObject12(Object object12) {
+		this.object12 = object12;
+	}
+
+	public Object getObject13(){ return object13; }
+
+	public void setObject13(Object object13) {
+		this.object13 = object13;
+	}
+
+	public Object getObject14(){ return object14; }
+
+	public void setObject14(Object object14) {
+		this.object14 = object14;
+	}
+
 	public String toString() {
 		return this.message;
 	}

@@ -3,17 +3,19 @@ package il.cshaifasweng.OCSFMediatorExample.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Entity
 @Table(name = "orders")
-public class Order {
+public class Order implements Serializable {
+
+    private static final long serialVersionUID = 7030377024343883717L;
 
     @Id
-    private int OrderId;
+    private int id;
 
-    @OneToOne(mappedBy = "order")
-    private Car car;
+    private int OrderId;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "parkinglot_id")
@@ -61,11 +63,6 @@ public class Order {
     public Order() {
 
     }
-    public Order(Car c1,String email) {
-        this.car=c1;
-        this.email=email;
-        this.isConnected=0;
-    }
 
     public Order(int carNumber, ParkingLot parkinglot, String entryTime, String exitTime,String email, int subId) {
         this.carNumber = carNumber;
@@ -80,6 +77,7 @@ public class Order {
     public Order(int OrderId,String TypeOfOrder,int EnterHour, int EnterDay, int EnterMonth, int EnterYear , int ExitHour,
                  int ExitDay, int ExitMonth, int ExitYear, ParkingLot parkinglot, int PersonId, String Password) {
         this.OrderId = OrderId;
+        this.id = OrderId;
         this.TypeOfOrder = TypeOfOrder;
         this.EnterHour = EnterHour;
         this.EnterDay = EnterDay;

@@ -191,8 +191,6 @@ public class App
         session.save(oneTimeCustomer);
         session.save(onSiteCustomer);
 
-        Order o1=new Order(car1,"m@gmail.com");
-        session.save(o1);
         session.getTransaction().commit();
 
 

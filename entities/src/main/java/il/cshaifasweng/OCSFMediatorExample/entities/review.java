@@ -10,7 +10,9 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "review")
-public class review {
+public class review implements Serializable{
+
+    private static final long serialVersionUID = 7030377024343017717L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
