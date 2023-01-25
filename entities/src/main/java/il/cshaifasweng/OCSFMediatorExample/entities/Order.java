@@ -59,6 +59,7 @@ public class Order implements Serializable {
 
     private String Password;
 
+    private int ParkingLotId;
 
     public Order() {
 
@@ -75,7 +76,7 @@ public class Order implements Serializable {
     }
 
     public Order(int OrderId,String TypeOfOrder,int EnterHour, int EnterDay, int EnterMonth, int EnterYear , int ExitHour,
-                 int ExitDay, int ExitMonth, int ExitYear, ParkingLot parkinglot, int PersonId, String Password) {
+                 int ExitDay, int ExitMonth, int ExitYear, int ParkingLotId, int PersonId, String Password) {
         this.OrderId = OrderId;
         this.id = OrderId;
         this.TypeOfOrder = TypeOfOrder;
@@ -89,7 +90,7 @@ public class Order implements Serializable {
         this.ExitYear = ExitYear;
         this.PersonId = PersonId;
         this.Password = Password;
-        setParkinglot(parkinglot);
+        this.ParkingLotId = ParkingLotId;
         this.isConnected=0;
     }
 

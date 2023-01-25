@@ -22,6 +22,7 @@ public class SimpleClient extends AbstractClient {
 	@Override
 	protected void handleMessageFromServer(Object msg) {
 		Message message = (Message) msg;
+		String msgString = msg.toString();
 		//*************************************************************************************
 		//*************************************************************************************
 		if(((Message) msg).getMessage().equals("#returnNewPrice") || ((Message) msg).getMessage().equals("#returnOldPrice")) {
@@ -94,7 +95,34 @@ public class SimpleClient extends AbstractClient {
 			System.out.println("refresh in simple client");
 			EventBus.getDefault().post(new RefreshComplaintsEvent(message));
 		}
+		if(msgString.equals("#caralreadylinked")) {
+			EventBus.getDefault().post(new MessageWaEvent((Message) (new Message("This car is already linked to another account"))));
+		}
+		if(msgString.equals("#caradded")){
+			EventBus.getDefault().post(new MessageWaEvent((Message) (new Message("The car has been added to your account successfully"))));
+		}
+		if ((msgString.equals("#cardoesntexist"))){
+			EventBus.getDefault().post(new MessageWaEvent((Message) (new Message("There is no such car that is linked to your account"))));
+		}
+		if ((msgString.equals("#carremoved"))){
+			EventBus.getDefault().post(new MessageWaEvent((Message) (new Message("The car has been removed from your account successfully"))));
+		}
+		if ((msgString.equals("#showparkinglotpicture"))){
+			Message msg1 = ((Message) msg);
+			EventBus.getDefault().post(new CurrentPictureEvent((int[][][]) msg1.getObject1() , (int)msg1.getObject2()));
+		}
+		if ((msgString.equals("#carentered"))){
+			EventBus.getDefault().post(new MessageWaEvent((Message) (new Message("Your car has been entered to the parking lot"))));
+		}
+		if ((msgString.equals("#SendToAlternative"))){
 
+		}
+		if ((msgString.equals("#CarIsNotInParkingLot"))){
+			EventBus.getDefault().post(new MessageWaEvent((Message) (new Message("This car is not in the selected parking lot"))));
+		}
+		if ((msgString.equals("#CarExited"))){
+			EventBus.getDefault().post(new MessageWaEvent((Message) (new Message("Your car has been exited from the parking lot"))));
+		}
 	}
 	public static SimpleClient getClient() {
 		if (client == null) {

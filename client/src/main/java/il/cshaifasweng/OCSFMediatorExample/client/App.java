@@ -22,6 +22,16 @@ public class App extends Application {
     private static Scene scene;
     private SimpleClient client;
 
+    private static int[][][] currentParkingLot;
+
+    public static int[][][] getCurrentParkingLot() {
+        return currentParkingLot;
+    }
+
+    public static void setCurrentParkingLot(int[][][] currentParkingLot) {
+        App.currentParkingLot = currentParkingLot;
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
     	EventBus.getDefault().register(this);
