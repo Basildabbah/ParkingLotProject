@@ -31,8 +31,8 @@ public class ChainManagerBoundary {
     }
 
     @FXML
-    void confirmnewpricefun(ActionEvent event) {
-
+    void confirmnewpricefun(ActionEvent event) throws IOException {
+        App.setRoot("ConfirmNewPrice");
     }
 
     @FXML
@@ -48,7 +48,7 @@ public class ChainManagerBoundary {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    App.setRoot("home");
+        App.setRoot("home");
     }
     @FXML
     void initialize() {

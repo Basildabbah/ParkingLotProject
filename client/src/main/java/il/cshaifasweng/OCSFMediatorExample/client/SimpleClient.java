@@ -22,6 +22,17 @@ public class SimpleClient extends AbstractClient {
 	@Override
 	protected void handleMessageFromServer(Object msg) {
 		Message message = (Message) msg;
+		//*************************************************************************************
+		//*************************************************************************************
+		if(((Message) msg).getMessage().equals("#returnNewPrice") || ((Message) msg).getMessage().equals("#returnOldPrice")) {
+			System.out.println("456");
+			EventBus.getDefault().post(new ConfirmNewPriceEvent(message));
+		}
+		if(((Message) msg).getMessage().equals("showpricefunManager")) {
+			EventBus.getDefault().post(new showPriceManagerEvent(message));
+		}
+		//*************************************************************************************
+		//*************************************************************************************
 		if(((Message) msg).getMessage().equals("loginadmin")) {
 			EventBus.getDefault().post(new loginadminEvent(message));
 		}

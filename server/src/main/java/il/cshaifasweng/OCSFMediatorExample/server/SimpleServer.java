@@ -88,7 +88,204 @@ public class SimpleServer extends AbstractServer {
 	@Override
 	protected void handleMessageFromClient(Object msg, ConnectionToClient client) throws Exception {
 		String msgString = msg.toString();
+//		*************************************************************************************
+//		*************************************************************************************
+		if (msgString.startsWith("#Managerprices_")) {
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			List<Prices> parks = getAll(Prices.class);
+			Message message = new Message("showpricefunManager");
+			String t = String.valueOf(msgString.charAt(15));
+			String m = "";
+			String[] mm = {"", "", ""};
+			int i = 0;
+			for (Prices p : parks) {
+				if (p.getId() == Integer.parseInt(t)) {
+					message.setObject4(p.getValueNote().get(0));
+					message.setObject2(p.getValueNote().get(1));
+					m = parks.get(i).getPaymentMethod().get(0);
+					mm[0] = m;
+					m += ",";
+					m += parks.get(i).getPaymentMethod().get(1);
+					mm[1] = parks.get(i).getPaymentMethod().get(1);
+					m += ",";
+					m += parks.get(i).getPaymentMethod().get(2);
+					mm[2] = parks.get(i).getPaymentMethod().get(2);
+					message.setObject3(mm);
+					message.setObject5(p.getValueNote().get(2));
+					message.setObject6(p.getValueNote().get(3));
+					message.setObject7(p.getValueNote().get(4));
+				}
+			}
+			message.setObject1(t);
+			try {
+				client.sendToClient(message);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 
+		if (msgString.startsWith("#UpdateNewPrices")) {
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			Message newPriceData = (Message) msg;
+			//int i = Integer.parseInt(newPriceData.getObject1().toString()) - 1;
+			int j = Integer.parseInt(newPriceData.getObject6().toString()) - 1;
+			List<Prices> myPrices = getAll(Prices.class);
+			List<String> newPrice = myPrices.get(j).getNewValueNote();
+			List<String> oldPrice = myPrices.get(j).getValueNote();
+
+			/*
+			System.out.println(oldPrice.get(0));
+			System.out.println(oldPrice.get(1));
+			System.out.println(oldPrice.get(2));
+			System.out.println(oldPrice.get(3));
+			System.out.println(oldPrice.get(4));
+			System.out.println(newPriceData.getObject1().toString());
+			System.out.println(newPriceData.getObject2().toString());
+			System.out.println(newPriceData.getObject3().toString());
+			System.out.println(newPriceData.getObject4().toString());
+			System.out.println(newPriceData.getObject5().toString());
+*/
+
+			if (newPriceData.getObject1().toString().equals("1")) {
+				myPrices.get(j).getValueNote().set(0, newPrice.get(0));
+			}
+			if (newPriceData.getObject2().toString().equals("1")) {
+				myPrices.get(j).getValueNote().set(1, newPrice.get(1));
+			}
+			if (newPriceData.getObject3().toString().equals("1")) {
+				myPrices.get(j).getValueNote().set(2, newPrice.get(2));
+			}
+			if (newPriceData.getObject4().toString().equals("1")){
+				myPrices.get(j).getValueNote().set(3, newPrice.get(3));
+			}
+			if (newPriceData.getObject5().toString().equals("1")){
+				myPrices.get(j).getValueNote().set(4, newPrice.get(4));
+			}
+/*
+			System.out.println(oldPrice.get(0));
+			System.out.println(oldPrice.get(1));
+			System.out.println(oldPrice.get(2));
+			System.out.println(oldPrice.get(3));
+			System.out.println(oldPrice.get(4));*/
+			for (int k=0; k<5 ; k++)
+				myPrices.get(j).getNewValueNote().set(k, "-1");
+
+			//myPrices.getNewValueNote().set(i, "new value");
+			//session.save(myPrices.get(i).getNewValueNote());
+			//session.save(myPrices.get(i).getValueNote());
+			//session.update(myPrices);
+			session.update(myPrices.get(j));
+			session.flush();
+			session.getTransaction().commit();
+		}
+		if (msgString.startsWith("#getOldPrice")) {
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			System.out.println("123");
+			Message newPriceData = (Message) msg;
+			int i = Integer.parseInt(newPriceData.getObject1().toString()) - 1;
+			List<Prices> myPrices = getAll(Prices.class);
+			Message message = new Message("#returnOldPrice");
+			if (i >= myPrices.size()){
+				System.out.println("1");
+				message.setObject1("error");
+			}
+			else {
+				List<String> oldPrice = myPrices.get(i).getValueNote();
+				System.out.println("2");
+				message.setObject1("old");
+				message.setObject2(oldPrice.get(0));
+				message.setObject3(oldPrice.get(1));
+				message.setObject4(oldPrice.get(2));
+				message.setObject5(oldPrice.get(3));
+				message.setObject6(oldPrice.get(4));
+			}
+			System.out.println("3");
+			try {
+				client.sendToClient(message);
+				System.out.println("4");
+			} catch (IOException e) {
+				System.out.println("5");
+				e.printStackTrace();
+			}
+		}
+
+		if (msgString.startsWith("#getNewPrice")) {
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			System.out.println("123");
+			Message newPriceData = (Message) msg;
+			int i = Integer.parseInt(newPriceData.getObject1().toString()) - 1;
+			List<Prices> myPrices = getAll(Prices.class);
+			Message message = new Message("#returnNewPrice");
+			if (i >= myPrices.size()){
+				System.out.println("1");
+				message.setObject1("error1");
+			}
+			else {
+				List<String> newPrice = myPrices.get(i).getNewValueNote();
+				System.out.println("2");
+				message.setObject1("new");
+				message.setObject2(newPrice.get(0));
+				//newPrice.set(1,"3");
+				message.setObject3(newPrice.get(1));
+				//message.setObject3("3");
+				message.setObject4(newPrice.get(2));
+				//newPrice.set(3,"5");
+				message.setObject5(newPrice.get(3));
+				message.setObject6(newPrice.get(4));
+			}
+			System.out.println("3");
+			try {
+				client.sendToClient(message);
+				System.out.println("4");
+			} catch (IOException e) {
+				System.out.println("5");
+				e.printStackTrace();
+			}
+			session.update(myPrices.get(i));
+			session.flush();
+			session.getTransaction().commit();
+		}
+
+		if (msgString.startsWith("#sendNewPrice")) {
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+
+			Message newPriceData = (Message) msg;
+			int i = Integer.parseInt(newPriceData.getObject1().toString()) - 1;
+			int j = 0;
+			switch (newPriceData.getObject2().toString()){
+				case "On Site":
+					j = 0;
+					break;
+				case "Preorder":
+					j = 1;
+					break;
+				case "Client for One Car":
+					j = 2;
+					break;
+				case "Client for a Number of Cars":
+					j = 3;
+					break;
+				case "Full Subscription":
+					j = 4;
+					break;
+				default:
+					break;
+			}
+			List<Prices> myPrices = getAll(Prices.class);
+			myPrices.get(i).getNewValueNote().set(j, newPriceData.getObject3().toString());
+
+			//myPrices.getNewValueNote().set(i, "new value");
+			session.update(myPrices.get(i));
+			session.flush();
+			session.getTransaction().commit();
+		}
+		//*************************************************************************************************
+		//*************************************************************************************************
 		if (msgString.startsWith("prices_")) {
 			session = sessionFactory.openSession();
 			session.beginTransaction();

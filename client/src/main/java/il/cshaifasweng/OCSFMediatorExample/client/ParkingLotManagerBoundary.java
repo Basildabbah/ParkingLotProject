@@ -47,8 +47,8 @@ public class ParkingLotManagerBoundary {
     }
 
     @FXML
-    void Setpricesfun(ActionEvent event) {
-
+    void Setpricesfun(ActionEvent event) throws IOException {
+        App.setRoot("setNewPrice");
     }
 
     @FXML
@@ -62,8 +62,8 @@ public class ParkingLotManagerBoundary {
     }
 
     @FXML
-    void setpricefun(ActionEvent event) {
-
+    void setpricefun(ActionEvent event) throws IOException {
+        App.setRoot("showPriceManager");
     }
     @FXML
     void initialize() {

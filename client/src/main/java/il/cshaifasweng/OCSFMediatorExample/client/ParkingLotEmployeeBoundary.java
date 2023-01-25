@@ -46,7 +46,7 @@ public class ParkingLotEmployeeBoundary {
     }
 
     @FXML
-    void parkingnotactivefun(ActionEvent event) {
-
+    void parkingnotactivefun(ActionEvent event) throws IOException {
+        App.setRoot("InactiveParkings");
     }
 }
