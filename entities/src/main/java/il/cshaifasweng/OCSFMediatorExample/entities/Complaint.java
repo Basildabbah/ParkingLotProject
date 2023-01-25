@@ -25,12 +25,15 @@ public class Complaint implements Serializable {
 
     private double refund;
 
+    private int userId;
+
     public Complaint() {
     }
 
-    public Complaint(String complaintMessage,int parkingLotId) {
+    public Complaint(String complaintMessage,int parkingLotId , int userid) {
         this.complaintMessage = complaintMessage;
         this.parkingLotId = parkingLotId;
         this.status = "no response yet";
+        this.userId = userid;
     }
 }

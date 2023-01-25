@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Data
@@ -29,14 +30,19 @@ public class Prices  {
     @OneToOne(mappedBy = "price")
     private ParkingLot parkinglot;
 
+    @ElementCollection
+    private List<String> newValueNote;
 
     public Prices() {
     }
+
 
     public Prices(List<String> typeOfParking, List<String> paymentMethod, List<String> valueNote , ParkingLot parkinglot) {
         this.typeOfParking = typeOfParking;
         this.paymentMethod = paymentMethod;
         this.valueNote = valueNote;
+        int size = typeOfParking.size();
+        this.newValueNote = new ArrayList<>(Collections.nCopies(size, "-1"));
         setParkinglot(parkinglot);
     }
 

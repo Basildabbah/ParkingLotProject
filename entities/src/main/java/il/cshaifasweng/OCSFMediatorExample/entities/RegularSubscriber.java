@@ -15,6 +15,7 @@ public class RegularSubscriber {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int subscriberId;
+
     private int id;
 
     private String firstName;
@@ -30,14 +31,16 @@ public class RegularSubscriber {
     private String timeOfExit;
 
     private int parkingLotId;
-    private String isConnected;
 
+    private String isConnected;
 
     private String password;
 
     private int remainingHours;
 
     private LocalDateTime subscriptionExpiryDate;
+
+    private int numberOfCars;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "regularsubscriber")
     private List<Car> carList;
@@ -55,15 +58,19 @@ public class RegularSubscriber {
         this.password = password;
         LocalDateTime now = LocalDateTime.now();
         subscriptionExpiryDate = now.plusDays(28);
-        //??
-        this.remainingHours = 14;
+        this.remainingHours = 60;
         this.carList = new ArrayList<Car>();
         this.flagDay = false;
         isConnected=x;
+        this.numberOfCars = 0;
     }
 
-        public void addCar(Car car){
+    public void addCar(Car car){
         this.carList.add(car);
+        this.numberOfCars++;
+        if (this.numberOfCars > 1){
+            remainingHours+=54;
+        }
     }
 
     public void removeCar(Car car){
