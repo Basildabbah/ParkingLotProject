@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.setNewPrice">
+    <children>
+        <AnchorPane prefHeight="1010.0" prefWidth="1010.0" style="-fx-background-color: #7293ab;">
+            <children>
+                <AnchorPane fx:id="APsetPrice" layoutX="97.0" layoutY="26.0" prefHeight="620.0" prefWidth="730.0">
+                    <children>
+                        <Label fx:id="setNewPriceLabel" alignment="CENTER" layoutX="258.0" layoutY="43.0" prefHeight="62.0" prefWidth="199.0" text="Set New Prices" textFill="#991010" wrapText="true">
+                            <font>
+                                <Font name="Californian FB Italic" size="36.0" />
+                            </font>
+                            <effect>
+                                <Bloom />
+                            </effect>
+                        </Label>
+                        <Label fx:id="ParkIdLabel" layoutX="178.0" layoutY="184.0" text="Parking Lot ID" textFill="#f7ff00">
+                            <font>
+                                <Font name="Californian FB Italic" size="18.0" />
+                            </font>
+                        </Label>
+                        <MenuButton fx:id="ParkLotIdMenu" layoutX="341.0" layoutY="180.0" mnemonicParsing="false" text="Select Parking Lot ID">
+                            <items>
+                                <MenuItem fx:id="setPriceParkID1" mnemonicParsing="false" onAction="#setMenuPriceParkID1" text="1" />
+                                <MenuItem fx:id="setPriceParkID2" mnemonicParsing="false" onAction="#setMenuPriceParkID2" text="2" />
+                                <MenuItem fx:id="setPriceParkID3" mnemonicParsing="false" onAction="#setMenuPriceParkID3" text="3" />
+                                <MenuItem fx:id="setPriceParkID4" mnemonicParsing="false" onAction="#setMenuPriceParkID4" text="4" />
+                                <MenuItem fx:id="setPriceParkID5" mnemonicParsing="false" onAction="#setMenuPriceParkID5" text="5" />
+                                <MenuItem fx:id="setPriceParkID6" mnemonicParsing="false" onAction="#setMenuPriceParkID6" text="6" />
+                                <MenuItem fx:id="setPriceParkID7" mnemonicParsing="false" onAction="#setMenuPriceParkID7" text="7" />
+                            </items>
+                        </MenuButton>
+                        <Label fx:id="typeOfParkLabel" layoutX="173.0" layoutY="237.0" text="Type of Parking" textFill="#f7ff00">
+                            <font>
+                                <Font name="Californian FB Italic" size="18.0" />
+                            </font>
+                        </Label>
+                        <MenuButton fx:id="typeClientMenu" disable="true" layoutX="341.0" layoutY="233.0" mnemonicParsing="false" text="Select Type of Client">
+                            <items>
+                                <MenuItem fx:id="TOConSite" mnemonicParsing="false" onAction="#setTOConSite" text="On Site" />
+                                <MenuItem fx:id="TOConeTime" mnemonicParsing="false" onAction="#setTOConeTime" text="Preorder" />
+                                <MenuItem fx:id="TOConeCar" mnemonicParsing="false" onAction="#setTOConeCar" text="Client for One Car" />
+                                <MenuItem fx:id="TOCbusiness" mnemonicParsing="false" onAction="#setTOCbusiness" text="Client for a Number of Cars" />
+                                <MenuItem fx:id="TOCfullSub" mnemonicParsing="false" onAction="#setTOCfullSub" text="Full Subscription" />
+                            </items>
+                        </MenuButton>
+                        <Label fx:id="newPayLabel" layoutX="158.0" layoutY="291.0" text="New Payment Method" textFill="#f7ff00">
+                            <font>
+                                <Font name="Californian FB Italic" size="18.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="newPayTx" disable="true" layoutX="341.0" layoutY="289.0" prefHeight="25.0" prefWidth="175.0" promptText="Enter New Price" />
+                        <Button fx:id="updatePriceBt" disable="true" layoutX="299.0" layoutY="362.0" mnemonicParsing="false" onAction="#sendNewPrice" text="Update Price" />
+                        <AnchorPane fx:id="newPriceEmpty" cache="true" layoutX="146.0" layoutY="148.0" prefHeight="195.0" prefWidth="403.0" style="-fx-background-color: #444444;" visible="false">
+                            <children>
+                                <Label layoutX="102.0" layoutY="26.0" prefHeight="62.0" prefWidth="199.0" text="Please Enter New Price" textFill="RED">
+                                    <font>
+                                        <Font name="Californian FB Italic" size="24.0" />
+                                    </font>
+                                </Label>
+                                <Button fx:id="ReturnPriceEmptyBtn" layoutX="147.0" layoutY="98.0" mnemonicParsing="false" onAction="#ReturnPriceEmpty" prefHeight="52.0" prefWidth="110.0" text="Return">
+                                    <font>
+                                        <Font name="System Bold Italic" size="24.0" />
+                                    </font>
+                                </Button>
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="newPriceUpdated" cache="true" layoutX="121.0" layoutY="136.0" prefHeight="255.0" prefWidth="441.0" style="-fx-background-color: #444444;" visible="false">
+                            <children>
+                                <Label layoutX="93.0" layoutY="32.0" prefHeight="83.0" prefWidth="257.0" text="New Price Updated" textFill="RED">
+                                    <font>
+                                        <Font name="Californian FB Italic" size="36.0" />
+                                    </font>
+                                </Label>
+                                <Button fx:id="ReturnPriceUpdatedBtn" layoutX="166.0" layoutY="156.0" mnemonicParsing="false" onAction="#ReturnPriceUpdated" prefHeight="52.0" prefWidth="110.0" text="Return">
+                                    <font>
+                                        <Font name="System Bold Italic" size="24.0" />
+                                    </font>
+                                </Button>
+                            </children>
+                        </AnchorPane>
+                  <Button fx:id="returnToMain" layoutX="339.0" layoutY="427.0" mnemonicParsing="false" onAction="#returnToMainbtn" prefHeight="47.0" prefWidth="429.0" text="Return to Parking Lot Manager Main Page">
+                     <font>
+                        <Font name="System Bold Italic" size="20.0" />
+                     </font>
+                  </Button>
+                    </children>
+                </AnchorPane>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

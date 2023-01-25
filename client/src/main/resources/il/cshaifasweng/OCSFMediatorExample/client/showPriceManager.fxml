@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="1000.0" prefWidth="1000.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.showPriceManager">
+    <children>
+        <Label alignment="CENTER" layoutX="377.0" layoutY="89.0" prefHeight="62.0" prefWidth="199.0" text="Parking Lots" textFill="#991010" wrapText="true">
+            <font>
+                <Font name="Californian FB Italic" size="28.0" />
+            </font>
+            <effect>
+                <Bloom />
+            </effect>
+        </Label>
+        <ImageView fitHeight="112.0" fitWidth="115.0" layoutX="419.0" layoutY="583.0">
+            <image>
+                <Image url="@../../../../images/Image-4-1.png" />
+            </image>
+        </ImageView>
+        <MenuButton fx:id="menu" layoutX="415.0" layoutY="151.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="122.0" text="Choose Park Id:">
+            <items>
+                <MenuItem fx:id="park1" mnemonicParsing="false" onAction="#park1" text="Park 1" />
+                <MenuItem fx:id="park2" mnemonicParsing="false" onAction="#park2" text="Park 2" />
+                <MenuItem fx:id="park3" mnemonicParsing="false" onAction="#park3" text="Park 3" />
+            </items>
+        </MenuButton>
+      <SplitPane fx:id="textbox" dividerPositions="0.6029411764705882" layoutX="340.0" layoutY="224.0" prefHeight="122.0" prefWidth="274.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="120.0" prefWidth="162.0">
+               <children>
+                  <VBox layoutY="6.0" prefHeight="112.0" prefWidth="161.0">
+                     <children>
+                            <Label alignment="CENTER" prefHeight="18.0" prefWidth="164.0" text="Park Id" textAlignment="CENTER" />
+                            <Label alignment="CENTER" prefHeight="18.0" prefWidth="164.0" text="On Site" textAlignment="CENTER" />
+                            <Label alignment="CENTER" prefHeight="18.0" prefWidth="164.0" text="Preorder" textAlignment="CENTER" />
+                            <Label alignment="CENTER" prefHeight="18.0" prefWidth="164.0" text="Client for One Car" textAlignment="CENTER" />
+                            <Label alignment="CENTER" prefHeight="18.0" prefWidth="164.0" text="Client for a Number of Cars" textAlignment="CENTER" />
+                            <Label alignment="CENTER" prefHeight="18.0" prefWidth="164.0" text="Full Subscription" textAlignment="CENTER" />
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="134.0" prefWidth="61.0">
+               <children>
+                  <VBox layoutY="4.0" prefHeight="112.0" prefWidth="100.0">
+                     <children>
+                            <Label fx:id="label1" alignment="CENTER" prefHeight="18.0" prefWidth="133.0" text="label" />
+                            <Label fx:id="label11" alignment="CENTER" prefHeight="18.0" prefWidth="133.0" text="label" />
+                            <Label fx:id="label111" alignment="CENTER" prefHeight="18.0" prefWidth="133.0" text="label" />
+                            <Label fx:id="label1111" alignment="CENTER" prefHeight="18.0" prefWidth="133.0" text="label" />
+                            <Label fx:id="label11111" alignment="CENTER" prefHeight="18.0" prefWidth="133.0" text="label" />
+                            <Label fx:id="label111111" alignment="CENTER" prefHeight="18.0" prefWidth="133.0" text="label" />
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+      <Button fx:id="returnToMain" layoutX="415.0" layoutY="387.0" mnemonicParsing="false" onAction="#returnToMainbtn" prefHeight="47.0" prefWidth="429.0" text="Return to Parking Lot Manager Main Page">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Button>
+    </children>
+</AnchorPane>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.InactiveParkings">
+
+   <children>
+      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #7293ab;" AnchorPane.bottomAnchor="216.0" AnchorPane.topAnchor="90.0">
+         <children>
+            <AnchorPane prefHeight="591.0" prefWidth="859.0" AnchorPane.bottomAnchor="216.0" AnchorPane.leftAnchor="52.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Label layoutX="338.0" layoutY="144.0" prefHeight="46.0" prefWidth="108.0" text="Old Prices" textFill="#ffe300" visible="false">
+                     <font>
+                        <Font name="System Italic" size="21.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="534.0" layoutY="149.0" text="New Prices" textFill="#ffe300" visible="false">
+                     <font>
+                        <Font name="System Italic" size="21.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="245.0" layoutY="159.0" prefHeight="46.0" prefWidth="152.0" text="Parking Lot:" textFill="#ffe300" AnchorPane.leftAnchor="242.0">
+                     <font>
+                        <Font name="System Italic" size="21.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="SetInactive" layoutX="296.0" layoutY="400.0" mnemonicParsing="false" onAction="#SetInactivebtn" text="Set Inactive" textFill="#991010">
+                     <font>
+                        <Font name="Californian FB" size="20.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="returnToMain" layoutX="428.0" layoutY="485.0" mnemonicParsing="false" onAction="#returnToMainbtn" prefHeight="47.0" prefWidth="431.0" text="Return to Parking Lot Employee Main Page">
+                     <font>
+                        <Font name="System Bold Italic" size="20.0" />
+                     </font>
+                  </Button>
+                  <Label alignment="CENTER" layoutX="290.0" layoutY="-24.0" prefHeight="62.0" prefWidth="323.0" text="Inactive / Active Parkings" textFill="#991010" wrapText="true">
+                     <font>
+                        <Font name="Californian FB Italic" size="36.0" />
+                     </font>
+                     <effect>
+                        <Bloom />
+                     </effect>
+                  </Label>
+                  <Label layoutX="242.0" layoutY="210.0" prefHeight="46.0" prefWidth="152.0" text="Row:" textFill="#ffe300" AnchorPane.leftAnchor="242.0">
+                     <font>
+                        <Font name="System Italic" size="21.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="244.0" layoutY="263.0" prefHeight="46.0" prefWidth="152.0" text="Column:" textFill="#ffe300" AnchorPane.leftAnchor="242.0">
+                     <font>
+                        <Font name="System Italic" size="21.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="245.0" layoutY="313.0" prefHeight="46.0" prefWidth="152.0" text="Depth:" textFill="#ffe300" AnchorPane.leftAnchor="242.0">
+                     <font>
+                        <Font name="System Italic" size="21.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="enterPlId" layoutX="471.0" layoutY="170.0" onAction="#enterPlIdtxt" promptText="Enter Parking lot Number" AnchorPane.leftAnchor="471.0" AnchorPane.rightAnchor="235.0">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="Col" layoutX="471.0" layoutY="274.0" onAction="#Coltxt" promptText="Enter Column Number" AnchorPane.leftAnchor="471.0" AnchorPane.rightAnchor="235.0">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="Row" layoutX="476.0" layoutY="220.0" onAction="#Rowtxt" promptText="Enter Row Number (0-2)" AnchorPane.leftAnchor="471.0" AnchorPane.rightAnchor="235.0">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="Depth" layoutX="476.0" layoutY="322.0" onAction="#Depthtxt" promptText="Enter Depth Number (0-2)" AnchorPane.leftAnchor="471.0" AnchorPane.rightAnchor="235.0">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="SetActive" layoutX="477.0" layoutY="399.0" mnemonicParsing="false" onAction="#SetActivebtn" text="Set Active" textFill="#991010">
+                     <font>
+                        <Font name="Californian FB" size="20.0" />
+                     </font>
+                  </Button>
+                  <AnchorPane fx:id="wrongParkDataAP1" layoutX="150.0" layoutY="213.0" prefHeight="205.0" prefWidth="637.0" style="-fx-background-color: #666666;" visible="false">
+                     <children>
+                        <Label layoutX="174.0" layoutY="21.0" prefHeight="44.0" prefWidth="292.0" text="Wrong Parking Lot Data" textFill="#0dff00" AnchorPane.bottomAnchor="140.0" AnchorPane.leftAnchor="173.0" AnchorPane.rightAnchor="172.0" AnchorPane.topAnchor="21.0">
+                           <font>
+                              <Font name="Californian FB Italic" size="36.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="returnToInactive1" layoutX="152.0" layoutY="113.0" mnemonicParsing="false" onAction="#returnToInactive1btn" prefHeight="47.0" prefWidth="378.0" text="Return" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.0">
+                           <font>
+                              <Font name="System Bold Italic" size="20.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="updateSuccessFullAP" layoutX="140.0" layoutY="207.0" prefHeight="205.0" prefWidth="637.0" style="-fx-background-color: #666666;" visible="false">
+                     <children>
+                        <Label layoutX="139.0" layoutY="21.0" prefHeight="44.0" prefWidth="377.0" text="Inactive / Active Spot updated" textFill="#0dff00" AnchorPane.bottomAnchor="140.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.0" AnchorPane.topAnchor="21.0">
+                           <font>
+                              <Font name="Californian FB Italic" size="36.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="returnSuccessFull" layoutX="115.0" layoutY="113.0" mnemonicParsing="false" onAction="#returnSuccessFullbtn" prefHeight="47.0" prefWidth="414.0" text="Return to Inactive / Active Parkings Page" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="111.0" AnchorPane.rightAnchor="111.0">
+                           <font>
+                              <Font name="System Bold Italic" size="20.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="wrongParkDataAP2" layoutX="160.0" layoutY="223.0" prefHeight="205.0" prefWidth="637.0" style="-fx-background-color: #666666;" visible="false">
+                     <children>
+                        <Label layoutX="124.0" layoutY="21.0" prefHeight="44.0" prefWidth="402.0" text="Please Fill all Parking Lot Data" textFill="#0dff00" AnchorPane.bottomAnchor="140.0" AnchorPane.leftAnchor="118.0" AnchorPane.rightAnchor="118.0" AnchorPane.topAnchor="21.0">
+                           <font>
+                              <Font name="Californian FB Italic" size="36.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="returnToInactive2" layoutX="152.0" layoutY="113.0" mnemonicParsing="false" onAction="#returnToInactive2btn" prefHeight="47.0" prefWidth="378.0" text="Return" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.0">
+                           <font>
+                              <Font name="System Bold Italic" size="20.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
