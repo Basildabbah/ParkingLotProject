@@ -123,6 +123,24 @@ public class SimpleClient extends AbstractClient {
 		if ((msgString.equals("#CarExited"))){
 			EventBus.getDefault().post(new MessageWaEvent((Message) (new Message("Your car has been exited from the parking lot"))));
 		}
+		if ((msgString.equals("#NumberOfColIsWrong"))){
+			EventBus.getDefault().post(new MessageWaEvent((Message) (new Message("Please enter a valid col number for the parking lot you have picked"))));
+		}
+		if ((msgString.equals("#SomeoneIsParked"))){
+			EventBus.getDefault().post(new MessageWaEvent((Message) (new Message("Someone is parked at the spot u have chose to deactivate so the process can not be completed"))));
+		}
+		if ((msgString.equals("#InactiveSuccess"))){
+			EventBus.getDefault().post(new MessageWaEvent((Message) (new Message("The spot has been deactivated"))));
+		}
+		if ((msgString.equals("#ActiveSuccess"))){
+			EventBus.getDefault().post(new MessageWaEvent((Message) (new Message("The spot has been activated"))));
+		}
+		if ((msgString.equals("#subscriptionrenewed"))){
+			EventBus.getDefault().post(new MessageWaEvent((Message) (new Message("Your subscription has been renewed"))));
+		}
+
+
+
 	}
 	public static SimpleClient getClient() {
 		if (client == null) {
