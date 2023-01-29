@@ -243,7 +243,7 @@
                 </Label>
             </children>
         </AnchorPane>
-      <TextField fx:id="id" layoutX="425.0" layoutY="263.0" />
+      <TextField fx:id="parkingId" layoutX="529.0" layoutY="262.0" promptText="parkingId" />
       <TextField fx:id="textC" layoutX="302.0" layoutY="321.0" prefHeight="160.0" prefWidth="410.0" style="-fx-background-color: #b26868;" />
       <Button fx:id="send" layoutX="488.0" layoutY="523.0" mnemonicParsing="false" onAction="#send" text="send" />
       <Label fx:id="complainnum" layoutX="437.0" layoutY="491.0" text="Your Complain Number is:" textFill="#10f700" visible="false" />

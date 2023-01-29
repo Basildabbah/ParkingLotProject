@@ -2341,9 +2341,9 @@ public class SimpleServer extends AbstractServer {
 		}
 
 		if (msgString.startsWith("newCompliain")) {
-
+			Message msg1= (Message) msg;
 			String[] a = msgString.split("\\^");
-			Complaint c = new Complaint(a[1], Integer.parseInt(a[2]), 1);
+			Complaint c = new Complaint(a[1], Integer.parseInt(a[2]), Integer.parseInt(msg1.getObject1().toString()));
 			session = sessionFactory.openSession();
 			session.beginTransaction();
 			session.save(c);
@@ -2360,7 +2360,8 @@ public class SimpleServer extends AbstractServer {
 			List<Complaint> complaints = new ArrayList<Complaint>();
 
 			for (Complaint e : c) {
-				if (e.getParkingLotId() == Integer.parseInt(a[1])) {
+				if (e.getUserId() == Integer.parseInt(a[1])) {
+					e.getParkingLotId();
 					complaints.add(e);
 					System.out.println(e);
 				}

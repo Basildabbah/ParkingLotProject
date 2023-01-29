@@ -1,11 +1,19 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
+import javax.mail.*;
+import javax.mail.Message;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -13,14 +21,15 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
-import java.util.Base64;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 /**
  * Hello world!
  *
@@ -28,6 +37,7 @@ import java.util.Base64;
 public class App
 {
     static Session session;
+    private static ScheduledExecutorService executor;
 
     private static String encrypt(String originalString, String secretKey) throws Exception {
         Key key = new SecretKeySpec(secretKey.getBytes(), "AES");
@@ -201,7 +211,14 @@ public class App
         OnSiteCustomer onSiteCustomer = new OnSiteCustomer(149,"Jane", "Smith", "jane.smith@company.com", "789" , car2);
         session.save(oneTimeCustomer);
         session.save(onSiteCustomer);
-
+        Complaint c1=new Complaint("aaaaaaa1",6,1);
+        Complaint c2=new Complaint("bbbbb1",6,1);
+        Complaint c3=new Complaint("aaa2",7,2);
+        session.save(c1);
+        session.save(c2);
+        session.save(c3);
+//        Order o1=new Order(car1,"m@gmail.com");
+//        session.save(o1);
         session.getTransaction().commit();
 
 
@@ -245,6 +262,13 @@ public class App
                 session.getSessionFactory().close();
             }
         }
+        executor = Executors.newSingleThreadScheduledExecutor();
+        executor.scheduleAtFixedRate(App::sendEmail, 0, 1, TimeUnit.SECONDS);
+
         server.listen();
     }
+    private static void sendEmail() {
+        SendEmail.SendEmail(" "," "," ");
+    }
+
 }
