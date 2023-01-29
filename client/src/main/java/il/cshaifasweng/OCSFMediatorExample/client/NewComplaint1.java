@@ -166,7 +166,6 @@ public class NewComplaint1 {
 
     @FXML
     void initialize() {
-
         id.setText(idd);
         id.setDisable(true);
         EventBus.getDefault().register(this);

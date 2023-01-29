@@ -292,16 +292,16 @@ public class App
         server.listen();
     }
     private static void sendEmail() {
-        List<Order> x=getAll(Order.class);
-        LocalDateTime t=LocalDateTime.now();
-//        System.out.println(t.getHour());
-//        System.out.println(t.getMinute());
-//        System.out.println(t.getDayOfMonth());
-//        System.out.println( t.getMonthValue());
-//        System.out.println(t.getDayOfYear());
-        for (Order xi:x) {
-            SendEmail.SendEmail(" ", " ", " ");
-        }
+//        List<Order> x=getAll(Order.class);
+//        LocalDateTime t=LocalDateTime.now();
+////        System.out.println(t.getHour());
+////        System.out.println(t.getMinute());
+////        System.out.println(t.getDayOfMonth());
+////        System.out.println( t.getMonthValue());
+////        System.out.println(t.getDayOfYear());
+//        for (Order xi:x) {
+//            SendEmail.SendEmail(" ", " ", " ");
+//        }
     }
 
 }

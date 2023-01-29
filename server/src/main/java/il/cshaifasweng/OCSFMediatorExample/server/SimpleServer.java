@@ -2343,10 +2343,11 @@ public class SimpleServer extends AbstractServer {
 		if (msgString.startsWith("newCompliain")) {
 			Message msg1= (Message) msg;
 			String[] a = msgString.split("\\^");
-			Complaint c = new Complaint(a[1], Integer.parseInt(a[2]), Integer.parseInt(msg1.getObject1().toString()));
+			Complaint c = new Complaint(a[1],  Integer.parseInt(msg1.getObject1().toString()),Integer.parseInt(a[2]));
 			session = sessionFactory.openSession();
 			session.beginTransaction();
 			session.save(c);
+			session.getTransaction().commit();
 			client.sendToClient(new Message("add compliant succ", c.getId()));
 
 		}
