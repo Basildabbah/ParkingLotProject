@@ -11,7 +11,6 @@ import javax.persistence.*;
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @OneToOne(mappedBy = "order")
@@ -68,6 +67,7 @@ public class Order {
         this.ParkingLotId = ParkingLotId;
         this.PersonId = PersonId;
         this.Password = Password;
+        this.id = OrderId;
     }
 
     public void setParkinglot(ParkingLot parkinglot) {
