@@ -1392,78 +1392,78 @@ public class SimpleServer extends AbstractServer {
 			}
 		}
 
-		if (msgString.equals("#loginadmin")) {
-			session = sessionFactory.openSession();
-			session.beginTransaction();
-			Message message = new Message("loginadmin");
-			List<Admin> listadmin = getAll(Admin.class);
-			List<ParkingLotManager> listadmin2 = getAll(ParkingLotManager.class);
-			Message msg1 = ((Message) msg);
-			int c = 0;
-			int c2 = 0;
-			int twoconnectedclients=0;
-			for (Admin p : listadmin) {
-				String tmp = "";
-				tmp += p.getId();
-				if (p.getIsConnected().equals("1")&&p.getOccupation().equals("Chain Manager") && tmp.equals(msg1.getObject1()) && decrypt(p.getPassword(), "1234567812345678").equals(msg1.getObject2())) {
-					twoconnectedclients=-1;
-				}
-				if (p.getIsConnected().equals("0")&&p.getOccupation().equals("Chain Manager") && tmp.equals(msg1.getObject1()) && decrypt(p.getPassword(), "1234567812345678").equals(msg1.getObject2())) {
-					c = 1;
-					p.setIsConnected("1");
-					session.save(p);
-					session.update(p);
-					twoconnectedclients=1;
-					message.setObject1("yes Chain Manager");
-				}
-				if (p.getIsConnected().equals("1")&&p.getOccupation().equals("Customer Service") && tmp.equals(msg1.getObject1()) && decrypt(p.getPassword(), "1234567812345678").equals(msg1.getObject2())) {
-					twoconnectedclients=-1;
-				}
-				if (p.getIsConnected().equals("0")&&p.getOccupation().equals("Customer Service") && tmp.equals(msg1.getObject1()) && decrypt(p.getPassword(), "1234567812345678").equals(msg1.getObject2())) {
-					c = 1;
-					twoconnectedclients=1;
-					p.setIsConnected("1");
-					session.save(p);
-					session.update(p);
-					message.setObject1("yes Customer Service");
-				}
-
-			}
-			for (ParkingLotManager p : listadmin2) {
-				String tmp = "";
-				tmp += p.getId();
-				if (p.getIsConnected().equals("1")&& tmp.equals(msg1.getObject1()) && decrypt(p.getPassword(), "1234567812345678").equals(msg1.getObject2())) {
-					twoconnectedclients=-1;
-					System.out.println("aaa");
-				}
-				if ( p.getIsConnected().equals("0")&&tmp.equals(msg1.getObject1()) && decrypt(p.getPassword(), "1234567812345678").equals(msg1.getObject2())) {
-					c = 1;
-					twoconnectedclients=1;
-					p.setIsConnected("1");
-					session.save(p);
-					session.update(p);
-					message.setObject1("yes parkinglotmanagers");
-				}
-			}
-
-
-			if(twoconnectedclients==0)
-			{
-				message.setObject1("no");
-			}
-
-			if(twoconnectedclients==-1)
-			{
-				message.setMessage("2clients");
-				message.setObject1("2clients");
-			}
-			try {
-				System.out.println(message.getObject1().toString());
-				client.sendToClient(message);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+//		if (msgString.equals("#loginadmin")) {
+//			session = sessionFactory.openSession();
+//			session.beginTransaction();
+//			Message message = new Message("loginadmin");
+//			List<Admin> listadmin = getAll(Admin.class);
+//			List<ParkingLotManager> listadmin2 = getAll(ParkingLotManager.class);
+//			Message msg1 = ((Message) msg);
+//			int c = 0;
+//			int c2 = 0;
+//			int twoconnectedclients=0;
+//			for (Admin p : listadmin) {
+//				String tmp = "";
+//				tmp += p.getId();
+//				if (p.getIsConnected().equals("1")&&p.getOccupation().equals("Chain Manager") && tmp.equals(msg1.getObject1()) && decrypt(p.getPassword(), "1234567812345678").equals(msg1.getObject2())) {
+//					twoconnectedclients=-1;
+//				}
+//				if (p.getIsConnected().equals("0")&&p.getOccupation().equals("Chain Manager") && tmp.equals(msg1.getObject1()) && decrypt(p.getPassword(), "1234567812345678").equals(msg1.getObject2())) {
+//					c = 1;
+//					p.setIsConnected("1");
+//					session.save(p);
+//					session.update(p);
+//					twoconnectedclients=1;
+//					message.setObject1("yes Chain Manager");
+//				}
+//				if (p.getIsConnected().equals("1")&&p.getOccupation().equals("Customer Service") && tmp.equals(msg1.getObject1()) && decrypt(p.getPassword(), "1234567812345678").equals(msg1.getObject2())) {
+//					twoconnectedclients=-1;
+//				}
+//				if (p.getIsConnected().equals("0")&&p.getOccupation().equals("Customer Service") && tmp.equals(msg1.getObject1()) && decrypt(p.getPassword(), "1234567812345678").equals(msg1.getObject2())) {
+//					c = 1;
+//					twoconnectedclients=1;
+//					p.setIsConnected("1");
+//					session.save(p);
+//					session.update(p);
+//					message.setObject1("yes Customer Service");
+//				}
+//
+//			}
+//			for (ParkingLotManager p : listadmin2) {
+//				String tmp = "";
+//				tmp += p.getId();
+//				if (p.getIsConnected().equals("1")&& tmp.equals(msg1.getObject1()) && decrypt(p.getPassword(), "1234567812345678").equals(msg1.getObject2())) {
+//					twoconnectedclients=-1;
+//					System.out.println("aaa");
+//				}
+//				if ( p.getIsConnected().equals("0")&&tmp.equals(msg1.getObject1()) && decrypt(p.getPassword(), "1234567812345678").equals(msg1.getObject2())) {
+//					c = 1;
+//					twoconnectedclients=1;
+//					p.setIsConnected("1");
+//					session.save(p);
+//					session.update(p);
+//					message.setObject1("yes parkinglotmanagers");
+//				}
+//			}
+//
+//
+//			if(twoconnectedclients==0)
+//			{
+//				message.setObject1("no");
+//			}
+//
+//			if(twoconnectedclients==-1)
+//			{
+//				message.setMessage("2clients");
+//				message.setObject1("2clients");
+//			}
+//			try {
+//				System.out.println(message.getObject1().toString());
+//				client.sendToClient(message);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
 
 		if (msgString.equals("#logoutsubscirber")) {
 			session = sessionFactory.openSession();
