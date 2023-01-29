@@ -158,7 +158,10 @@ public class App
         String encryptedString_1 = encrypt(customerService.getPassword() , secretKey);
         customerService.setPassword(encryptedString_1);
 
-        ParkingLotEmployee parkingLotEmployee = new ParkingLotEmployee("Alice", "Williams", "alice.williams@company.com", "qwerty",  parkingLot2);
+        ParkingLotEmployee parkingLotEmployee = new ParkingLotEmployee("Alice", "Williams", "alice.williams@company.com", "qwerty",  parkingLot2,"0");
+        String encryptedString11 = encrypt(parkingLotEmployee.getPassword() , secretKey);
+        parkingLotEmployee.setPassword(encryptedString11);
+
 
         String encryptedString1 = encrypt(parkingLotManager1.getPassword() , secretKey);
         parkingLotManager1.setPassword(encryptedString1);
@@ -220,7 +223,7 @@ public class App
     private static SimpleServer server;
     public static void main( String[] args ) throws IOException {
         try {
-            server = new SimpleServer(6666);
+            server = new SimpleServer(7777);
             SessionFactory sessionFactory = getSessionFactory();
             session = sessionFactory.openSession();
             session.beginTransaction();

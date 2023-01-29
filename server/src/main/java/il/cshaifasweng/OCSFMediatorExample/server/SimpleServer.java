@@ -1397,6 +1397,7 @@ public class SimpleServer extends AbstractServer {
 			session.beginTransaction();
 			Message message = new Message("loginadmin");
 			List<Admin> listadmin = getAll(Admin.class);
+			List<ParkingLotEmployee> employeadmin = getAll(ParkingLotEmployee.class);
 			List<ParkingLotManager> listadmin2 = getAll(ParkingLotManager.class);
 			Message msg1 = ((Message) msg);
 			int c = 0;
@@ -1445,6 +1446,27 @@ public class SimpleServer extends AbstractServer {
 					message.setObject1("yes parkinglotmanagers");
 				}
 			}
+
+
+			for (ParkingLotEmployee p : employeadmin) {
+				System.out.println("azzzz");
+				String tmp = "";
+				tmp += p.getId();
+				if (p.getIsConnected().equals("1")&& tmp.equals(msg1.getObject1()) && decrypt(p.getPassword(), "1234567812345678").equals(msg1.getObject2())) {
+					twoconnectedclients=-1;
+					System.out.println("aaa");
+				}
+				if ( p.getIsConnected().equals("0")&&tmp.equals(msg1.getObject1()) && decrypt(p.getPassword(), "1234567812345678").equals(msg1.getObject2())) {
+					c = 1;
+					twoconnectedclients=1;
+					p.setIsConnected("1");
+					session.save(p);
+					session.update(p);
+					message.setObject1("yes parkinglotemployee");
+				}
+			}
+
+
 
 
 			if(twoconnectedclients==0)
@@ -1496,6 +1518,33 @@ public class SimpleServer extends AbstractServer {
 			}
 
 		}
+
+
+
+		if (msgString.equals("#logoutlotemployee")) {
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			Message message = new Message("logoutlotmanager");
+			List<ParkingLotEmployee> listadmin = getAll(ParkingLotEmployee.class);
+			Message msg1 = ((Message) msg);
+			for (ParkingLotEmployee p : listadmin) {
+				String tmp="";
+				tmp+=p.getId();
+				if(tmp.equals(msg1.getObject1()))
+				{
+					System.out.println(tmp+"logout succse");
+					p.setIsConnected("0");
+					session.save(p);
+					session.update(p);
+				}
+			}
+
+		}
+
+
+
+
+
 
 		if (msgString.equals("#logoutlotmanager")) {
 			session = sessionFactory.openSession();
@@ -2429,6 +2478,7 @@ public class SimpleServer extends AbstractServer {
 			}
 
 		}
-
+		session.flush();
+		session.getTransaction().commit();
 	}
 }

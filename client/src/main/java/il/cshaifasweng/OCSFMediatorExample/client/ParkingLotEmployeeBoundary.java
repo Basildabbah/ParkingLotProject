@@ -1,4 +1,5 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
+import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -7,6 +8,7 @@ import javafx.scene.control.Label;
 import java.io.IOException;
 
 public class ParkingLotEmployeeBoundary {
+    public static String idd;
     @FXML
     private Button ReserveParking;
 
@@ -41,10 +43,15 @@ public class ParkingLotEmployeeBoundary {
     }
 
     @FXML
-    void logoutfun(ActionEvent event) throws IOException {
+    void logoutfun(ActionEvent event) throws IOException  {
+        Message m=new Message("#logoutlotemployee",idd);
+        try {
+            SimpleClient.getClient().sendToServer(m);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         App.setRoot("home");
     }
-
     @FXML
     void parkingnotactivefun(ActionEvent event) throws IOException {
         App.setRoot("InactiveParkings");
