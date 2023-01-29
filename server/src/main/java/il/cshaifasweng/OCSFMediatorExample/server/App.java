@@ -21,6 +21,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import javax.crypto.Cipher;
@@ -72,6 +73,7 @@ public class App
         configuration.addAnnotatedClass(RegularSubscriber.class);
         configuration.addAnnotatedClass(ParkingLotManager.class);
         configuration.addAnnotatedClass(ParkingLotEmployee.class);
+        configuration.addAnnotatedClass(ChainManager.class);
 
         configuration.addAnnotatedClass(review.class);
 
@@ -183,15 +185,10 @@ public class App
         ParkingLotManager parkingLotManager1 = new ParkingLotManager("John", "Doe", "john.doe@company.com", "12345", parkingLot1,"0");
         ParkingLotManager parkingLotManager2 = new ParkingLotManager("ada", "ada", "ada.ada@company.com", "15794", parkingLot2,"0");
         ParkingLotManager parkingLotManager3 = new ParkingLotManager("bs", "dsf", "bs.dsf@company.com", "14973", parkingLot3,"0");
-        ChainManager chainManager = ChainManager.getInstance();
-        chainManager.setFirstName("Jane");
-        chainManager.setLastName("Smith");
-        chainManager.setEmail("jane.smith@company.com");
-        chainManager.setPassword("abcde");
-        chainManager.setIsConnected("0");
+        ChainManager chainManager1 = new ChainManager("Jane" ,"Smith", "jane.smith@company.com" ,  "abcde" , "0");
         Admin customerService = new Admin("Bob", "Johnson", "bob.johnson@company.com", "password","0");
-        String encryptedString_ = encrypt(chainManager.getPassword() , secretKey);
-        chainManager.setPassword(encryptedString_);
+        String encryptedString_ = encrypt(chainManager1.getPassword() , secretKey);
+        chainManager1.setPassword(encryptedString_);
         String encryptedString_1 = encrypt(customerService.getPassword() , secretKey);
         customerService.setPassword(encryptedString_1);
 
@@ -209,7 +206,7 @@ public class App
         session.save(parkingLotManager1);
         session.save(parkingLotManager2);
         session.save(parkingLotManager3);
-        session.save(chainManager);
+        session.save(chainManager1);
         session.save(customerService);
         session.save(parkingLotEmployee);
 
@@ -295,7 +292,16 @@ public class App
         server.listen();
     }
     private static void sendEmail() {
-        SendEmail.SendEmail(" "," "," ");
+        List<Order> x=getAll(Order.class);
+        LocalDateTime t=LocalDateTime.now();
+//        System.out.println(t.getHour());
+//        System.out.println(t.getMinute());
+//        System.out.println(t.getDayOfMonth());
+//        System.out.println( t.getMonthValue());
+//        System.out.println(t.getDayOfYear());
+        for (Order xi:x) {
+            SendEmail.SendEmail(" ", " ", " ");
+        }
     }
 
 }

@@ -11,10 +11,9 @@ import java.io.Serializable;
 public class ChainManager implements Serializable {
 
     private static final long serialVersionUID = 1035377024343093717L;
-    private static ChainManager instance;
 
     @Id
-    private int id;
+    private final int id = 999999999;
 
     private String firstName;
 
@@ -26,8 +25,8 @@ public class ChainManager implements Serializable {
 
     private String isConnected;
 
+
     public ChainManager(String firstName, String lastName, String email, String password,String x) {
-        this.id = 999999999;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -39,10 +38,4 @@ public class ChainManager implements Serializable {
 
     }
 
-    public static ChainManager getInstance() {
-        if (instance == null) {
-            instance = new ChainManager();
-        }
-        return instance;
-    }
 }
