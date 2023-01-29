@@ -87,6 +87,28 @@ public class App
         ParkingLot parkingLot2 = new ParkingLot(6, 12, 3, new byte[6*12*3]);
         ParkingLot parkingLot3 = new ParkingLot(7, 14, 4, new byte[7*14*4]);
 
+
+        byte[] matrix1d = parkingLot1.getMatrix();  // Get the one-dimensional matrix
+
+
+        int[][][] matrix3d = new int[3][4][3];  // Create 3D matrix
+
+        int index = 0;  // Index into 1D array
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 4; j++) {
+                for (int k = 0; k < 3; k++) {
+                    matrix3d[i][j][k] = matrix1d[index] & 0xff;  // Copy element from 1D array to 3D matrix
+                    index++;
+                }
+            }
+        }
+
+
+        matrix3d[0][1][0] = 456486;
+        matrix3d[0][0][0] = 2;
+        matrix3d[2][3][0] = 464889;
+        matrix3d[1][2][0] = 456481;
+        matrix3d[2][1][0] = 0;
         //**************************************************************
 
         parkingLot1.setCapacity(parkingLot1.getNumberOfRows()*parkingLot1.getNumberOfColumns()*parkingLot1.getDepth());
@@ -151,8 +173,13 @@ public class App
         ParkingLotManager parkingLotManager1 = new ParkingLotManager("John", "Doe", "john.doe@company.com", "12345", parkingLot1,"0");
         ParkingLotManager parkingLotManager2 = new ParkingLotManager("ada", "ada", "ada.ada@company.com", "15794", parkingLot2,"0");
         ParkingLotManager parkingLotManager3 = new ParkingLotManager("bs", "dsf", "bs.dsf@company.com", "14973", parkingLot3,"0");
-        Admin chainManager = new Admin("Jane", "Smith", "jane.smith@company.com", "abcde", "Chain Manager","0");
-        Admin customerService = new Admin("Bob", "Johnson", "bob.johnson@company.com", "password", "Customer Service","0");
+        ChainManager chainManager = ChainManager.getInstance();
+        chainManager.setFirstName("Jane");
+        chainManager.setLastName("Smith");
+        chainManager.setEmail("jane.smith@company.com");
+        chainManager.setPassword("abcde");
+        chainManager.setIsConnected("0");
+        Admin customerService = new Admin("Bob", "Johnson", "bob.johnson@company.com", "password","0");
         String encryptedString_ = encrypt(chainManager.getPassword() , secretKey);
         chainManager.setPassword(encryptedString_);
         String encryptedString_1 = encrypt(customerService.getPassword() , secretKey);
