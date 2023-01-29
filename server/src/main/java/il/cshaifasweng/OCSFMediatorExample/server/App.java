@@ -73,7 +73,7 @@ public class App
     }
     private static void initializeData() throws Exception {
         String secretKey = "1234567812345678";
-        review l1=new review("messi","very bad","1");
+        review l1=new review("messiiiiiii","very bad","1");
         session.save(l1);
         review l2=new review("shir","bad ","2");
         session.save(l2);
