@@ -19,6 +19,8 @@ public class RegularSubscriber implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int subscriberId;
 
+    private int SubscriptionId;
+
     private int id;
 
     private String firstName;

@@ -87,6 +87,17 @@ public class App
         ParkingLot parkingLot2 = new ParkingLot(6, 12, 3, new byte[6*12*3]);
         ParkingLot parkingLot3 = new ParkingLot(7, 14, 4, new byte[7*14*4]);
 
+        //**************************************************************
+
+        parkingLot1.setCapacity(parkingLot1.getNumberOfRows()*parkingLot1.getNumberOfColumns()*parkingLot1.getDepth());
+        parkingLot2.setCapacity(parkingLot2.getNumberOfRows()*parkingLot2.getNumberOfColumns()*parkingLot2.getDepth());
+        parkingLot3.setCapacity(parkingLot3.getNumberOfRows()*parkingLot3.getNumberOfColumns()*parkingLot3.getDepth());
+        parkingLot1.setNumberOfInactiveParkings(10);
+        parkingLot2.setNumberOfInactiveParkings(15);
+        parkingLot3.setNumberOfInactiveParkings(20);
+
+        //**************************************************************
+
         List<String> typeOfParking11 = Arrays.asList("mezdament", "one time","client for one car","client for more car","full subscribtion");
         List<String> PAymentMethoud11 = Arrays.asList("paypal", "Credit card","visa");
         List<String> valueNote11 = Arrays.asList("8$ Per Hour","7 Per Hour","60 hour","54 hour","72 hour");
@@ -171,7 +182,7 @@ public class App
 
 
         RegularSubscriber regularSubscriber = new RegularSubscriber(123,"John", "Smith", "jane.smith@company.com", "1", "333","0");
-         x = encrypt(regularSubscriber.getPassword() , secretKey);
+        x = encrypt(regularSubscriber.getPassword() , secretKey);
         regularSubscriber.setPassword(x);
         Car car1 = new Car(2132456);
         Car car2 = new Car(4525242);
@@ -206,7 +217,7 @@ public class App
         return allQuery.getResultList();
     }
 
-	private static SimpleServer server;
+    private static SimpleServer server;
     public static void main( String[] args ) throws IOException {
         try {
             server = new SimpleServer(6666);

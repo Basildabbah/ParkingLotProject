@@ -18,6 +18,8 @@ public class ParkingLot implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private int Capacity;
+
     private int numberOfRows;
 
     private int numberOfColumns;

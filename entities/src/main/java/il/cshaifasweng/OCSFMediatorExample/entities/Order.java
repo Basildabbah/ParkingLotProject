@@ -1,25 +1,27 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
 import lombok.Data;
-
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Data
 @Entity
 @Table(name = "orders")
-public class Order implements Serializable {
-
-    private static final long serialVersionUID = 7030377024343883717L;
+public class Order {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int OrderId;
+    @OneToOne(mappedBy = "order")
+    private Car car;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "parkinglot_id")
     private ParkingLot parkinglot;
+
+    private int OrderId;
 
     private String TypeOfOrder;
 
@@ -39,46 +41,21 @@ public class Order implements Serializable {
 
     private int ExitYear;
 
-    private int carNumber;
-
-    private String entryTime;
-
-    private String exitTime;
-
-    private double payment;
-
-    private int subId;
-
-    private String email;
+    private int ParkingLotId;
 
     private int PersonId;
 
-    private boolean alreadyInParkingLot;
-
-    private int isConnected;
-
     private String Password;
 
-    private int ParkingLotId;
+    private String Email;
+
+    private int CarNumber;
 
     public Order() {
-
     }
 
-    public Order(int carNumber, ParkingLot parkinglot, String entryTime, String exitTime,String email, int subId) {
-        this.carNumber = carNumber;
-        setParkinglot(parkinglot);
-        this.entryTime = entryTime;
-        this.exitTime = exitTime;
-        this.email = email;
-        this.subId = subId;
-        this.isConnected=0;
-    }
-
-    public Order(int OrderId,String TypeOfOrder,int EnterHour, int EnterDay, int EnterMonth, int EnterYear , int ExitHour,
-                 int ExitDay, int ExitMonth, int ExitYear, int ParkingLotId, int PersonId, String Password) {
+    public Order(int OrderId,String TypeOfOrder,int EnterHour, int EnterDay, int EnterMonth, int EnterYear , int ExitHour, int ExitDay, int ExitMonth, int ExitYear,int ParkingLotId, int PersonId, String Password) {
         this.OrderId = OrderId;
-        this.id = OrderId;
         this.TypeOfOrder = TypeOfOrder;
         this.EnterHour = EnterHour;
         this.EnterDay = EnterDay;
@@ -88,10 +65,9 @@ public class Order implements Serializable {
         this.ExitDay = ExitDay;
         this.ExitMonth = ExitMonth;
         this.ExitYear = ExitYear;
+        this.ParkingLotId = ParkingLotId;
         this.PersonId = PersonId;
         this.Password = Password;
-        this.ParkingLotId = ParkingLotId;
-        this.isConnected=0;
     }
 
     public void setParkinglot(ParkingLot parkinglot) {
@@ -99,4 +75,19 @@ public class Order implements Serializable {
         parkinglot.getAllOrders().add(this);
     }
 
+    //******************************************************************************
+
+    private boolean AlreadyInParkingLot;
+
+    private String entryTime;
+
+    private String exitTime;
+
+    private double payment;
+
+    private int IsConnected;
+
+
+    // ??
+    private int subId;
 }

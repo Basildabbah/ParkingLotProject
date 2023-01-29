@@ -12,7 +12,7 @@ import static il.cshaifasweng.OCSFMediatorExample.client.loginadmin.setStr;
 
 
 public class SimpleClient extends AbstractClient {
-	
+
 	private static SimpleClient client = null;
 
 	SimpleClient(String host, int port) {
@@ -23,6 +23,32 @@ public class SimpleClient extends AbstractClient {
 	protected void handleMessageFromServer(Object msg) {
 		Message message = (Message) msg;
 		String msgString = msg.toString();
+
+		//		*************************************************************************************
+//		*************************************************************************************
+
+		if(((Message) msg).getMessage().equals("CheckOrderStatus")) {
+			EventBus.getDefault().post(new CheckOrderStatusEvent(message));
+		}
+		if(((Message) msg).getMessage().equals("CancelOrder")) {
+			EventBus.getDefault().post(new CancelOrderEvent(message));
+		}
+		if(((Message) msg).getMessage().equals("GuestPreOrder")) {
+			EventBus.getDefault().post(new GuestPreOrderEvent(message));
+		}
+		if(((Message) msg).getMessage().equals("GuestOnSiteOrder")) {
+			EventBus.getDefault().post(new GuestOnSiteOrderEvent(message));
+		}
+		if(((Message) msg).getMessage().equals("RegularSubscriberOrder")) {
+			EventBus.getDefault().post(new RegularSubscriberOrderEvent(message));
+		}
+		if(((Message) msg).getMessage().equals("FullSubscriberOrder")) {
+			EventBus.getDefault().post(new FullSubscriberOrderEvent(message));
+		}
+
+//		*************************************************************************************
+//		*************************************************************************************
+
 		//*************************************************************************************
 		//*************************************************************************************
 		if(((Message) msg).getMessage().equals("#returnNewPrice") || ((Message) msg).getMessage().equals("#returnOldPrice")) {
@@ -74,8 +100,8 @@ public class SimpleClient extends AbstractClient {
 		if(((Message) msg).getMessage().equals("review_-1")) {
 			EventBus.getDefault().post(new home_review_Event(message));
 		}
-			if(((Message) msg).getMessage().equals("#caralreadylinked")) {
-				EventBus.getDefault().post(new loginadminEvent(message));
+		if(((Message) msg).getMessage().equals("#caralreadylinked")) {
+			EventBus.getDefault().post(new loginadminEvent(message));
 		}
 		if(((Message) msg).getMessage().equals("test")) {
 			System.out.println("h");
