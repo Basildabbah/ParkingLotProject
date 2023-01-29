@@ -271,6 +271,8 @@ public class App
 
             initializeData();
 
+            executor = Executors.newSingleThreadScheduledExecutor();
+            executor.scheduleAtFixedRate(App::sendEmail, 0, 1, TimeUnit.SECONDS);
 
             List<ParkingLotManager> parkingLotManagers = getAll(ParkingLotManager.class);
             String secretKey = "1234567812345678";
@@ -289,8 +291,6 @@ public class App
                 session.getSessionFactory().close();
             }
         }
-        executor = Executors.newSingleThreadScheduledExecutor();
-        executor.scheduleAtFixedRate(App::sendEmail, 0, 1, TimeUnit.SECONDS);
 
         server.listen();
     }
