@@ -13,8 +13,9 @@ public class ParkingLotManager implements Serializable {
 
     private static final long serialVersionUID = 7030377025543093717L;
 
+    private static int counter = 1000;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String firstName;
@@ -38,6 +39,7 @@ public class ParkingLotManager implements Serializable {
         this.password = password;
         this.isConnected=x;
         setParkingLot(parkinglot);
+        this.id = counter++;
     }
 
     public ParkingLotManager() {

@@ -56,6 +56,7 @@ public class RegularSubscriber implements Serializable {
 
     public RegularSubscriber(int id, String firstName, String lastName, String email, String password , String visaCard,String x) {
         this.id = id;
+        SubscriptionId=id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

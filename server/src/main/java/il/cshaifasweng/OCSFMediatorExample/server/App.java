@@ -1,11 +1,19 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
+import javax.mail.*;
+import javax.mail.Message;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -13,14 +21,16 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.*;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
-import java.util.Base64;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 /**
  * Hello world!
  *
@@ -28,6 +38,7 @@ import java.util.Base64;
 public class App
 {
     static Session session;
+    private static ScheduledExecutorService executor;
 
     private static String encrypt(String originalString, String secretKey) throws Exception {
         Key key = new SecretKeySpec(secretKey.getBytes(), "AES");
@@ -62,6 +73,7 @@ public class App
         configuration.addAnnotatedClass(RegularSubscriber.class);
         configuration.addAnnotatedClass(ParkingLotManager.class);
         configuration.addAnnotatedClass(ParkingLotEmployee.class);
+        configuration.addAnnotatedClass(ChainManager.class);
 
         configuration.addAnnotatedClass(review.class);
 
@@ -87,6 +99,28 @@ public class App
         ParkingLot parkingLot2 = new ParkingLot(6, 12, 3, new byte[6*12*3]);
         ParkingLot parkingLot3 = new ParkingLot(7, 14, 4, new byte[7*14*4]);
 
+
+        byte[] matrix1d = parkingLot1.getMatrix();  // Get the one-dimensional matrix
+
+
+        int[][][] matrix3d = new int[3][4][3];  // Create 3D matrix
+
+        int index = 0;  // Index into 1D array
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 4; j++) {
+                for (int k = 0; k < 3; k++) {
+                    matrix3d[i][j][k] = matrix1d[index] & 0xff;  // Copy element from 1D array to 3D matrix
+                    index++;
+                }
+            }
+        }
+
+
+        matrix3d[0][1][0] = 456486;
+        matrix3d[0][0][0] = 2;
+        matrix3d[2][3][0] = 464889;
+        matrix3d[1][2][0] = 456481;
+        matrix3d[2][1][0] = 0;
         //**************************************************************
 
         parkingLot1.setCapacity(parkingLot1.getNumberOfRows()*parkingLot1.getNumberOfColumns()*parkingLot1.getDepth());
@@ -151,10 +185,10 @@ public class App
         ParkingLotManager parkingLotManager1 = new ParkingLotManager("John", "Doe", "john.doe@company.com", "12345", parkingLot1,"0");
         ParkingLotManager parkingLotManager2 = new ParkingLotManager("ada", "ada", "ada.ada@company.com", "15794", parkingLot2,"0");
         ParkingLotManager parkingLotManager3 = new ParkingLotManager("bs", "dsf", "bs.dsf@company.com", "14973", parkingLot3,"0");
-        Admin chainManager = new Admin("Jane", "Smith", "jane.smith@company.com", "abcde", "Chain Manager","0");
-        Admin customerService = new Admin("Bob", "Johnson", "bob.johnson@company.com", "password", "Customer Service","0");
-        String encryptedString_ = encrypt(chainManager.getPassword() , secretKey);
-        chainManager.setPassword(encryptedString_);
+        ChainManager chainManager1 = new ChainManager("Jane" ,"Smith", "jane.smith@company.com" ,  "abcde" , "0");
+        Admin customerService = new Admin("Bob", "Johnson", "bob.johnson@company.com", "1","0");
+        String encryptedString_ = encrypt(chainManager1.getPassword() , secretKey);
+        chainManager1.setPassword(encryptedString_);
         String encryptedString_1 = encrypt(customerService.getPassword() , secretKey);
         customerService.setPassword(encryptedString_1);
 
@@ -175,7 +209,7 @@ public class App
         session.save(parkingLotManager1);
         session.save(parkingLotManager2);
         session.save(parkingLotManager3);
-        session.save(chainManager);
+        session.save(chainManager1);
         session.save(customerService);
         session.save(parkingLotEmployee);
 
@@ -204,7 +238,14 @@ public class App
         OnSiteCustomer onSiteCustomer = new OnSiteCustomer(149,"Jane", "Smith", "jane.smith@company.com", "789" , car2);
         session.save(oneTimeCustomer);
         session.save(onSiteCustomer);
-
+        Complaint c1=new Complaint("aaaaaaa1",6,1);
+        Complaint c2=new Complaint("bbbbb1",6,1);
+        Complaint c3=new Complaint("aaa2",7,2);
+        session.save(c1);
+        session.save(c2);
+        session.save(c3);
+//        Order o1=new Order(car1,"m@gmail.com");
+//        session.save(o1);
         session.getTransaction().commit();
 
 
@@ -230,6 +271,8 @@ public class App
 
             initializeData();
 
+            executor = Executors.newSingleThreadScheduledExecutor();
+            executor.scheduleAtFixedRate(App::sendEmail, 0, 1, TimeUnit.SECONDS);
 
             List<ParkingLotManager> parkingLotManagers = getAll(ParkingLotManager.class);
             String secretKey = "1234567812345678";
@@ -248,6 +291,20 @@ public class App
                 session.getSessionFactory().close();
             }
         }
+
         server.listen();
     }
+    private static void sendEmail() {
+//        List<Order> x=getAll(Order.class);
+//        LocalDateTime t=LocalDateTime.now();
+////        System.out.println(t.getHour());
+////        System.out.println(t.getMinute());
+////        System.out.println(t.getDayOfMonth());
+////        System.out.println( t.getMonthValue());
+////        System.out.println(t.getDayOfYear());
+//        for (Order xi:x) {
+//            SendEmail.SendEmail(" ", " ", " ");
+//        }
+    }
+
 }

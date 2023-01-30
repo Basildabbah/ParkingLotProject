@@ -4,19 +4,16 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Data
 @Entity
-@Table(name = "admins")
-public class Admin implements Serializable {
+@Table(name = "chainmanager")
+public class ChainManager implements Serializable {
 
     private static final long serialVersionUID = 1035377024343093717L;
 
-    private static int counter = 100;
-
     @Id
-    private int id;
+    private final int id = 999999999;
 
     private String firstName;
 
@@ -26,11 +23,10 @@ public class Admin implements Serializable {
 
     private String password;
 
-
     private String isConnected;
 
-    public Admin(String firstName, String lastName, String email, String password,String x) {
-        this.id = counter++;
+
+    public ChainManager(String firstName, String lastName, String email, String password,String x) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -38,7 +34,8 @@ public class Admin implements Serializable {
         this.isConnected=x;
     }
 
-    public Admin() {
+    public ChainManager() {
 
     }
+
 }

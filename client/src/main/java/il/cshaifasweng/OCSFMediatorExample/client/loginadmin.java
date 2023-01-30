@@ -83,7 +83,7 @@ public class loginadmin {
     void loginbutton(ActionEvent event) {
         if(pass.getText()=="")pass.setStyle("-fx-border-color: red");
         if(id.getText()=="")id.setStyle("-fx-border-color: red");
-        Message m=new Message("#loginadmin",id.getText(),pass.getText());
+        Message m=new Message("#loginadmin",id.getText(),pass1.getText());
         try {
             SimpleClient.getClient().sendToServer(m);
         } catch (IOException e) {

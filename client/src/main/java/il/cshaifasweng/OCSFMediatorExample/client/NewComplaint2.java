@@ -14,7 +14,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
 
-public class NewComplaint1 {
+public class NewComplaint2 {
     static String idd;
     static String type;
     ///////////////////////
@@ -25,6 +25,8 @@ public class NewComplaint1 {
     @FXML
     private Button send;
     ///////////////////////
+    @FXML
+    private TextField parkingid;
     @FXML
     private Button RenewSubscription;
 
@@ -67,8 +69,6 @@ public class NewComplaint1 {
     private Label complainnum;
 
     @FXML
-    private TextField parkingId;
-    @FXML
     private Button addreviewfun;
 
     @FXML
@@ -90,7 +90,7 @@ public class NewComplaint1 {
     void send(ActionEvent event) {
         try {
 
-            SimpleClient.getClient().sendToServer(new Message("newCompliain^"+textC.getText()+"^" +idd,parkingId.getText()));
+            SimpleClient.getClient().sendToServer(new Message("newCompliain^"+textC.getText()+"^" +idd,parkingid.getText()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -166,6 +166,7 @@ public class NewComplaint1 {
 
     @FXML
     void initialize() {
+
         id.setText(idd);
         id.setDisable(true);
         EventBus.getDefault().register(this);
@@ -174,7 +175,7 @@ public class NewComplaint1 {
     public void onEvent(NewComplaintEvent e){
         Platform.runLater(()-> {
             complainnum.setText(complainnum.getText()+" "+e.getWarning().getObject1().toString());
-             complainnum.setVisible(true);
+            complainnum.setVisible(true);
 
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION,

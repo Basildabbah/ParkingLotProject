@@ -139,7 +139,7 @@ public class Subscribeboundry {
     @FXML
     void sendcomplainfun(ActionEvent event) throws IOException {
         NewComplaint1.idd=idd;
-    App.setRoot("NewComplaint1");
+        App.setRoot("NewComplaint1");
     }
     @FXML
     void submit_add_carfun(ActionEvent event) {
