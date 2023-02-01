@@ -13,10 +13,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="1000.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.review">
+<AnchorPane prefHeight="1000.0" prefWidth="750.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.review">
     <children>
         <AnchorPane layoutX="64.0" layoutY="17.0" prefHeight="45.0" prefWidth="578.0" />
-        <AnchorPane layoutX="14.0" layoutY="142.0" prefHeight="518.0" prefWidth="200.0">
+        <AnchorPane layoutX="14.0" layoutY="142.0" prefHeight="518.0" prefWidth="200.0" visible="false">
             <children>
                 <Button fx:id="enterpark" layoutX="20.0" layoutY="56.0" mnemonicParsing="false" onAction="#enterpark" style="-fx-background-color: #cde08c;" text="Enter Parking Lot" textFill="RED" textOverrun="CLIP">
                     <font>
@@ -103,7 +103,7 @@
                 </Label>
             </children>
         </AnchorPane>
-        <ButtonBar layoutX="14.0" layoutY="94.0" prefHeight="40.0" prefWidth="737.0">
+        <ButtonBar layoutX="14.0" layoutY="94.0" prefHeight="40.0" prefWidth="737.0" visible="false">
             <buttons>
                 <Button fx:id="sendcomplain" mnemonicParsing="false" onAction="#sendcomplainfun" style="-fx-background-color: #5dc2a2;" text="Send Complain" textFill="RED" textOverrun="CLIP">
                     <font>
@@ -152,7 +152,7 @@
                 </Button>
             </buttons>
         </ButtonBar>
-        <ButtonBar layoutY="43.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="737.0">
+        <ButtonBar layoutY="43.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="737.0" visible="false">
             <buttons>
                 <Button fx:id="createorder" contentDisplay="CENTER" mnemonicParsing="false" onAction="#createorderfun" style="-fx-background-color: #00BFFF;" text="Create Order" textAlignment="CENTER" textFill="RED" textOverrun="CLIP">
                     <font>
@@ -311,6 +311,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
+      <Button fx:id="back" layoutX="257.0" layoutY="206.0" mnemonicParsing="false" onAction="#back" prefHeight="37.0" prefWidth="86.0" text="Back" />
       <Label layoutX="597.0" layoutY="348.0" prefHeight="18.0" prefWidth="291.0" text="You Can leave him empty." textFill="#635b5b">
          <font>
             <Font name="System Bold" size="12.0" />

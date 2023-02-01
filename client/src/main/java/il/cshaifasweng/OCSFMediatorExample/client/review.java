@@ -147,6 +147,11 @@ public class review<Static> {
 
     }
     @FXML
+    void back(ActionEvent event) throws IOException {
+        App.setRoot("subscribeboundry");
+
+    }
+    @FXML
     void star5(MouseEvent event) {
         gold1.setVisible(true);
         gold2.setVisible(true);

@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane fx:id="anchorroot" prefHeight="646.0" prefWidth="605.0" style="-fx-background-color: skyblue;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.CurrentPictureController">
+<AnchorPane fx:id="anchorroot" prefHeight="1000.0" prefWidth="750.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.CurrentPictureController">
     <children>
         <Rectangle fx:id="rect000" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="38.0" layoutX="22.0" layoutY="45.0" stroke="BLACK" strokeType="INSIDE" width="38.0" />
         <Rectangle fx:id="rect010" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="38.0" layoutX="95.0" layoutY="45.0" stroke="BLACK" strokeType="INSIDE" width="38.0" />

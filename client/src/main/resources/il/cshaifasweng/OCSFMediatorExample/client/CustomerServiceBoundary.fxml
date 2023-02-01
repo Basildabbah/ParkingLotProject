@@ -7,10 +7,15 @@
 <?import javafx.scene.effect.DisplacementMap?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.FloatMap?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.CustomerServiceBoundary">
+<AnchorPane prefHeight="1000.0" prefWidth="750.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.CustomerServiceBoundary">
     <children>
         <AnchorPane prefHeight="1010.0" prefWidth="1010.0" style="-fx-background-color: #7293ab;">
             <children>
@@ -73,6 +78,25 @@
                       </buttons>
                   </ButtonBar>
             <Label fx:id="userid" layoutX="81.0" layoutY="86.0" prefHeight="23.0" prefWidth="134.0" text="User ID:" />
+            <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="32.0" layoutY="132.0">
+               <image>
+                  <Image url="@../../../../images/111.png" />
+               </image>
+            </ImageView>
+            <AnchorPane fx:id="numofcomplain_textbox" layoutX="297.0" layoutY="186.0" prefHeight="200.0" prefWidth="446.0" style="-fx-border-color: red; -fx-background-color:  #65829a;">
+               <children>
+                  <ImageView fitHeight="82.0" fitWidth="89.0" layoutX="5.0" layoutY="37.0">
+                     <image>
+                        <Image url="@../../../../images/1827504.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="numofcomplain_label" layoutX="109.0" layoutY="83.0" prefHeight="82.0" prefWidth="347.0" text="Label" textFill="RED">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+</Label>
+               </children>
+            </AnchorPane>
             </children>
         </AnchorPane>
     </children>

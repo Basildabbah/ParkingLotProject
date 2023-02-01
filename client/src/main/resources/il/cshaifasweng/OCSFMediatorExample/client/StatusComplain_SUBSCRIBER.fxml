@@ -10,13 +10,15 @@
 <?import javafx.scene.effect.DisplacementMap?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.FloatMap?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="1000.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.StatusComplain_SUBSCRIBER">
+<AnchorPane prefHeight="1000.0" prefWidth="750.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.StatusComplain_SUBSCRIBER">
     <children>
         <AnchorPane layoutX="64.0" layoutY="17.0" prefHeight="45.0" prefWidth="578.0" />
-        <AnchorPane layoutX="14.0" layoutY="142.0" prefHeight="518.0" prefWidth="200.0">
+        <AnchorPane layoutX="14.0" layoutY="142.0" prefHeight="518.0" prefWidth="200.0" visible="false">
             <children>
                 <Button fx:id="enterpark" layoutX="20.0" layoutY="56.0" mnemonicParsing="false" onAction="#enterpark" style="-fx-background-color: #cde08c;" text="Enter Parking Lot" textFill="RED" textOverrun="CLIP">
                     <font>
@@ -118,7 +120,7 @@
             </Button>
             </children>
         </AnchorPane>
-        <ButtonBar layoutX="14.0" layoutY="94.0" prefHeight="40.0" prefWidth="737.0">
+        <ButtonBar layoutX="14.0" layoutY="94.0" prefHeight="40.0" prefWidth="737.0" visible="false">
             <buttons>
                 <Button fx:id="sendcomplain" mnemonicParsing="false" onAction="#sendcomplainfun" style="-fx-background-color: #5dc2a2;" text="Send Complain" textFill="RED" textOverrun="CLIP">
                     <font>
@@ -167,7 +169,7 @@
                 </Button>
             </buttons>
         </ButtonBar>
-          <ButtonBar layoutY="43.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="737.0">
+          <ButtonBar layoutY="43.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="737.0" visible="false">
               <buttons>
                   <Button fx:id="createorder" contentDisplay="CENTER" mnemonicParsing="false" onAction="#createorderfun" style="-fx-background-color: #00BFFF;" text="Create Order" textAlignment="CENTER" textFill="RED" textOverrun="CLIP">
                       <font>
@@ -256,8 +258,22 @@
                </columns>
             </TableView>
             <TextField fx:id="idS" layoutX="93.0" layoutY="45.0" />
+            <Button layoutX="243.0" layoutY="361.0" mnemonicParsing="false" onAction="#back" prefHeight="38.0" prefWidth="76.0" text="Back" />
             <Button fx:id="bring" layoutX="347.0" layoutY="45.0" mnemonicParsing="false" onAction="#bring" text="bring" />
          </children>
       </AnchorPane>
+      <Label alignment="CENTER" layoutX="388.0" layoutY="130.0" prefHeight="62.0" prefWidth="199.0" text="Parking Lots" textFill="#991010" wrapText="true">
+         <font>
+            <Font name="Californian FB Italic" size="28.0" />
+         </font>
+         <effect>
+            <Bloom />
+         </effect>
+      </Label>
+      <ImageView fitHeight="148.0" fitWidth="168.0" layoutX="114.0" layoutY="366.0">
+         <image>
+            <Image url="@../../../../images/4.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>

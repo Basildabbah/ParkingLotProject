@@ -118,7 +118,7 @@
                                     <Font name="System Bold" size="55.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="65.0" layoutY="33.0" prefHeight="26.0" prefWidth="562.0" text="What will happen if I arrive late?">
+                              <Label layoutX="65.0" layoutY="33.0" prefHeight="26.0" prefWidth="562.0" text="Is it possible for me to cancel my order?">
                                  <font>
                                     <Font name="System Bold" size="17.0" />
                                  </font>
@@ -127,12 +127,12 @@
                         </AnchorPane>
                         <AnchorPane prefHeight="258.0" prefWidth="628.0">
                            <children>
-                              <Label fx:id="quest6" layoutX="14.0" layoutY="3.0" onMouseClicked="#quest6fun" text="+" textFill="RED">
+                              <Label fx:id="quest6" layoutX="14.0" layoutY="3.0" onMouseClicked="#quest6fun" text="+" textFill="RED" visible="false">
                                  <font>
                                     <Font name="System Bold" size="55.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="65.0" layoutY="33.0" prefHeight="26.0" prefWidth="562.0" text="Is it possible for me to cancel my order?">
+                              <Label layoutX="65.0" layoutY="33.0" prefHeight="26.0" prefWidth="562.0" text="Is it possible for me to cancel my order?" visible="false">
                                  <font>
                                     <Font name="System Bold" size="17.0" />
                                  </font>
@@ -146,7 +146,7 @@
                         <Image url="@../../../../images/1.png" />
                      </image>
                   </ImageView>
-                  <AnchorPane layoutX="447.0" layoutY="38.0" prefHeight="45.0" prefWidth="578.0">
+                  <AnchorPane layoutX="255.0" layoutY="44.0" prefHeight="44.0" prefWidth="578.0">
                      <children>
                         <ButtonBar layoutX="-161.0" layoutY="5.0" prefHeight="40.0" prefWidth="741.0">
                            <buttons>

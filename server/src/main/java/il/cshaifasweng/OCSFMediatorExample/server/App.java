@@ -134,19 +134,19 @@ public class App
 
         List<String> typeOfParking11 = Arrays.asList("mezdament", "one time","client for one car","client for more car","full subscribtion");
         List<String> PAymentMethoud11 = Arrays.asList("paypal", "Credit card","visa");
-        List<String> valueNote11 = Arrays.asList("8$ Per Hour","7 Per Hour","60 hour","54 hour","72 hour");
+        List<String> valueNote11 = Arrays.asList("8 Per Hour","7 Per Hour","60 hour","54 hour","72 hour");
         Prices price11 = new Prices(typeOfParking11, PAymentMethoud11, valueNote11 , parkingLot1);
         session.save(price11);
         List<String> typeOfParking22 = Arrays.asList("mezdament", "one time","client for one car","client for more car","full subscribtion");
         List<String> PAymentMethoud22 = Arrays.asList("paypal", "Credit card","visa");
-        List<String> valueNote22 = Arrays.asList("6$ Per Hour","6 Per Hour","60 hour","54 hour","72 hour");
+        List<String> valueNote22 = Arrays.asList("6 Per Hour","6 Per Hour","60 hour","54 hour","72 hour");
         Prices price22= new Prices(typeOfParking22, PAymentMethoud22, valueNote22 , parkingLot2);
         session.save(price22);
 
 
         List<String> typeOfParking33 = Arrays.asList("mezdament", "one time","client for one car","client for more car","full subscribtion");
         List<String> PAymentMethoud33 = Arrays.asList("paypal", "Credit card","visa");
-        List<String> valueNote33 = Arrays.asList("10$ Per Hour","6 Per Hour","60 hour","54 hour","72 hour");
+        List<String> valueNote33 = Arrays.asList("10 Per Hour","6 Per Hour","60 hour","54 hour","72 hour");
         Prices price33= new Prices(typeOfParking33, PAymentMethoud33, valueNote33 , parkingLot3);
         session.save(price33);
 
@@ -182,11 +182,11 @@ public class App
         session.save(price2);
         session.save(price3);*/
 
-        ParkingLotManager parkingLotManager1 = new ParkingLotManager("John", "Doe", "john.doe@company.com", "12345", parkingLot1,"0");
-        ParkingLotManager parkingLotManager2 = new ParkingLotManager("ada", "ada", "ada.ada@company.com", "15794", parkingLot2,"0");
-        ParkingLotManager parkingLotManager3 = new ParkingLotManager("bs", "dsf", "bs.dsf@company.com", "14973", parkingLot3,"0");
+        ParkingLotManager parkingLotManager1 = new ParkingLotManager("John", "Doe", "john.doe@company.com", "1000", parkingLot1,"0");
+        ParkingLotManager parkingLotManager2 = new ParkingLotManager("ada", "ada", "ada.ada@company.com", "1001", parkingLot2,"0");
+        ParkingLotManager parkingLotManager3 = new ParkingLotManager("bs", "dsf", "bs.dsf@company.com", "1002", parkingLot3,"0");
         ChainManager chainManager1 = new ChainManager("Jane" ,"Smith", "jane.smith@company.com" ,  "abcde" , "0");
-        Admin customerService = new Admin("Bob", "Johnson", "bob.johnson@company.com", "1","0");
+        Admin customerService = new Admin("Bob", "Johnson", "bob.johnson@company.com", "100","0");
         String encryptedString_ = encrypt(chainManager1.getPassword() , secretKey);
         chainManager1.setPassword(encryptedString_);
         String encryptedString_1 = encrypt(customerService.getPassword() , secretKey);
@@ -291,10 +291,13 @@ public class App
                 session.getSessionFactory().close();
             }
         }
+        executor = Executors.newSingleThreadScheduledExecutor();
+        executor.scheduleAtFixedRate(App::sendEmail, 0, 59, TimeUnit.MINUTES);
 
         server.listen();
     }
-    private static void sendEmail() {
+
+   /* private static void sendEmail() {
 //        List<Order> x=getAll(Order.class);
 //        LocalDateTime t=LocalDateTime.now();
 ////        System.out.println(t.getHour());
@@ -305,6 +308,19 @@ public class App
 //        for (Order xi:x) {
 //            SendEmail.SendEmail(" ", " ", " ");
 //        }
+    }*/
+
+    private static SessionFactory sessionFactory = getSessionFactory();
+    private static void sendEmail() {
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<Order> x=getAll(Order.class);
+        LocalDateTime t=LocalDateTime.now();
+        for (Order xi:x) {
+            if (xi.getSubId() == 0 && !xi.isAlreadyInParkingLot() && xi.getEnterHour() == t.getHour() && xi.getEnterYear() == t.getYear() && xi.getEnterDay() == t.getDayOfMonth() && xi.getEnterMonth() == t.getMonthValue())
+                SendEmail.SendEmail(xi.getEmail(), "Customer didn't arrive! ", "hello, we would like to alert you that you have ordered a parking spot from hour:  " + xi.getEnterHour() + " to hour:  " + xi.getExitHour() + " ,the order will be cancelled if you didnt arrive in 30 minutes! Thank you ");
+        }
+       // session.close();
     }
 
 }

@@ -49,11 +49,13 @@ public class ParkingLotManagerBoundary {
 
     @FXML
     void Setpricesfun(ActionEvent event) throws IOException {
+        setNewPrice.iddd_park=idd_parking_lot;
         App.setRoot("setNewPrice");
     }
 
     @FXML
-    void displayreportsfun(ActionEvent event) {
+    void displayreportsfun(ActionEvent event) throws IOException {
+        App.setRoot("displayreportofmanager");
 
     }
 
@@ -69,5 +71,6 @@ public class ParkingLotManagerBoundary {
     @FXML
     void initialize() {
         userid.setText(userid.getText()+idd);
+        Displayreportofmanager.idd_parking_lot=idd_parking_lot;
     }
 }

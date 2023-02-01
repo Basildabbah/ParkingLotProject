@@ -21,7 +21,6 @@
          <children>
             <AnchorPane layoutY="8.0" prefHeight="1278.0" prefWidth="1000.0" style="-fx-background-color: #7293ab;">
                <children>
-                  <AnchorPane layoutX="132.0" layoutY="14.0" prefHeight="45.0" prefWidth="578.0" />
                   <Label alignment="CENTER" layoutX="218.0" layoutY="145.0" prefHeight="142.0" prefWidth="491.0" text="FAQS" textFill="#c9c9c9" wrapText="true">
                      <font>
                         <Font name="Californian FB Bold" size="96.0" />
@@ -103,7 +102,7 @@
                                     <Font name="System Bold" size="55.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="65.0" layoutY="33.0" prefHeight="26.0" prefWidth="562.0" text="What will happen if I arrive late?">
+                              <Label layoutX="65.0" layoutY="33.0" prefHeight="26.0" prefWidth="562.0" text="Is it possible for me to cancel my order?">
                                  <font>
                                     <Font name="System Bold" size="17.0" />
                                  </font>
@@ -112,12 +111,12 @@
                         </AnchorPane>
                         <AnchorPane prefHeight="258.0" prefWidth="628.0">
                            <children>
-                              <Label fx:id="quest6" layoutX="14.0" layoutY="3.0" onMouseClicked="#quest6fun" text="+" textFill="RED">
+                              <Label fx:id="quest6" layoutX="14.0" layoutY="3.0" onMouseClicked="#quest6fun" text="+" textFill="RED" visible="false">
                                  <font>
                                     <Font name="System Bold" size="55.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="65.0" layoutY="33.0" prefHeight="26.0" prefWidth="562.0" text="Is it possible for me to cancel my order?">
+                              <Label layoutX="65.0" layoutY="33.0" prefHeight="26.0" prefWidth="562.0" text="Is it possible for me to cancel my order?" visible="false">
                                  <font>
                                     <Font name="System Bold" size="17.0" />
                                  </font>
@@ -131,7 +130,7 @@
                         <Image url="@../../../../images/1.png" />
                      </image>
                   </ImageView>
-                  <AnchorPane layoutX="447.0" layoutY="38.0" prefHeight="45.0" prefWidth="578.0">
+                  <AnchorPane layoutX="255.0" layoutY="44.0" prefHeight="45.0" prefWidth="578.0">
                      <children>
                         <ButtonBar layoutX="-161.0" layoutY="5.0" prefHeight="40.0" prefWidth="741.0">
                            <buttons>
@@ -214,16 +213,16 @@
                         </ButtonBar>
                      </children>
                   </AnchorPane>
-                  <Label alignment="CENTER" layoutX="53.0" layoutY="118.0" prefHeight="62.0" prefWidth="199.0" text="Parking Lots" textFill="#991010" wrapText="true">
-                     <font>
-                        <Font name="Californian FB Italic" size="28.0" />
-                     </font>
-                     <effect>
-                        <Bloom />
-                     </effect>
-                  </Label>
                </children>
             </AnchorPane>
+            <Label alignment="CENTER" layoutX="53.0" layoutY="118.0" prefHeight="62.0" prefWidth="199.0" text="Parking Lots" textFill="#991010" wrapText="true">
+               <font>
+                  <Font name="Californian FB Italic" size="28.0" />
+               </font>
+               <effect>
+                  <Bloom />
+               </effect>
+            </Label>
          </children></AnchorPane>
   </content>
 </ScrollPane>

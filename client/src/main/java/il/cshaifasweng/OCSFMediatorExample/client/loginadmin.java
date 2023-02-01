@@ -65,14 +65,15 @@ public class loginadmin {
     void showpass(ActionEvent event) {
         if(showpass.isSelected()==true)
         {
-            System.out.println("aaaaaaaaaaa");
             pass.setText(pass1.getText());
             pass1.setVisible(false);
             pass.setVisible(true);
+            System.out.println("yes selected"+pass.getText());
+
         }
         else
-        {        System.out.println("bbbbbbbbbbbbbb");
-
+        {
+            System.out.println("not selected"+pass.getText());
             pass1.setText(pass.getText());
             pass.setVisible(false);
             pass1.setVisible(true);
@@ -81,9 +82,17 @@ public class loginadmin {
     }
     @FXML
     void loginbutton(ActionEvent event) {
+        if(showpass.isSelected()==true)
+        {
+
+        }
+        if(showpass.isSelected()==false)
+        {
+            pass.setText(pass1.getText());
+        }
         if(pass.getText()=="")pass.setStyle("-fx-border-color: red");
         if(id.getText()=="")id.setStyle("-fx-border-color: red");
-        Message m=new Message("#loginadmin",id.getText(),pass1.getText());
+        Message m=new Message("#loginadmin",id.getText(),pass.getText());
         try {
             SimpleClient.getClient().sendToServer(m);
         } catch (IOException e) {
@@ -143,6 +152,7 @@ public class loginadmin {
 
                 try {
                     ParkingLotEmployeeBoundary.idd=id.getText();
+                    ParkingLotEmployeeBoundary.parking_id=c.getWarning().getObject2().toString();
                     App.setRoot("ParkingLotEmployeeBoundary");
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -169,6 +179,7 @@ public class loginadmin {
                 try {
                     CustomerServiceBoundary.name=id.getText();
                     CustomerServiceBoundary.idd=id.getText();
+                    CustomerServiceBoundary.numofcomplain=c.getWarning().getObject14().toString();
                     App.setRoot("CustomerServiceBoundary");
                 } catch (IOException e) {
                     e.printStackTrace();

@@ -14,7 +14,7 @@
 <AnchorPane prefHeight="660.0" prefWidth="808.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.NewComplaint1">
    <children>
       <AnchorPane layoutX="64.0" layoutY="17.0" prefHeight="45.0" prefWidth="578.0" />
-      <AnchorPane layoutX="14.0" layoutY="142.0" prefHeight="518.0" prefWidth="200.0">
+      <AnchorPane layoutX="14.0" layoutY="142.0" prefHeight="518.0" prefWidth="200.0" visible="false">
          <children>
             <Button fx:id="enterpark" layoutX="20.0" layoutY="56.0" mnemonicParsing="false" onAction="#enterpark" style="-fx-background-color: #cde08c;" text="Enter Parking Lot" textFill="RED" textOverrun="CLIP">
                <font>
@@ -118,7 +118,7 @@
       </AnchorPane>
       <ButtonBar layoutX="14.0" layoutY="94.0" prefHeight="40.0" prefWidth="737.0">
          <buttons>
-            <Button fx:id="sendcomplain" mnemonicParsing="false" onAction="#sendcomplainfun" style="-fx-background-color: #5dc2a2;" text="Send Complain" textFill="RED" textOverrun="CLIP">
+            <Button fx:id="sendcomplain" mnemonicParsing="false" onAction="#sendcomplainfun" style="-fx-background-color: #5dc2a2;" text="Send Complain" textFill="RED" textOverrun="CLIP" visible="false">
                <font>
                   <Font size="16.0" />
                </font>
@@ -148,7 +148,7 @@
                   </DisplacementMap>
                </effect>
             </Button>
-            <Button fx:id="checkcomplain" mnemonicParsing="false" onAction="#checkcomplainfun" style="-fx-background-color: #5dc2a2;" text="Check Complain Status" textFill="RED" textOverrun="CLIP">
+            <Button fx:id="checkcomplain" mnemonicParsing="false" onAction="#checkcomplainfun" style="-fx-background-color: #5dc2a2;" text="Check Complain Status" textFill="RED" textOverrun="CLIP" visible="false">
                <font>
                   <Font size="16.0" />
                </font>
@@ -167,7 +167,7 @@
       </ButtonBar>
       <ButtonBar layoutX="150.0" layoutY="43.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="587.0">
          <buttons>
-            <Button fx:id="createorder" contentDisplay="CENTER" mnemonicParsing="false" onAction="#createorderfun" style="-fx-background-color: #00BFFF;" text="Create Order" textAlignment="CENTER" textFill="RED" textOverrun="CLIP">
+            <Button fx:id="createorder" contentDisplay="CENTER" mnemonicParsing="false" onAction="#createorderfun" style="-fx-background-color: #00BFFF;" text="Create Order" textAlignment="CENTER" textFill="RED" textOverrun="CLIP" visible="false">
                <font>
                   <Font size="16.0" />
                </font>
@@ -182,7 +182,7 @@
                   </DisplacementMap>
                </effect>
             </Button>
-            <Button fx:id="checkorder" contentDisplay="CENTER" mnemonicParsing="false" onAction="#checkorderfun" style="-fx-background-color: #00BFFF;" text="Check Order" textAlignment="CENTER" textFill="RED" textOverrun="CLIP">
+            <Button fx:id="checkorder" contentDisplay="CENTER" mnemonicParsing="false" onAction="#checkorderfun" style="-fx-background-color: #00BFFF;" text="Check Order" textAlignment="CENTER" textFill="RED" textOverrun="CLIP" visible="false">
                <font>
                   <Font size="16.0" />
                </font>
@@ -197,7 +197,7 @@
                   </DisplacementMap>
                </effect>
             </Button>
-            <Button fx:id="cancelorder" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cancelorderfun" style="-fx-background-color: #00BFFF;" text="Cancel Order" textAlignment="CENTER" textFill="RED" textOverrun="CLIP">
+            <Button fx:id="cancelorder" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cancelorderfun" style="-fx-background-color: #00BFFF;" text="Cancel Order" textAlignment="CENTER" textFill="RED" textOverrun="CLIP" visible="false">
                <font>
                   <Font size="16.0" />
                </font>
@@ -212,7 +212,7 @@
                   </DisplacementMap>
                </effect>
             </Button>
-            <Button fx:id="logout" minWidth="9.0" mnemonicParsing="false" onAction="#logoutfun" prefHeight="36.0" style="-fx-background-color: white;" text="Log out" textFill="RED" textOverrun="CLIP">
+            <Button fx:id="logout" minWidth="9.0" mnemonicParsing="false" onAction="#logoutfun" prefHeight="36.0" style="-fx-background-color: white;" text="Log out" textFill="RED" textOverrun="CLIP" visible="false">
                <font>
                   <Font size="16.0" />
                </font>

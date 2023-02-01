@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controltest">
+<AnchorPane prefHeight="1000.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controltest">
     <children>
         <Button fx:id="addocarro" layoutX="199.0" layoutY="144.0" mnemonicParsing="false" onAction="#plsaddocarro" text="addcar" />
         <Button fx:id="showparkkkk" layoutX="248.0" layoutY="341.0" mnemonicParsing="false" onAction="#plshowparkkkk" text="parkkkkk" />

@@ -1,10 +1,14 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import il.cshaifasweng.OCSFMediatorExample.entities.Complaint;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -13,8 +17,11 @@ import javax.swing.*;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 public class GUESTT {
+    @FXML
+    private SplitMenuButton parking_id;
     @FXML
     private TextField NumberOfOrder_Check;
 
@@ -59,6 +66,43 @@ public class GUESTT {
     @FXML
     private TextField ExitYear;
 
+
+    @FXML
+    private TableColumn<Complaint, String> complaintc;
+
+    @FXML
+    private TextField idS;
+
+    @FXML
+    private TableColumn<Complaint, Integer> idc;
+
+    @FXML
+    private TableColumn<Complaint, String> statusc;
+
+    @FXML
+    private TableView<Complaint> table;
+
+    @FXML
+    void bring(ActionEvent event) {
+        try {
+            Message s1=new Message("bring ^"+idS.getText(),"wajd","wajd2","wajd3","wajd4");
+            SimpleClient.getClient().sendToServer(s1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @Subscribe
+    public void showComplaints(StatusComplaintEvent e){
+        Platform.runLater(()->{
+            System.out.println("a");
+            table.setVisible(true);
+            idc.setCellValueFactory(new PropertyValueFactory<Complaint, Integer>("id"));
+            statusc.setCellValueFactory(new PropertyValueFactory<Complaint, String>("complaintMessage"));
+            complaintc.setCellValueFactory(new PropertyValueFactory<Complaint, String>("status"));
+            ObservableList<Complaint> list = FXCollections.observableList((ArrayList<Complaint>) e.getWarning().getObject1());
+            table.setItems(list);
+        });
+    }
     @FXML
     private Button FAQ;
 
@@ -111,7 +155,46 @@ public class GUESTT {
     void FAQ(ActionEvent event) throws IOException {
         App.setRoot("faq0");
     }
+    @FXML
+    void park1(ActionEvent event) {
+        parking_id.setText("1");
+    }
 
+    @FXML
+    void park2(ActionEvent event) {
+        parking_id.setText("2");
+
+    }
+
+    @FXML
+    void park3(ActionEvent event) {
+        parking_id.setText("3");
+
+    }
+
+    @FXML
+    void park4(ActionEvent event) {
+        parking_id.setText("4");
+
+    }
+
+    @FXML
+    void park5(ActionEvent event) {
+        parking_id.setText("5");
+
+    }
+
+    @FXML
+    void park6(ActionEvent event) {
+        parking_id.setText("6");
+
+    }
+
+    @FXML
+    void park7(ActionEvent event) {
+        parking_id.setText("7");
+
+    }
     @FXML
     void CheckOrderStatus(ActionEvent event) {
         Message m = new Message("#CheckOrderStatus", ID_Check.getText(), Password_Check.getText(), NumberOfOrder_Check.getText());
@@ -203,6 +286,7 @@ public class GUESTT {
     @FXML
     void initialize() {
         EventBus.getDefault().register(this);
+        complainnum.setVisible(false);
     }
     @Subscribe
     public void setLabelshow3(GuestPreOrderEvent Response) throws IOException {
@@ -349,5 +433,43 @@ public class GUESTT {
                 }
         );
     }
+    @FXML
+    private TextArea textC;
 
+    @FXML
+    private TextField id;
+
+    @FXML
+    private TextField parkingid;
+    @FXML
+    void send(ActionEvent event) {
+        try {
+
+            SimpleClient.getClient().sendToServer(new Message("newCompliain^"+textC.getText()+"^" +id.getText(),parking_id.getText()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private Label complainnum;
+    @Subscribe
+    public void onEvent(NewComplaintEvent e){
+        Platform.runLater(()-> {
+            complainnum.setText(complainnum.getText()+" "+e.getWarning().getObject1().toString());
+            complainnum.setVisible(true);
+
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION,
+                    String.format("Your Complain Number is: %s\nTimestamp: %s\n",
+                            e.getWarning().getObject1(),
+                            e.getWarning().getTime().toString())
+            );
+            alert.show();
+            try {
+                App.setRoot("home");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+    }
 }

@@ -99,7 +99,9 @@ public class loginassubscriber {
             if (c.getWarning().getObject1().equals("yes full_subscriber"))
             {
                 Subscribeboundry.idd=accountid.getText();
-                Subscribeboundry.type="full_subscriber";
+                Subscribeboundry.type="Full";
+                Subscribeboundry.pass=password.getText();
+
                 System.out.println("full_subscriber");
                 try {
                     App.setRoot("subscribeboundry");
@@ -111,7 +113,8 @@ public class loginassubscriber {
             if (c.getWarning().getObject1().equals("yes regular_subscriber"))
             {
                 Subscribeboundry.idd=accountid.getText();
-                Subscribeboundry.type="regular_subscriber";
+                Subscribeboundry.type="Regular";
+                Subscribeboundry.pass=password.getText();
                 System.out.println("regular_subscriber");
                 try {
                     App.setRoot("subscribeboundry");

@@ -7,10 +7,12 @@
 <?import javafx.scene.effect.DisplacementMap?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.FloatMap?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.ChainManagerBoundary">
+<AnchorPane prefHeight="1000.0" prefWidth="750.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.ChainManagerBoundary">
     <children>
         <AnchorPane prefHeight="1010.0" prefWidth="1010.0" style="-fx-background-color: #7293ab;">
             <children>
@@ -90,6 +92,11 @@
                         <Bloom />
                     </effect>
                 </Label>
+            <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="32.0" layoutY="148.0">
+               <image>
+                  <Image url="@../../../../images/3273068.png" />
+               </image>
+            </ImageView>
             </children>
         </AnchorPane>
       <Label fx:id="userid" layoutX="91.0" layoutY="96.0" prefHeight="23.0" prefWidth="134.0" text="User ID:" />

@@ -10,8 +10,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
+
+import static il.cshaifasweng.OCSFMediatorExample.client.ParkingLotEmployeeBoundary.parking_id;
 
 public class InactiveParkings{
 
@@ -146,5 +149,10 @@ wrongParkDataAP2.setVisible(false);
     void returnToMainbtn(ActionEvent event) throws IOException {
         App.setRoot("ParkingLotEmployeeBoundary");
     }
-
+    @FXML
+    void initialize() {
+        //EventBus.getDefault().register(this);
+        enterPlId.setText(parking_id);
+        enterPlId.setDisable(true);
+    }
 }

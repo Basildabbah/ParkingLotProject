@@ -36,6 +36,8 @@ public class ParkingLot implements Serializable {
 
     private int numberOfInactiveParkings;
 
+    private int NumberOfComplaints;
+
 
     //deserialize and serialize after
     @Lob

@@ -4,10 +4,7 @@ import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -17,6 +14,47 @@ import java.io.IOException;
 public class NewComplaint1 {
     static String idd;
     static String type;
+    @FXML
+    void park1(ActionEvent event) {
+        parking_id.setText("1");
+    }
+
+    @FXML
+    void park2(ActionEvent event) {
+        parking_id.setText("2");
+
+    }
+
+    @FXML
+    void park3(ActionEvent event) {
+        parking_id.setText("3");
+
+    }
+
+    @FXML
+    void park4(ActionEvent event) {
+        parking_id.setText("4");
+
+    }
+
+    @FXML
+    void park5(ActionEvent event) {
+        parking_id.setText("5");
+
+    }
+    @FXML
+    private SplitMenuButton parking_id;
+    @FXML
+    void park6(ActionEvent event) {
+        parking_id.setText("6");
+
+    }
+
+    @FXML
+    void park7(ActionEvent event) {
+        parking_id.setText("7");
+
+    }
     ///////////////////////
     @FXML
     private TextField textC;
@@ -90,7 +128,7 @@ public class NewComplaint1 {
     void send(ActionEvent event) {
         try {
 
-            SimpleClient.getClient().sendToServer(new Message("newCompliain^"+textC.getText()+"^" +idd,parkingId.getText()));
+            SimpleClient.getClient().sendToServer(new Message("newCompliain^"+textC.getText()+"^" +idd,parking_id.getText()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -163,6 +201,12 @@ public class NewComplaint1 {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    void Back(ActionEvent event) throws IOException {
+    App.setRoot("subscribeboundry");
+    }
+
 
     @FXML
     void initialize() {

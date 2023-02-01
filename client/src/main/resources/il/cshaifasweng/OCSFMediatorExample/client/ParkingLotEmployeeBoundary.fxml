@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.ParkingLotEmployeeBoundary">
+<AnchorPane prefHeight="1000.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.ParkingLotEmployeeBoundary">
     <children>
         <AnchorPane prefHeight="1010.0" prefWidth="1010.0" style="-fx-background-color: #7293ab;">
             <children>
@@ -37,7 +37,7 @@
                             </DisplacementMap>
                         </effect>
                     </Button>
-            <Button fx:id="SendToAlternativeParkingLot" layoutX="296.0" layoutY="40.0" mnemonicParsing="false" onAction="#SendToAlternativeParkingLotfun" prefHeight="38.0" prefWidth="250.0" style="-fx-background-color: #00BFFF;" text="Send To Alternative Parking Lot" textFill="RED" textOverrun="CLIP">
+            <Button fx:id="SendToAlternativeParkingLot" layoutX="296.0" layoutY="40.0" mnemonicParsing="false" onAction="#SendToAlternativeParkingLotfun" prefHeight="38.0" prefWidth="250.0" style="-fx-background-color: #00BFFF;" text="Send To Alternative Parking Lot" textFill="RED" textOverrun="CLIP" visible="false">
                <font>
                   <Font size="16.0" />
                </font>
@@ -52,7 +52,7 @@
                   </DisplacementMap>
                </effect>
             </Button>
-            <Button fx:id="SetupParkingLot" layoutX="564.0" layoutY="40.0" mnemonicParsing="false" onAction="#SetupParkingLotfun" prefHeight="38.0" prefWidth="199.0" style="-fx-background-color: #00BFFF;" text="Setup Parking Lot" textFill="RED" textOverrun="CLIP">
+            <Button fx:id="SetupParkingLot" layoutX="564.0" layoutY="40.0" mnemonicParsing="false" onAction="#SetupParkingLotfun" prefHeight="38.0" prefWidth="199.0" style="-fx-background-color: #00BFFF;" text="Setup Parking Lot" textFill="RED" textOverrun="CLIP" visible="false">
                <font>
                   <Font size="16.0" />
                </font>
@@ -67,7 +67,7 @@
                   </DisplacementMap>
                </effect>
             </Button>
-            <Button fx:id="ReserveParking" layoutX="782.0" layoutY="40.0" mnemonicParsing="false" onAction="#ReserveParkingfun" prefHeight="38.0" prefWidth="199.0" style="-fx-background-color: #00BFFF;" text="Reserve Parking" textFill="RED" textOverrun="CLIP">
+            <Button fx:id="ReserveParking" layoutX="389.0" layoutY="40.0" mnemonicParsing="false" onAction="#ReserveParkingfun" prefHeight="38.0" prefWidth="199.0" style="-fx-background-color: #00BFFF;" text="Reserve Parking" textFill="RED" textOverrun="CLIP">
                <font>
                   <Font size="16.0" />
                </font>
@@ -82,7 +82,7 @@
                   </DisplacementMap>
                </effect>
             </Button>
-            <Button fx:id="logout" layoutX="998.0" layoutY="40.0" mnemonicParsing="false" onAction="#logoutfun" prefHeight="38.0" prefWidth="91.0" style="-fx-background-color: #00BFFF;" text="Log out" textFill="RED" textOverrun="CLIP">
+            <Button fx:id="logout" layoutX="664.0" layoutY="36.0" mnemonicParsing="false" onAction="#logoutfun" prefHeight="46.0" prefWidth="124.0" style="-fx-background-color: #00BFFF;" text="Log out" textFill="RED" textOverrun="CLIP">
                <font>
                   <Font size="16.0" />
                </font>

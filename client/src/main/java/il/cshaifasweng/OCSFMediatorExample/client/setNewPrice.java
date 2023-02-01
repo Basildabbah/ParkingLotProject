@@ -16,9 +16,12 @@ import javafx.scene.layout.AnchorPane;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.EventBus;
 
+import static il.cshaifasweng.OCSFMediatorExample.client.ParkingLotEmployeeBoundary.parking_id;
+
 public class setNewPrice {
 
     public static String name;
+    public static String iddd_park;
 
     @FXML // fx:id="APsetPrice"
     private AnchorPane APsetPrice; // Value injected by FXMLLoader
@@ -129,8 +132,9 @@ public class setNewPrice {
     @FXML
     void ReturnPriceUpdated(ActionEvent event) {
         newPriceUpdated.setVisible(false);
-        ParkLotIdMenu.setText("Select Parking Lot ID");
-        typeClientMenu.setDisable(true);
+        ParkLotIdMenu.setText(iddd_park);
+        ParkLotIdMenu.setDisable(true);
+        typeClientMenu.setDisable(false);
         typeClientMenu.setText("Select Type of Client");
         newPayTx.setDisable(true);
         newPayTx.setText("");
@@ -285,6 +289,11 @@ public class setNewPrice {
 
     @FXML
     void showPricefun(ActionEvent event) {
-
+    }
+    @FXML
+    void initialize() {
+        //EventBus.getDefault().register(this);
+        ParkLotIdMenu.setText(iddd_park);
+        ParkLotIdMenu.setDisable(true);
     }
 }

@@ -94,7 +94,42 @@ public class showPriceManager {
         }
         //textbox.setVisible(true);
     }
-
+    @FXML
+    void park4(ActionEvent event) {
+        try {
+            SimpleClient.getClient().sendToServer("#Managerprices_4");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //textbox.setVisible(true);
+    }
+    @FXML
+    void park5(ActionEvent event) {
+        try {
+            SimpleClient.getClient().sendToServer("#Managerprices_5");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //textbox.setVisible(true);
+    }
+    @FXML
+    void park6(ActionEvent event) {
+        try {
+            SimpleClient.getClient().sendToServer("#Managerprices_6");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //textbox.setVisible(true);
+    }
+    @FXML
+    void park7(ActionEvent event) {
+        try {
+            SimpleClient.getClient().sendToServer("#Managerprices_7");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //textbox.setVisible(true);
+    }
     @Subscribe
     public void setLabelshow(showPriceManagerEvent c) {
         Platform.runLater(() -> {

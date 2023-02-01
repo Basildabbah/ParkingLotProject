@@ -11,10 +11,12 @@
 <?import javafx.scene.effect.DisplacementMap?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.FloatMap?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="1000.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.loginadmin">
+<AnchorPane prefHeight="1000.0" prefWidth="750.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.loginadmin">
    <children>
       <AnchorPane layoutX="132.0" layoutY="14.0" prefHeight="45.0" prefWidth="578.0">
          <children>
@@ -133,6 +135,22 @@
             <Label fx:id="invaild" layoutX="58.0" layoutY="277.0" prefHeight="18.0" prefWidth="211.0" text=" User ID or password is invalid." textFill="RED" visible="false" />
             <PasswordField fx:id="pass1" layoutX="58.0" layoutY="227.0" prefHeight="26.0" prefWidth="211.0" promptText="Type Your Password" />
             <CheckBox fx:id="showpass" layoutX="58.0" layoutY="260.0" mnemonicParsing="false" onAction="#showpass" text="Show Pass" />
+
+            <ImageView fitHeight="26.0" fitWidth="24.0" layoutX="26.0" layoutY="313.0">
+               <image>
+                  <Image url="@../../../../images/152533.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="26.0" fitWidth="24.0" layoutX="26.0" layoutY="227.0">
+               <image>
+                  <Image url="@../../../../images/k.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="26.0" fitWidth="30.0" layoutX="23.0" layoutY="160.0">
+               <image>
+                  <Image url="@../../../../images/profile-icon-login-head-icon-vector.jpg" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="1000.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.showPriceManager">
+<AnchorPane prefHeight="1000.0" prefWidth="750.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.showPriceManager">
     <children>
         <Label alignment="CENTER" layoutX="377.0" layoutY="89.0" prefHeight="62.0" prefWidth="199.0" text="Parking Lots" textFill="#991010" wrapText="true">
             <font>
@@ -32,6 +32,10 @@
                 <MenuItem fx:id="park1" mnemonicParsing="false" onAction="#park1" text="Park 1" />
                 <MenuItem fx:id="park2" mnemonicParsing="false" onAction="#park2" text="Park 2" />
                 <MenuItem fx:id="park3" mnemonicParsing="false" onAction="#park3" text="Park 3" />
+            <MenuItem fx:id="park4" mnemonicParsing="false" onAction="#park4" text="Park 4" />
+            <MenuItem fx:id="park5" mnemonicParsing="false" onAction="#park5" text="Park 5" />
+            <MenuItem fx:id="park6" mnemonicParsing="false" onAction="#park6" text="Park 6" />
+            <MenuItem fx:id="park7" mnemonicParsing="false" onAction="#park7" text="Park 7" />
             </items>
         </MenuButton>
       <SplitPane fx:id="textbox" dividerPositions="0.6029411764705882" layoutX="340.0" layoutY="224.0" prefHeight="122.0" prefWidth="274.0">

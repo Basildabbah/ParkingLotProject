@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.ParkingLotManagerBoundary">
+<AnchorPane prefHeight="1000.0" prefWidth="750.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.ParkingLotManagerBoundary">
    <children>
       <AnchorPane prefHeight="1010.0" prefWidth="1010.0" style="-fx-background-color: #7293ab;">
          <children>
@@ -33,7 +33,7 @@
                               </DisplacementMap>
                            </effect>
                         </Button>
-                        <Button fx:id="Prices" mnemonicParsing="false" onAction="#Pricesfun" style="-fx-background-color: #00BFFF;" text="Prices" textFill="RED" textOverrun="CLIP">
+                        <Button fx:id="Prices" mnemonicParsing="false" onAction="#Pricesfun" style="-fx-background-color: #00BFFF;" text="Prices" textFill="RED" textOverrun="CLIP" visible="false">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -48,7 +48,7 @@
                               </DisplacementMap>
                            </effect>
                         </Button>
-                        <Button fx:id="makereport" mnemonicParsing="false" onAction="#makereportfun" prefHeight="38.0" style="-fx-background-color: #00BFFF;" text="Make Report" textFill="RED" textOverrun="CLIP">
+                        <Button fx:id="makereport" mnemonicParsing="false" onAction="#makereportfun" prefHeight="38.0" style="-fx-background-color: #00BFFF;" text="Make Report" textFill="RED" textOverrun="CLIP" visible="false">
                            <font>
                               <Font size="16.0" />
                            </font>

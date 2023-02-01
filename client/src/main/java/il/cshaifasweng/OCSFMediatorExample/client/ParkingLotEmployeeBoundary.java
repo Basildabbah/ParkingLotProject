@@ -7,8 +7,12 @@ import javafx.scene.control.Label;
 
 import java.io.IOException;
 
+import static il.cshaifasweng.OCSFMediatorExample.client.ReserveParking.setRet_;
+
 public class ParkingLotEmployeeBoundary {
     public static String idd;
+    public static String parking_id;
+
     @FXML
     private Button ReserveParking;
 
@@ -28,9 +32,11 @@ public class ParkingLotEmployeeBoundary {
     private Button parkingnotactive;
 
     @FXML
-    void ReserveParkingfun(ActionEvent event) {
-
+    void ReserveParkingfun(ActionEvent event) throws IOException {
+        setRet_(1);
+        App.setRoot("ReserveParking");
     }
+
 
     @FXML
     void SendToAlternativeParkingLotfun(ActionEvent event) {
@@ -54,6 +60,7 @@ public class ParkingLotEmployeeBoundary {
     }
     @FXML
     void parkingnotactivefun(ActionEvent event) throws IOException {
+
         App.setRoot("InactiveParkings");
     }
 }

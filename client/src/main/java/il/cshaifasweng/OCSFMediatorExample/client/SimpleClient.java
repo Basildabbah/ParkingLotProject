@@ -45,6 +45,27 @@ public class SimpleClient extends AbstractClient {
 		if(((Message) msg).getMessage().equals("FullSubscriberOrder")) {
 			EventBus.getDefault().post(new FullSubscriberOrderEvent(message));
 		}
+		if(((Message) msg).getMessage().equals("CancelReservation")) {
+			EventBus.getDefault().post(new CancelReserveEvent(message));
+		}
+		if(((Message) msg).getMessage().equals("Reservation")) {
+			EventBus.getDefault().post(new ReserveParkingEvent(message));
+		}
+
+		if (message.getMessage().equals("InvalidSpotsReport")) {
+			EventBus.getDefault().post(new InvalidSpotsReportEvent(message));
+		}
+		if (message.getMessage().equals("ComplaintsReport")) {
+			EventBus.getDefault().post(new ComplaintsReportEvent(message));
+		}
+		if (message.getMessage().equals("OrdersReport")) {
+			EventBus.getDefault().post(new OrdersReportEvent(message));
+		}
+		if (message.getMessage().equals("Stats")) {
+			EventBus.getDefault().post(new StatsEvent(message));
+		}
+
+
 
 //		*************************************************************************************
 //		*************************************************************************************

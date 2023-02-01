@@ -36,8 +36,8 @@ public class ChainManagerBoundary {
     }
 
     @FXML
-    void displayreportsfun(ActionEvent event) {
-
+    void displayreportsfun(ActionEvent event) throws IOException {
+    App.setRoot("displayreportofchain");
     }
 
     @FXML

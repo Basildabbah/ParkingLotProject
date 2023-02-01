@@ -16,6 +16,10 @@ public class CanceledOrder implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private int ParkingLotId;
+
+    private int DayOfCancel;
+
     private int orderId;
 
     private double refundedMoney;

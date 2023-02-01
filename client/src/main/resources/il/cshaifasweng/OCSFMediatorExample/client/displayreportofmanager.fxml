@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="1000.0" prefWidth="750.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Displayreportofmanager">
+   <children>
+      <Button layoutX="437.0" layoutY="449.0" mnemonicParsing="false" onAction="#Back" prefHeight="34.0" prefWidth="94.0" text="Back">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Button>
+      <SplitMenuButton fx:id="type" layoutX="274.0" layoutY="319.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="146.0" text="Report Type">
+        <items>
+          <MenuItem fx:id="InvalidSpotsReport" mnemonicParsing="false" onAction="#InvalidSpotsReport" text="InvalidSpotsReport" />
+          <MenuItem fx:id="ComplaintsReport" mnemonicParsing="false" onAction="#ComplaintsReport" text="ComplaintsReport" />
+            <MenuItem fx:id="OrdersReport" mnemonicParsing="false" onAction="#OrdersReport" text="OrdersReport" />
+        </items>
+      </SplitMenuButton>
+      <SplitMenuButton fx:id="parking_id" layoutX="274.0" layoutY="265.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" text="Choose ParkLot Id">
+         <items>
+            <MenuItem fx:id="park1" mnemonicParsing="false" onAction="#park1" text="Park 1" />
+            <MenuItem fx:id="park2" mnemonicParsing="false" onAction="#park2" text="Park 2" />
+            <MenuItem fx:id="park3" mnemonicParsing="false" onAction="#park3" text="Park 3" />
+            <MenuItem fx:id="park4" mnemonicParsing="false" onAction="#park4" text="Park 4" />
+            <MenuItem fx:id="park5" mnemonicParsing="false" onAction="#park5" text="Park 5" />
+            <MenuItem fx:id="park6" mnemonicParsing="false" onAction="#park6" text="Park 6" />
+            <MenuItem fx:id="park7" mnemonicParsing="false" onAction="#park7" text="Park 7" />
+         </items>
+      </SplitMenuButton>
+      <Button fx:id="ShowReportfun" layoutX="293.0" layoutY="365.0" mnemonicParsing="false" onAction="#ShowReportfun" text="Show Report" />
+      <Label layoutX="293.0" layoutY="208.0" prefHeight="18.0" prefWidth="76.0" text="Report">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <SplitMenuButton fx:id="parking_id1" layoutX="522.0" layoutY="265.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" text="Choose ParkLot Id">
+         <items>
+            <MenuItem fx:id="park11" mnemonicParsing="false" onAction="#park11" text="Park 1" />
+            <MenuItem fx:id="park22" mnemonicParsing="false" onAction="#park22" text="Park 2" />
+            <MenuItem fx:id="park33" mnemonicParsing="false" onAction="#park33" text="Park 3" />
+            <MenuItem fx:id="park44" mnemonicParsing="false" onAction="#park44" text="Park 4" />
+            <MenuItem fx:id="park55" mnemonicParsing="false" onAction="#park55" text="Park 5" />
+            <MenuItem fx:id="park66" mnemonicParsing="false" onAction="#park66" text="Park 6" />
+            <MenuItem fx:id="park77" mnemonicParsing="false" onAction="#park77" text="Park 7" />
+         </items>
+      </SplitMenuButton>
+      <Label layoutX="544.0" layoutY="208.0" prefHeight="34.0" prefWidth="101.0" text="Statistics">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Button fx:id="ShowReportfun1" layoutX="553.0" layoutY="319.0" mnemonicParsing="false" onAction="#ShowStatisticsfun" text="Show Report" />
+      <Label alignment="CENTER" layoutX="369.0" layoutY="118.0" prefHeight="62.0" prefWidth="199.0" text="Parking Lots" textFill="#991010" wrapText="true">
+         <font>
+            <Font name="Californian FB Italic" size="28.0" />
+         </font>
+         <effect>
+            <Bloom />
+         </effect>
+      </Label>
+      <ImageView fitHeight="105.0" fitWidth="115.0" layoutX="427.0" layoutY="560.0">
+         <image>
+            <Image url="@../../../../images/938-9383200_png-file-svg-view-report-icon-png.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

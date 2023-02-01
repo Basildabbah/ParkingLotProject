@@ -75,9 +75,11 @@ public class Order {
         parkinglot.getAllOrders().add(this);
     }
 
-    //******************************************************************************
+    //**************************
 
     private boolean AlreadyInParkingLot;
+
+    private int LateArrival;
 
     private String entryTime;
 
