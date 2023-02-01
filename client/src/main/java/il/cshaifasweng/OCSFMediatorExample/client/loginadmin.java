@@ -178,6 +178,9 @@ public class loginadmin {
             {
                 ParkingLotManagerBoundary.idd=id.getText();
                 try {
+                    System.out.println("aaaaaaaaaa");
+                    ParkingLotManagerBoundary.idd_parking_lot=c.getWarning().getObject2().toString();
+                    System.out.println(ParkingLotManagerBoundary.idd_parking_lot);
                     App.setRoot("ParkingLotManagerBoundary");
                 } catch (IOException e) {
                     e.printStackTrace();

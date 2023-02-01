@@ -10,6 +10,7 @@ import java.io.IOException;
 
 public class ParkingLotManagerBoundary {
     public static String idd;
+    public static String idd_parking_lot;
     @FXML
     private Label userid;
     @FXML

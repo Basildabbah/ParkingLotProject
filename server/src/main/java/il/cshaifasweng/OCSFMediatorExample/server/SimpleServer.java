@@ -1452,6 +1452,7 @@ public class SimpleServer extends AbstractServer {
 					session.save(p);
 					session.update(p);
 					message.setObject1("yes parkinglotmanagers");
+					message.setObject2(p.getParkinglot().getId());
 				}
 			}
 
