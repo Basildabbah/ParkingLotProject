@@ -111,52 +111,52 @@
                <children>
                   <ImageView fx:id="star1" fitHeight="46.0" fitWidth="53.0" layoutX="14.0" layoutY="28.0">
                      <image>
-                        <Image url="@../../../../images/images.png" />
+                        <Image url="@../../../../images/q.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="star2" fitHeight="46.0" fitWidth="53.0" layoutX="67.0" layoutY="28.0">
                      <image>
-                        <Image url="@../../../../images/images.png" />
+                        <Image url="@../../../../images/q.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="star3" fitHeight="46.0" fitWidth="53.0" layoutX="120.0" layoutY="28.0">
                      <image>
-                        <Image url="@../../../../images/images.png" />
+                        <Image url="@../../../../images/q.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="star4" fitHeight="46.0" fitWidth="53.0" layoutX="173.0" layoutY="28.0">
                      <image>
-                        <Image url="@../../../../images/images.png" />
+                        <Image url="@../../../../images/q.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="gold1" fitHeight="40.0" fitWidth="53.0" layoutX="14.0" layoutY="31.0" visible="false">
                      <image>
-                        <Image url="@../../../../images/stargold.png" />
+                        <Image url="@../../../../images/p.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="gold5" fitHeight="40.0" fitWidth="53.0" layoutX="226.0" layoutY="31.0" visible="false">
                      <image>
-                        <Image url="@../../../../images/stargold.png" />
+                        <Image url="@../../../../images/p.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="gold4" fitHeight="40.0" fitWidth="53.0" layoutX="173.0" layoutY="31.0" visible="false">
                      <image>
-                        <Image url="@../../../../images/stargold.png" />
+                        <Image url="@../../../../images/p.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="gold2" fitHeight="40.0" fitWidth="53.0" layoutX="67.0" layoutY="31.0" visible="false">
                      <image>
-                        <Image url="@../../../../images/stargold.png" />
+                        <Image url="@../../../../images/p.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="gold3" fitHeight="40.0" fitWidth="53.0" layoutX="120.0" layoutY="31.0" visible="false">
                      <image>
-                        <Image url="@../../../../images/stargold.png" />
+                        <Image url="@../../../../images/p.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="star5" fitHeight="46.0" fitWidth="53.0" layoutX="226.0" layoutY="28.0">
                      <image>
-                        <Image url="@../../../../images/images.png" />
+                        <Image url="@../../../../images/q.png" />
                      </image>
                   </ImageView>
                </children>

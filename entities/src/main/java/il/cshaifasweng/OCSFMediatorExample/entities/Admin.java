@@ -13,8 +13,9 @@ public class Admin implements Serializable {
 
     private static final long serialVersionUID = 1035377024343093717L;
 
+    private static int counter = 100;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String firstName;
@@ -25,16 +26,15 @@ public class Admin implements Serializable {
 
     private String password;
 
-    private String occupation;
 
     private String isConnected;
 
-    public Admin(String firstName, String lastName, String email, String password, String occupation,String x) {
+    public Admin(String firstName, String lastName, String email, String password,String x) {
+        this.id = counter++;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.occupation = occupation;
         this.isConnected=x;
     }
 

@@ -170,7 +170,7 @@ public class SimpleClient extends AbstractClient {
 	}
 	public static SimpleClient getClient() {
 		if (client == null) {
-			client = new SimpleClient("localhost", 6666);
+			client = new SimpleClient("localhost", 7777);
 		}
 		return client;
 	}

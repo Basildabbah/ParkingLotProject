@@ -7,15 +7,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.EventBus;
 
+import javax.script.Bindings;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +28,8 @@ public class loginadmin {
     }
     @FXML
     private Button Prices;
-
+    @FXML
+    private PasswordField pass1;
     @FXML
     private Button about;
 
@@ -60,12 +59,31 @@ public class loginadmin {
 
     @FXML
     private TextField pass;
+    @FXML
+    private CheckBox showpass;
+    @FXML
+    void showpass(ActionEvent event) {
+        if(showpass.isSelected()==true)
+        {
+            System.out.println("aaaaaaaaaaa");
+            pass.setText(pass1.getText());
+            pass1.setVisible(false);
+            pass.setVisible(true);
+        }
+        else
+        {        System.out.println("bbbbbbbbbbbbbb");
 
+            pass1.setText(pass.getText());
+            pass.setVisible(false);
+            pass1.setVisible(true);
+
+        }
+    }
     @FXML
     void loginbutton(ActionEvent event) {
         if(pass.getText()=="")pass.setStyle("-fx-border-color: red");
         if(id.getText()=="")id.setStyle("-fx-border-color: red");
-        Message m=new Message("#loginadmin",id.getText(),pass.getText());
+        Message m=new Message("#loginadmin",id.getText(),pass1.getText());
         try {
             SimpleClient.getClient().sendToServer(m);
         } catch (IOException e) {
@@ -76,7 +94,6 @@ public class loginadmin {
     @FXML
     void Pricesfun(ActionEvent event) throws IOException {
         App.setRoot("prices");
-
     }
     @FXML
     void aboutus(ActionEvent event) throws IOException {
@@ -118,42 +135,62 @@ public class loginadmin {
     @Subscribe
     public void setLabelshow1(loginadminEvent c)throws IOException {
         Platform.runLater(()->{
-        if (c.getWarning().getObject1().equals("yes Chain Manager"))
-        {
 
-            try {
-                ChainManagerBoundary.name=id.getText();
-                ChainManagerBoundary.idd=id.getText();
-                App.setRoot("ChainManagerBoundary");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
-        }
-        if (c.getWarning().getObject1().equals("yes Customer Service"))
-        {
-            try {
-                CustomerServiceBoundary.name=id.getText();
-                CustomerServiceBoundary.idd=id.getText();
-                App.setRoot("CustomerServiceBoundary");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        if (c.getWarning().getObject1().equals("yes parkinglotmanagers"))
-        {
-            ParkingLotManagerBoundary.idd=id.getText();
+
+            if (c.getWarning().getObject1().equals("yes parkinglotemployee"))
+            {
+
                 try {
+                    ParkingLotEmployeeBoundary.idd=id.getText();
+                    App.setRoot("ParkingLotEmployeeBoundary");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+
+
+            if (c.getWarning().getObject1().equals("yes Chain Manager"))
+            {
+
+                try {
+                    ChainManagerBoundary.name=id.getText();
+                    ChainManagerBoundary.idd=id.getText();
+                    App.setRoot("ChainManagerBoundary");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            if (c.getWarning().getObject1().equals("yes Customer Service"))
+            {
+                try {
+                    CustomerServiceBoundary.name=id.getText();
+                    CustomerServiceBoundary.idd=id.getText();
+                    App.setRoot("CustomerServiceBoundary");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (c.getWarning().getObject1().equals("yes parkinglotmanagers"))
+            {
+                ParkingLotManagerBoundary.idd=id.getText();
+                try {
+                    System.out.println("aaaaaaaaaa");
+                    ParkingLotManagerBoundary.idd_parking_lot=c.getWarning().getObject2().toString();
+                    System.out.println(ParkingLotManagerBoundary.idd_parking_lot);
                     App.setRoot("ParkingLotManagerBoundary");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-        }
-        else
-        {
-            invaild.setText("Invalid Data");
-            invaild.setVisible(true);
-        }
+            }
+            else
+            {
+                invaild.setText("Invalid Data");
+                invaild.setVisible(true);
+            }
         });
     }
 

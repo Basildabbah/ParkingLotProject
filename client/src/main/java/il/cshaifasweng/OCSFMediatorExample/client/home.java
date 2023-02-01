@@ -38,6 +38,7 @@ public class home {
     private Button subs;
 
 
+
     @FXML
     void Pricesfun(ActionEvent event) throws IOException {
         App.setRoot("prices");

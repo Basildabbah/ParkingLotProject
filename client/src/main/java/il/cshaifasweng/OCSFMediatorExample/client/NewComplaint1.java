@@ -67,6 +67,8 @@ public class NewComplaint1 {
     private Label complainnum;
 
     @FXML
+    private TextField parkingId;
+    @FXML
     private Button addreviewfun;
 
     @FXML
@@ -88,7 +90,7 @@ public class NewComplaint1 {
     void send(ActionEvent event) {
         try {
 
-            SimpleClient.getClient().sendToServer(new Message("newCompliain^"+textC.getText()+"^" +idd));
+            SimpleClient.getClient().sendToServer(new Message("newCompliain^"+textC.getText()+"^" +idd,parkingId.getText()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -164,7 +166,6 @@ public class NewComplaint1 {
 
     @FXML
     void initialize() {
-
         id.setText(idd);
         id.setDisable(true);
         EventBus.getDefault().register(this);
