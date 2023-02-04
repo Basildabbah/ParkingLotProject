@@ -25,9 +25,8 @@ public class ChainManagerBoundary {
     private Button logout;
 
     @FXML
-    void CurrentParkingLotStatusfun(ActionEvent event) {
-        System.out.println(name);
-
+    void CurrentParkingLotStatusfun(ActionEvent event) throws IOException {
+    App.setRoot("curpark_chainmanager");
     }
 
     @FXML

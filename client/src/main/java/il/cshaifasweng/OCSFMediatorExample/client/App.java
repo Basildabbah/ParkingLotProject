@@ -75,6 +75,65 @@ public class App extends Application {
 
     }
 
+
+    @Subscribe
+    public void onMessageWaEvent(MessageWaEvent event) {
+        System.out.println("lkaffafa");
+        Platform.runLater(() -> {
+            Alert alert = new Alert(AlertType.CONFIRMATION,
+                    String.format("Message: %s\n",
+                            event.getWarning().getMessage()));
+            alert.show();
+
+        });
+
+    }
+
+    @Subscribe
+    public void onMessageWaInfEvent(MessageWaInfEvent event) {
+        System.out.println("lkaffafa");
+        Platform.runLater(() -> {
+            Alert alert = new Alert(AlertType.INFORMATION,
+                    String.format("Message: %s\n",
+                            event.getWarning().getMessage()));
+            alert.show();
+
+        });
+
+    }
+
+
+    @Subscribe
+    public void onMessageWaErEvent(MessageWaErEvent event) {
+        System.out.println("lkaffafa");
+        Platform.runLater(() -> {
+            Alert alert = new Alert(AlertType.ERROR,
+                    String.format("Message: %s\n",
+                            event.getWarning().getMessage()));
+            alert.show();
+
+        });
+
+    }
+
+    @Subscribe
+    public void onCurrentPictureEvent(CurrentPictureEvent event) {
+        setCurrentParkingLot(event.getCurrentParkingLot());
+        if (event.getCurrentParkingLotCols() == 4) {
+            try {
+                App.setRoot("CurrentPicture2Controller");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            try {
+                App.setRoot("CurrentPictureController");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 	public static void main(String[] args) {
         launch();
     }

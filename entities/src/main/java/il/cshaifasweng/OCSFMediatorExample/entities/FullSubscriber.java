@@ -16,7 +16,6 @@ public class FullSubscriber implements Serializable {
     private static final long serialVersionUID = 7030977024343093717L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int subscriberId;
 
     private int SubscriptionId;
@@ -55,7 +54,8 @@ public class FullSubscriber implements Serializable {
 
     public FullSubscriber(int id, String firstName, String lastName, String email, String password , String visaCard,String x) {
         this.id = id;
-        SubscriptionId=id;
+        this.SubscriptionId=id;
+        this.subscriberId=id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

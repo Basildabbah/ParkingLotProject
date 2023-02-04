@@ -16,7 +16,6 @@ public class RegularSubscriber implements Serializable {
     private static final long serialVersionUID = 7030374624343093717L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int subscriberId;
 
     private int SubscriptionId;
@@ -56,7 +55,8 @@ public class RegularSubscriber implements Serializable {
 
     public RegularSubscriber(int id, String firstName, String lastName, String email, String password , String visaCard,String x) {
         this.id = id;
-        SubscriptionId=id;
+        this.SubscriptionId=id;
+        this.subscriberId=id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

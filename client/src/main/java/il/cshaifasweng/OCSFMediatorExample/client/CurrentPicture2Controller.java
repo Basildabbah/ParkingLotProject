@@ -133,8 +133,8 @@ public class CurrentPicture2Controller {
     private Rectangle rect232;
 
     @FXML
-    void goback(ActionEvent event) {
-
+    void goback(ActionEvent event) throws IOException {
+        App.setRoot("curpark_chainmanager");
     }
 
     @FXML
@@ -183,7 +183,7 @@ public class CurrentPicture2Controller {
 
         for (int i = 0; i < matrix3d.length; i++) {
             for (int j = 0; j < matrix3d[i].length; j++) {
-                for (int k = 0; j < matrix3d[i][j].length; j++) {
+                for (int k = 0; k < matrix3d[i][j].length; k++) {
                     String rectId = "rect" + i + j + k;
                     Rectangle rect = (Rectangle) anchorroot.lookup("#" + rectId);
                     if (matrix3d[i][j][k] == 2) {

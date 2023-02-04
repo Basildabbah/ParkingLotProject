@@ -121,9 +121,9 @@ public class SimpleClient extends AbstractClient {
 		if(((Message) msg).getMessage().equals("review_-1")) {
 			EventBus.getDefault().post(new home_review_Event(message));
 		}
-		if(((Message) msg).getMessage().equals("#caralreadylinked")) {
+		/*if(((Message) msg).getMessage().equals("#caralreadylinked")) {
 			EventBus.getDefault().post(new loginadminEvent(message));
-		}
+		}*/
 		if(((Message) msg).getMessage().equals("test")) {
 			System.out.println("h");
 			EventBus.getDefault().post(new loginadminEvent(message));
@@ -143,49 +143,64 @@ public class SimpleClient extends AbstractClient {
 			EventBus.getDefault().post(new RefreshComplaintsEvent(message));
 		}
 		if(msgString.equals("#caralreadylinked")) {
-			EventBus.getDefault().post(new MessageWaEvent((Message) (new Message("This car is already linked to another account"))));
+			EventBus.getDefault().post(new MessageWaErEvent((Message) (new Message("This car is already linked to another account"))));
 		}
 		if(msgString.equals("#caradded")){
-			EventBus.getDefault().post(new MessageWaEvent((Message) (new Message("The car has been added to your account successfully"))));
+			System.out.println("sclientada");
+			EventBus.getDefault().post(new MessageWaInfEvent((Message) (new Message("The car has been added to your account successfully"))));
 		}
 		if ((msgString.equals("#cardoesntexist"))){
-			EventBus.getDefault().post(new MessageWaEvent((Message) (new Message("There is no such car that is linked to your account"))));
+			System.out.println("sclientada");
+			EventBus.getDefault().post(new MessageWaErEvent((Message) (new Message("There is no such car that is linked to your account"))));
 		}
 		if ((msgString.equals("#carremoved"))){
-			EventBus.getDefault().post(new MessageWaEvent((Message) (new Message("The car has been removed from your account successfully"))));
+			System.out.println("sclientada");
+			EventBus.getDefault().post(new MessageWaInfEvent((Message) (new Message("The car has been removed from your account successfully"))));
 		}
 		if ((msgString.equals("#showparkinglotpicture"))){
+			System.out.println("/da/da/d/a/d/a/d/a");
 			Message msg1 = ((Message) msg);
 			EventBus.getDefault().post(new CurrentPictureEvent((int[][][]) msg1.getObject1() , (int)msg1.getObject2()));
 		}
-		if ((msgString.equals("#carentered"))){
-			EventBus.getDefault().post(new MessageWaEvent((Message) (new Message("Your car has been entered to the parking lot"))));
+		if ((msgString.equals("#CarEntered"))){
+			System.out.println("sclientada");
+			EventBus.getDefault().post(new MessageWaInfEvent((Message) (new Message("Your car has been entered to the parking lot"))));
+		}
+		if ((msgString.equals("#TheCarIsAlreadyIn"))){
+			System.out.println("sclientada");
+			EventBus.getDefault().post(new MessageWaInfEvent((Message) (new Message("Your car is already in the parking lot"))));
 		}
 		if ((msgString.equals("#SendToAlternative"))){
-
+			System.out.println("stillnotready....");
 		}
 		if ((msgString.equals("#CarIsNotInParkingLot"))){
-			EventBus.getDefault().post(new MessageWaEvent((Message) (new Message("This car is not in the selected parking lot"))));
+			System.out.println("sclientada");
+			EventBus.getDefault().post(new MessageWaErEvent((Message) (new Message("This car is not in the selected parking lot"))));
 		}
 		if ((msgString.equals("#CarExited"))){
-			EventBus.getDefault().post(new MessageWaEvent((Message) (new Message("Your car has been exited from the parking lot"))));
+			System.out.println("sclientada");
+			EventBus.getDefault().post(new MessageWaInfEvent((Message) (new Message("Your car has been exited from the parking lot"))));
 		}
 		if ((msgString.equals("#NumberOfColIsWrong"))){
-			EventBus.getDefault().post(new MessageWaEvent((Message) (new Message("Please enter a valid col number for the parking lot you have picked"))));
+			System.out.println("sclientada");
+			EventBus.getDefault().post(new MessageWaErEvent((Message) (new Message("Please enter a valid col number for the parking lot you have picked"))));
 		}
 		if ((msgString.equals("#SomeoneIsParked"))){
-			EventBus.getDefault().post(new MessageWaEvent((Message) (new Message("Someone is parked at the spot u have chose to deactivate so the process can not be completed"))));
+			System.out.println("sclientada");
+			EventBus.getDefault().post(new MessageWaErEvent((Message) (new Message("Someone is parked at the spot u have chose to deactivate so the process can not be completed"))));
 		}
 		if ((msgString.equals("#InactiveSuccess"))){
-			EventBus.getDefault().post(new MessageWaEvent((Message) (new Message("The spot has been deactivated"))));
+			System.out.println("sclientada");
+			EventBus.getDefault().post(new MessageWaInfEvent((Message) (new Message("The spot has been deactivated"))));
 		}
 		if ((msgString.equals("#ActiveSuccess"))){
-			EventBus.getDefault().post(new MessageWaEvent((Message) (new Message("The spot has been activated"))));
+			System.out.println("sclientada");
+			EventBus.getDefault().post(new MessageWaInfEvent((Message) (new Message("The spot has been activated"))));
 		}
 		if ((msgString.equals("#subscriptionrenewed"))){
-			EventBus.getDefault().post(new MessageWaEvent((Message) (new Message("Your subscription has been renewed"))));
+			System.out.println("sclientada");
+			EventBus.getDefault().post(new MessageWaInfEvent((Message) (new Message("Your subscription has been renewed"))));
 		}
-
 
 
 	}

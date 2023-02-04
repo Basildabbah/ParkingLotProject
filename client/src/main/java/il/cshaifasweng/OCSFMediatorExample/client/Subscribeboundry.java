@@ -12,13 +12,15 @@ import org.greenrobot.eventbus.Subscribe;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Optional;
 
 public class Subscribeboundry {
     public static String idd;
     static String type;
     public static String pass;
 
-
+    @FXML
+    private Label numofcomplain_label;
 
     @FXML
     private Button CancelOrder;
@@ -174,7 +176,20 @@ public class Subscribeboundry {
 
     @FXML
     void RenewSubscriptionfun(ActionEvent event) {
+        Alert x = new Alert(Alert.AlertType.CONFIRMATION,
+                String.format("Are You Sure?")
 
+        );
+        Optional<ButtonType> result = x.showAndWait();
+        if (result.get() == ButtonType.OK){
+            try {
+                SimpleClient.getClient().sendToServer(new Message("#renewsub", Integer.parseInt(idd)));
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+
+        }
+       // x.show();
     }
     @FXML
     void addreviewfun(ActionEvent event) throws IOException {
@@ -183,11 +198,12 @@ public class Subscribeboundry {
     }
 
     @FXML
-    void addcarfun(ActionEvent event) {
-        addcaranchorpane.setVisible(true);
+    void addcarfun(ActionEvent event) throws IOException {
+       /* addcaranchorpane.setVisible(true);
         idtextbox.setText(idd);
-        idtextbox.setDisable(true);
-
+        idtextbox.setDisable(true);*/
+        addcar_subs.idd=idd;
+        App.setRoot("addcar_subs");
     }
 
     @FXML
@@ -358,7 +374,9 @@ public class Subscribeboundry {
     }
 
     @FXML
-    void removecarfun(ActionEvent event) {
+    void removecarfun(ActionEvent event) throws IOException {
+        removecer_subs.idd=idd;
+    App.setRoot("removecer_subs");
 
     }
 
@@ -369,13 +387,13 @@ public class Subscribeboundry {
     }
     @FXML
     void submit_add_carfun(ActionEvent event) {
-        System.out.println(idd.toString());
-        Message m=new Message("#addcar_full_subscriber",idd,carnumbertextbox.getText());
         try {
-            SimpleClient.getClient().sendToServer(m);
-        } catch (IOException e) {
+            SimpleClient.getClient().sendToServer(new Message("#addcar", Integer.parseInt(carnumbertextbox.getText()),
+                    Integer.parseInt(idd)));
+        } catch (IOException e){
             e.printStackTrace();
         }
+
     }
     @FXML
     void CancelOrder(ActionEvent event) {
@@ -388,9 +406,7 @@ public class Subscribeboundry {
     }
     @FXML
     void initialize() {
-        labelid.setText("User ID:"+idd);
-        labelid1.setText("User Pass::"+pass);
-        ancherpane_ORDER.setVisible(false);
+        addcar_subs.idd=idd;
         EventBus.getDefault().register(this);
     }
     @Subscribe

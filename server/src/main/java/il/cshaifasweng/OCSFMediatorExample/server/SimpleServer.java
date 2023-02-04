@@ -1982,6 +1982,7 @@ public class SimpleServer extends AbstractServer {
 		}
 
 		if(msgString.equals("#addcar")){
+			System.out.println("adddddadadadad");
 			session = sessionFactory.openSession();
 			session.beginTransaction();
 			List<Car> carList = getAll(Car.class);
@@ -2003,14 +2004,16 @@ public class SimpleServer extends AbstractServer {
 			}
 			Car car = new Car(carNumber);
 			for (FullSubscriber fullSubscriber : fullSubscriberList) {
-				if (fullSubscriber.getSubscriberId() == sub_id) {
+				if (fullSubscriber.getSubscriberId() == sub_id ) {
 					fullSubscriber.addCar(car);
+					car.setFullsubscriber(fullSubscriber);
 					session.update(fullSubscriber);
 				}
 			}
 			for (RegularSubscriber regularSubscriber : regularSubscriberList) {
 				if (regularSubscriber.getSubscriberId() == sub_id) {
 					regularSubscriber.addCar(car);
+					car.setRegularsubscriber(regularSubscriber);
 					session.update(regularSubscriber);
 				}
 			}
@@ -2035,20 +2038,20 @@ public class SimpleServer extends AbstractServer {
 			Message msg1 = ((Message) msg);
 			int carNumber = (int) msg1.getObject1();
 			int sub_id = (int) msg1.getObject2();
-			String typeOfSub = (String) msg1.getObject3();
+			//String typeOfSub = (String) msg1.getObject3();
 			boolean carExists = false;
 
 			for (Car car : carList){
 				if (car.getCarNumber() == carNumber){
 					carExists = true;
 					for (FullSubscriber fullSubscriber : fullSubscriberList) {
-						if (fullSubscriber.getSubscriberId() == sub_id) {
+						if (fullSubscriber.getSubscriberId() == sub_id&&fullSubscriber.getCarList().contains(carNumber)) {
 							fullSubscriber.removeCar(car);
 							session.update(fullSubscriber);
 						}
 					}
 					for (RegularSubscriber regularSubscriber : regularSubscriberList) {
-						if (regularSubscriber.getSubscriberId() == sub_id) {
+						if (regularSubscriber.getSubscriberId() == sub_id&&regularSubscriber.getCarList().contains(carNumber)) {
 							regularSubscriber.removeCar(car);
 							session.update(regularSubscriber);
 						}
@@ -2057,7 +2060,6 @@ public class SimpleServer extends AbstractServer {
 				}
 			}
 			if (!carExists){
-				session.close();
 				try {
 					client.sendToClient(new Message("#cardoesntexist"));
 				}
@@ -2066,9 +2068,7 @@ public class SimpleServer extends AbstractServer {
 				}
 			}
 			else {
-				session.flush();
-				session.getTransaction().commit();
-				session.close();
+
 				try {
 					client.sendToClient(new Message("#carremoved"));
 				}
@@ -2076,19 +2076,26 @@ public class SimpleServer extends AbstractServer {
 					e.printStackTrace();
 				}
 			}
+			session.flush();
+			session.getTransaction().commit();
+			session.close();
 		}
 
 		if (msgString.equals("#showparkinglotpicture")){
+			System.out.println("imataparkingstatus");
 			session = sessionFactory.openSession();
 			session.beginTransaction();
 			List<ParkingLot> parkingLotList = getAll(ParkingLot.class);
 			Message msg1 = ((Message) msg);
 			int parkingLotId = (int) msg1.getObject1();
+			System.out.println(parkingLotId);
 			for (ParkingLot parkingLot : parkingLotList){
 				if (parkingLot.getId() == parkingLotId){
 					int rows = parkingLot.getNumberOfRows();
 					int columns = parkingLot.getNumberOfColumns();
 					int depth = parkingLot.getDepth();
+					System.out.println(columns);
+					System.out.println(depth);
 					byte[] matrix1d = parkingLot.getMatrix();
 					int[][][] matrix3d = new int[rows][columns][depth];
 					int index = 0;  // Index into 1D array
@@ -2100,138 +2107,166 @@ public class SimpleServer extends AbstractServer {
 							}
 						}
 					}
-					client.sendToClient(new Message("#showparkinglotpicture" , matrix3d ,columns));
-					return;
+					System.out.println("no1");
+					try {
+						System.out.println("yes1");
+						client.sendToClient(new Message("#showparkinglotpicture" , matrix3d ,columns));
+					}
+					catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
-				session.close();
 			}
+			session.close();
 		}
 
 		if (msgString.equals("#enterparkinglot")){
+			System.out.println("enterrrrrparrk");
 			session = sessionFactory.openSession();
 			session.beginTransaction();
 			List<ParkingLot> parkingLotList = getAll(ParkingLot.class);
 			Message msg1 = ((Message) msg);
 			int parkingLotId = (int) msg1.getObject1();
 			int carNumber = (int) msg1.getObject2();
+			System.out.println(parkingLotId);
+			System.out.println(carNumber);
 			boolean hasOrder = false;
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 			LocalDateTime now = LocalDateTime.now();
 
-			for (ParkingLot parkingLot : parkingLotList){
-				if (parkingLot.getId() == parkingLotId){
+			for (ParkingLot parkingLot : parkingLotList) {
+				if (parkingLot.getId() == parkingLotId) {
 					int counter = 0;
-					List<Order> currentOrders = parkingLot.getAllOrders().stream()
-							.filter(order -> LocalDateTime.parse(order.getEntryTime(),formatter).isBefore(now)
-									&& LocalDateTime.parse(order.getExitTime(),formatter).isAfter(now))
+					List<Order> currentOrders = getAll(Order.class).stream()
+							.filter(order -> (LocalDateTime.parse(order.getEntryTime(), formatter).isBefore(now) ||
+									LocalDateTime.parse(order.getEntryTime(), formatter).isEqual(now))
+									&& LocalDateTime.parse(order.getExitTime(), formatter).isAfter(now))
+							.filter(order -> order.getParkingLotId() == 1)
 							.collect(Collectors.toList());
 
-					for (Order order: currentOrders){
+					System.out.println("got to this point");
+					for (Order order : currentOrders) {
 						if (order.getCarNumber() == carNumber) {
 							hasOrder = true;
 						}
-						if (order.isAlreadyInParkingLot()){
+						if (order.isAlreadyInParkingLot()) {
 							counter++;
 						}
 					}
 
+					System.out.println(getAll(Order.class).size());
+					System.out.println(hasOrder);
+					System.out.println(parkingLot.getDepth() * parkingLot.getNumberOfColumns() * parkingLot.getNumberOfRows());
+					System.out.println(currentOrders.size());
+					System.out.println(parkingLot.getNumberOfInactiveParkings());
+					System.out.println(counter);
+					System.out.println("]]]]]]]]]][[[[[[[[[");
 					//in case the parking lot is full and he has no order
 					if (((parkingLot.getDepth() * parkingLot.getNumberOfColumns() * parkingLot.getNumberOfRows())
-							- counter - parkingLot.getNumberOfInactiveParkings() == 0)){
+							- currentOrders.size() - parkingLot.getNumberOfInactiveParkings() <= 0) && (hasOrder == false)) {
 						try {
 							client.sendToClient(new Message("#SendToAlternative"));
-						}
-						catch (IOException e) {
+						} catch (IOException e) {
 							e.printStackTrace();
 						}
 					}
 					//in case he has an order but the parking lot is full as well
-					if (((parkingLot.getDepth() * parkingLot.getNumberOfColumns() * parkingLot.getNumberOfRows())
-							- currentOrders.size() - parkingLot.getNumberOfInactiveParkings() == 0) && !hasOrder){
+					else if (((parkingLot.getDepth() * parkingLot.getNumberOfColumns() * parkingLot.getNumberOfRows())
+							- counter - parkingLot.getNumberOfInactiveParkings() <= 0)) {
 						try {
 							client.sendToClient(new Message("#SendToAlternative"));
-						}
-						catch (IOException e) {
+						} catch (IOException e) {
 							e.printStackTrace();
 						}
-					}
-					//the car enters the parking lot
-					try {
-						client.sendToClient(new Message("#CarEntered"));
-					}
-					catch (IOException e) {
-						e.printStackTrace();
-					}
-					for (Order order : parkingLot.getAllOrders()){
-						if (order.getCarNumber() == carNumber){
-							order.setAlreadyInParkingLot(true);
-							session.update(order);
+					} else {
+						System.out.println("got to this point33");
+						//the car enters the parking lot
+						try {
+							client.sendToClient(new Message("#CarEntered"));
+						} catch (IOException e) {
+							e.printStackTrace();
 						}
-					}
-					int rows = parkingLot.getNumberOfRows();
-					int columns = parkingLot.getNumberOfColumns();
-					int depth = parkingLot.getDepth();
-					byte[] matrix1d = parkingLot.getMatrix();
-					int[][][] matrix3d = new int[rows][columns][depth];
-					int index = 0;  // Index into 1D array
-					for (int i = 0; i < rows; i++) {
-						for (int j = 0; j < columns; j++) {
-							for (int k = 0; k < depth; k++) {
-								matrix3d[i][j][k] = matrix1d[index] & 0xff;  // Copy element from 1D array to 3D matrix
-								index++;
+						for (Order order : getAll(Order.class)) {
+							if (order.getCarNumber() == carNumber) {
+								order.setAlreadyInParkingLot(true);
+								session.update(order);
 							}
 						}
-					}
-					for (int i = 0; i < rows; i++) {
-						for (int j = 0; j < columns; j++) {
-							for (int k = 0; k < depth; k++) {
-								if (matrix3d[i][j][k] != 2) {
-									matrix3d[i][j][k] = 0;
+						int rows = parkingLot.getNumberOfRows();
+						int columns = parkingLot.getNumberOfColumns();
+						int depth = parkingLot.getDepth();
+						byte[] matrix1d = parkingLot.getMatrix();
+						int[][][] matrix3d = new int[rows][columns][depth];
+						int index = 0;  // Index into 1D array
+						for (int i = 0; i < rows; i++) {
+							for (int j = 0; j < columns; j++) {
+								for (int k = 0; k < depth; k++) {
+									matrix3d[i][j][k] = matrix1d[index] & 0xff;  // Copy element from 1D array to 3D matrix
+									index++;
 								}
 							}
 						}
-					}
-
-
-					Collections.sort(currentOrders, new Comparator<Order>() {
-						@Override
-						public int compare(Order o1, Order o2) {
-							LocalDateTime date1 = LocalDateTime.parse(o1.getExitTime(), formatter);
-							LocalDateTime date2 = LocalDateTime.parse(o2.getExitTime(), formatter);
-							return date1.compareTo(date2);
+						for (int i = 0; i < rows; i++) {
+							for (int j = 0; j < columns; j++) {
+								for (int k = 0; k < depth; k++) {
+									if (matrix3d[i][j][k] != 2) {
+										System.out.println(";;;;;;;; " );
+										System.out.println(i);
+										System.out.println(j);
+										System.out.println(k);
+										matrix3d[i][j][k] = 0;
+									}
+								}
+							}
 						}
-					});
-					int depthIndex = 0;
-					int rowIndex = 0;
-					int colIndex = 0;
-					for (Order order : currentOrders) {
-						if (order.isAlreadyInParkingLot()) {
-							if (matrix3d[rowIndex][colIndex][depthIndex] != 2) {
+
+						currentOrders = getAll(Order.class).stream()
+								.filter(order -> (LocalDateTime.parse(order.getEntryTime(), formatter).isBefore(now) ||
+										LocalDateTime.parse(order.getEntryTime(), formatter).isEqual(now))
+										&& LocalDateTime.parse(order.getExitTime(), formatter).isAfter(now))
+								.filter(order -> order.getParkingLotId() == 1)
+								.collect(Collectors.toList());
+
+						Collections.sort(currentOrders, new Comparator<Order>() {
+							@Override
+							public int compare(Order o1, Order o2) {
+								LocalDateTime date1 = LocalDateTime.parse(o1.getExitTime(), formatter);
+								LocalDateTime date2 = LocalDateTime.parse(o2.getExitTime(), formatter);
+								return date1.compareTo(date2);
+							}
+						});
+						int depthIndex = 0;
+						int rowIndex = 0;
+						int colIndex = 0;
+						for (Order order : currentOrders) {
+							if (order.isAlreadyInParkingLot()) {
+								while (matrix3d[rowIndex][colIndex][depthIndex] == 2) {
+									if (rowIndex == rows - 1 && colIndex == columns - 1) {
+										depthIndex++;
+										colIndex = 0;
+										rowIndex = 0;
+									} else if (colIndex == columns - 1) {
+										rowIndex++;
+										colIndex = 0;
+									}
+									colIndex++;
+								}
 								matrix3d[rowIndex][colIndex][depthIndex] = order.getCarNumber();
 							}
-							if (rowIndex == rows - 1 && colIndex == columns - 1) {
-								depthIndex++;
-								colIndex = 0;
-								rowIndex = 0;
-							} else if (colIndex == columns - 1) {
-								rowIndex++;
-								colIndex = 0;
-							}
-							colIndex++;
 						}
-					}
 
-					int index2 = 0;  // Index into 1D array
-					for (int i = 0; i < 3; i++) {
-						for (int j = 0; j < 4; j++) {
-							for (int k = 0; k < 3; k++) {
-								matrix1d[index2] = (byte) matrix3d[i][j][k];  // Copy element from 3D array to 1D array
-								index2++;
+						int index2 = 0;  // Index into 1D array
+						for (int i = 0; i < rows; i++) {
+							for (int j = 0; j < columns; j++) {
+								for (int k = 0; k < depth; k++) {
+									matrix1d[index2] = (byte) matrix3d[i][j][k];  // Copy element from 3D array to 1D array
+									index2++;
+								}
 							}
 						}
+						parkingLot.setMatrix(matrix1d);
+						session.update(parkingLot);
 					}
-					parkingLot.setMatrix(matrix1d);
-					session.update(parkingLot);
 				}
 			}
 			session.getTransaction().commit();
@@ -2239,112 +2274,124 @@ public class SimpleServer extends AbstractServer {
 		}
 
 		if (msgString.equals("#exitrparkinglot")){
+			System.out.println("okexit");
 			session = sessionFactory.openSession();
 			session.beginTransaction();
 			List<ParkingLot> parkingLotList = getAll(ParkingLot.class);
 			Message msg1 = ((Message) msg);
 			int parkingLotId = (int) msg1.getObject1();
 			int carNumber = (int) msg1.getObject2();
+			System.out.println(carNumber);
 			boolean hasOrder = false;
 
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 			LocalDateTime now = LocalDateTime.now();
 
 			for (ParkingLot parkingLot : parkingLotList){
-				if (parkingLot.getId() == parkingLotId){
-					List<Order> currentOrders = parkingLot.getAllOrders().stream()
-							.filter(order -> LocalDateTime.parse(order.getEntryTime(),formatter).isBefore(now)
-									&& LocalDateTime.parse(order.getExitTime(),formatter).isAfter(now))
+				if (parkingLot.getId() == parkingLotId) {
+
+					List<Order> currentOrders = getAll(Order.class).stream()
+							.filter(order -> (LocalDateTime.parse(order.getEntryTime(), formatter).isBefore(now) ||
+									LocalDateTime.parse(order.getEntryTime(), formatter).isEqual(now))
+									&& LocalDateTime.parse(order.getExitTime(), formatter).isAfter(now))
+							.filter(order -> order.getParkingLotId() == 1)
 							.collect(Collectors.toList());
-					for (Order order: parkingLot.getAllOrders()){
-						if (order.getCarNumber() == carNumber) {
+
+					for (Order order : currentOrders) {
+						if (order.getCarNumber() == carNumber && order.isAlreadyInParkingLot() && order.getParkingLotId() == parkingLotId) {
 							hasOrder = true;
 							break;
 						}
 					}
-					if (!hasOrder){
+					if (hasOrder == false) {
 						try {
 							client.sendToClient(new Message("#CarIsNotInParkingLot"));
-						}
-						catch (IOException e) {
+						} catch (IOException e) {
 							e.printStackTrace();
 						}
 					}
-					try {
-						client.sendToClient(new Message("#CarExited"));
-					}
-					catch (IOException e) {
-						e.printStackTrace();
-					}
-					for (Order order : parkingLot.getAllOrders()){
-						if (order.getCarNumber() == carNumber){
-							session.delete(order);
+					else {
+						try {
+							client.sendToClient(new Message("#CarExited"));
+						} catch (IOException e) {
+							e.printStackTrace();
 						}
-					}
-					int rows = parkingLot.getNumberOfRows();
-					int columns = parkingLot.getNumberOfColumns();
-					int depth = parkingLot.getDepth();
-					byte[] matrix1d = parkingLot.getMatrix();
-					int[][][] matrix3d = new int[rows][columns][depth];
-					int index = 0;  // Index into 1D array
-					for (int i = 0; i < rows; i++) {
-						for (int j = 0; j < columns; j++) {
-							for (int k = 0; k < depth; k++) {
-								matrix3d[i][j][k] = matrix1d[index] & 0xff;  // Copy element from 1D array to 3D matrix
-								index++;
+						for (Order order : getAll(Order.class)) {
+							if (order.getCarNumber() == carNumber) {
+								session.delete(order);
 							}
 						}
-					}
-					for (int i = 0; i < rows; i++) {
-						for (int j = 0; j < columns; j++) {
-							for (int k = 0; k < depth; k++) {
-								if (matrix3d[i][j][k] != 2) {
-									matrix3d[i][j][k] = 0;
+						int rows = parkingLot.getNumberOfRows();
+						int columns = parkingLot.getNumberOfColumns();
+						int depth = parkingLot.getDepth();
+						byte[] matrix1d = parkingLot.getMatrix();
+						int[][][] matrix3d = new int[rows][columns][depth];
+						int index = 0;  // Index into 1D array
+						for (int i = 0; i < rows; i++) {
+							for (int j = 0; j < columns; j++) {
+								for (int k = 0; k < depth; k++) {
+									matrix3d[i][j][k] = matrix1d[index] & 0xff;  // Copy element from 1D array to 3D matrix
+									index++;
 								}
 							}
 						}
-					}
-
-
-					Collections.sort(currentOrders, new Comparator<Order>() {
-						@Override
-						public int compare(Order o1, Order o2) {
-							LocalDateTime date1 = LocalDateTime.parse(o1.getExitTime(), formatter);
-							LocalDateTime date2 = LocalDateTime.parse(o2.getExitTime(), formatter);
-							return date1.compareTo(date2);
+						for (int i = 0; i < rows; i++) {
+							for (int j = 0; j < columns; j++) {
+								for (int k = 0; k < depth; k++) {
+									if (matrix3d[i][j][k] != 2) {
+										matrix3d[i][j][k] = 0;
+									}
+								}
+							}
 						}
-					});
-					int depthIndex = 0;
-					int rowIndex = 0;
-					int colIndex = 0;
-					for (Order order : currentOrders) {
-						if (order.isAlreadyInParkingLot()) {
-							if (matrix3d[rowIndex][colIndex][depthIndex] != 2) {
+						currentOrders = getAll(Order.class).stream()
+								.filter(order -> (LocalDateTime.parse(order.getEntryTime(), formatter).isBefore(now) ||
+										LocalDateTime.parse(order.getEntryTime(), formatter).isEqual(now))
+										&& LocalDateTime.parse(order.getExitTime(), formatter).isAfter(now))
+								.filter(order -> order.getParkingLotId() == 1)
+								.collect(Collectors.toList());
+
+
+						Collections.sort(currentOrders, new Comparator<Order>() {
+							@Override
+							public int compare(Order o1, Order o2) {
+								LocalDateTime date1 = LocalDateTime.parse(o1.getExitTime(), formatter);
+								LocalDateTime date2 = LocalDateTime.parse(o2.getExitTime(), formatter);
+								return date1.compareTo(date2);
+							}
+						});
+						int depthIndex = 0;
+						int rowIndex = 0;
+						int colIndex = 0;
+						for (Order order : currentOrders) {
+							if (order.isAlreadyInParkingLot()) {
+								while (matrix3d[rowIndex][colIndex][depthIndex] == 2) {
+									if (rowIndex == rows - 1 && colIndex == columns - 1) {
+										depthIndex++;
+										colIndex = 0;
+										rowIndex = 0;
+									} else if (colIndex == columns - 1) {
+										rowIndex++;
+										colIndex = 0;
+									}
+									colIndex++;
+								}
 								matrix3d[rowIndex][colIndex][depthIndex] = order.getCarNumber();
 							}
-							if (rowIndex == rows - 1 && colIndex == columns - 1) {
-								depthIndex++;
-								colIndex = 0;
-								rowIndex = 0;
-							} else if (colIndex == columns - 1) {
-								rowIndex++;
-								colIndex = 0;
-							}
-							colIndex++;
 						}
-					}
 
-					int index2 = 0;  // Index into 1D array
-					for (int i = 0; i < 3; i++) {
-						for (int j = 0; j < 4; j++) {
-							for (int k = 0; k < 3; k++) {
-								matrix1d[index2] = (byte) matrix3d[i][j][k];  // Copy element from 3D array to 1D array
-								index2++;
+						int index2 = 0;  // Index into 1D array
+						for (int i = 0; i < rows; i++) {
+							for (int j = 0; j < columns; j++) {
+								for (int k = 0; k < depth; k++) {
+									matrix1d[index2] = (byte) matrix3d[i][j][k];  // Copy element from 3D array to 1D array
+									index2++;
+								}
 							}
 						}
+						parkingLot.setMatrix(matrix1d);
+						session.update(parkingLot);
 					}
-					parkingLot.setMatrix(matrix1d);
-					session.update(parkingLot);
 				}
 
 			}
@@ -2354,6 +2401,7 @@ public class SimpleServer extends AbstractServer {
 		}
 
 		if (msgString.equals("#inactive")){
+			System.out.println("wowinactive");
 			session = sessionFactory.openSession();
 			session.beginTransaction();
 			List<ParkingLot> parkingLotList = getAll(ParkingLot.class);
@@ -2362,6 +2410,8 @@ public class SimpleServer extends AbstractServer {
 			int parkingLotRow = (int) msg1.getObject2();
 			int parkingLotCol = (int) msg1.getObject3();
 			int parkingLotDepth = (int) msg1.getObject4();
+			System.out.println(parkingLotDepth);
+			System.out.println(parkingLotId);
 			for (ParkingLot parkingLot : parkingLotList) {
 				if (parkingLot.getId() == parkingLotId) {
 					if (parkingLot.getNumberOfColumns()-1 < parkingLotCol || 0 > parkingLotCol){
@@ -2396,23 +2446,25 @@ public class SimpleServer extends AbstractServer {
 								e.printStackTrace();
 							}
 						}
-						matrix3d[parkingLotRow][parkingLotCol][parkingLotDepth] = 2;
-						int index2 = 0;  // Index into 1D array
-						for (int i = 0; i < 3; i++) {
-							for (int j = 0; j < 4; j++) {
-								for (int k = 0; k < 3; k++) {
-									matrix1d[index2] = (byte) matrix3d[i][j][k];  // Copy element from 3D array to 1D array
-									index2++;
+						else {
+							matrix3d[parkingLotRow][parkingLotCol][parkingLotDepth] = 2;
+							int index2 = 0;  // Index into 1D array
+							for (int i = 0; i < rows; i++) {
+								for (int j = 0; j < columns; j++) {
+									for (int k = 0; k < depth; k++) {
+										matrix1d[index2] = (byte) matrix3d[i][j][k];  // Copy element from 3D array to 1D array
+										index2++;
+									}
 								}
 							}
-						}
-						parkingLot.setMatrix(matrix1d);
-						session.update(parkingLot);
-						try {
-							client.sendToClient(new Message("#InactiveSuccess"));
-						}
-						catch (IOException e) {
-							e.printStackTrace();
+							parkingLot.setNumberOfInactiveParkings(parkingLot.getNumberOfInactiveParkings()+1);
+							parkingLot.setMatrix(matrix1d);
+							session.update(parkingLot);
+							try {
+								client.sendToClient(new Message("#InactiveSuccess"));
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
 						}
 					}
 				}
@@ -2422,6 +2474,7 @@ public class SimpleServer extends AbstractServer {
 		}
 
 		if (msgString.equals("#active")){
+			System.out.println("activvavvaa");
 			session = sessionFactory.openSession();
 			session.beginTransaction();
 			List<ParkingLot> parkingLotList = getAll(ParkingLot.class);
@@ -2430,6 +2483,8 @@ public class SimpleServer extends AbstractServer {
 			int parkingLotRow = (int) msg1.getObject2();
 			int parkingLotCol = (int) msg1.getObject3();
 			int parkingLotDepth = (int) msg1.getObject4();
+			System.out.println(parkingLotCol);
+			System.out.println(parkingLotId);
 			for (ParkingLot parkingLot : parkingLotList) {
 				if (parkingLot.getId() == parkingLotId) {
 					if (parkingLot.getNumberOfColumns()-1 < parkingLotCol || 0 > parkingLotCol){
@@ -2455,19 +2510,20 @@ public class SimpleServer extends AbstractServer {
 								}
 							}
 						}
-						if(matrix3d[parkingLotRow][parkingLotCol][parkingLotDepth] == -2){
+						if(matrix3d[parkingLotRow][parkingLotCol][parkingLotDepth] == 2){
 							matrix3d[parkingLotRow][parkingLotCol][parkingLotDepth] = 0;
 						}
 						int index2 = 0;  // Index into 1D array
-						for (int i = 0; i < 3; i++) {
-							for (int j = 0; j < 4; j++) {
-								for (int k = 0; k < 3; k++) {
+						for (int i = 0; i < rows; i++) {
+							for (int j = 0; j < columns; j++) {
+								for (int k = 0; k < depth; k++) {
 									matrix1d[index2] = (byte) matrix3d[i][j][k];  // Copy element from 3D array to 1D array
 									index2++;
 								}
 							}
 						}
 						parkingLot.setMatrix(matrix1d);
+						parkingLot.setNumberOfInactiveParkings(parkingLot.getNumberOfInactiveParkings()-1);
 						session.update(parkingLot);
 						try {
 							client.sendToClient(new Message("#ActiveSuccess"));
@@ -2483,12 +2539,15 @@ public class SimpleServer extends AbstractServer {
 		}
 
 		if(msgString.equals("#renewsub")){
+			System.out.println("subsubren");
 			session = sessionFactory.openSession();
 			session.beginTransaction();
+
 			List<FullSubscriber> fullSubscriberList = getAll(FullSubscriber.class);
 			List<RegularSubscriber> regularSubscriberList = getAll(RegularSubscriber.class);
 			Message msg1 = ((Message) msg);
 			int sub_id = ((int) msg1.getObject1());
+			System.out.println(sub_id);
 			for (FullSubscriber fullSubscriber : fullSubscriberList) {
 				if (fullSubscriber.getSubscriberId() == sub_id) {
 					fullSubscriber.setSubscriptionExpiryDate(fullSubscriber.getSubscriptionExpiryDate().plus(Duration.ofDays(28)));
