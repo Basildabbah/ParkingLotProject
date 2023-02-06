@@ -2496,7 +2496,10 @@ public class SimpleServer extends AbstractServer {
 							.collect(Collectors.toList());
 
 					System.out.println("got to this point");
-					for (Order order : currentOrders) {
+					for (Order order : getAll(Order.class)) {
+						System.out.println("aaaaaa      "+order.getParkingLotId());
+						System.out.println("gggg    "+LocalDateTime.parse(order.getEntryTime(), formatter).isBefore(now));
+						System.out.println("hhh   "+LocalDateTime.parse(order.getExitTime(), formatter).isAfter(now));
 						if (order.getCarNumber() == carNumber) {
 							hasOrder = true;
 						}

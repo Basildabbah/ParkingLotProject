@@ -77,7 +77,7 @@ public class Order {
 
     //**************************
 
-    private boolean AlreadyInParkingLot;
+    private boolean alreadyInParkingLot;
 
     private int LateArrival;
 
@@ -92,4 +92,14 @@ public class Order {
 
     // ??
     private int subId;
+    public Order(int carNumber, ParkingLot parkinglot, String entryTime, String exitTime,String email, int subId) {
+        this.CarNumber = carNumber;
+        setParkinglot(parkinglot);
+        this.entryTime = entryTime;
+        this.exitTime = exitTime;
+        this.Email = email;
+        this.subId = subId;
+        this.alreadyInParkingLot = false;
+    }
+
 }

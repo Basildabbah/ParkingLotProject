@@ -43,7 +43,7 @@ public class SUB_enterparkingwithorder {
     @FXML
     void Enter(ActionEvent event) {
         try {
-            SimpleClient.getClient().sendToServer(new Message("#enterparkinglot", Integer.parseInt(ID   .getText()) ,
+            SimpleClient.getClient().sendToServer(new Message("#enterparkinglot", Integer.parseInt(ParkingLotId.getText()) ,
                     Integer.parseInt(CarNumber.getText())));
         } catch (IOException e){
             e.printStackTrace();

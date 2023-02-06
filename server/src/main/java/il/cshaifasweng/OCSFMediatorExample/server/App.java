@@ -22,6 +22,7 @@ import org.hibernate.service.ServiceRegistry;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import javax.crypto.Cipher;
@@ -138,6 +139,18 @@ public class App
         parkingLot3.setCapacity(parkingLot3.getNumberOfRows()*parkingLot3.getNumberOfColumns()*parkingLot3.getDepth());
 
         //**************************************************************
+
+
+        LocalDateTime oneMinutesFromNow = LocalDateTime.now().plusMinutes(1);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String oneMinutesFromNowString = oneMinutesFromNow.format(formatter);
+
+        LocalDateTime threeMinutesFromNow = LocalDateTime.now().plusMinutes(5);
+        String threeMinutesFromNowString = threeMinutesFromNow.format(formatter);
+
+        Order order = new Order(10 , parkingLot1 , oneMinutesFromNowString , threeMinutesFromNowString, "a@homtail.com" , 149);
+        session.save(order);
+
 
         List<String> typeOfParking11 = Arrays.asList("mezdament", "one time","client for one car","client for more car","full subscribtion");
         List<String> PAymentMethoud11 = Arrays.asList("paypal", "Credit card","visa");
