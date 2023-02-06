@@ -1,14 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="184.0" prefWidth="484.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.CurparkChainmanager">
+<AnchorPane prefHeight="1000.0" prefWidth="750.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.CurparkChainmanager">
    <children>
-      <TextField fx:id="textbox" layoutX="197.0" layoutY="84.0" />
-      <Button layoutX="272.0" layoutY="126.0" mnemonicParsing="false" onAction="#show" text="show" />
-      <Button layoutX="197.0" layoutY="126.0" mnemonicParsing="false" onAction="#back" text="back" />
+      <Label alignment="CENTER" layoutX="297.0" layoutY="116.0" prefHeight="62.0" prefWidth="335.0" text="Current Parking Status" textFill="#991010" wrapText="true">
+         <font>
+            <Font name="Californian FB Italic" size="36.0" />
+         </font>
+         <effect>
+            <Bloom />
+         </effect>
+      </Label>
+      <AnchorPane layoutX="309.0" layoutY="226.0" prefHeight="361.0" prefWidth="324.0" style="-fx-background-color: #7397b0;">
+         <children>
+            <Button layoutX="63.0" layoutY="295.0" mnemonicParsing="false" onAction="#back" prefHeight="26.0" prefWidth="62.0" text="back" />
+            <Button layoutX="219.0" layoutY="296.0" mnemonicParsing="false" onAction="#show" prefHeight="26.0" prefWidth="62.0" text="show" />
+            <MenuButton fx:id="ParkLotIdMenu" layoutX="91.0" layoutY="227.0" mnemonicParsing="false" text="Select Parking Lot ID">
+               <items>
+                  <MenuItem fx:id="setPriceParkID1" mnemonicParsing="false" onAction="#setMenuPriceParkID1" text="1" />
+                  <MenuItem fx:id="setPriceParkID2" mnemonicParsing="false" onAction="#setMenuPriceParkID2" text="2" />
+                  <MenuItem fx:id="setPriceParkID3" mnemonicParsing="false" onAction="#setMenuPriceParkID3" text="3" />
+                  <MenuItem fx:id="setPriceParkID4" mnemonicParsing="false" onAction="#setMenuPriceParkID4" text="4" />
+                  <MenuItem fx:id="setPriceParkID5" mnemonicParsing="false" onAction="#setMenuPriceParkID5" text="5" />
+                  <MenuItem fx:id="setPriceParkID6" mnemonicParsing="false" onAction="#setMenuPriceParkID6" text="6" />
+                  <MenuItem fx:id="setPriceParkID7" mnemonicParsing="false" onAction="#setMenuPriceParkID7" text="7" />
+               </items>
+            </MenuButton>
+            <ImageView fitHeight="159.0" fitWidth="243.0" layoutX="47.0" layoutY="20.0">
+               <image>
+                  <Image url="@../../../../images/top-view-parking-lot-design-many-cars-parked-vector-illustration-60817911.jpg" />
+               </image>
+            </ImageView>
+         </children></AnchorPane>
    </children>
 </AnchorPane>

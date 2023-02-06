@@ -203,7 +203,10 @@ public class Subscribeboundry {
         idtextbox.setText(idd);
         idtextbox.setDisable(true);*/
         addcar_subs.idd=idd;
-        App.setRoot("addcar_subs");
+        SUB_add_car.idd=idd;
+        SUB_add_car.pass=pass;
+        SUB_add_car.type=type;
+        App.setRoot("SUB_add_car");
     }
 
     @FXML
@@ -228,14 +231,18 @@ public class Subscribeboundry {
         }
     }
     @FXML
-    void cancelorderfun(ActionEvent event) {
-        anchonpane_CANCEL_ORDER.setVisible(true);
+    void cancelorderfun(ActionEvent event) throws IOException {
+       /* anchonpane_CANCEL_ORDER.setVisible(true);
         anchorpane_CHECK_ORDER.setVisible(false);
         ancherpane_ORDER.setVisible(false);
         ID_Cancel.setText(idd);
         ID_Cancel.setDisable(true);
         Password_Cancel.setText(pass);
-        Password_Cancel.setDisable(true);
+        Password_Cancel.setDisable(true);*/
+        App.setRoot("SUB_cancel_order");
+        SUB_cancel_order.idd=idd;
+        SUB_cancel_order.pass=pass;
+        SUB_cancel_order.type=type;
     }
     @FXML
     void SubscriberOrder(ActionEvent event) {
@@ -314,20 +321,24 @@ public class Subscribeboundry {
     @FXML
     void checkcomplainfun(ActionEvent event) throws IOException {
         StatusComplain_SUBSCRIBER.idd=idd;
+        StatusComplain_SUBSCRIBER.type=type;
         App.setRoot("StatusComplain_SUBSCRIBER");
         //App.setRoot("StatusComplaint");
     }
 
     @FXML
-    void checkorderfun(ActionEvent event) {
-        anchorpane_CHECK_ORDER.setVisible(true);
+    void checkorderfun(ActionEvent event) throws IOException {
+     /*   anchorpane_CHECK_ORDER.setVisible(true);
         anchonpane_CANCEL_ORDER.setVisible(false);
         ancherpane_ORDER.setVisible(false);
-
         ID_Check.setText(idd);
         ID_Check.setDisable(true);
         Password_Check.setText(pass);
-        Password_Check.setDisable(true);
+        Password_Check.setDisable(true);*/
+        SUB_check_order.idd=idd;
+        SUB_check_order.type=type;
+        SUB_check_order.pass=pass;
+        App.setRoot("SUB_check_order");
     }
     @FXML
     void CheckOrderStatus(ActionEvent event) {
@@ -340,25 +351,35 @@ public class Subscribeboundry {
     }
 
     @FXML
-    void createorderfun(ActionEvent event) {
-        anchonpane_CANCEL_ORDER.setVisible(false);
+    void createorderfun(ActionEvent event) throws IOException {
+        /*anchonpane_CANCEL_ORDER.setVisible(false);
         anchorpane_CHECK_ORDER.setVisible(false);
         ancherpane_ORDER.setVisible(true);
         ID.setText(idd);
         ID.setDisable(true );
         Password.setText(pass);
-        Password.setDisable(true);
-
-
-    }
-
-    @FXML
-    void enterpark(ActionEvent event) {
+        Password.setDisable(true);*/
+        SUB_create_order.idd=idd;
+        SUB_create_order.type=type;
+        SUB_create_order.pass=pass;
+    App.setRoot("SUB_create_order");
 
     }
 
     @FXML
-    void exitparkfun(ActionEvent event) {
+    void enterpark(ActionEvent event) throws IOException {
+        SUB_enterparkinglot.idd=idd;
+        SUB_enterparkinglot.pass=pass;
+        SUB_enterparkinglot.type=type;
+    App.setRoot("SUB_enterparkinglot");
+    }
+
+    @FXML
+    void exitparkfun(ActionEvent event) throws IOException {
+        SUB_exitparkinglot.idd=idd;
+        SUB_exitparkinglot.pass=pass;
+        SUB_exitparkinglot.type=type;
+        App.setRoot("SUB_exitparkinglot");
 
     }
 
@@ -376,6 +397,7 @@ public class Subscribeboundry {
     @FXML
     void removecarfun(ActionEvent event) throws IOException {
         removecer_subs.idd=idd;
+
     App.setRoot("removecer_subs");
 
     }
@@ -498,6 +520,7 @@ public class Subscribeboundry {
                                             , Response1, Response2, Response3)
                             );
                             alert.show();
+
                         }
 
                         if (Response1.equals("The Subscription Number is Wrong")) {
@@ -530,11 +553,6 @@ public class Subscribeboundry {
                 }
         );
     }
-
-//		*************************************************************************************
-//      6
-//		*************************************************************************************
-
     @Subscribe
     public void setLabelshow6(FullSubscriberOrderEvent Response) throws IOException {
         Platform.runLater(() ->

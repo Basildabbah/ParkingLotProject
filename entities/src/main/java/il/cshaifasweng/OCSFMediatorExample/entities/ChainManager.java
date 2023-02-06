@@ -13,7 +13,7 @@ public class ChainManager implements Serializable {
     private static final long serialVersionUID = 1035377024343093717L;
 
     @Id
-    private final int id = 999999999;
+    private final int id = 12345;
 
     private String firstName;
 

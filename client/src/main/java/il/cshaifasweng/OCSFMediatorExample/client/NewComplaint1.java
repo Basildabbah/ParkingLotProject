@@ -14,6 +14,7 @@ import java.io.IOException;
 public class NewComplaint1 {
     static String idd;
     static String type;
+
     @FXML
     void park1(ActionEvent event) {
         parking_id.setText("1");
@@ -57,7 +58,7 @@ public class NewComplaint1 {
     }
     ///////////////////////
     @FXML
-    private TextField textC;
+    private TextArea textC;
     @FXML
     private TextField id;
     @FXML

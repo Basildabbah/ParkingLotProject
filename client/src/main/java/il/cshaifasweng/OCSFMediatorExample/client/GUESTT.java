@@ -82,27 +82,17 @@ public class GUESTT {
     @FXML
     private TableView<Complaint> table;
 
+
     @FXML
-    void bring(ActionEvent event) {
-        try {
-            Message s1=new Message("bring ^"+idS.getText(),"wajd","wajd2","wajd3","wajd4");
-            SimpleClient.getClient().sendToServer(s1);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    @Subscribe
-    public void showComplaints(StatusComplaintEvent e){
-        Platform.runLater(()->{
-            System.out.println("a");
-            table.setVisible(true);
-            idc.setCellValueFactory(new PropertyValueFactory<Complaint, Integer>("id"));
-            statusc.setCellValueFactory(new PropertyValueFactory<Complaint, String>("complaintMessage"));
-            complaintc.setCellValueFactory(new PropertyValueFactory<Complaint, String>("status"));
-            ObservableList<Complaint> list = FXCollections.observableList((ArrayList<Complaint>) e.getWarning().getObject1());
-            table.setItems(list);
-        });
-    }
+    private Label complainnum;
+    @FXML
+    private TextArea textC;
+
+    @FXML
+    private TextField id;
+
+    @FXML
+    private TextField parkingid;
     @FXML
     private Button FAQ;
 
@@ -151,15 +141,20 @@ public class GUESTT {
     @FXML
     private Label enterlabel;
 
+//////////////////////////////////////////////////////////////////////////////////////////////
     @FXML
-    void FAQ(ActionEvent event) throws IOException {
-        App.setRoot("faq0");
+    void bring(ActionEvent event) {
+    try {
+        Message s1=new Message("bring ^"+idS.getText(),"wajd","wajd2","wajd3","wajd4");
+        SimpleClient.getClient().sendToServer(s1);
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+}
     @FXML
     void park1(ActionEvent event) {
         parking_id.setText("1");
     }
-
     @FXML
     void park2(ActionEvent event) {
         parking_id.setText("2");
@@ -221,7 +216,6 @@ public class GUESTT {
             enterlabel.setVisible(true);
         }
     }
-
     @FXML
     void GuestOrder(ActionEvent event) throws IOException {
 
@@ -263,8 +257,6 @@ public class GUESTT {
             }
         }
     }
-
-
     @FXML
     void Pricesfun(ActionEvent event) throws IOException {
         App.setRoot("prices");
@@ -278,17 +270,31 @@ public class GUESTT {
     void homebutfun(ActionEvent event) throws IOException {
         App.setRoot("home");
     }
-
     @FXML
     void loginadminfun(ActionEvent event) throws IOException {
         App.setRoot("loginadmin");
+    }
+    @FXML
+    void FAQ(ActionEvent event) throws IOException {
+        App.setRoot("faq0");
     }
     @FXML
     void initialize() {
         EventBus.getDefault().register(this);
         complainnum.setVisible(false);
     }
-    @Subscribe
+    @FXML
+    void send(ActionEvent event) {
+        try {
+
+            SimpleClient.getClient().sendToServer(new Message("newCompliain^"+textC.getText()+"^" +id.getText(),parking_id.getText()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    ////////////////////////////////////////////////////////////////////////
+
+   /* @Subscribe
     public void setLabelshow3(GuestPreOrderEvent Response) throws IOException {
         Platform.runLater(() ->
                 {
@@ -313,13 +319,8 @@ public class GUESTT {
                     }
                 }
         );
-    }
-
-//		*************************************************************************************
-//      4
-//		*************************************************************************************
-
-    @Subscribe
+    }*/
+   /* @Subscribe
     public void setLabelshow4(GuestOnSiteOrderEvent Response) throws IOException {
         Platform.runLater(() ->
                 {
@@ -344,20 +345,9 @@ public class GUESTT {
                     }
                 }
         );
-    }
+    }*/
 
-
-    @FXML
-    void CancelOrder(ActionEvent event)throws IOException  {
-
-        Message m = new Message("#CancelOrder", ID_Cancel.getText(), Password_Cancel.getText(), NumberOfOrder_Cancel.getText());
-        try {
-            SimpleClient.getClient().sendToServer(m);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    @Subscribe
+  /*  @Subscribe
     public void setLabelshow1(CheckOrderStatusEvent Response) throws IOException {
         Platform.runLater(() ->
                 {
@@ -396,9 +386,8 @@ public class GUESTT {
                 }
 
         );
-    }
-
-    @Subscribe
+    }*/
+ /*   @Subscribe
     public void setLabelshow2(CancelOrderEvent Response) throws IOException {
         Platform.runLater(() ->
                 {
@@ -432,27 +421,9 @@ public class GUESTT {
                     }
                 }
         );
-    }
-    @FXML
-    private TextArea textC;
+    }*/
 
-    @FXML
-    private TextField id;
-
-    @FXML
-    private TextField parkingid;
-    @FXML
-    void send(ActionEvent event) {
-        try {
-
-            SimpleClient.getClient().sendToServer(new Message("newCompliain^"+textC.getText()+"^" +id.getText(),parking_id.getText()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    @FXML
-    private Label complainnum;
-    @Subscribe
+   /* @Subscribe
     public void onEvent(NewComplaintEvent e){
         Platform.runLater(()-> {
             complainnum.setText(complainnum.getText()+" "+e.getWarning().getObject1().toString());
@@ -471,5 +442,20 @@ public class GUESTT {
                 ex.printStackTrace();
             }
         });
-    }
+    }*/
+ /*   @Subscribe
+    public void showComplaints(StatusComplaintEvent e){
+        Platform.runLater(()->{
+            System.out.println("a");
+            table.setVisible(true);
+            idc.setCellValueFactory(new PropertyValueFactory<Complaint, Integer>("id"));
+            statusc.setCellValueFactory(new PropertyValueFactory<Complaint, String>("complaintMessage"));
+            complaintc.setCellValueFactory(new PropertyValueFactory<Complaint, String>("status"));
+            ObservableList<Complaint> list = FXCollections.observableList((ArrayList<Complaint>) e.getWarning().getObject1());
+            table.setItems(list);
+        });
+    }*/
+
+
+
 }

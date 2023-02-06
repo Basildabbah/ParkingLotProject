@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.effect.Bloom?>
-<?import javafx.scene.effect.DisplacementMap?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.effect.FloatMap?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -17,251 +15,7 @@
 
 <AnchorPane prefHeight="1000.0" prefWidth="750.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.StatusComplain_SUBSCRIBER">
     <children>
-        <AnchorPane layoutX="64.0" layoutY="17.0" prefHeight="45.0" prefWidth="578.0" />
-        <AnchorPane layoutX="14.0" layoutY="142.0" prefHeight="518.0" prefWidth="200.0" visible="false">
-            <children>
-                <Button fx:id="enterpark" layoutX="20.0" layoutY="56.0" mnemonicParsing="false" onAction="#enterpark" style="-fx-background-color: #cde08c;" text="Enter Parking Lot" textFill="RED" textOverrun="CLIP">
-                    <font>
-                        <Font name="System Bold" size="16.0" />
-                    </font>
-                    <effect>
-                        <DisplacementMap>
-                            <mapData>
-                                <FloatMap />
-                            </mapData>
-                            <input>
-                                <DropShadow />
-                            </input>
-                        </DisplacementMap>
-                    </effect>
-                </Button>
-                <Label alignment="CENTER" layoutX="-9.0" layoutY="-6.0" prefHeight="62.0" prefWidth="199.0" text="Parking Lots" textFill="#991010" wrapText="true">
-                    <font>
-                        <Font name="Californian FB Italic" size="28.0" />
-                    </font>
-                    <effect>
-                        <Bloom />
-                    </effect>
-                </Label>
-                <Button fx:id="exitpark" layoutX="20.0" layoutY="119.0" mnemonicParsing="false" onAction="#exitparkfun" prefHeight="37.0" prefWidth="151.0" style="-fx-background-color: #cde08c;" text="Exit Parking Lot" textFill="RED" textOverrun="CLIP">
-                    <font>
-                        <Font name="System Bold" size="16.0" />
-                    </font>
-                    <effect>
-                        <DisplacementMap>
-                            <mapData>
-                                <FloatMap />
-                            </mapData>
-                            <input>
-                                <DropShadow />
-                            </input>
-                        </DisplacementMap>
-                    </effect>
-                </Button>
-            <Button fx:id="addcar" layoutX="20.0" layoutY="187.0" mnemonicParsing="false" onAction="#addcarfun" prefHeight="37.0" prefWidth="151.0" style="-fx-background-color: #cde08c;" text="Add Car" textFill="RED" textOverrun="CLIP">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-               <effect>
-                  <DisplacementMap>
-                     <mapData>
-                        <FloatMap />
-                     </mapData>
-                     <input>
-                        <DropShadow />
-                     </input>
-                  </DisplacementMap>
-               </effect>
-            </Button>
-            <Button fx:id="removecar" layoutX="24.0" layoutY="253.0" mnemonicParsing="false" onAction="#removecarfun" prefHeight="37.0" prefWidth="151.0" style="-fx-background-color: #cde08c;" text="Remove Car" textFill="RED" textOverrun="CLIP">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-               <effect>
-                  <DisplacementMap>
-                     <mapData>
-                        <FloatMap />
-                     </mapData>
-                     <input>
-                        <DropShadow />
-                     </input>
-                  </DisplacementMap>
-               </effect>
-            </Button>
-            <Button fx:id="RenewSubscription" layoutX="16.0" layoutY="324.0" mnemonicParsing="false" onAction="#RenewSubscriptionfun" prefHeight="38.0" prefWidth="168.0" style="-fx-background-color: white;" text="RenewSubscription" textFill="RED" textOverrun="CLIP">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-               <effect>
-                  <DisplacementMap>
-                     <mapData>
-                        <FloatMap />
-                     </mapData>
-                     <input>
-                        <DropShadow />
-                     </input>
-                  </DisplacementMap>
-               </effect>
-            </Button>
-            <Button fx:id="addreview" layoutX="16.0" layoutY="383.0" mnemonicParsing="false" onAction="#addreviewfun" prefHeight="38.0" prefWidth="168.0" style="-fx-background-color: rgba(108,203,103,0.48);" text="Add Review" textFill="WHITE" textOverrun="CLIP">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-               <effect>
-                  <DisplacementMap>
-                     <mapData>
-                        <FloatMap />
-                     </mapData>
-                     <input>
-                        <DropShadow />
-                     </input>
-                  </DisplacementMap>
-               </effect>
-            </Button>
-            </children>
-        </AnchorPane>
-        <ButtonBar layoutX="14.0" layoutY="94.0" prefHeight="40.0" prefWidth="737.0" visible="false">
-            <buttons>
-                <Button fx:id="sendcomplain" mnemonicParsing="false" onAction="#sendcomplainfun" style="-fx-background-color: #5dc2a2;" text="Send Complain" textFill="RED" textOverrun="CLIP">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                    <effect>
-                        <DisplacementMap>
-                            <mapData>
-                                <FloatMap />
-                            </mapData>
-                            <input>
-                                <DropShadow />
-                            </input>
-                        </DisplacementMap>
-                    </effect>
-                </Button>
-                <Button fx:id="cancelcomplain" mnemonicParsing="false" onAction="#cancelcomplainfun" style="-fx-background-color: #5dc2a2;" text="Cancel Complain" textFill="RED" textOverrun="CLIP" visible="false">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                    <effect>
-                        <DisplacementMap>
-                            <mapData>
-                                <FloatMap />
-                            </mapData>
-                            <input>
-                                <DropShadow />
-                            </input>
-                        </DisplacementMap>
-                    </effect>
-                </Button>
-                <Button fx:id="checkcomplain" mnemonicParsing="false" onAction="#checkcomplainfun" style="-fx-background-color: #5dc2a2;" text="Check Complain Status" textFill="RED" textOverrun="CLIP">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                    <effect>
-                        <DisplacementMap>
-                            <mapData>
-                                <FloatMap />
-                            </mapData>
-                            <input>
-                                <DropShadow />
-                            </input>
-                        </DisplacementMap>
-                    </effect>
-                </Button>
-            </buttons>
-        </ButtonBar>
-          <ButtonBar layoutY="43.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="737.0" visible="false">
-              <buttons>
-                  <Button fx:id="createorder" contentDisplay="CENTER" mnemonicParsing="false" onAction="#createorderfun" style="-fx-background-color: #00BFFF;" text="Create Order" textAlignment="CENTER" textFill="RED" textOverrun="CLIP">
-                      <font>
-                          <Font size="16.0" />
-                      </font>
-                      <effect>
-                          <DisplacementMap>
-                              <mapData>
-                                  <FloatMap />
-                              </mapData>
-                              <input>
-                                  <DropShadow />
-                              </input>
-                          </DisplacementMap>
-                      </effect>
-                  </Button>
-            <Button fx:id="checkorder" contentDisplay="CENTER" mnemonicParsing="false" onAction="#checkorderfun" style="-fx-background-color: #00BFFF;" text="Check Order" textAlignment="CENTER" textFill="RED" textOverrun="CLIP">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <effect>
-                  <DisplacementMap>
-                     <mapData>
-                        <FloatMap />
-                     </mapData>
-                     <input>
-                        <DropShadow />
-                     </input>
-                  </DisplacementMap>
-               </effect>
-            </Button>
-            <Button fx:id="cancelorder" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cancelorderfun" style="-fx-background-color: #00BFFF;" text="Cancel Order" textAlignment="CENTER" textFill="RED" textOverrun="CLIP">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <effect>
-                  <DisplacementMap>
-                     <mapData>
-                        <FloatMap />
-                     </mapData>
-                     <input>
-                        <DropShadow />
-                     </input>
-                  </DisplacementMap>
-               </effect>
-            </Button>
-                  <Button fx:id="logout" mnemonicParsing="false" onAction="#logoutfun" style="-fx-background-color: white;" text="Log out" textFill="RED" textOverrun="CLIP">
-                      <font>
-                          <Font size="16.0" />
-                      </font>
-                      <effect>
-                          <DisplacementMap>
-                              <mapData>
-                                  <FloatMap />
-                              </mapData>
-                              <input>
-                                  <DropShadow />
-                              </input>
-                          </DisplacementMap>
-                      </effect>
-                  </Button>
-              </buttons>
-          </ButtonBar>
-      <AnchorPane fx:id="addcaranchorpane" layoutX="353.0" layoutY="212.0" prefHeight="206.0" prefWidth="270.0" style="-fx-background-color: white;" visible="false">
-         <children>
-            <TextField fx:id="idtextbox" layoutX="86.0" layoutY="62.0" />
-            <Label layoutX="14.0" layoutY="61.0" prefHeight="26.0" prefWidth="55.0" text="User Id:" />
-            <Label layoutX="14.0" layoutY="109.0" prefHeight="26.0" prefWidth="76.0" text="Car Number:" />
-            <TextField fx:id="carnumbertextbox" layoutX="86.0" layoutY="109.0" promptText="Type Your Car Number" />
-            <Button fx:id="submit_add_car" layoutX="135.0" layoutY="154.0" mnemonicParsing="false" onAction="#submit_add_carfun" text="submit" />
-            <Label layoutX="88.0" layoutY="14.0" prefHeight="37.0" prefWidth="94.0" text="Add Car:">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
       <Label fx:id="labelid" layoutX="28.0" layoutY="31.0" prefHeight="18.0" prefWidth="94.0" text="Label" />
-      <AnchorPane layoutX="254.0" layoutY="218.0" prefHeight="400.0" prefWidth="600.0">
-         <children>
-            <TableView fx:id="table" layoutX="93.0" layoutY="109.0" prefHeight="200.0" prefWidth="372.0">
-               <columns>
-                  <TableColumn fx:id="idc" prefWidth="75.0" text="C1" />
-                  <TableColumn fx:id="complaintc" prefWidth="149.99996948242188" text="C2" />
-                  <TableColumn fx:id="statusc" prefWidth="145.3333740234375" text="Column X" />
-               </columns>
-            </TableView>
-            <TextField fx:id="idS" layoutX="93.0" layoutY="45.0" />
-            <Button layoutX="243.0" layoutY="361.0" mnemonicParsing="false" onAction="#back" prefHeight="38.0" prefWidth="76.0" text="Back" />
-            <Button fx:id="bring" layoutX="347.0" layoutY="45.0" mnemonicParsing="false" onAction="#bring" text="bring" />
-         </children>
-      </AnchorPane>
       <Label alignment="CENTER" layoutX="388.0" layoutY="130.0" prefHeight="62.0" prefWidth="199.0" text="Parking Lots" textFill="#991010" wrapText="true">
          <font>
             <Font name="Californian FB Italic" size="28.0" />
@@ -270,10 +24,40 @@
             <Bloom />
          </effect>
       </Label>
-      <ImageView fitHeight="148.0" fitWidth="168.0" layoutX="114.0" layoutY="366.0">
-         <image>
-            <Image url="@../../../../images/4.png" />
-         </image>
-      </ImageView>
+      <AnchorPane layoutX="231.0" layoutY="193.0" prefHeight="450.0" prefWidth="480.0" style="-fx-background-color: white;">
+         <children>
+            <Label layoutX="104.0" layoutY="47.0" text="Check Complain">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+            </Label>
+            <Label layoutX="31.0" layoutY="116.0" prefHeight="18.0" prefWidth="94.0" text="User Id:" />
+            <Button fx:id="bring" layoutX="112.0" layoutY="388.0" mnemonicParsing="false" onAction="#bring" prefHeight="26.0" prefWidth="211.0" style="-fx-background-color: #7272cb;" text="Bring">
+               <effect>
+                  <Blend mode="RED">
+                     <topInput>
+                        <DropShadow />
+                     </topInput>
+                  </Blend>
+               </effect>
+            </Button>
+            <TextField fx:id="Date1111" layoutX="68.0" layoutY="424.0" promptText="Type Date:" visible="false" />
+            <TextField fx:id="idS" layoutX="107.0" layoutY="112.0" prefHeight="26.0" prefWidth="148.0" promptText="Type Your Id" />
+            <Label fx:id="complainnum1" layoutX="107.0" layoutY="384.0" text="Your Complain Number is:" textFill="#10f700" visible="false" />
+            <TableView fx:id="table" layoutX="39.0" layoutY="164.0" prefHeight="200.0" prefWidth="372.0">
+               <columns>
+                  <TableColumn fx:id="idc" prefWidth="75.0" text="C1" />
+                  <TableColumn fx:id="complaintc" prefWidth="149.99996948242188" text="C2" />
+                  <TableColumn fx:id="statusc" prefWidth="145.3333740234375" text="Column X" />
+               </columns>
+            </TableView>
+            <ImageView fitHeight="71.0" fitWidth="81.0" layoutX="344.0" layoutY="34.0">
+               <image>
+                  <Image url="@../../../../images/sds.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="5.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" prefHeight="38.0" prefWidth="76.0" text="Back" />
+         </children>
+      </AnchorPane>
     </children>
 </AnchorPane>

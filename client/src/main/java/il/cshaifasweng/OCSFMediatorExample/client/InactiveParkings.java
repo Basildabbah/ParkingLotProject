@@ -86,11 +86,8 @@ public class InactiveParkings{
 
         }
         else{
-            Message m=new Message("#setActive");
-            m.setObject1(enterPlId);
-            m.setObject2(Row);
-            m.setObject3(Col);
-            m.setObject4(Depth);
+            Message m=new Message("#active",Integer.parseInt(enterPlId.getText()),Integer.parseInt(Row.getText()),Integer.parseInt(Col.getText()),Integer.parseInt(Depth.getText()));
+
             try {
                 SimpleClient.getClient().sendToServer(m);
             } catch (IOException e) {
@@ -112,11 +109,7 @@ public class InactiveParkings{
 
         }
         else{
-            Message m=new Message("#setInactive");
-            m.setObject1(enterPlId);
-            m.setObject2(Row);
-            m.setObject3(Col);
-            m.setObject4(Depth);
+            Message m=new Message("#inactive",Integer.parseInt(enterPlId.getText()),Integer.parseInt(Row.getText()),Integer.parseInt(Col.getText()),Integer.parseInt(Depth.getText()));
             try {
                 SimpleClient.getClient().sendToServer(m);
             } catch (IOException e) {

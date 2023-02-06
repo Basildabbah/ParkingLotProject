@@ -58,7 +58,7 @@ public class home {
     }
     @FXML
     void loginguistfun(ActionEvent event) throws IOException {
-        App.setRoot("GUESTT");
+        App.setRoot("GUEST_cancel_order");
     }
     @FXML
     void FAQ(ActionEvent event) throws IOException {

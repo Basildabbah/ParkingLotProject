@@ -95,40 +95,47 @@ public class App
         session.save(l4);
         review l5=new review("zohal","awesome","5");
         session.save(l5);
-        ParkingLot parkingLot1 = new ParkingLot(5, 10, 2, new byte[5*10*2]);
-        ParkingLot parkingLot2 = new ParkingLot(6, 12, 3, new byte[6*12*3]);
-        ParkingLot parkingLot3 = new ParkingLot(7, 14, 4, new byte[7*14*4]);
+        ParkingLot parkingLot1 = new ParkingLot(3, 8, 3, new byte[4*8*4]);
+        ParkingLot parkingLot2 = new ParkingLot(3, 4, 3, new byte[4*4*4]);
+        ParkingLot parkingLot3 = new ParkingLot(3, 4, 3, new byte[4*4*4]);
+        parkingLot1.setNumberOfInactiveParkings(71);
 
 
         byte[] matrix1d = parkingLot1.getMatrix();  // Get the one-dimensional matrix
 
 
-        int[][][] matrix3d = new int[3][4][3];  // Create 3D matrix
+        int[][][] matrix3d = new int[3][8][3];  // Create 3D matrix
 
         int index = 0;  // Index into 1D array
         for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 4; j++) {
+            for (int j = 0; j < 8; j++) {
                 for (int k = 0; k < 3; k++) {
                     matrix3d[i][j][k] = matrix1d[index] & 0xff;  // Copy element from 1D array to 3D matrix
                     index++;
+                    matrix3d[i][j][k] = 2;
                 }
             }
         }
 
-
-        matrix3d[0][1][0] = 456486;
         matrix3d[0][0][0] = 2;
-        matrix3d[2][3][0] = 464889;
-        matrix3d[1][2][0] = 456481;
         matrix3d[2][1][0] = 0;
+
+        int index2 = 0;  // Index into 1D array
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 8; j++) {
+                for (int k = 0; k < 3; k++) {
+                    matrix1d[index2] = (byte) matrix3d[i][j][k];  // Copy element from 3D array to 1D array
+                    index2++;
+                }
+            }
+        }
+
+        parkingLot1.setMatrix(matrix1d);
         //**************************************************************
 
         parkingLot1.setCapacity(parkingLot1.getNumberOfRows()*parkingLot1.getNumberOfColumns()*parkingLot1.getDepth());
         parkingLot2.setCapacity(parkingLot2.getNumberOfRows()*parkingLot2.getNumberOfColumns()*parkingLot2.getDepth());
         parkingLot3.setCapacity(parkingLot3.getNumberOfRows()*parkingLot3.getNumberOfColumns()*parkingLot3.getDepth());
-        parkingLot1.setNumberOfInactiveParkings(10);
-        parkingLot2.setNumberOfInactiveParkings(15);
-        parkingLot3.setNumberOfInactiveParkings(20);
 
         //**************************************************************
 

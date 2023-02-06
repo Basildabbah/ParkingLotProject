@@ -45,6 +45,12 @@ public class SimpleClient extends AbstractClient {
 		if(((Message) msg).getMessage().equals("FullSubscriberOrder")) {
 			EventBus.getDefault().post(new FullSubscriberOrderEvent(message));
 		}
+		if(((Message) msg).getMessage().equals("RegularSubscriberOrder_enter")) {
+			EventBus.getDefault().post(new RegularSubscriberOrder_enterEvent(message));
+		}
+		if(((Message) msg).getMessage().equals("FullSubscriberOrder_enter")) {
+			EventBus.getDefault().post(new FullSubscriberOrder_enterEvent(message));
+		}
 		if(((Message) msg).getMessage().equals("CancelReservation")) {
 			EventBus.getDefault().post(new CancelReserveEvent(message));
 		}

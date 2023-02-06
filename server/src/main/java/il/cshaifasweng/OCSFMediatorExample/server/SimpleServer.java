@@ -976,7 +976,188 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 		}
+		if (msgString.equals("#RegularSubscriberOrder_enter")){
 
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+
+			Message message = new Message("RegularSubscriberOrder_enter");
+			Message cpymsg = ((Message) msg);
+
+			String TypeOfOrder = "RegularSubscriberOrder";
+
+			List<ParkingLot> ListParkingLots = getAll(ParkingLot.class);
+			List<RegularSubscriber> ListRegularSubscriber = getAll(RegularSubscriber.class);
+			List<Order> ListOrders = getAll(Order.class);
+
+			String EnterHourString = cpymsg.getObject1().toString();
+			int EnterHour = Integer.parseInt(EnterHourString);
+
+			String EnterDayString = cpymsg.getObject2().toString();
+			int EnterDay = Integer.parseInt(EnterDayString);
+
+			String EnterMonthString = cpymsg.getObject3().toString();
+			int EnterMonth = Integer.parseInt(EnterMonthString);
+
+			String EnterYearString = cpymsg.getObject4().toString();
+			int EnterYear = Integer.parseInt(EnterYearString);
+
+			String ExitHourString = cpymsg.getObject5().toString();
+			int ExitHour = Integer.parseInt(ExitHourString);
+
+			String ExitDayString = cpymsg.getObject6().toString();
+			int ExitDay = Integer.parseInt(ExitDayString);
+
+			String ExitMonthString = cpymsg.getObject7().toString();
+			int ExitMonth = Integer.parseInt(ExitMonthString);
+
+			String ExitYearString = cpymsg.getObject8().toString();
+			int ExitYear = Integer.parseInt(ExitYearString);
+
+			String ParkingLotIdString = cpymsg.getObject9().toString();
+			int ParkingLotId = Integer.parseInt(ParkingLotIdString);
+
+			String PersonIDString = cpymsg.getObject10().toString();
+			int PersonID = Integer.parseInt(PersonIDString);
+
+			String Password = cpymsg.getObject11().toString();
+
+			String SubscriptionIdString = cpymsg.getObject12().toString();
+			int SubscriptionId = Integer.parseInt(SubscriptionIdString);
+
+			boolean OnSite = (boolean)cpymsg.getObject13();
+
+			String CarNumberString = cpymsg.getObject14().toString();
+			int CarNumber = Integer.parseInt(CarNumberString);
+
+			String Email = cpymsg.getObject15().toString();
+
+			int TotalHours = HoursBetweenDates(EnterHour ,EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear);
+
+			int Payment=TotalHours;
+			int NumberOfOrdersInTheSameHours = 0;
+			int MaxOrderId = 0;
+			int FlagDay = 1;
+			int FlagRemainingHours = 0;
+			int FlagSubscriber = 0;
+			int FlagEmptySpot = 0;
+			int FlagOrder = 0;
+
+			ParkingLot park1 = null;
+
+			for (RegularSubscriber Subscriber : ListRegularSubscriber) {
+				if (Subscriber.getSubscriptionId() == SubscriptionId) {
+					FlagSubscriber = 1;
+					for (ParkingLot ParkingLot : ListParkingLots) {
+						//Check which ParkingLot in ListParkingLots has the same Id
+						if (ParkingLot.getId() == ParkingLotId) {
+							park1 = ParkingLot;
+							for (Order Order : ListOrders) {
+								//go through all orders in same Parking Lot
+								if (Order.getParkingLotId() == ParkingLotId) {
+									//check how many orders between the two dates
+									if (Order.getEnterYear() <= ExitYear && Order.getExitYear() >= EnterYear) {
+										if (Order.getEnterMonth() <= ExitMonth && Order.getExitMonth() >= EnterMonth) {
+											if (Order.getEnterDay() <= ExitDay && Order.getExitDay() >= EnterDay) {
+												if (Order.getEnterHour() <= ExitHour && Order.getExitHour() >= EnterHour) {
+													//sum all orders in same parking lot in same hours
+													NumberOfOrdersInTheSameHours++;
+												}
+											}
+										}
+									}
+								}
+							}
+
+							//check if there's empty spots
+							if (ParkingLot.getCapacity() - ParkingLot.getNumberOfInactiveParkings() - NumberOfOrdersInTheSameHours > 0) {
+								FlagEmptySpot = 1;
+								//check if subscriber have enough hours
+								if (Subscriber.getRemainingHours() >= TotalHours) {
+									FlagRemainingHours = 1;
+									//go through all orders for this person and check if he got two orders in same day
+									for (Order Order : ListOrders) {
+										if (Order.getPersonId() == PersonID) {
+											if (Order.getEnterDay() == EnterDay) {
+												FlagDay = 0;
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			if (FlagDay == 1 && FlagRemainingHours == 1 && FlagEmptySpot == 1 && FlagSubscriber == 1)
+				FlagOrder = 1;
+
+			if (FlagOrder == 1) {
+				for (Order Order : ListOrders) {
+					if (Order.getOrderId() > MaxOrderId)
+						MaxOrderId = Order.getOrderId();
+				}
+				MaxOrderId++;
+				for (RegularSubscriber Subscriber : ListRegularSubscriber)
+				{
+					if (Subscriber.getId() == PersonID) {
+						Subscriber.setRemainingHours(Subscriber.getRemainingHours() - TotalHours);
+						session.update(Subscriber);
+					}
+				}
+				Order NewOrder = new Order(MaxOrderId, TypeOfOrder, EnterHour, EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear, ParkingLotId, PersonID, Password);
+				//NewOrder.setParkinglot(park1);
+
+				NewOrder.setSubId(PersonID);
+
+				NewOrder.setCarNumber(CarNumber);
+				NewOrder.setEmail(Email);
+
+				Car NewCar = new Car(CarNumber);
+				session.save(NewCar);
+
+				if(OnSite==true)
+					NewOrder.setAlreadyInParkingLot(true);
+				else
+					NewOrder.setAlreadyInParkingLot(false);
+
+				session.save(NewOrder);
+
+				message.setObject1("Your Order Confirmed");
+				message.setObject2(MaxOrderId);
+				message.setObject3(TotalHours);
+
+				for (ParkingLot ParkingLot:ListParkingLots)
+				{
+					if(ParkingLot.getId()==ParkingLotId)
+					{
+						ParkingLot.setNumberOfOrders(ParkingLot.getNumberOfOrders()+1);
+						session.update(ParkingLot);
+					}
+				}
+			}
+
+			if (FlagSubscriber == 0)
+				message.setObject1("The Subscription Number is Wrong");
+			else
+			if (FlagEmptySpot == 0)
+				message.setObject1("The ParkingLot is Full");
+			else
+			if (FlagDay == 0)
+				message.setObject1("You Only Allowed To Enter Once a Day");
+			else
+			if (FlagRemainingHours == 0)
+				message.setObject1("You Don't Have Enough Hours");
+
+			session.getTransaction().commit();
+
+			try {
+				client.sendToClient(message);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 //		*************************************************************************************
 //		6
 //		*************************************************************************************
@@ -1152,7 +1333,177 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 		}
+		if (msgString.equals("#FullSubscriberOrder_enter")){
 
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+
+			Message message = new Message("FullSubscriberOrder_enter");
+			Message cpymsg = ((Message) msg);
+
+			String TypeOfOrder = "FullSubscriberOrder";
+
+			List<ParkingLot> ListParkingLots = getAll(ParkingLot.class);
+			List<FullSubscriber> ListFullSubscriber = getAll(FullSubscriber.class);
+			List<Order> ListOrders = getAll(Order.class);
+
+			String EnterHourString = cpymsg.getObject1().toString();
+			int EnterHour = Integer.parseInt(EnterHourString);
+
+			String EnterDayString = cpymsg.getObject2().toString();
+			int EnterDay = Integer.parseInt(EnterDayString);
+
+			String EnterMonthString = cpymsg.getObject3().toString();
+			int EnterMonth = Integer.parseInt(EnterMonthString);
+
+			String EnterYearString = cpymsg.getObject4().toString();
+			int EnterYear = Integer.parseInt(EnterYearString);
+
+			String ExitHourString = cpymsg.getObject5().toString();
+			int ExitHour = Integer.parseInt(ExitHourString);
+
+			String ExitDayString = cpymsg.getObject6().toString();
+			int ExitDay = Integer.parseInt(ExitDayString);
+
+			String ExitMonthString = cpymsg.getObject7().toString();
+			int ExitMonth = Integer.parseInt(ExitMonthString);
+
+			String ExitYearString = cpymsg.getObject8().toString();
+			int ExitYear = Integer.parseInt(ExitYearString);
+
+			String ParkingLotIdString = cpymsg.getObject9().toString();
+			int ParkingLotId = Integer.parseInt(ParkingLotIdString);
+
+			String PersonIDString = cpymsg.getObject10().toString();
+			int PersonID = Integer.parseInt(PersonIDString);
+
+			String Password = cpymsg.getObject11().toString();
+
+			String SubscriptionIdString = cpymsg.getObject12().toString();
+			int SubscriptionId = Integer.parseInt(SubscriptionIdString);
+
+			boolean OnSite = (boolean)cpymsg.getObject13();
+
+			String CarNumberString = cpymsg.getObject14().toString();
+			int CarNumber = Integer.parseInt(CarNumberString);
+
+			String Email = cpymsg.getObject15().toString();
+
+			int TotalHours = HoursBetweenDates(EnterHour ,EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear);
+
+			int Payment=TotalHours;
+			int NumberOfOrdersInTheSameHours = 0;
+			int MaxOrderId = 0;
+			int FlagRemainingHours = 0;
+			int FlagSubscriber = 0;
+			int FlagEmptySpot = 0;
+			int FlagOrder = 0;
+
+			ParkingLot park1 = null;
+
+			for (FullSubscriber Subscriber : ListFullSubscriber) {
+				if (Subscriber.getSubscriptionId() == SubscriptionId) {
+					FlagSubscriber = 1;
+					for (ParkingLot ParkingLot : ListParkingLots) {
+						//Check which ParkingLot in ListParkingLots has the same Id
+						if (ParkingLot.getId() == ParkingLotId) {
+							park1 = ParkingLot;
+							for (Order Order : ListOrders) {
+								//go through all orders in same Parking Lot
+								if (Order.getParkingLotId() == ParkingLotId) {
+									//check how many orders between the two dates
+									if (Order.getEnterYear() <= ExitYear && Order.getExitYear() >= EnterYear) {
+										if (Order.getEnterMonth() <= ExitMonth && Order.getExitMonth() >= EnterMonth) {
+											if (Order.getEnterDay() <= ExitDay && Order.getExitDay() >= EnterDay) {
+												if (Order.getEnterHour() <= ExitHour && Order.getExitHour() >= EnterHour) {
+													//sum all orders in same parking lot in same hours
+													NumberOfOrdersInTheSameHours++;
+												}
+											}
+										}
+									}
+								}
+							}
+
+							//check if there's empty spots
+							if (ParkingLot.getCapacity() - ParkingLot.getNumberOfInactiveParkings() - NumberOfOrdersInTheSameHours > 0) {
+								FlagEmptySpot = 1;
+								//check if subscriber have enough hours
+								if (Subscriber.getRemainingHours() >= TotalHours) {
+									FlagRemainingHours = 1;
+								}
+							}
+						}
+					}
+				}
+			}
+
+			if (FlagRemainingHours == 1 && FlagEmptySpot == 1 && FlagSubscriber == 1)
+				FlagOrder = 1;
+
+			if (FlagOrder == 1) {
+				for (Order Order : ListOrders) {
+					if (Order.getOrderId() > MaxOrderId)
+						MaxOrderId = Order.getOrderId();
+				}
+				MaxOrderId++;
+				for (FullSubscriber Subscriber : ListFullSubscriber)
+				{
+					if (Subscriber.getId() == PersonID) {
+						Subscriber.setRemainingHours(Subscriber.getRemainingHours() - TotalHours);
+						session.update(Subscriber);
+					}
+				}
+
+				Order NewOrder = new Order(MaxOrderId, TypeOfOrder, EnterHour, EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear, ParkingLotId, PersonID, Password);
+				//NewOrder.setParkinglot(park1);
+
+				NewOrder.setSubId(PersonID);
+
+				NewOrder.setCarNumber(CarNumber);
+				NewOrder.setEmail(Email);
+
+				Car NewCar = new Car(CarNumber);
+				session.save(NewCar);
+
+				if(OnSite==true)
+					NewOrder.setAlreadyInParkingLot(true);
+				else
+					NewOrder.setAlreadyInParkingLot(false);
+
+				session.save(NewOrder);
+
+				message.setObject1("Your Order Confirmed");
+				message.setObject2(MaxOrderId);
+				message.setObject3(TotalHours);
+
+				for (ParkingLot ParkingLot:ListParkingLots)
+				{
+					if(ParkingLot.getId()==ParkingLotId)
+					{
+						ParkingLot.setNumberOfOrders(ParkingLot.getNumberOfOrders()+1);
+						session.update(ParkingLot);
+					}
+				}
+			}
+
+			if (FlagSubscriber == 0)
+				message.setObject1("The Subscription Number is Wrong");
+			else
+			if (FlagEmptySpot == 0)
+				message.setObject1("The ParkingLot is Full");
+			else
+			if (FlagRemainingHours == 0)
+				message.setObject1("You Don't Have Enough Hours");
+
+			session.getTransaction().commit();
+
+			try {
+				client.sendToClient(message);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 //		*************************************************************************************
 //		*************************************************************************************
 
