@@ -40,6 +40,7 @@ public class SUB_cancel_order {
 
     @FXML
     void CancelOrder(ActionEvent event) {
+        System.out.println("CancelOrder_control");
         Message m = new Message("#CancelOrder", ID_Cancel.getText(), Password_Cancel.getText(), NumberOfOrder_Cancel.getText());
         try {
             SimpleClient.getClient().sendToServer(m);
@@ -57,9 +58,9 @@ public class SUB_cancel_order {
         Password_Cancel.setText(pass);
         Password_Cancel.setDisable(true);
         ID_Cancel.setDisable(true);
-        EventBus.getDefault().register(this);
+       // EventBus.getDefault().register(this);
     }
-    @Subscribe
+   /* @Subscribe
     public void setLabelshow2(CancelOrderEvent Response) throws IOException {
         Platform.runLater(() ->
                 {
@@ -92,5 +93,5 @@ public class SUB_cancel_order {
                     }
                 }
         );
-    }
+    }*/
 }

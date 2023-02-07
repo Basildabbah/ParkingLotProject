@@ -7,6 +7,8 @@
 <?import javafx.scene.effect.DisplacementMap?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.FloatMap?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -16,39 +18,9 @@
          <children>
             <AnchorPane layoutX="48.0" layoutY="14.0" prefHeight="52.0" prefWidth="730.0">
                <children>
-                  <ButtonBar layoutX="-26.0" layoutY="6.0" prefHeight="40.0" prefWidth="915.0">
+                  <ButtonBar layoutX="-146.0" layoutY="18.0" prefHeight="40.0" prefWidth="915.0">
                      <buttons>
                         <Button fx:id="showprices" mnemonicParsing="false" onAction="#setpricefun" style="-fx-background-color: #00BFFF;" text="Show prices" textFill="RED" textOverrun="CLIP">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                           <effect>
-                              <DisplacementMap>
-                                 <mapData>
-                                    <FloatMap />
-                                 </mapData>
-                                 <input>
-                                    <DropShadow />
-                                 </input>
-                              </DisplacementMap>
-                           </effect>
-                        </Button>
-                        <Button fx:id="Prices" mnemonicParsing="false" onAction="#Pricesfun" style="-fx-background-color: #00BFFF;" text="Prices" textFill="RED" textOverrun="CLIP" visible="false">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                           <effect>
-                              <DisplacementMap>
-                                 <mapData>
-                                    <FloatMap />
-                                 </mapData>
-                                 <input>
-                                    <DropShadow />
-                                 </input>
-                              </DisplacementMap>
-                           </effect>
-                        </Button>
-                        <Button fx:id="makereport" mnemonicParsing="false" onAction="#makereportfun" prefHeight="38.0" style="-fx-background-color: #00BFFF;" text="Make Report" textFill="RED" textOverrun="CLIP" visible="false">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -120,6 +92,11 @@
                   <Bloom />
                </effect>
             </Label>
+            <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="205.0" layoutY="305.0">
+               <image>
+                  <Image url="@../../../../images/1802979.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
       <Label fx:id="userid" layoutX="101.0" layoutY="106.0" prefHeight="23.0" prefWidth="134.0" text="User ID:" />

@@ -128,7 +128,7 @@
                </effect>
             </Button>
             <Label fx:id="loginassubscriber" layoutX="211.0" layoutY="394.0" onMouseClicked="#loginsubscriber" prefHeight="18.0" prefWidth="116.0" text="Login As Subscriber" textFill="#3c00ff" underline="true" />
-            <Label fx:id="invaild" layoutX="119.0" layoutY="313.0" prefHeight="18.0" prefWidth="211.0" text="Data is invalid." textFill="RED" />
+            <Label fx:id="invaild" layoutX="119.0" layoutY="313.0" prefHeight="18.0" prefWidth="211.0" text="Data is invalid." textFill="RED" visible="false" />
             <Label layoutX="22.0" layoutY="171.0" prefHeight="18.0" prefWidth="159.0" text="Email:" />
             <TextField fx:id="email" layoutX="91.0" layoutY="167.0" prefHeight="26.0" prefWidth="211.0" promptText="Type Your Email" />
             <Label layoutX="22.0" layoutY="203.0" prefHeight="18.0" prefWidth="159.0" text="Password:" />

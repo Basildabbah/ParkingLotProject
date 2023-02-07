@@ -6,6 +6,7 @@ import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
 
 import java.io.IOException;
 import java.security.Key;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -291,6 +292,7 @@ public class SimpleServer extends AbstractServer {
 			List<FullSubscriber> ListFullSubscriber = getAll(FullSubscriber.class);
 			List<ParkingLot> ListParkingLot = getAll(ParkingLot.class);
 			List<Car> ListCar = getAll(Car.class);
+			List<CanceledOrder> tt = getAll(CanceledOrder.class);
 
 			String PersonIdString = cpymsg.getObject1().toString();
 			int PersonId=Integer.parseInt(PersonIdString);
@@ -410,6 +412,13 @@ public class SimpleServer extends AbstractServer {
 								session.update(parkingLot);
 							}
 						}
+						/*int OrderId,String TypeOfOrder,int EnterHour, int EnterDay, int EnterMonth, int EnterYear
+						 , int ExitHour, int ExitDay
+						, int ExitMonth, int ExitYear,int ParkingLotId, int PersonId, String Password*/
+						CanceledOrder t=new CanceledOrder(order.getOrderId(),order.getTypeOfOrder(),order.getEnterHour(),order.getEnterDay()
+						,order.getEnterMonth(),order.getEnterYear(),order.getExitHour(),order.getExitDay(),order.getExitMonth(),order.getExitYear()
+						,order.getParkingLotId(),order.getPersonId(),order.getPassword());
+						session.save(t);
 						session.delete(order);
 					}
 				}
@@ -1217,7 +1226,7 @@ public class SimpleServer extends AbstractServer {
 			int CarNumber = Integer.parseInt(CarNumberString);
 
 			String Email = cpymsg.getObject15().toString();
-
+			System.out.println(Email);
 			int TotalHours = HoursBetweenDates(EnterHour ,EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear);
 
 			int Payment=TotalHours;
@@ -1286,7 +1295,35 @@ public class SimpleServer extends AbstractServer {
 
 				Order NewOrder = new Order(MaxOrderId, TypeOfOrder, EnterHour, EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear, ParkingLotId, PersonID, Password);
 				//NewOrder.setParkinglot(park1);
+				//////////////////////////////////////
 
+				Calendar cal = Calendar.getInstance();
+				cal.set(Calendar.YEAR, EnterYear);
+				cal.set(Calendar.MONTH, EnterMonth);
+				cal.set(Calendar.DAY_OF_MONTH, EnterDay);
+				cal.set(Calendar.HOUR_OF_DAY, EnterHour);
+				cal.set(Calendar.MINUTE, 0);
+				cal.set(Calendar.SECOND, 0);
+
+				Date date = cal.getTime();
+
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String dateString = formatter.format(date);
+				NewOrder.setEntryTime(dateString);
+				///////////////////////////////
+				Calendar cal1 = Calendar.getInstance();
+				cal1.set(Calendar.YEAR, ExitYear);
+				cal1.set(Calendar.MONTH, ExitMonth);
+				cal1.set(Calendar.DAY_OF_MONTH, ExitDay);
+				cal1.set(Calendar.HOUR_OF_DAY, ExitHour);
+				cal1.set(Calendar.MINUTE, 0);
+				cal1.set(Calendar.SECOND, 0);
+
+				Date date1 = cal1.getTime();
+;
+				String dateString1 = formatter.format(date1);
+				NewOrder.setExitTime(dateString1);
+				///////////////////////////////
 				NewOrder.setSubId(PersonID);
 
 				NewOrder.setCarNumber(CarNumber);
@@ -2256,6 +2293,9 @@ public class SimpleServer extends AbstractServer {
 					session.update(p);
 					twoconnectedclients=1;
 					message.setObject1("yes full_subscriber");
+					message.setObject7(p.getFirstName());
+					message.setObject8(p.getLastName());
+					message.setObject9(p.getEmail());
 				}
 			}
 			for (RegularSubscriber p : listadmin2) {
@@ -2270,6 +2310,9 @@ public class SimpleServer extends AbstractServer {
 					session.update(p);
 					twoconnectedclients=1;
 					message.setObject1("yes regular_subscriber");
+					message.setObject7(p.getFirstName());
+					message.setObject8(p.getLastName());
+					message.setObject9(p.getEmail());
 				}
 			}
 

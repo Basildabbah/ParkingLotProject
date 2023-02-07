@@ -18,6 +18,21 @@ public class Subscribeboundry {
     public static String idd;
     static String type;
     public static String pass;
+    public static String firstname;
+    static String lastname;
+    public static String email;
+    @FXML
+    private Label firstlabel;
+
+    @FXML
+    private Label lastlabel;
+    @FXML
+    private Label emaillabel;
+    @FXML
+    private Label typelabel;
+
+    @FXML
+    private Label useridlabel;
 
     @FXML
     private Label numofcomplain_label;
@@ -239,10 +254,11 @@ public class Subscribeboundry {
         ID_Cancel.setDisable(true);
         Password_Cancel.setText(pass);
         Password_Cancel.setDisable(true);*/
-        App.setRoot("SUB_cancel_order");
         SUB_cancel_order.idd=idd;
         SUB_cancel_order.pass=pass;
         SUB_cancel_order.type=type;
+        App.setRoot("SUB_cancel_order");
+
     }
     @FXML
     void SubscriberOrder(ActionEvent event) {
@@ -429,6 +445,12 @@ public class Subscribeboundry {
     @FXML
     void initialize() {
         addcar_subs.idd=idd;
+        useridlabel.setText(idd);
+        typelabel.setText(type);
+        SUB_create_order.email=email;
+        emaillabel.setText(email);
+        firstlabel.setText(firstname);
+        lastlabel.setText(lastname);
         EventBus.getDefault().register(this);
     }
     @Subscribe

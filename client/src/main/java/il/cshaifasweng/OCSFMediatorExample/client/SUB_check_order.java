@@ -59,9 +59,9 @@ public class SUB_check_order {
         Password_Check.setText(pass);
         Password_Check.setDisable(true);
         ID_Check.setDisable(true);
-        EventBus.getDefault().register(this);
+    //    EventBus.getDefault().register(this);
     }
-    @Subscribe
+ /*   @Subscribe
     public void setLabelshow1(CheckOrderStatusEvent Response) throws IOException {
         Platform.runLater(() ->
                 {
@@ -100,5 +100,5 @@ public class SUB_check_order {
                 }
 
         );
-    }
+    }*/
 }

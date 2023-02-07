@@ -17,6 +17,9 @@ public class SUB_create_order {
     public static String idd;
     static String type;
     public static String pass;
+    public static String firstname;
+    static String lastname;
+    public static String email;
     @FXML
     private TextField CarNumber;
 
@@ -116,8 +119,8 @@ public class SUB_create_order {
 
         if (type.equals("Full") && preorder.isSelected()==true) {
             boolean OnSite = false;
-
-            Message m = new Message("#FullSubscriberOrder", EnterHour.getText(), EnterDay.getText(), EnterMonth.getText(), EnterYear.getText(), ExitHour.getText(), ExitDay.getText(), ExitMonth.getText(), ExitYear.getText(), ParkingLotId.getText(), ID.getText(), Password.getText(),idd,OnSite,CarNumber.getText(),Email.getText());
+            System.out.println(Subscribeboundry.email);
+            Message m = new Message("#FullSubscriberOrder", EnterHour.getText(), EnterDay.getText(), EnterMonth.getText(), EnterYear.getText(), ExitHour.getText(), ExitDay.getText(), ExitMonth.getText(), ExitYear.getText(), ParkingLotId.getText(), ID.getText(), Password.getText(),idd,OnSite,CarNumber.getText(),Subscribeboundry.email);
 
             try {
                 SimpleClient.getClient().sendToServer(m);
@@ -141,7 +144,7 @@ public class SUB_create_order {
 
             boolean OnSite = true;
 
-            Message m = new Message("#FullSubscriberOrder", Hour, Day, Month, Year, ExitHour.getText(), ExitDay.getText(), ExitMonth.getText(), ExitYear.getText(), ParkingLotId.getText(), ID.getText(), Password.getText(), idd,OnSite,CarNumber.getText(),Email.getText());
+            Message m = new Message("#FullSubscriberOrder", Hour, Day, Month, Year, ExitHour.getText(), ExitDay.getText(), ExitMonth.getText(), ExitYear.getText(), ParkingLotId.getText(), ID.getText(), Password.getText(), idd,OnSite,CarNumber.getText(),email);
 
             try {
                 SimpleClient.getClient().sendToServer(m);
@@ -179,9 +182,9 @@ public class SUB_create_order {
         Password.setText(pass);
         Password.setDisable(true);
         ID.setDisable(true);
-        EventBus.getDefault().register(this);
+        //EventBus.getDefault().register(this);
     }
-    @Subscribe
+  /*  @Subscribe
     public void setLabelshow5(RegularSubscriberOrderEvent Response) throws IOException {
         Platform.runLater(() ->
                 {
@@ -268,5 +271,5 @@ public class SUB_create_order {
                     }
                 }
         );
-    }
+    }*/
 }

@@ -1,39 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.effect.DisplacementMap?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.FloatMap?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="750.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Subscribeboundry">
-    <children>
-        <AnchorPane layoutX="64.0" layoutY="17.0" prefHeight="45.0" prefWidth="578.0" />
-        <AnchorPane layoutX="14.0" layoutY="142.0" prefHeight="518.0" prefWidth="200.0">
+<SplitPane dividerPositions="0.1724759615384615" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Subscribeboundry">
+    <items>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="750.0" prefWidth="341.0" style="-fx-background-color: #517188;">
             <children>
-                <Button fx:id="enterpark" layoutX="20.0" layoutY="56.0" mnemonicParsing="false" onAction="#enterpark" style="-fx-background-color: #cde08c;" text="Enter Parking Lot" textFill="RED" textOverrun="CLIP">
-                    <font>
-                        <Font name="System Bold" size="16.0" />
-                    </font>
-                    <effect>
-                        <DisplacementMap>
-                            <mapData>
-                                <FloatMap />
-                            </mapData>
-                            <input>
-                                <DropShadow />
-                            </input>
-                        </DisplacementMap>
-                    </effect>
-                </Button>
-                <Label alignment="CENTER" layoutX="-9.0" layoutY="-6.0" prefHeight="62.0" prefWidth="199.0" text="Parking Lots" textFill="#991010" wrapText="true">
+                <Label alignment="CENTER" layoutX="-15.0" layoutY="34.0" prefHeight="62.0" prefWidth="199.0" text="Parking Lots" textFill="#991010" wrapText="true">
                     <font>
                         <Font name="Californian FB Italic" size="28.0" />
                     </font>
@@ -41,7 +25,7 @@
                         <Bloom />
                     </effect>
                 </Label>
-                <Button fx:id="exitpark" layoutX="20.0" layoutY="119.0" mnemonicParsing="false" onAction="#exitparkfun" prefHeight="37.0" prefWidth="151.0" style="-fx-background-color: #cde08c;" text="Exit Parking Lot" textFill="RED" textOverrun="CLIP">
+                <Button fx:id="enterpark" layoutX="9.0" layoutY="147.0" mnemonicParsing="false" onAction="#enterpark" style="-fx-background-color: #64a4bb;" text="Enter Parking Lot" textFill="RED" textOverrun="CLIP">
                     <font>
                         <Font name="System Bold" size="16.0" />
                     </font>
@@ -56,7 +40,7 @@
                         </DisplacementMap>
                     </effect>
                 </Button>
-                <Button fx:id="addcar" layoutX="20.0" layoutY="187.0" mnemonicParsing="false" onAction="#addcarfun" prefHeight="37.0" prefWidth="151.0" style="-fx-background-color: #cde08c;" text="Add Car" textFill="RED" textOverrun="CLIP">
+                <Button fx:id="exitpark" layoutX="9.0" layoutY="210.0" mnemonicParsing="false" onAction="#exitparkfun" prefHeight="37.0" prefWidth="151.0" style="-fx-background-color: #64a4bb;" text="Exit Parking Lot" textFill="RED" textOverrun="CLIP">
                     <font>
                         <Font name="System Bold" size="16.0" />
                     </font>
@@ -71,7 +55,7 @@
                         </DisplacementMap>
                     </effect>
                 </Button>
-                <Button fx:id="removecar" layoutX="24.0" layoutY="253.0" mnemonicParsing="false" onAction="#removecarfun" prefHeight="37.0" prefWidth="151.0" style="-fx-background-color: #cde08c;" text="Remove Car" textFill="RED" textOverrun="CLIP">
+                <Button fx:id="addcar" layoutX="9.0" layoutY="279.0" mnemonicParsing="false" onAction="#addcarfun" prefHeight="37.0" prefWidth="151.0" style="-fx-background-color: #64a4bb;" text="Add Car" textFill="RED" textOverrun="CLIP">
                     <font>
                         <Font name="System Bold" size="16.0" />
                     </font>
@@ -86,7 +70,7 @@
                         </DisplacementMap>
                     </effect>
                 </Button>
-                <Button fx:id="RenewSubscription" layoutX="16.0" layoutY="324.0" mnemonicParsing="false" onAction="#RenewSubscriptionfun" prefHeight="38.0" prefWidth="168.0" style="-fx-background-color: white;" text="RenewSubscription" textFill="RED" textOverrun="CLIP">
+                <Button fx:id="removecar" layoutX="9.0" layoutY="337.0" mnemonicParsing="false" onAction="#removecarfun" prefHeight="37.0" prefWidth="151.0" style="-fx-background-color: #64a4bb;" text="Remove Car" textFill="RED" textOverrun="CLIP">
                     <font>
                         <Font name="System Bold" size="16.0" />
                     </font>
@@ -101,7 +85,22 @@
                         </DisplacementMap>
                     </effect>
                 </Button>
-                <Button fx:id="addreview" layoutX="16.0" layoutY="383.0" mnemonicParsing="false" onAction="#addreviewfun" prefHeight="38.0" prefWidth="168.0" style="-fx-background-color: rgba(108,203,103,0.48);" text="Add Review" textFill="WHITE" textOverrun="CLIP">
+                <Button fx:id="RenewSubscription" layoutX="9.0" layoutY="399.0" mnemonicParsing="false" onAction="#RenewSubscriptionfun" prefHeight="38.0" prefWidth="151.0" style="-fx-background-color: #64a4bb;" text="RenewSubscription" textFill="RED" textOverrun="CLIP">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                    <effect>
+                        <DisplacementMap>
+                            <mapData>
+                                <FloatMap />
+                            </mapData>
+                            <input>
+                                <DropShadow />
+                            </input>
+                        </DisplacementMap>
+                    </effect>
+                </Button>
+                <Button fx:id="addreview" layoutX="9.0" layoutY="464.0" mnemonicParsing="false" onAction="#addreviewfun" prefHeight="38.0" prefWidth="151.0" style="-fx-background-color: #64a4bb;" text="Add Review" textFill="RED" textOverrun="CLIP">
                     <font>
                         <Font name="System Bold" size="16.0" />
                     </font>
@@ -118,226 +117,229 @@
                 </Button>
             </children>
         </AnchorPane>
-        <ButtonBar layoutX="14.0" layoutY="94.0" prefHeight="40.0" prefWidth="737.0">
-            <buttons>
-                <Button fx:id="sendcomplain" mnemonicParsing="false" onAction="#sendcomplainfun" style="-fx-background-color: #5dc2a2;" text="Send Complain" textFill="RED" textOverrun="CLIP">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                    <effect>
-                        <DisplacementMap>
-                            <mapData>
-                                <FloatMap />
-                            </mapData>
-                            <input>
-                                <DropShadow />
-                            </input>
-                        </DisplacementMap>
-                    </effect>
-                </Button>
-                <Button fx:id="cancelcomplain" mnemonicParsing="false" onAction="#cancelcomplainfun" style="-fx-background-color: #5dc2a2;" text="Cancel Complain" textFill="RED" textOverrun="CLIP" visible="false">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                    <effect>
-                        <DisplacementMap>
-                            <mapData>
-                                <FloatMap />
-                            </mapData>
-                            <input>
-                                <DropShadow />
-                            </input>
-                        </DisplacementMap>
-                    </effect>
-                </Button>
-                <Button fx:id="checkcomplain" mnemonicParsing="false" onAction="#checkcomplainfun" style="-fx-background-color: #5dc2a2;" text="Check Complain Status" textFill="RED" textOverrun="CLIP">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                    <effect>
-                        <DisplacementMap>
-                            <mapData>
-                                <FloatMap />
-                            </mapData>
-                            <input>
-                                <DropShadow />
-                            </input>
-                        </DisplacementMap>
-                    </effect>
-                </Button>
-            </buttons>
-        </ButtonBar>
-        <ButtonBar layoutY="43.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="737.0">
-            <buttons>
-                <Button fx:id="createorder" contentDisplay="CENTER" mnemonicParsing="false" onAction="#createorderfun" style="-fx-background-color: #00BFFF;" text="Create Order" textAlignment="CENTER" textFill="RED" textOverrun="CLIP">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                    <effect>
-                        <DisplacementMap>
-                            <mapData>
-                                <FloatMap />
-                            </mapData>
-                            <input>
-                                <DropShadow />
-                            </input>
-                        </DisplacementMap>
-                    </effect>
-                </Button>
-                <Button fx:id="checkorder" contentDisplay="CENTER" mnemonicParsing="false" onAction="#checkorderfun" style="-fx-background-color: #00BFFF;" text="Check Order" textAlignment="CENTER" textFill="RED" textOverrun="CLIP">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                    <effect>
-                        <DisplacementMap>
-                            <mapData>
-                                <FloatMap />
-                            </mapData>
-                            <input>
-                                <DropShadow />
-                            </input>
-                        </DisplacementMap>
-                    </effect>
-                </Button>
-                <Button fx:id="cancelorder" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cancelorderfun" style="-fx-background-color: #00BFFF;" text="Cancel Order" textAlignment="CENTER" textFill="RED" textOverrun="CLIP">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                    <effect>
-                        <DisplacementMap>
-                            <mapData>
-                                <FloatMap />
-                            </mapData>
-                            <input>
-                                <DropShadow />
-                            </input>
-                        </DisplacementMap>
-                    </effect>
-                </Button>
-                <Button fx:id="logout" mnemonicParsing="false" onAction="#logoutfun" style="-fx-background-color: white;" text="Log out" textFill="RED" textOverrun="CLIP">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                    <effect>
-                        <DisplacementMap>
-                            <mapData>
-                                <FloatMap />
-                            </mapData>
-                            <input>
-                                <DropShadow />
-                            </input>
-                        </DisplacementMap>
-                    </effect>
-                </Button>
-            </buttons>
-        </ButtonBar>
-        <AnchorPane fx:id="addcaranchorpane" layoutX="353.0" layoutY="212.0" prefHeight="206.0" prefWidth="270.0" style="-fx-background-color: white;" visible="false">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="750.0" prefWidth="634.0" style="-fx-background-color:#7293ab;">
             <children>
-                <TextField fx:id="idtextbox" layoutX="86.0" layoutY="62.0" />
-                <Label layoutX="14.0" layoutY="61.0" prefHeight="26.0" prefWidth="55.0" text="User Id:" />
-                <Label layoutX="14.0" layoutY="109.0" prefHeight="26.0" prefWidth="76.0" text="Car Number:" />
-                <TextField fx:id="carnumbertextbox" layoutX="86.0" layoutY="109.0" promptText="Type Your Car Number" />
-                <Button fx:id="submit_add_car" layoutX="135.0" layoutY="154.0" mnemonicParsing="false" onAction="#submit_add_carfun" text="submit" />
-                <Label layoutX="88.0" layoutY="14.0" prefHeight="37.0" prefWidth="94.0" text="Add Car:">
-                    <font>
-                        <Font name="System Bold" size="18.0" />
-                    </font>
-                </Label>
+                <SplitPane dividerPositions="0.16452991452991453" orientation="VERTICAL" prefHeight="750.0" prefWidth="823.0">
+                    <items>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="133.0" prefWidth="822.0" style="-fx-background-color: #517188;">
+                            <children>
+                                <Button fx:id="createorder" contentDisplay="CENTER" layoutX="30.0" layoutY="42.0" mnemonicParsing="false" onAction="#createorderfun" style="-fx-background-color: #00BFFF;" text="Create Order" textAlignment="CENTER" textFill="RED" textOverrun="CLIP">
+                                    <font>
+                                        <Font size="16.0" />
+                                    </font>
+                                    <effect>
+                                        <DisplacementMap>
+                                            <mapData>
+                                                <FloatMap />
+                                            </mapData>
+                                            <input>
+                                                <DropShadow />
+                                            </input>
+                                        </DisplacementMap>
+                                    </effect>
+                                </Button>
+                                <Button fx:id="checkorder" contentDisplay="CENTER" layoutX="159.0" layoutY="42.0" mnemonicParsing="false" onAction="#checkorderfun" style="-fx-background-color: #00BFFF;" text="Check Order" textAlignment="CENTER" textFill="RED" textOverrun="CLIP">
+                                    <font>
+                                        <Font size="16.0" />
+                                    </font>
+                                    <effect>
+                                        <DisplacementMap>
+                                            <mapData>
+                                                <FloatMap />
+                                            </mapData>
+                                            <input>
+                                                <DropShadow />
+                                            </input>
+                                        </DisplacementMap>
+                                    </effect>
+                                </Button>
+                                <Button fx:id="cancelorder" contentDisplay="CENTER" layoutX="286.0" layoutY="42.0" mnemonicParsing="false" onAction="#cancelorderfun" style="-fx-background-color: #00BFFF;" text="Cancel Order" textAlignment="CENTER" textFill="RED" textOverrun="CLIP">
+                                    <font>
+                                        <Font size="16.0" />
+                                    </font>
+                                    <effect>
+                                        <DisplacementMap>
+                                            <mapData>
+                                                <FloatMap />
+                                            </mapData>
+                                            <input>
+                                                <DropShadow />
+                                            </input>
+                                        </DisplacementMap>
+                                    </effect>
+                                </Button>
+                                <Button fx:id="checkcomplain" layoutX="417.0" layoutY="42.0" mnemonicParsing="false" onAction="#checkcomplainfun" style="-fx-background-color: #00BFFF;" text="Check Complain" textFill="RED" textOverrun="CLIP">
+                                    <font>
+                                        <Font size="16.0" />
+                                    </font>
+                                    <effect>
+                                        <DisplacementMap>
+                                            <mapData>
+                                                <FloatMap />
+                                            </mapData>
+                                            <input>
+                                                <DropShadow />
+                                            </input>
+                                        </DisplacementMap>
+                                    </effect>
+                                </Button>
+                                <Button fx:id="sendcomplain" layoutX="573.0" layoutY="42.0" mnemonicParsing="false" onAction="#sendcomplainfun" style="-fx-background-color: #00BFFF;" text="Send Complain" textFill="RED" textOverrun="CLIP">
+                                    <font>
+                                        <Font size="16.0" />
+                                    </font>
+                                    <effect>
+                                        <DisplacementMap>
+                                            <mapData>
+                                                <FloatMap />
+                                            </mapData>
+                                            <input>
+                                                <DropShadow />
+                                            </input>
+                                        </DisplacementMap>
+                                    </effect>
+                                </Button>
+                                <Button fx:id="logout" layoutX="724.0" layoutY="42.0" mnemonicParsing="false" onAction="#logoutfun" style="-fx-background-color: blue;" text="Log out" textFill="WHITE" textOverrun="CLIP">
+                                    <font>
+                                        <Font size="16.0" />
+                                    </font>
+                                    <effect>
+                                        <DisplacementMap>
+                                            <mapData>
+                                                <FloatMap />
+                                            </mapData>
+                                            <input>
+                                                <DropShadow />
+                                            </input>
+                                        </DisplacementMap>
+                                    </effect>
+                                </Button>
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="457.0" prefWidth="822.0" style="-fx-background-color:#7293ab;">
+                            <children>
+                                <SplitPane dividerPositions="0.3203505355404089" prefHeight="623.0" prefWidth="823.0">
+                                    <items>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="622.0" prefWidth="175.0" style="-fx-background-color: #476881;">
+                                            <children>
+                                                <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="160.0" layoutY="211.0">
+                                                    <image>
+                                                        <Image url="@../../../../images/Avatar-Profile-Vector-PNG-Photos.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </children>
+                                        </AnchorPane>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="622.0" prefWidth="612.0" style="-fx-background-color: #687a8f;">
+                                            <children>
+                                                <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="-100.0" layoutY="211.0">
+                                                    <image>
+                                                        <Image url="@../../../../images/Avatar-Profile-Vector-PNG-Photos.png" />
+                                                    </image>
+                                                </ImageView>
+                                                <Label alignment="CENTER" layoutX="191.0" layoutY="48.0" prefHeight="62.0" prefWidth="199.0" text="Personal Info:" textFill="#561414" wrapText="true">
+                                                    <font>
+                                                        <Font name="Arial Bold" size="21.0" />
+                                                    </font>
+                                                    <effect>
+                                                        <Bloom />
+                                                    </effect>
+                                                </Label>
+                                                <VBox layoutX="165.0" layoutY="151.0" prefHeight="200.0" prefWidth="136.0">
+                                                    <children>
+                                                        <Label alignment="CENTER" prefHeight="62.0" prefWidth="199.0" text="User Id:" textFill="#561414" wrapText="true">
+                                                            <font>
+                                                                <Font name="Arial Bold" size="21.0" />
+                                                            </font>
+                                                            <effect>
+                                                                <Bloom />
+                                                            </effect>
+                                                        </Label>
+                                                        <Label alignment="CENTER" prefHeight="62.0" prefWidth="199.0" text="First Name:" textFill="#561414" wrapText="true">
+                                                            <font>
+                                                                <Font name="Arial Bold" size="21.0" />
+                                                            </font>
+                                                            <effect>
+                                                                <Bloom />
+                                                            </effect>
+                                                        </Label>
+                                                        <Label alignment="CENTER" prefHeight="62.0" prefWidth="199.0" text="Last Name:" textFill="#561414" wrapText="true">
+                                                            <font>
+                                                                <Font name="Arial Bold" size="21.0" />
+                                                            </font>
+                                                            <effect>
+                                                                <Bloom />
+                                                            </effect>
+                                                        </Label>
+                                                        <Label alignment="CENTER" prefHeight="62.0" prefWidth="199.0" text="Email:" textFill="#561414" wrapText="true">
+                                                            <font>
+                                                                <Font name="Arial Bold" size="21.0" />
+                                                            </font>
+                                                            <effect>
+                                                                <Bloom />
+                                                            </effect>
+                                                        </Label>
+                                                        <Label alignment="CENTER" prefHeight="62.0" prefWidth="199.0" text="Type:" textFill="#561414" wrapText="true">
+                                                            <font>
+                                                                <Font name="Arial Bold" size="21.0" />
+                                                            </font>
+                                                            <effect>
+                                                                <Bloom />
+                                                            </effect>
+                                                        </Label>
+                                                    </children>
+                                                </VBox>
+                                                <VBox layoutX="310.0" layoutY="151.0" prefHeight="200.0" prefWidth="219.0">
+                                                    <children>
+                                                        <Label fx:id="useridlabel" alignment="CENTER" prefHeight="62.0" prefWidth="199.0" text="User Id:" wrapText="true">
+                                                            <font>
+                                                                <Font name="Arial Bold" size="21.0" />
+                                                            </font>
+                                                            <effect>
+                                                                <Bloom />
+                                                            </effect>
+                                                        </Label>
+                                                        <Label fx:id="firstlabel" alignment="CENTER" prefHeight="62.0" prefWidth="199.0" text="First Name:" wrapText="true">
+                                                            <font>
+                                                                <Font name="Arial Bold" size="21.0" />
+                                                            </font>
+                                                            <effect>
+                                                                <Bloom />
+                                                            </effect>
+                                                        </Label>
+                                                        <Label fx:id="lastlabel" alignment="CENTER" prefHeight="62.0" prefWidth="199.0" text="Last Name:" wrapText="true">
+                                                            <font>
+                                                                <Font name="Arial Bold" size="21.0" />
+                                                            </font>
+                                                            <effect>
+                                                                <Bloom />
+                                                            </effect>
+                                                        </Label>
+                                                        <Label fx:id="emaillabel" prefHeight="22.0" prefWidth="217.0" text="Email:" wrapText="true">
+                                                            <font>
+                                                                <Font name="Arial Bold" size="12.0" />
+                                                            </font>
+                                                            <effect>
+                                                                <Bloom />
+                                                            </effect>
+                                                        </Label>
+                                                        <Label fx:id="typelabel" alignment="CENTER" prefHeight="62.0" prefWidth="199.0" text="Type:" wrapText="true">
+                                                            <font>
+                                                                <Font name="Arial Bold" size="21.0" />
+                                                            </font>
+                                                            <effect>
+                                                                <Bloom />
+                                                            </effect>
+                                                        </Label>
+                                                    </children>
+                                                </VBox>
+                                            </children>
+                                        </AnchorPane>
+                                    </items>
+                                </SplitPane>
+                            </children>
+                        </AnchorPane>
+                    </items>
+                </SplitPane>
             </children>
         </AnchorPane>
-        <Label fx:id="labelid" layoutX="17.0" layoutY="85.0" prefHeight="18.0" prefWidth="94.0" text="Label" visible="false" />
-        <Label fx:id="labelid1" layoutX="17.0" layoutY="125.0" prefHeight="18.0" prefWidth="94.0" text="Label" visible="false" />
-        <AnchorPane fx:id="anchorpane_CHECK_ORDER" layoutX="327.0" layoutY="143.0" prefHeight="376.0" prefWidth="363.0" style="-fx-background-color: white;" visible="false">
-            <children>
-                <Label layoutX="78.0" layoutY="45.0" text="Check Order">
-                    <font>
-                        <Font name="System Bold" size="30.0" />
-                    </font>
-                </Label>
-                <Label layoutX="31.0" layoutY="116.0" prefHeight="18.0" prefWidth="94.0" text="User Id:" />
-                <Button fx:id="CheckOrderStatus" layoutX="76.0" layoutY="264.0" mnemonicParsing="false" onAction="#CheckOrderStatus" prefHeight="26.0" prefWidth="211.0" style="-fx-background-color: #7272cb;" text="Check Order Status">
-                    <effect>
-                        <Blend mode="RED">
-                            <topInput>
-                                <DropShadow />
-                            </topInput>
-                        </Blend>
-                    </effect>
-                </Button>
-                <Label layoutX="31.0" layoutY="199.0" prefHeight="18.0" prefWidth="94.0" text="NumOf Order" />
-                <Label layoutX="31.0" layoutY="156.0" prefHeight="18.0" prefWidth="94.0" text="Password:" />
-                <TextField fx:id="Date11" layoutX="68.0" layoutY="424.0" promptText="Type Date:" visible="false" />
-                <TextField fx:id="ID_Check" layoutX="128.0" layoutY="112.0" prefHeight="26.0" prefWidth="140.0" promptText="Type Your ID" />
-                <TextField fx:id="Password_Check" layoutX="125.0" layoutY="152.0" prefHeight="26.0" prefWidth="143.0" promptText="Type Your Password" />
-                <TextField fx:id="NumberOfOrder_Check" layoutX="125.0" layoutY="195.0" prefHeight="26.0" prefWidth="143.0" promptText="Number Of Order" />
-            </children>
-        </AnchorPane>
-        <AnchorPane fx:id="ancherpane_ORDER" layoutX="289.0" layoutY="250.0" prefHeight="544.0" prefWidth="363.0" style="-fx-background-color: white;" visible="false">
-            <children>
-                <Label layoutX="117.0" layoutY="49.0" text="Order">
-                    <font>
-                        <Font name="System Bold" size="30.0" />
-                    </font>
-                </Label>
-                <Label layoutX="31.0" layoutY="116.0" prefHeight="18.0" prefWidth="94.0" text="User Id:" />
-                <TextField fx:id="ID" layoutX="93.0" layoutY="112.0" prefHeight="26.0" prefWidth="211.0" promptText="Type Your ID Number" />
-                <Button fx:id="SubscriberOrder" layoutX="78.0" layoutY="462.0" mnemonicParsing="false" onAction="#SubscriberOrder" prefHeight="26.0" prefWidth="211.0" style="-fx-background-color: #7272cb;" text="Order">
-                    <effect>
-                        <Blend mode="RED">
-                            <topInput>
-                                <DropShadow />
-                            </topInput>
-                        </Blend>
-                    </effect>
-                </Button>
-                <Label layoutX="31.0" layoutY="199.0" prefHeight="18.0" prefWidth="94.0" text="Email:" visible="false" />
-                <TextField fx:id="Email" layoutX="93.0" layoutY="195.0" prefHeight="26.0" prefWidth="211.0" promptText="Type Your Email" visible="false" />
-                <Label layoutX="31.0" layoutY="156.0" prefHeight="18.0" prefWidth="94.0" text="Password:" />
-                <TextField fx:id="Password" layoutX="93.0" layoutY="152.0" prefHeight="26.0" prefWidth="211.0" promptText="Type Your Password" />
-                <Label layoutX="31.0" layoutY="236.0" prefHeight="18.0" prefWidth="94.0" text="parklotId:" />
-                <TextField fx:id="Date" layoutX="68.0" layoutY="424.0" promptText="Type Date:" visible="false" />
-                <TextField fx:id="ParkingLotId" layoutX="92.0" layoutY="232.0" prefHeight="26.0" prefWidth="208.0" promptText="Type Your Parking id" />
-                <TextField fx:id="CarNumber" layoutX="104.0" layoutY="271.0" prefHeight="26.0" prefWidth="199.0" promptText="Car Number" />
-                <Label layoutX="31.0" layoutY="275.0" prefHeight="18.0" prefWidth="94.0" text="Car Number:" />
-                <Label layoutX="31.0" layoutY="308.0" prefHeight="18.0" prefWidth="94.0" text="Type:" />
-                <TextField fx:id="EnterHour" layoutX="70.0" layoutY="334.0" prefHeight="26.0" prefWidth="60.0" promptText="HH" />
-                <TextField fx:id="EnterMonth" layoutX="192.0" layoutY="334.0" prefHeight="26.0" prefWidth="52.0" promptText="MM" />
-                <TextField fx:id="EnterYear" layoutX="253.0" layoutY="334.0" prefHeight="26.0" prefWidth="52.0" promptText="Year" />
-                <TextField fx:id="ExitHour" layoutX="69.0" layoutY="374.0" prefHeight="26.0" prefWidth="62.0" promptText="HH" />
-                <TextField fx:id="ExitDay" layoutX="132.0" layoutY="374.0" prefHeight="26.0" prefWidth="52.0" promptText="Day" />
-                <TextField fx:id="ExitMonth" layoutX="191.0" layoutY="374.0" prefHeight="26.0" prefWidth="53.0" promptText="MM" />
-                <TextField fx:id="ExitYear" layoutX="256.0" layoutY="374.0" prefHeight="26.0" prefWidth="50.0" promptText="Year" />
-                <CheckBox fx:id="preorder" layoutX="88.0" layoutY="308.0" mnemonicParsing="false" text="PreOrder" />
-                <CheckBox fx:id="OnSite" layoutX="182.0" layoutY="308.0" mnemonicParsing="false" onAction="#onsitecheck" text="OnSite" />
-                <Label fx:id="enterlabel" layoutX="31.0" layoutY="338.0" prefHeight="18.0" prefWidth="34.0" text="Enter:" />
-                <Label layoutX="31.0" layoutY="378.0" prefHeight="18.0" prefWidth="94.0" text="Exit:" />
-                <TextField fx:id="EnterDay" layoutX="136.0" layoutY="334.0" prefHeight="26.0" prefWidth="42.0" promptText="Day" />
-              <AnchorPane fx:id="anchonpane_CANCEL_ORDER" layoutX="120.0" layoutY="-127.0" prefHeight="354.0" prefWidth="363.0" style="-fx-background-color: white;" visible="false">
-                  <children>
-                      <Label layoutX="76.0" layoutY="47.0" text="Cancel Order">
-                          <font>
-                              <Font name="System Bold" size="30.0" />
-                          </font>
-                      </Label>
-                      <Label layoutX="31.0" layoutY="116.0" prefHeight="18.0" prefWidth="94.0" text="User Id:" />
-                      <Button fx:id="CancelOrder" layoutX="76.0" layoutY="264.0" mnemonicParsing="false" onAction="#CancelOrder" prefHeight="26.0" prefWidth="211.0" style="-fx-background-color: #7272cb;" text="Cancel Order">
-                          <effect>
-                              <Blend mode="RED">
-                                  <topInput>
-                                      <DropShadow />
-                                  </topInput>
-                              </Blend>
-                          </effect>
-                      </Button>
-                      <Label layoutX="31.0" layoutY="199.0" prefHeight="18.0" prefWidth="94.0" text="NumOf Order" />
-                      <Label layoutX="31.0" layoutY="156.0" prefHeight="18.0" prefWidth="94.0" text="Password:" />
-                      <TextField fx:id="Date1" layoutX="68.0" layoutY="424.0" promptText="Type Date:" visible="false" />
-                      <TextField fx:id="ID_Cancel" layoutX="128.0" layoutY="112.0" prefHeight="26.0" prefWidth="140.0" promptText="Type Your ID" />
-                      <TextField fx:id="Password_Cancel" layoutX="125.0" layoutY="152.0" prefHeight="26.0" prefWidth="143.0" promptText="Type Your Password" />
-                      <TextField fx:id="NumberOfOrder_Cancel" layoutX="125.0" layoutY="195.0" prefHeight="26.0" prefWidth="143.0" promptText="Number Of Order" />
-                  </children>
-              </AnchorPane>
-            </children>
-        </AnchorPane>
-    </children>
-</AnchorPane>
+    </items>
+</SplitPane>
