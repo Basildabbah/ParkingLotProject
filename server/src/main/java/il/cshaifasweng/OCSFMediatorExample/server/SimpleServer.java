@@ -573,7 +573,32 @@ public class SimpleServer extends AbstractServer {
 			if(FlagOrder==1)
 			{
 				Order NewOrder = new Order(MaxOrderId,TypeOfOrder,EnterHour,EnterDay,EnterMonth,EnterYear,ExitHour,ExitDay,ExitMonth,ExitYear,ParkingLotId,ID,Password);
+				Calendar cal = Calendar.getInstance();
+				cal.set(Calendar.YEAR, EnterYear);
+				cal.set(Calendar.MONTH, EnterMonth);
+				cal.set(Calendar.DAY_OF_MONTH, EnterDay);
+				cal.set(Calendar.HOUR_OF_DAY, EnterHour);
+				cal.set(Calendar.MINUTE, 0);
+				cal.set(Calendar.SECOND, 0);
 
+				Date date = cal.getTime();
+
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String dateString = formatter.format(date);
+				NewOrder.setEntryTime(dateString);
+				///////////////////////////////
+				Calendar cal1 = Calendar.getInstance();
+				cal1.set(Calendar.YEAR, ExitYear);
+				cal1.set(Calendar.MONTH, ExitMonth);
+				cal1.set(Calendar.DAY_OF_MONTH, ExitDay);
+				cal1.set(Calendar.HOUR_OF_DAY, ExitHour);
+				cal1.set(Calendar.MINUTE, 0);
+				cal1.set(Calendar.SECOND, 0);
+
+				Date date1 = cal1.getTime();
+				;
+				String dateString1 = formatter.format(date1);
+				NewOrder.setExitTime(dateString1);
 				NewOrder.setSubId(-1);
 
 				NewOrder.setCarNumber(CarNumber);
@@ -755,7 +780,32 @@ public class SimpleServer extends AbstractServer {
 			if(FlagOrder==1)
 			{
 				Order NewOrder = new Order(MaxOrderId,TypeOfOrder,EnterHour,EnterDay,EnterMonth,EnterYear,ExitHour,ExitDay,ExitMonth,ExitYear,ParkingLotId,ID,Password);
+				Calendar cal = Calendar.getInstance();
+				cal.set(Calendar.YEAR, EnterYear);
+				cal.set(Calendar.MONTH, EnterMonth);
+				cal.set(Calendar.DAY_OF_MONTH, EnterDay);
+				cal.set(Calendar.HOUR_OF_DAY, EnterHour);
+				cal.set(Calendar.MINUTE, 0);
+				cal.set(Calendar.SECOND, 0);
 
+				Date date = cal.getTime();
+
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String dateString = formatter.format(date);
+				NewOrder.setEntryTime(dateString);
+				///////////////////////////////
+				Calendar cal1 = Calendar.getInstance();
+				cal1.set(Calendar.YEAR, ExitYear);
+				cal1.set(Calendar.MONTH, ExitMonth);
+				cal1.set(Calendar.DAY_OF_MONTH, ExitDay);
+				cal1.set(Calendar.HOUR_OF_DAY, ExitHour);
+				cal1.set(Calendar.MINUTE, 0);
+				cal1.set(Calendar.SECOND, 0);
+
+				Date date1 = cal1.getTime();
+				;
+				String dateString1 = formatter.format(date1);
+				NewOrder.setExitTime(dateString1);
 				NewOrder.setSubId(-1);
 
 				NewOrder.setCarNumber(CarNumber);
@@ -935,7 +985,32 @@ public class SimpleServer extends AbstractServer {
 				}
 				Order NewOrder = new Order(MaxOrderId, TypeOfOrder, EnterHour, EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear, ParkingLotId, PersonID, Password);
 				//NewOrder.setParkinglot(park1);
+				Calendar cal = Calendar.getInstance();
+				cal.set(Calendar.YEAR, EnterYear);
+				cal.set(Calendar.MONTH, EnterMonth);
+				cal.set(Calendar.DAY_OF_MONTH, EnterDay);
+				cal.set(Calendar.HOUR_OF_DAY, EnterHour);
+				cal.set(Calendar.MINUTE, 0);
+				cal.set(Calendar.SECOND, 0);
 
+				Date date = cal.getTime();
+
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String dateString = formatter.format(date);
+				NewOrder.setEntryTime(dateString);
+				///////////////////////////////
+				Calendar cal1 = Calendar.getInstance();
+				cal1.set(Calendar.YEAR, ExitYear);
+				cal1.set(Calendar.MONTH, ExitMonth);
+				cal1.set(Calendar.DAY_OF_MONTH, ExitDay);
+				cal1.set(Calendar.HOUR_OF_DAY, ExitHour);
+				cal1.set(Calendar.MINUTE, 0);
+				cal1.set(Calendar.SECOND, 0);
+
+				Date date1 = cal1.getTime();
+				;
+				String dateString1 = formatter.format(date1);
+				NewOrder.setExitTime(dateString1);
 				NewOrder.setSubId(PersonID);
 
 				NewOrder.setCarNumber(CarNumber);
@@ -1117,7 +1192,32 @@ public class SimpleServer extends AbstractServer {
 				}
 				Order NewOrder = new Order(MaxOrderId, TypeOfOrder, EnterHour, EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear, ParkingLotId, PersonID, Password);
 				//NewOrder.setParkinglot(park1);
+				Calendar cal = Calendar.getInstance();
+				cal.set(Calendar.YEAR, EnterYear);
+				cal.set(Calendar.MONTH, EnterMonth);
+				cal.set(Calendar.DAY_OF_MONTH, EnterDay);
+				cal.set(Calendar.HOUR_OF_DAY, EnterHour);
+				cal.set(Calendar.MINUTE, 0);
+				cal.set(Calendar.SECOND, 0);
 
+				Date date = cal.getTime();
+
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String dateString = formatter.format(date);
+				NewOrder.setEntryTime(dateString);
+				///////////////////////////////
+				Calendar cal1 = Calendar.getInstance();
+				cal1.set(Calendar.YEAR, ExitYear);
+				cal1.set(Calendar.MONTH, ExitMonth);
+				cal1.set(Calendar.DAY_OF_MONTH, ExitDay);
+				cal1.set(Calendar.HOUR_OF_DAY, ExitHour);
+				cal1.set(Calendar.MINUTE, 0);
+				cal1.set(Calendar.SECOND, 0);
+
+				Date date1 = cal1.getTime();
+				;
+				String dateString1 = formatter.format(date1);
+				NewOrder.setExitTime(dateString1);
 				NewOrder.setSubId(PersonID);
 
 				NewOrder.setCarNumber(CarNumber);
@@ -1296,7 +1396,6 @@ public class SimpleServer extends AbstractServer {
 				Order NewOrder = new Order(MaxOrderId, TypeOfOrder, EnterHour, EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear, ParkingLotId, PersonID, Password);
 				//NewOrder.setParkinglot(park1);
 				//////////////////////////////////////
-
 				Calendar cal = Calendar.getInstance();
 				cal.set(Calendar.YEAR, EnterYear);
 				cal.set(Calendar.MONTH, EnterMonth);
@@ -1320,7 +1419,7 @@ public class SimpleServer extends AbstractServer {
 				cal1.set(Calendar.SECOND, 0);
 
 				Date date1 = cal1.getTime();
-;
+				;
 				String dateString1 = formatter.format(date1);
 				NewOrder.setExitTime(dateString1);
 				///////////////////////////////
@@ -1494,7 +1593,32 @@ public class SimpleServer extends AbstractServer {
 
 				Order NewOrder = new Order(MaxOrderId, TypeOfOrder, EnterHour, EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear, ParkingLotId, PersonID, Password);
 				//NewOrder.setParkinglot(park1);
+				Calendar cal = Calendar.getInstance();
+				cal.set(Calendar.YEAR, EnterYear);
+				cal.set(Calendar.MONTH, EnterMonth);
+				cal.set(Calendar.DAY_OF_MONTH, EnterDay);
+				cal.set(Calendar.HOUR_OF_DAY, EnterHour);
+				cal.set(Calendar.MINUTE, 0);
+				cal.set(Calendar.SECOND, 0);
 
+				Date date = cal.getTime();
+
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String dateString = formatter.format(date);
+				NewOrder.setEntryTime(dateString);
+				///////////////////////////////
+				Calendar cal1 = Calendar.getInstance();
+				cal1.set(Calendar.YEAR, ExitYear);
+				cal1.set(Calendar.MONTH, ExitMonth);
+				cal1.set(Calendar.DAY_OF_MONTH, ExitDay);
+				cal1.set(Calendar.HOUR_OF_DAY, ExitHour);
+				cal1.set(Calendar.MINUTE, 0);
+				cal1.set(Calendar.SECOND, 0);
+
+				Date date1 = cal1.getTime();
+				;
+				String dateString1 = formatter.format(date1);
+				NewOrder.setExitTime(dateString1);
 				NewOrder.setSubId(PersonID);
 
 				NewOrder.setCarNumber(CarNumber);
@@ -3266,7 +3390,32 @@ public class SimpleServer extends AbstractServer {
 
 			if (FlagOrder == 1) {
 				Order NewOrder = new Order(MaxOrderId, TypeOfOrder, EnterHour, EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear, ParkingLotId, ID, Password);
+				Calendar cal = Calendar.getInstance();
+				cal.set(Calendar.YEAR, EnterYear);
+				cal.set(Calendar.MONTH, EnterMonth);
+				cal.set(Calendar.DAY_OF_MONTH, EnterDay);
+				cal.set(Calendar.HOUR_OF_DAY, EnterHour);
+				cal.set(Calendar.MINUTE, 0);
+				cal.set(Calendar.SECOND, 0);
 
+				Date date = cal.getTime();
+
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String dateString = formatter.format(date);
+				NewOrder.setEntryTime(dateString);
+				///////////////////////////////
+				Calendar cal1 = Calendar.getInstance();
+				cal1.set(Calendar.YEAR, ExitYear);
+				cal1.set(Calendar.MONTH, ExitMonth);
+				cal1.set(Calendar.DAY_OF_MONTH, ExitDay);
+				cal1.set(Calendar.HOUR_OF_DAY, ExitHour);
+				cal1.set(Calendar.MINUTE, 0);
+				cal1.set(Calendar.SECOND, 0);
+
+				Date date1 = cal1.getTime();
+				;
+				String dateString1 = formatter.format(date1);
+				NewOrder.setExitTime(dateString1);
 				NewOrder.setSubId(-1);
 
 				NewOrder.setCarNumber(CarNumber);
