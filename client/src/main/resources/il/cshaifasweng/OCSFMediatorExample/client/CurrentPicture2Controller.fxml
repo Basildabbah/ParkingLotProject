@@ -4,8 +4,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorroot" prefHeight="1000.0" prefWidth="750.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.CurrentPicture2Controller">
+<AnchorPane fx:id="anchorroot" prefHeight="646.0" prefWidth="304.0" style="-fx-background-color: skyblue;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.CurrentPicture2Controller">
     <children>
         <Rectangle fx:id="rect000" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="38.0" layoutX="22.0" layoutY="45.0" stroke="BLACK" strokeType="INSIDE" width="38.0" />
         <Rectangle fx:id="rect010" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="38.0" layoutX="95.0" layoutY="45.0" stroke="BLACK" strokeType="INSIDE" width="38.0" />
@@ -47,5 +48,10 @@
         <TextField editable="false" layoutX="125.0" layoutY="417.0" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: lightgrey;" text="Depth 2" />
         <TextField editable="false" layoutX="125.0" layoutY="214.0" prefHeight="26.0" prefWidth="62.0" style="-fx-background-color: lightgrey;" text="Depth 1" />
         <Button fx:id="backbuttton" layoutX="22.0" layoutY="607.0" mnemonicParsing="false" onAction="#goback" prefHeight="26.0" prefWidth="134.0" text="Go back" />
+        <Button fx:id="pdfbut" layoutX="209.0" layoutY="607.0" mnemonicParsing="false" onAction="#exportToPDF" style="-fx-background-color: red;" text="PDF Export" textFill="#f7f6f6">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Button>
     </children>
 </AnchorPane>

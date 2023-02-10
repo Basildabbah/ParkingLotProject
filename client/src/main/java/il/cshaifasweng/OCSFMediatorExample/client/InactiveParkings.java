@@ -78,13 +78,14 @@ public class InactiveParkings{
         if (enterPlId.getText().equals("") || Row.getText().equals("") || Col.getText().equals("") || Depth.getText().equals("")){
             wrongParkDataAP2.setVisible(true);
         }
-        else if (!enterPlId.getText().matches("^[1-9]\\d*$") || !Row.getText().matches("^[1-9]\\d*$") || !Col.getText().matches("^[1-9]\\d*$") || !Depth.getText().matches("^[1-9]\\d*$")) {
+      /*  else if (!enterPlId.getText().matches("^[1-9]\\d*$") || !Row.getText().matches("^[1-9]\\d*$") || !Col.getText().matches("^[1-9]\\d*$") || !Depth.getText().matches("^[1-9]\\d*$")) {
             wrongParkDataAP1.setVisible(true);
-        }
-        else if (Integer.parseInt(Row.getText())>2 || Integer.parseInt(Row.getText())<0 || Integer.parseInt(Depth.getText())>2 || Integer.parseInt(Depth.getText())<0){
+        }*/
+
+      /*  else if (Integer.parseInt(Row.getText())>2 || Integer.parseInt(Row.getText())<0 || Integer.parseInt(Depth.getText())>2 || Integer.parseInt(Depth.getText())<0){
             wrongParkDataAP1.setVisible(true);
 
-        }
+        }*/
         else{
             Message m=new Message("#active",Integer.parseInt(enterPlId.getText()),Integer.parseInt(Row.getText()),Integer.parseInt(Col.getText()),Integer.parseInt(Depth.getText()));
 
@@ -101,13 +102,13 @@ public class InactiveParkings{
         if (enterPlId.getText().equals("") || Row.getText().equals("") || Col.getText().equals("") || Depth.getText().equals("")){
             wrongParkDataAP2.setVisible(true);
         }
-        else if (!enterPlId.getText().matches("^[1-9]\\d*$") || !Row.getText().matches("^[1-9]\\d*$") || !Col.getText().matches("^[1-9]\\d*$") || !Depth.getText().matches("^[1-9]\\d*$")) {
+       /* else if (!enterPlId.getText().matches("^[1-9]\\d*$") || !Row.getText().matches("^[1-9]\\d*$") || !Col.getText().matches("^[1-9]\\d*$") || !Depth.getText().matches("^[1-9]\\d*$")) {
             wrongParkDataAP1.setVisible(true);
         }
         else if (Integer.parseInt(Row.getText())>2 || Integer.parseInt(Row.getText())<0 || Integer.parseInt(Depth.getText())>2 || Integer.parseInt(Depth.getText())<0){
             wrongParkDataAP1.setVisible(true);
 
-        }
+        }*/
         else{
             Message m=new Message("#inactive",Integer.parseInt(enterPlId.getText()),Integer.parseInt(Row.getText()),Integer.parseInt(Col.getText()),Integer.parseInt(Depth.getText()));
             try {

@@ -37,14 +37,14 @@ public class SUB_enterparkingwithorder {
 
     @FXML
     void CreateOrder(MouseEvent event) throws IOException {
-    App.setRoot("SUB_enterparkinglot");
+        App.setRoot("SUB_enterparkinglot");
     }
 
     @FXML
     void Enter(ActionEvent event) {
         try {
             SimpleClient.getClient().sendToServer(new Message("#enterparkinglot", Integer.parseInt(ParkingLotId.getText()) ,
-                    Integer.parseInt(CarNumber.getText())));
+                    Integer.parseInt(CarNumber.getText()) , Integer.parseInt(ID.getText())));
         } catch (IOException e){
             e.printStackTrace();
         }

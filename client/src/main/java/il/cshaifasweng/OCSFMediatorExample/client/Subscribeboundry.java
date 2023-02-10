@@ -12,6 +12,8 @@ import org.greenrobot.eventbus.Subscribe;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class Subscribeboundry {
@@ -378,6 +380,12 @@ public class Subscribeboundry {
         SUB_create_order.idd=idd;
         SUB_create_order.type=type;
         SUB_create_order.pass=pass;
+        try {
+            System.out.println("type is "+type);
+            SimpleClient.getClient().sendToServer(new Message("#needmycars",idd,type));
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     App.setRoot("SUB_create_order");
 
     }
@@ -616,4 +624,18 @@ public class Subscribeboundry {
                 }
         );
     }
+    @Subscribe
+    public void setLabelshow5(needmycarsEVENT Response) throws IOException {
+
+                    System.out.println("aaaa");
+                    List<String> x= (ArrayList) Response.getWarning().getObject1();
+                    cars=new ArrayList<>();
+                    cars.clear();
+                    for (String y:x) {
+                       cars.add(y);
+                      //  System.out.println(y);
+                    }
+
+    }
+    public static List<String> cars=null;
 }
