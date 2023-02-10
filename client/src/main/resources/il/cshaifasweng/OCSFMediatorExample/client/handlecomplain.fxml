@@ -80,11 +80,11 @@
                <children>
                   <TableView fx:id="table2" layoutX="19.0" layoutY="23.0" prefHeight="190.0" prefWidth="519.0">
                      <columns>
-                        <TableColumn fx:id="c1" prefWidth="75.0" text="C1" />
-                        <TableColumn fx:id="c2" prefWidth="75.0" text="C2" />
-                        <TableColumn fx:id="c3" prefWidth="113.33331298828125" text="Column X" />
-                        <TableColumn fx:id="c4" prefWidth="124.0" text="Column X" />
-                        <TableColumn fx:id="c5" prefWidth="154.6666259765625" text="Column X" />
+                        <TableColumn fx:id="c1" prefWidth="75.0" text="id" />
+                        <TableColumn fx:id="c2" prefWidth="75.0" text="parking lot" />
+                        <TableColumn fx:id="c3" prefWidth="113.33331298828125" text="text complain" />
+                        <TableColumn fx:id="c4" prefWidth="124.0" text="status" />
+                        <TableColumn fx:id="c5" prefWidth="154.6666259765625" text="response" />
                      </columns>
                   </TableView>
                   <TextField fx:id="idSer" layoutX="153.0" layoutY="235.0" prefHeight="26.0" prefWidth="166.0" promptText="Type ID of the complain" />

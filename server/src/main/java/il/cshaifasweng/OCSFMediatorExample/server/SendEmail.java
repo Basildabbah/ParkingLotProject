@@ -12,10 +12,10 @@ public class SendEmail {
 
     public static void SendEmail(String to, String subject,String content) {
 
-//        final String username = "cityparkinglot@gmail.com";
-//        final String password = "jafrwcxgpbofbseg";
-        final String username = "lelach1212@gmail.com";
-        final String password = "yfwpqrmjziylpqcb";
+        final String username = "cityparkinglot@gmail.com";
+        final String password = "jafrwcxgpbofbseg";
+//        final String username = "lelach1212@gmail.com";
+//        final String password = "yfwpqrmjziylpqcb";
 
         Properties prop = new Properties();
         prop.put("mail.smtp.host", "smtp.gmail.com");

@@ -2,6 +2,9 @@ package il.cshaifasweng.OCSFMediatorExample.client;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.Complaint;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Duration;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -122,6 +126,12 @@ public class GUEST_check_complain {
     private TableColumn<Complaint, String> complaintc;
 
     @FXML
+    private TableColumn<Complaint,Integer> ParkingLotId1;
+
+    @FXML
+    private TableColumn<Complaint, String> response1;
+
+    @FXML
     private TextField idS;
 
     @FXML
@@ -190,15 +200,30 @@ public class GUEST_check_complain {
     @FXML
     void initialize() {
         EventBus.getDefault().register(this);
+        if(timeline!=null)
+            timeline.stop();
+
     }
+    Timeline timeline;
     @FXML
-    void bring(ActionEvent event) {
-        try {
-            Message s1=new Message("bring ^"+idS.getText(),"wajd","wajd2","wajd3","wajd4");
-            SimpleClient.getClient().sendToServer(s1);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    void bring(ActionEvent event) throws IOException {
+        Message s1=new Message("Gussetbring ^"+idS.getText(),"wajd","wajd2","wajd3","wajd4");
+        SimpleClient.getClient().sendToServer(s1);
+//        timeline = new Timeline(
+//                new KeyFrame(Duration.seconds(1),
+//                        event1 -> {
+//                            try {
+//                                Message s1=new Message("Gussetbring ^"+idS.getText(),"wajd","wajd2","wajd3","wajd4");
+//                                SimpleClient.getClient().sendToServer(s1);
+//                            } catch (IOException e) {
+//                                e.printStackTrace();
+//                            }
+//                        })
+//        );
+//        timeline.setCycleCount(Animation.INDEFINITE);
+//        timeline.play();
+
+
     }
     @Subscribe
     public void showComplaints(StatusComplaintEvent e){
@@ -206,8 +231,10 @@ public class GUEST_check_complain {
             System.out.println("a");
             table.setVisible(true);
             idc.setCellValueFactory(new PropertyValueFactory<Complaint, Integer>("id"));
+            ParkingLotId1.setCellValueFactory(new PropertyValueFactory<Complaint, Integer>("parkingLotId"));
             statusc.setCellValueFactory(new PropertyValueFactory<Complaint, String>("complaintMessage"));
             complaintc.setCellValueFactory(new PropertyValueFactory<Complaint, String>("status"));
+            response1.setCellValueFactory(new PropertyValueFactory<Complaint, String>("response"));
             ObservableList<Complaint> list = FXCollections.observableList((ArrayList<Complaint>) e.getWarning().getObject1());
             table.setItems(list);
         });

@@ -108,8 +108,6 @@ public class ResponseComplaint {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-//            table2.refresh();
-//            System.out.println("h");
     }
     @Subscribe
     public void onEvent(RefreshComplaintsEvent e){

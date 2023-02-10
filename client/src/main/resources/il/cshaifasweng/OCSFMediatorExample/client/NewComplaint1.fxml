@@ -36,7 +36,7 @@
             <TextField fx:id="Date111" layoutX="68.0" layoutY="424.0" promptText="Type Date:" visible="false" />
             <TextField fx:id="id" layoutX="228.0" layoutY="111.0" prefHeight="26.0" prefWidth="148.0" promptText="Type Your ID" text="-1" />
             <TextField fx:id="parkingid" layoutX="291.0" layoutY="99.0" promptText="parkingId" visible="false" />
-            <TextArea fx:id="textC" layoutX="183.0" layoutY="224.0" prefHeight="177.0" prefWidth="314.0" promptText="Type Your Complain Text" text="&#10;&#10;&#10;&#10;">
+            <TextArea fx:id="textC" layoutX="183.0" layoutY="224.0" prefHeight="177.0" prefWidth="314.0" promptText="Type Your Complain Text">
                <font>
                   <Font size="14.0" />
                </font>
