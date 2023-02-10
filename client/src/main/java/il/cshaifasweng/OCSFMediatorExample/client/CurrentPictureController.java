@@ -1,14 +1,49 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
+
+import com.itextpdf.text.*;
+import il.cshaifasweng.OCSFMediatorExample.entities.Message;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.scene.Node;
+
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
+
+import com.itextpdf.text.pdf.PdfWriter;
+
+import javax.imageio.ImageIO;
+
+import java.awt.image.BufferedImage;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.io.File;
+import javax.imageio.ImageIO;
+import javafx.scene.Node;
+import java.awt.image.BufferedImage;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.util.Duration;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 public class CurrentPictureController {
 
@@ -241,13 +276,87 @@ public class CurrentPictureController {
     private Rectangle rect272;
 
     @FXML
-    void goback(ActionEvent event) throws IOException {
-        App.setRoot("curpark_chainmanager");
+    private Button pdfbut;
+
+
+    @FXML
+    void exportToPDF(ActionEvent event) {
+        WritableImage wi = anchorroot.snapshot(new SnapshotParameters(), null);
+        BufferedImage bImage = SwingFXUtils.fromFXImage(wi, null);
+        try {
+            Calendar cal = Calendar.getInstance();
+            String fileName = "StatusPL_" + CurparkChainmanager.plid + "," +
+                    cal.get(Calendar.YEAR) + "-" +
+                    cal.get(Calendar.MONTH) + "-" +
+                    cal.get(Calendar.DAY_OF_MONTH)+ "-" +
+                    cal.get(Calendar.HOUR_OF_DAY) + "-" +
+                    cal.get(Calendar.MINUTE) + "-" +
+                    cal.get(Calendar.SECOND) + ".pdf";
+            File currentDirectory = new File(System.getProperty("user.dir"));
+            File parentDirectory = currentDirectory.getParentFile();
+            System.out.println(currentDirectory);
+            FileOutputStream fos = new FileOutputStream(currentDirectory + "\\\\PLstatus\\\\" + fileName);
+            Document document = new Document();
+            PdfWriter.getInstance(document, fos);
+            document.open();
+
+            ByteArrayOutputStream png = new ByteArrayOutputStream();
+            ImageIO.write(bImage, "png", png);
+            Image image = Image.getInstance(png.toByteArray());
+            image.scaleToFit(PageSize.A4.getWidth(), PageSize.A4.getHeight());
+            image.setScaleToFitLineWhenOverflow(true);
+            document.add(image);
+            document.close();
+
+            Platform.runLater(() -> {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION,
+                        "PDF exported\n");
+                alert.show();
+            });
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
     @FXML
+    void goback(ActionEvent event) throws IOException {
+        App.setRoot("curpark_chainmanager");
+    }
+
+    private void refreshTable() {
+        try {
+            SimpleClient.getClient().sendToServer(new Message("#updatematrix" , CurparkChainmanager.plid));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void onCPCrefresh(CPCrefresh event) {
+
+        int[][][] matrix3d = event.getCurrentParkingLot();
+
+        for (int i = 0; i < matrix3d.length; i++) {
+            for (int j = 0; j < matrix3d[i].length; j++) {
+                for (int k = 0; k < matrix3d[i][j].length; k++) {
+                    String rectId = "rect" + i + j + k;
+                    Rectangle rect = (Rectangle) anchorroot.lookup("#" + rectId);
+                    if (matrix3d[i][j][k] == 2) {
+                        rect.setFill(Color.RED);
+                    } else if (matrix3d[i][j][k] == 0) {
+                        rect.setFill(Color.WHITE);
+                    } else {
+                        rect.setFill(new Color(0.0, 0.0, 1.0, 1.0));
+                    }
+                }
+            }
+        }
+    }
+
+    @FXML
     void initialize() {
+        EventBus.getDefault().register(this);
         assert anchorroot != null : "fx:id=\"anchorroot\" was not injected: check your FXML file 'CurrentPictureController.fxml'.";
         assert backbuttton != null : "fx:id=\"backbuttton\" was not injected: check your FXML file 'CurrentPictureController.fxml'.";
         assert rect000 != null : "fx:id=\"rect000\" was not injected: check your FXML file 'CurrentPictureController.fxml'.";
@@ -323,7 +432,15 @@ public class CurrentPictureController {
         assert rect271 != null : "fx:id=\"rect271\" was not injected: check your FXML file 'CurrentPictureController.fxml'.";
         assert rect272 != null : "fx:id=\"rect272\" was not injected: check your FXML file 'CurrentPictureController.fxml'.";
 
-
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(1),
+                        event -> {
+                            // refresh the table here
+                            refreshTable();
+                        })
+        );
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
 
         int[][][] matrix3d = App.getCurrentParkingLot();
 
@@ -342,7 +459,6 @@ public class CurrentPictureController {
                 }
             }
         }
-
 
 
     }

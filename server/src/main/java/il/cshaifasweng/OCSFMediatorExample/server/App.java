@@ -99,7 +99,7 @@ public class App
         ParkingLot parkingLot1 = new ParkingLot(3, 8, 3, new byte[4*8*4]);
         ParkingLot parkingLot2 = new ParkingLot(3, 4, 3, new byte[4*4*4]);
         ParkingLot parkingLot3 = new ParkingLot(3, 4, 3, new byte[4*4*4]);
-        parkingLot1.setNumberOfInactiveParkings(71);
+        parkingLot1.setNumberOfInactiveParkings(68);
 
 
         byte[] matrix1d = parkingLot1.getMatrix();  // Get the one-dimensional matrix
@@ -120,6 +120,9 @@ public class App
 
         matrix3d[0][0][0] = 2;
         matrix3d[2][1][0] = 0;
+        matrix3d[1][2][0]=0;
+        matrix3d[2][2][2]=0;
+        matrix3d[1][1][1]=0;
 
         int index2 = 0;  // Index into 1D array
         for (int i = 0; i < 3; i++) {

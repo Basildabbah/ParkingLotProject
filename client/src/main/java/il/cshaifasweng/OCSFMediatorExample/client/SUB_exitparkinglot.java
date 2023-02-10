@@ -38,7 +38,7 @@ public class SUB_exitparkinglot {
 
     @FXML
     void CreateOrder(MouseEvent event) throws IOException {
-    App.setRoot("SUB_enterparkinglot");
+        App.setRoot("SUB_enterparkinglot");
         SUB_enterparkinglot.type=type;
         SUB_enterparkinglot.pass=pass;
         SUB_enterparkinglot.idd=idd;
@@ -47,8 +47,8 @@ public class SUB_exitparkinglot {
     @FXML
     void Exit(ActionEvent event) {
         try {
-            SimpleClient.getClient().sendToServer(new Message("#exitrparkinglot", Integer.parseInt(ID.getText()) ,
-                    Integer.parseInt(CarNumber.getText())));
+            SimpleClient.getClient().sendToServer(new Message("#exitrparkinglot", Integer.parseInt(ParkingLotId.getText()) ,
+                    Integer.parseInt(CarNumber.getText()) , Integer.parseInt(ID.getText())));
         } catch (IOException e){
             e.printStackTrace();
         }

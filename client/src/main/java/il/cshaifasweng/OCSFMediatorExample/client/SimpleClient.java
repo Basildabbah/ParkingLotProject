@@ -1,14 +1,9 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
-import il.cshaifasweng.OCSFMediatorExample.entities.Complaint;
 import org.greenrobot.eventbus.EventBus;
 
 import il.cshaifasweng.OCSFMediatorExample.client.ocsf.AbstractClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
-
-import java.util.ArrayList;
-
-import static il.cshaifasweng.OCSFMediatorExample.client.loginadmin.setStr;
 
 
 public class SimpleClient extends AbstractClient {
@@ -69,6 +64,15 @@ public class SimpleClient extends AbstractClient {
 		}
 		if (message.getMessage().equals("Stats")) {
 			EventBus.getDefault().post(new StatsEvent(message));
+		}
+		if ((msgString.equals("#updatematrix"))){
+			Message msg1 = ((Message) msg);
+			if((int)msg1.getObject2() == 4){
+				EventBus.getDefault().post(new CP2Crefresh((int[][][]) msg1.getObject1()));
+			}
+			else {
+				EventBus.getDefault().post(new CPCrefresh((int[][][]) msg1.getObject1()));
+			}
 		}
 
 
@@ -175,6 +179,9 @@ public class SimpleClient extends AbstractClient {
 		if ((msgString.equals("#TheCarIsAlreadyIn"))){
 			System.out.println("sclientada");
 			EventBus.getDefault().post(new MessageWaInfEvent((Message) (new Message("Your car is already in the parking lot"))));
+		}
+		if ((msgString.equals("#needmycars"))){
+			EventBus.getDefault().post(new needmycarsEVENT(message));
 		}
 		if ((msgString.equals("#SendToAlternative"))){
 			System.out.println("stillnotready....");

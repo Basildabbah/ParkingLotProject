@@ -266,7 +266,7 @@ public class SimpleServer extends AbstractServer {
 			}
 
 			session.getTransaction().commit();
-
+			session.close();
 			try {
 				client.sendToClient(message);
 			}
@@ -425,7 +425,7 @@ public class SimpleServer extends AbstractServer {
 			}
 
 			session.getTransaction().commit();
-
+			session.close();
 			try {
 				client.sendToClient(message);
 			}
@@ -575,7 +575,7 @@ public class SimpleServer extends AbstractServer {
 				Order NewOrder = new Order(MaxOrderId,TypeOfOrder,EnterHour,EnterDay,EnterMonth,EnterYear,ExitHour,ExitDay,ExitMonth,ExitYear,ParkingLotId,ID,Password);
 				Calendar cal = Calendar.getInstance();
 				cal.set(Calendar.YEAR, EnterYear);
-				cal.set(Calendar.MONTH, EnterMonth);
+				cal.set(Calendar.MONTH, EnterMonth-1);
 				cal.set(Calendar.DAY_OF_MONTH, EnterDay);
 				cal.set(Calendar.HOUR_OF_DAY, EnterHour);
 				cal.set(Calendar.MINUTE, 0);
@@ -589,7 +589,7 @@ public class SimpleServer extends AbstractServer {
 				///////////////////////////////
 				Calendar cal1 = Calendar.getInstance();
 				cal1.set(Calendar.YEAR, ExitYear);
-				cal1.set(Calendar.MONTH, ExitMonth);
+				cal1.set(Calendar.MONTH, ExitMonth-1);
 				cal1.set(Calendar.DAY_OF_MONTH, ExitDay);
 				cal1.set(Calendar.HOUR_OF_DAY, ExitHour);
 				cal1.set(Calendar.MINUTE, 0);
@@ -609,11 +609,11 @@ public class SimpleServer extends AbstractServer {
 
 				//NewOrder.setParkinglot(park1);
 
-				if(OnSite==true)
+			/*	if(OnSite==true)
 					NewOrder.setAlreadyInParkingLot(true);
 				else
 					NewOrder.setAlreadyInParkingLot(false);
-
+*/
 				session.save(NewOrder);
 
 				message.setObject1("Your Order Confirmed");
@@ -631,7 +631,7 @@ public class SimpleServer extends AbstractServer {
 			}
 
 			session.getTransaction().commit();
-
+			session.close();
 			try
 			{
 				client.sendToClient(message);
@@ -782,7 +782,7 @@ public class SimpleServer extends AbstractServer {
 				Order NewOrder = new Order(MaxOrderId,TypeOfOrder,EnterHour,EnterDay,EnterMonth,EnterYear,ExitHour,ExitDay,ExitMonth,ExitYear,ParkingLotId,ID,Password);
 				Calendar cal = Calendar.getInstance();
 				cal.set(Calendar.YEAR, EnterYear);
-				cal.set(Calendar.MONTH, EnterMonth);
+				cal.set(Calendar.MONTH, EnterMonth-1);
 				cal.set(Calendar.DAY_OF_MONTH, EnterDay);
 				cal.set(Calendar.HOUR_OF_DAY, EnterHour);
 				cal.set(Calendar.MINUTE, 0);
@@ -796,7 +796,7 @@ public class SimpleServer extends AbstractServer {
 				///////////////////////////////
 				Calendar cal1 = Calendar.getInstance();
 				cal1.set(Calendar.YEAR, ExitYear);
-				cal1.set(Calendar.MONTH, ExitMonth);
+				cal1.set(Calendar.MONTH, ExitMonth-1);
 				cal1.set(Calendar.DAY_OF_MONTH, ExitDay);
 				cal1.set(Calendar.HOUR_OF_DAY, ExitHour);
 				cal1.set(Calendar.MINUTE, 0);
@@ -816,11 +816,11 @@ public class SimpleServer extends AbstractServer {
 
 
 				//NewOrder.setParkinglot(park1);
-				if(OnSite==true)
+			/*	if(OnSite==true)
 					NewOrder.setAlreadyInParkingLot(true);
 				else
 					NewOrder.setAlreadyInParkingLot(false);
-
+*/
 				session.save(NewOrder);
 
 				message.setObject1("Your Order Confirmed");
@@ -838,7 +838,7 @@ public class SimpleServer extends AbstractServer {
 			}
 
 			session.getTransaction().commit();
-
+			session.close();
 			try
 			{
 				client.sendToClient(message);
@@ -852,7 +852,42 @@ public class SimpleServer extends AbstractServer {
 //		*************************************************************************************
 //		5
 //		*************************************************************************************
-
+		if (msgString.equals("#updatematrix")) {
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			List<ParkingLot> parkingLotList = getAll(ParkingLot.class);
+			Message msg1 = ((Message) msg);
+			int parkingLotId = (int) msg1.getObject1();
+			for (ParkingLot parkingLot : parkingLotList) {
+				if (parkingLot.getId() == parkingLotId) {
+					int rows = parkingLot.getNumberOfRows();
+					int columns = parkingLot.getNumberOfColumns();
+					int depth = parkingLot.getDepth();
+					//System.out.println(columns);
+					//System.out.println(depth);
+					byte[] matrix1d = parkingLot.getMatrix();
+					int[][][] matrix3d = new int[rows][columns][depth];
+					int index = 0;  // Index into 1D array
+					for (int i = 0; i < rows; i++) {
+						for (int j = 0; j < columns; j++) {
+							for (int k = 0; k < depth; k++) {
+								matrix3d[i][j][k] = matrix1d[index] & 0xff;  // Copy element from 1D array to 3D matrix
+								index++;
+							}
+						}
+					}
+					//System.out.println("no1");
+					try {
+						//System.out.println("yes1");
+						client.sendToClient(new Message("#updatematrix", matrix3d, columns));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			session.getTransaction().commit();
+			session.close();
+		}
 		if (msgString.equals("#RegularSubscriberOrder")){
 
 			session = sessionFactory.openSession();
@@ -987,7 +1022,7 @@ public class SimpleServer extends AbstractServer {
 				//NewOrder.setParkinglot(park1);
 				Calendar cal = Calendar.getInstance();
 				cal.set(Calendar.YEAR, EnterYear);
-				cal.set(Calendar.MONTH, EnterMonth);
+				cal.set(Calendar.MONTH, EnterMonth-1);
 				cal.set(Calendar.DAY_OF_MONTH, EnterDay);
 				cal.set(Calendar.HOUR_OF_DAY, EnterHour);
 				cal.set(Calendar.MINUTE, 0);
@@ -1001,7 +1036,7 @@ public class SimpleServer extends AbstractServer {
 				///////////////////////////////
 				Calendar cal1 = Calendar.getInstance();
 				cal1.set(Calendar.YEAR, ExitYear);
-				cal1.set(Calendar.MONTH, ExitMonth);
+				cal1.set(Calendar.MONTH, ExitMonth-1);
 				cal1.set(Calendar.DAY_OF_MONTH, ExitDay);
 				cal1.set(Calendar.HOUR_OF_DAY, ExitHour);
 				cal1.set(Calendar.MINUTE, 0);
@@ -1019,11 +1054,11 @@ public class SimpleServer extends AbstractServer {
 				Car NewCar = new Car(CarNumber);
 				session.save(NewCar);
 
-				if(OnSite==true)
+			/*	if(OnSite==true)
 					NewOrder.setAlreadyInParkingLot(true);
 				else
 					NewOrder.setAlreadyInParkingLot(false);
-
+*/
 				session.save(NewOrder);
 
 				message.setObject1("Your Order Confirmed");
@@ -1053,7 +1088,7 @@ public class SimpleServer extends AbstractServer {
 				message.setObject1("You Don't Have Enough Hours");
 
 			session.getTransaction().commit();
-
+			session.close();
 			try {
 				client.sendToClient(message);
 			} catch (IOException e) {
@@ -1194,7 +1229,7 @@ public class SimpleServer extends AbstractServer {
 				//NewOrder.setParkinglot(park1);
 				Calendar cal = Calendar.getInstance();
 				cal.set(Calendar.YEAR, EnterYear);
-				cal.set(Calendar.MONTH, EnterMonth);
+				cal.set(Calendar.MONTH, EnterMonth-1);
 				cal.set(Calendar.DAY_OF_MONTH, EnterDay);
 				cal.set(Calendar.HOUR_OF_DAY, EnterHour);
 				cal.set(Calendar.MINUTE, 0);
@@ -1208,7 +1243,7 @@ public class SimpleServer extends AbstractServer {
 				///////////////////////////////
 				Calendar cal1 = Calendar.getInstance();
 				cal1.set(Calendar.YEAR, ExitYear);
-				cal1.set(Calendar.MONTH, ExitMonth);
+				cal1.set(Calendar.MONTH, ExitMonth-1);
 				cal1.set(Calendar.DAY_OF_MONTH, ExitDay);
 				cal1.set(Calendar.HOUR_OF_DAY, ExitHour);
 				cal1.set(Calendar.MINUTE, 0);
@@ -1226,11 +1261,11 @@ public class SimpleServer extends AbstractServer {
 				Car NewCar = new Car(CarNumber);
 				session.save(NewCar);
 
-				if(OnSite==true)
+			/*	if(OnSite==true)
 					NewOrder.setAlreadyInParkingLot(true);
 				else
 					NewOrder.setAlreadyInParkingLot(false);
-
+*/
 				session.save(NewOrder);
 
 				message.setObject1("Your Order Confirmed");
@@ -1260,7 +1295,7 @@ public class SimpleServer extends AbstractServer {
 				message.setObject1("You Don't Have Enough Hours");
 
 			session.getTransaction().commit();
-
+			session.close();
 			try {
 				client.sendToClient(message);
 			} catch (IOException e) {
@@ -1278,7 +1313,7 @@ public class SimpleServer extends AbstractServer {
 
 			Message message = new Message("FullSubscriberOrder");
 			Message cpymsg = ((Message) msg);
-
+			System.out.println(cpymsg.getObject14().toString());
 			String TypeOfOrder = "FullSubscriberOrder";
 
 			List<ParkingLot> ListParkingLots = getAll(ParkingLot.class);
@@ -1398,7 +1433,7 @@ public class SimpleServer extends AbstractServer {
 				//////////////////////////////////////
 				Calendar cal = Calendar.getInstance();
 				cal.set(Calendar.YEAR, EnterYear);
-				cal.set(Calendar.MONTH, EnterMonth);
+				cal.set(Calendar.MONTH, EnterMonth-1);
 				cal.set(Calendar.DAY_OF_MONTH, EnterDay);
 				cal.set(Calendar.HOUR_OF_DAY, EnterHour);
 				cal.set(Calendar.MINUTE, 0);
@@ -1412,7 +1447,7 @@ public class SimpleServer extends AbstractServer {
 				///////////////////////////////
 				Calendar cal1 = Calendar.getInstance();
 				cal1.set(Calendar.YEAR, ExitYear);
-				cal1.set(Calendar.MONTH, ExitMonth);
+				cal1.set(Calendar.MONTH, ExitMonth-1);
 				cal1.set(Calendar.DAY_OF_MONTH, ExitDay);
 				cal1.set(Calendar.HOUR_OF_DAY, ExitHour);
 				cal1.set(Calendar.MINUTE, 0);
@@ -1431,11 +1466,11 @@ public class SimpleServer extends AbstractServer {
 				Car NewCar = new Car(CarNumber);
 				session.save(NewCar);
 
-				if(OnSite==true)
+			/*	if(OnSite==true)
 					NewOrder.setAlreadyInParkingLot(true);
 				else
 					NewOrder.setAlreadyInParkingLot(false);
-
+*/
 				session.save(NewOrder);
 
 				message.setObject1("Your Order Confirmed");
@@ -1462,7 +1497,7 @@ public class SimpleServer extends AbstractServer {
 				message.setObject1("You Don't Have Enough Hours");
 
 			session.getTransaction().commit();
-
+			session.close();
 			try {
 				client.sendToClient(message);
 			} catch (IOException e) {
@@ -1595,7 +1630,7 @@ public class SimpleServer extends AbstractServer {
 				//NewOrder.setParkinglot(park1);
 				Calendar cal = Calendar.getInstance();
 				cal.set(Calendar.YEAR, EnterYear);
-				cal.set(Calendar.MONTH, EnterMonth);
+				cal.set(Calendar.MONTH, EnterMonth-1);
 				cal.set(Calendar.DAY_OF_MONTH, EnterDay);
 				cal.set(Calendar.HOUR_OF_DAY, EnterHour);
 				cal.set(Calendar.MINUTE, 0);
@@ -1609,7 +1644,7 @@ public class SimpleServer extends AbstractServer {
 				///////////////////////////////
 				Calendar cal1 = Calendar.getInstance();
 				cal1.set(Calendar.YEAR, ExitYear);
-				cal1.set(Calendar.MONTH, ExitMonth);
+				cal1.set(Calendar.MONTH, ExitMonth-1);
 				cal1.set(Calendar.DAY_OF_MONTH, ExitDay);
 				cal1.set(Calendar.HOUR_OF_DAY, ExitHour);
 				cal1.set(Calendar.MINUTE, 0);
@@ -1627,11 +1662,11 @@ public class SimpleServer extends AbstractServer {
 				Car NewCar = new Car(CarNumber);
 				session.save(NewCar);
 
-				if(OnSite==true)
+			/*	if(OnSite==true)
 					NewOrder.setAlreadyInParkingLot(true);
 				else
 					NewOrder.setAlreadyInParkingLot(false);
-
+*/
 				session.save(NewOrder);
 
 				message.setObject1("Your Order Confirmed");
@@ -1658,7 +1693,7 @@ public class SimpleServer extends AbstractServer {
 				message.setObject1("You Don't Have Enough Hours");
 
 			session.getTransaction().commit();
-
+			session.close();
 			try {
 				client.sendToClient(message);
 			} catch (IOException e) {
@@ -1703,7 +1738,7 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 			session.getTransaction().commit();
-
+			session.close();
 		}
 
 		if (msgString.equals("#ComplaintsReport")) {
@@ -1738,7 +1773,7 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 			session.getTransaction().commit();
-
+			session.close();
 		}
 
 
@@ -1799,7 +1834,7 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 			session.getTransaction().commit();
-
+			session.close();
 		}
 
 		//*******************************************************
@@ -1857,6 +1892,7 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 			session.getTransaction().commit();
+			session.close();
 		}
 
 
@@ -1898,6 +1934,8 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			session.getTransaction().commit();
+			session.close();
 		}
 
 		if (msgString.startsWith("#UpdateNewPrices")) {
@@ -1954,6 +1992,7 @@ public class SimpleServer extends AbstractServer {
 			session.update(myPrices.get(j));
 			session.flush();
 			session.getTransaction().commit();
+			session.close();
 		}
 		if (msgString.startsWith("#getOldPrice")) {
 			session = sessionFactory.openSession();
@@ -1985,6 +2024,8 @@ public class SimpleServer extends AbstractServer {
 				System.out.println("5");
 				e.printStackTrace();
 			}
+			session.getTransaction().commit();
+			session.close();
 		}
 
 		if (msgString.startsWith("#getNewPrice")) {
@@ -2023,6 +2064,7 @@ public class SimpleServer extends AbstractServer {
 			session.update(myPrices.get(i));
 			session.flush();
 			session.getTransaction().commit();
+			session.close();
 		}
 
 		if (msgString.startsWith("#sendNewPrice")) {
@@ -2058,6 +2100,7 @@ public class SimpleServer extends AbstractServer {
 			session.update(myPrices.get(i));
 			session.flush();
 			session.getTransaction().commit();
+			session.close();
 		}
 		//*************************************************************************************************
 		//*************************************************************************************************
@@ -2094,8 +2137,52 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			session.getTransaction().commit();
+			session.close();
 		}
+		if (msgString.equals("#needmycars"))
+		{
 
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			Message message = new Message("#needmycars");
+			Message msg1 = ((Message) msg);
+			List<Car> hhh = getAll(Car.class);
+			int x=0;
+			List<String> carlist= new ArrayList<>();
+			System.out.println("server_car1");
+			for (Car h : hhh) {
+				if (h.getFullsubscriber() != null) {
+
+					if (msg1.getObject2().toString().equals("Full") && h.getFullsubscriber().getId() == Integer.parseInt(msg1.getObject1().toString())) {
+						System.out.println("server");
+
+						String tmp = "";
+						tmp += h.getCarNumber();
+						carlist.add((tmp));
+					}
+				}
+				if (h.getRegularsubscriber() != null) {
+					if ( msg1.getObject2().toString().equals("Regular")&&h.getRegularsubscriber().getId() ==Integer.parseInt( msg1.getObject1().toString())) {
+						System.out.println("server");
+
+						String tmp = "";
+						tmp += h.getCarNumber();
+						carlist.add((tmp));
+					}
+				}
+			}
+			System.out.println("server_car2");
+			message.setObject1(carlist);
+			System.out.println("server_car3");
+			try {
+				client.sendToClient(message);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			session.getTransaction().commit();
+			session.close();
+		}
 		if (msgString.equals("#loginadmin")) {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
@@ -2204,6 +2291,8 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			session.getTransaction().commit();
+			session.close();
 		}
 
 		if (msgString.equals("#logoutsubscirber")) {
@@ -2236,6 +2325,8 @@ public class SimpleServer extends AbstractServer {
 				}
 			}
 
+			session.getTransaction().commit();
+			session.close();
 		}
 
 
@@ -2257,6 +2348,8 @@ public class SimpleServer extends AbstractServer {
 					session.update(p);
 				}
 			}
+			session.getTransaction().commit();
+			session.close();
 
 		}
 
@@ -2282,6 +2375,8 @@ public class SimpleServer extends AbstractServer {
 					session.update(p);
 				}
 			}
+			session.getTransaction().commit();
+			session.close();
 
 		}
 
@@ -2298,6 +2393,8 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			session.getTransaction().commit();
+			session.close();
 		}
 
 		if (msgString.equals("#review_0")) {
@@ -2327,6 +2424,8 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			session.getTransaction().commit();
+			session.close();
 		}
 
 		if (msgString.equals("#review_-1")) {
@@ -2353,6 +2452,8 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			session.getTransaction().commit();
+			session.close();
 		}
 
 		if (msgString.equals("#logoutchain")) {
@@ -2372,6 +2473,8 @@ public class SimpleServer extends AbstractServer {
 					session.update(p);
 				}
 			}
+			session.getTransaction().commit();
+			session.close();
 		}
 
 		if (msgString.equals("#logoutcusservices")) {
@@ -2391,6 +2494,8 @@ public class SimpleServer extends AbstractServer {
 					session.update(p);
 				}
 			}
+			session.getTransaction().commit();
+			session.close();
 		}
 
 		if (msgString.equals("#loginsubscriber")) {
@@ -2460,6 +2565,8 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			session.getTransaction().commit();
+			session.close();
 		}
 
 		if (msgString.equals("#admin_forgetpass")) {
@@ -2487,6 +2594,8 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			session.getTransaction().commit();
+			session.close();
 		}
 
 		if (msgString.startsWith("#warning")) {
@@ -2637,8 +2746,8 @@ public class SimpleServer extends AbstractServer {
 			}
 			session.close();
 		}
+		if (msgString.equals("#enterparkinglot")) {
 
-		if (msgString.equals("#enterparkinglot")){
 			System.out.println("enterrrrrparrk");
 			session = sessionFactory.openSession();
 			session.beginTransaction();
@@ -2646,8 +2755,198 @@ public class SimpleServer extends AbstractServer {
 			Message msg1 = ((Message) msg);
 			int parkingLotId = (int) msg1.getObject1();
 			int carNumber = (int) msg1.getObject2();
+			int idddd = (int) msg1.getObject3();
 			System.out.println(parkingLotId);
 			System.out.println(carNumber);
+			boolean itshisorder = false;
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+			LocalDateTime now = LocalDateTime.now();
+			for (Order order : getAll(Order.class)) {
+				if (order.getCarNumber() == carNumber && order.getParkingLotId() == parkingLotId && order.isAlreadyInParkingLot()) {
+					try {
+						client.sendToClient(new Message("#TheCarIsAlreadyIn"));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					session.close();
+					return;
+				}
+			}
+
+			for (ParkingLot parkingLot : parkingLotList) {
+				if (parkingLot.getId() == parkingLotId) {
+					int counter = 0;
+					List<Order> currentOrders = getAll(Order.class).stream()
+							.filter(Order::isAlreadyInParkingLot)
+							.filter(order -> order.getParkingLotId() == parkingLotId)
+							.collect(Collectors.toList());
+
+//					System.out.println("got to this point");
+//					for (Order order : currentOrders) {
+//						if (order.getCarNumber() == carNumber) {
+//							hasOrder = true;
+//						}
+//						if (order.isAlreadyInParkingLot()) {
+//							counter++;
+//						}
+//					}
+//
+//					System.out.println(getAll(Order.class).size());
+//					System.out.println(hasOrder);
+//					System.out.println(parkingLot.getDepth() * parkingLot.getNumberOfColumns() * parkingLot.getNumberOfRows());
+//					System.out.println(currentOrders.size());
+//					System.out.println(parkingLot.getNumberOfInactiveParkings());
+//					System.out.println(counter);
+//					System.out.println("]]]]]]]]]][[[[[[[[[");
+					//in case the parking lot is full and he has no order
+//					if (((parkingLot.getDepth() * parkingLot.getNumberOfColumns() * parkingLot.getNumberOfRows())
+//							- currentOrders.size() - parkingLot.getNumberOfInactiveParkings() <= 0) && (hasOrder == false)) {
+//						try {
+//							client.sendToClient(new Message("#SendToAlternative"));
+//						} catch (IOException e) {
+//							e.printStackTrace();
+//						}
+//					}
+					//in case he has an order but the parking lot is full as well
+					for (Order order : getAll(Order.class)) {
+						if (order.getCarNumber() == carNumber && order.getParkingLotId() == parkingLotId && order.getPersonId() == idddd) {
+							itshisorder = true;
+							break;
+						}
+					}
+					if (itshisorder == false) {
+						try {
+							client.sendToClient(new Message("#CarIdNoOrder"));
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					} else if (((parkingLot.getDepth() * parkingLot.getNumberOfColumns() * parkingLot.getNumberOfRows())
+							- currentOrders.size() - parkingLot.getNumberOfInactiveParkings() <= 0)) {
+						try {
+							client.sendToClient(new Message("#SendToAlternative"));
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					} else {
+						System.out.println("got to this point33");
+						//the car enters the parking lot
+						try {
+							client.sendToClient(new Message("#CarEntered"));
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						for (Order order : getAll(Order.class)) {
+							if (order.getCarNumber() == carNumber) {
+								order.setAlreadyInParkingLot(true);
+								session.update(order);
+							}
+						}
+						int rows = parkingLot.getNumberOfRows();
+						int columns = parkingLot.getNumberOfColumns();
+						int depth = parkingLot.getDepth();
+						byte[] matrix1d = parkingLot.getMatrix();
+						int[][][] matrix3d = new int[rows][columns][depth];
+						int index = 0;  // Index into 1D array
+						for (int i = 0; i < rows; i++) {
+							for (int j = 0; j < columns; j++) {
+								for (int k = 0; k < depth; k++) {
+									matrix3d[i][j][k] = matrix1d[index] & 0xff;  // Copy element from 1D array to 3D matrix
+									index++;
+								}
+							}
+						}
+						for (int i = 0; i < rows; i++) {
+							for (int j = 0; j < columns; j++) {
+								for (int k = 0; k < depth; k++) {
+									if (matrix3d[i][j][k] != 2) {
+										System.out.println(";;;;;;;; ");
+										System.out.println(i);
+										System.out.println(j);
+										System.out.println(k);
+										matrix3d[i][j][k] = 0;
+									}
+								}
+							}
+						}
+
+						currentOrders = getAll(Order.class).stream()
+								.filter(Order::isAlreadyInParkingLot)
+								.filter(order -> order.getParkingLotId() == parkingLotId)
+								.collect(Collectors.toList());
+
+						Collections.sort(currentOrders, new Comparator<Order>() {
+							@Override
+							public int compare(Order o1, Order o2) {
+								LocalDateTime date1 = LocalDateTime.parse(o1.getExitTime(), formatter);
+								LocalDateTime date2 = LocalDateTime.parse(o2.getExitTime(), formatter);
+								return date1.compareTo(date2);
+							}
+						});
+						for (Order tmp: currentOrders)
+						{
+							//System.out.println("asasasas"+tmp.getCarNumber());
+						}
+						int depthIndex = 0;
+						int rowIndex = 0;
+						int colIndex = 0;
+						for (Order order : currentOrders) {
+
+							if (order.isAlreadyInParkingLot()) {
+								System.out.println("order car num is   "+ order.getCarNumber());
+								while (matrix3d[rowIndex][colIndex][depthIndex] == 2) {
+									if (rowIndex == rows - 1 && colIndex == columns - 1) {
+										depthIndex++;
+										colIndex = 0;
+										rowIndex = 0;
+									} else if (colIndex == columns - 1) {
+										rowIndex++;
+										colIndex = 0;
+									}
+									colIndex++;
+								}
+								System.out.println("row col depth   "+ rowIndex+"  "+ colIndex+"  "+depthIndex);
+
+								matrix3d[rowIndex][colIndex][depthIndex] = order.getCarNumber();
+								if (colIndex==columns-1)
+								{
+									colIndex=0;
+								}
+								else {
+									colIndex++;
+								}
+							}
+						}
+
+						int index2 = 0;  // Index into 1D array
+						for (int i = 0; i < rows; i++) {
+							for (int j = 0; j < columns; j++) {
+								for (int k = 0; k < depth; k++) {
+									matrix1d[index2] = (byte) matrix3d[i][j][k];  // Copy element from 3D array to 1D array
+									index2++;
+								}
+							}
+						}
+						parkingLot.setEmptySpots(parkingLot.getEmptySpots() - 1);
+						parkingLot.setMatrix(matrix1d);
+						session.update(parkingLot);
+					}
+				}
+			}
+			session.getTransaction().commit();
+			session.close();
+		}
+		/*if (msgString.equals("#enterparkinglot")){
+			System.out.println("enterrrrrparrk");
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			List<ParkingLot> parkingLotList = getAll(ParkingLot.class);
+			Message msg1 = ((Message) msg);
+			int parkingLotId = (int) msg1.getObject1();
+			int carNumber = (int) msg1.getObject2();
+			System.out.println("lllllll   "+parkingLotId);
+			System.out.println("ooooooo   "+carNumber);
+			System.out.println("lllllll   "+msg1.getObject3());
+
 			boolean hasOrder = false;
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 			LocalDateTime now = LocalDateTime.now();
@@ -2792,9 +3091,161 @@ public class SimpleServer extends AbstractServer {
 			}
 			session.getTransaction().commit();
 			session.close();
-		}
+		}*/
+		if (msgString.equals("#exitrparkinglot")) {
+			System.out.println("okexit");
+			if (session!=null){
+				session = sessionFactory.openSession();
+				session.beginTransaction();
 
-		if (msgString.equals("#exitrparkinglot")){
+			}
+			List<ParkingLot> parkingLotList = getAll(ParkingLot.class);
+			Message msg1 = ((Message) msg);
+			int parkingLotId = (int) msg1.getObject1();
+			int carNumber = (int) msg1.getObject2();
+			int idddd = (int) msg1.getObject3();
+			System.out.println(carNumber);
+			boolean hasOrder = false;
+			boolean itshisorder = false;
+
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+			LocalDateTime now = LocalDateTime.now();
+
+			for (ParkingLot parkingLot : parkingLotList) {
+				if (parkingLot.getId() == parkingLotId) {
+
+					System.out.println("fafaffa");
+					List<Order> currentOrders = getAll(Order.class).stream()
+							.filter(Order::isAlreadyInParkingLot)
+							.filter(order -> order.getParkingLotId() == parkingLotId)
+							.collect(Collectors.toList());
+
+					System.out.println("lglaglaga");
+					for (Order order : currentOrders) {
+						if (order.getCarNumber() == carNumber && order.getParkingLotId() == parkingLotId) {
+							hasOrder = true;
+							break;
+						}
+					}
+					System.out.println(hasOrder);
+					if (hasOrder == false) {
+						try {
+							client.sendToClient(new Message("#CarIsNotInParkingLot"));
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+					for (Order order : currentOrders) {
+						if (order.getCarNumber() == carNumber && order.getParkingLotId() == parkingLotId && order.getPersonId() == idddd) {
+							itshisorder = true;
+							break;
+						}
+					}
+					System.out.println(itshisorder);
+					if (itshisorder == false) {
+						try {
+							client.sendToClient(new Message("#CarIsNotInParkingLot"));
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					} else {
+						try {
+							client.sendToClient(new Message("#CarExited"));
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						for (Order order : getAll(Order.class)) {
+							if (order.getCarNumber() == carNumber) {
+								session.delete(order);
+							}
+						}
+						int rows = parkingLot.getNumberOfRows();
+						int columns = parkingLot.getNumberOfColumns();
+						int depth = parkingLot.getDepth();
+						byte[] matrix1d = parkingLot.getMatrix();
+						int[][][] matrix3d = new int[rows][columns][depth];
+						int index = 0;  // Index into 1D array
+						for (int i = 0; i < rows; i++) {
+							for (int j = 0; j < columns; j++) {
+								for (int k = 0; k < depth; k++) {
+									matrix3d[i][j][k] = matrix1d[index] & 0xff;  // Copy element from 1D array to 3D matrix
+									index++;
+								}
+							}
+						}
+						for (int i = 0; i < rows; i++) {
+							for (int j = 0; j < columns; j++) {
+								for (int k = 0; k < depth; k++) {
+									if (matrix3d[i][j][k] != 2) {
+										matrix3d[i][j][k] = 0;
+									}
+								}
+							}
+						}
+						currentOrders = getAll(Order.class).stream()
+								.filter(Order::isAlreadyInParkingLot)
+								.filter(order -> order.getParkingLotId() == parkingLotId)
+								.collect(Collectors.toList());
+
+
+						Collections.sort(currentOrders, new Comparator<Order>() {
+							@Override
+							public int compare(Order o1, Order o2) {
+								LocalDateTime date1 = LocalDateTime.parse(o1.getExitTime(), formatter);
+								LocalDateTime date2 = LocalDateTime.parse(o2.getExitTime(), formatter);
+								return date1.compareTo(date2);
+							}
+						});
+						int depthIndex = 0;
+						int rowIndex = 0;
+						int colIndex = 0;
+						for (Order order : currentOrders) {
+							if (order.isAlreadyInParkingLot()) {
+								while (matrix3d[rowIndex][colIndex][depthIndex] == 2) {
+									if (rowIndex == rows - 1 && colIndex == columns - 1) {
+										depthIndex++;
+										colIndex = 0;
+										rowIndex = 0;
+									} else if (colIndex == columns - 1) {
+										rowIndex++;
+										colIndex = 0;
+									}
+									colIndex++;
+								}
+								matrix3d[rowIndex][colIndex][depthIndex] = order.getCarNumber();
+								if (colIndex==columns-1)
+								{
+									colIndex=0;
+								}
+								else {
+									colIndex++;
+								}
+							}
+
+						}
+
+						int index2 = 0;  // Index into 1D array
+						for (int i = 0; i < rows; i++) {
+							for (int j = 0; j < columns; j++) {
+								for (int k = 0; k < depth; k++) {
+									matrix1d[index2] = (byte) matrix3d[i][j][k];  // Copy element from 3D array to 1D array
+									index2++;
+								}
+							}
+						}
+						parkingLot.setEmptySpots(parkingLot.getEmptySpots() + 1);
+						parkingLot.setMatrix(matrix1d);
+						session.update(parkingLot);
+
+					}
+				}
+
+			}
+			session.getTransaction().commit();
+			session.close();
+
+		}
+	/*	if (msgString.equals("#exitrparkinglot")){
 			System.out.println("okexit");
 			session = sessionFactory.openSession();
 			session.beginTransaction();
@@ -2919,7 +3370,7 @@ public class SimpleServer extends AbstractServer {
 			session.getTransaction().commit();
 			session.close();
 
-		}
+		}*/
 
 		if (msgString.equals("#inactive")){
 			System.out.println("wowinactive");
@@ -3114,6 +3565,8 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}*/
+			session.getTransaction().commit();
+			session.close();
 		}
 		if (msgString.equals("#CancelReservation")) {
 
@@ -3254,7 +3707,7 @@ public class SimpleServer extends AbstractServer {
 			}
 
 			session.getTransaction().commit();
-
+			session.close();
 			try {
 				client.sendToClient(message);
 			}
@@ -3392,7 +3845,7 @@ public class SimpleServer extends AbstractServer {
 				Order NewOrder = new Order(MaxOrderId, TypeOfOrder, EnterHour, EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear, ParkingLotId, ID, Password);
 				Calendar cal = Calendar.getInstance();
 				cal.set(Calendar.YEAR, EnterYear);
-				cal.set(Calendar.MONTH, EnterMonth);
+				cal.set(Calendar.MONTH, EnterMonth-1);
 				cal.set(Calendar.DAY_OF_MONTH, EnterDay);
 				cal.set(Calendar.HOUR_OF_DAY, EnterHour);
 				cal.set(Calendar.MINUTE, 0);
@@ -3406,7 +3859,7 @@ public class SimpleServer extends AbstractServer {
 				///////////////////////////////
 				Calendar cal1 = Calendar.getInstance();
 				cal1.set(Calendar.YEAR, ExitYear);
-				cal1.set(Calendar.MONTH, ExitMonth);
+				cal1.set(Calendar.MONTH, ExitMonth-1);
 				cal1.set(Calendar.DAY_OF_MONTH, ExitDay);
 				cal1.set(Calendar.HOUR_OF_DAY, ExitHour);
 				cal1.set(Calendar.MINUTE, 0);
@@ -3445,7 +3898,7 @@ public class SimpleServer extends AbstractServer {
 				}
 			}
 			session.getTransaction().commit();
-
+			session.close();
 			try {
 				client.sendToClient(message);
 			} catch (IOException e) {
@@ -3512,6 +3965,8 @@ public class SimpleServer extends AbstractServer {
 			{
 				client.sendToClient(new Message("yes","yes"));
 			}
+			session.getTransaction().commit();
+			session.close();
 		}
 
 		if (msgString.startsWith("newCompliain")) {
@@ -3522,6 +3977,8 @@ public class SimpleServer extends AbstractServer {
 			session.beginTransaction();
 			session.save(c);
 			client.sendToClient(new Message("add compliant succ", c.getId()));
+			session.getTransaction().commit();
+			session.close();
 
 		}
 
@@ -3544,6 +4001,8 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			session.getTransaction().commit();
+			session.close();
 		}
 
 		if (((Message) msg).getMessage().startsWith("#response")) {
@@ -3561,6 +4020,7 @@ public class SimpleServer extends AbstractServer {
 			}
 			session.flush();
 			session.getTransaction().commit();
+			session.close();
 		}
 
 		if (((Message) msg).getMessage().startsWith("#bringall")) {
@@ -3568,6 +4028,8 @@ public class SimpleServer extends AbstractServer {
 			session.beginTransaction();
 			List<Complaint> c = getAll(Complaint.class);
 			client.sendToClient(new Message("allComplaints", c));
+			session.getTransaction().commit();
+			session.close();
 		}
 
 		if (((Message) msg).getMessage().startsWith("#2bringall")) {
@@ -3579,32 +4041,8 @@ public class SimpleServer extends AbstractServer {
 			System.out.println("in server refresh table");
 			List<Complaint> c = getAll(Complaint.class);
 			client.sendToClient(new Message("2allComplaints", c));
+			session.getTransaction().commit();
+			session.close();
 		}
-
-		if (msgString.equals("#loginguest")) {
-			session=sessionFactory.openSession();
-			session.beginTransaction();
-			List<Order> orders=getAll(Order.class);
-			int flag=0;
-			for(Order o1:orders)
-			{
-				if(o1.getEmail().equals(((Message) msg).getObject1().toString())) {
-					o1.setIsConnected(1);
-					session.save(o1);
-					client.sendToClient("loginguesttrue");
-					flag=1;
-				}
-				if(flag==0){
-					client.sendToClient("loginguestfail");
-				}
-				session.flush();
-				session.getTransaction().commit();
-
-			}
-
-		}
-		session.flush();
-		session.getTransaction().commit();
-		session.close();
 	}
 }

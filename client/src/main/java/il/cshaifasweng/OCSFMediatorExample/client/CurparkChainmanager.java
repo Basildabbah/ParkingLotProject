@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 
 public class CurparkChainmanager {
+    public static int plid;
 
     @FXML
     private MenuButton ParkLotIdMenu;
@@ -91,7 +92,8 @@ public class CurparkChainmanager {
 
             try {
 
-
+                plid = Integer.parseInt(String.valueOf(tmp));
+                System.out.println("zzzzzzzzzzz"+ plid);
                 SimpleClient.getClient().sendToServer(new Message("#showparkinglotpicture", Integer.parseInt(String.valueOf(tmp))));
             } catch (IOException e) {
                 e.printStackTrace();

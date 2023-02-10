@@ -3,6 +3,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.effect.DropShadow?>
@@ -46,10 +48,10 @@
             <TextField fx:id="Password" layoutX="93.0" layoutY="152.0" prefHeight="26.0" prefWidth="211.0" promptText="Type Your Password" />
             <Label layoutX="31.0" layoutY="199.0" prefHeight="18.0" prefWidth="94.0" text="parklotId:" />
             <TextField fx:id="Date" layoutX="68.0" layoutY="424.0" promptText="Type Date:" visible="false" />
-            <TextField fx:id="ParkingLotId" layoutX="95.0" layoutY="195.0" prefHeight="26.0" prefWidth="208.0" promptText="Type Your Parking id" />
-            <TextField fx:id="CarNumber" layoutX="99.0" layoutY="233.0" prefHeight="26.0" prefWidth="199.0" promptText="Car Number" />
+            <TextField fx:id="ParkingLotId" layoutX="95.0" layoutY="195.0" prefHeight="26.0" prefWidth="208.0" promptText="Type Your Parking id" visible="false" />
+            <TextField fx:id="CarNumber" layoutX="99.0" layoutY="233.0" prefHeight="26.0" prefWidth="199.0" promptText="Car Number" visible="false" />
             <Label layoutX="31.0" layoutY="237.0" prefHeight="18.0" prefWidth="94.0" text="Car Number:" />
-            <Label layoutX="31.0" layoutY="272.0" prefHeight="18.0" prefWidth="94.0" text="Type:" />
+            <Label layoutX="31.0" layoutY="272.0" prefHeight="18.0" prefWidth="94.0" text="Type:" visible="false" />
             <TextField fx:id="EnterHour" layoutX="70.0" layoutY="299.0" prefHeight="26.0" prefWidth="60.0" promptText="HH" />
             <TextField fx:id="EnterMonth" layoutX="192.0" layoutY="299.0" prefHeight="26.0" prefWidth="52.0" promptText="MM" />
             <TextField fx:id="EnterYear" layoutX="255.0" layoutY="299.0" prefHeight="26.0" prefWidth="52.0" promptText="Year" />
@@ -57,10 +59,10 @@
             <TextField fx:id="ExitDay" layoutX="139.0" layoutY="336.0" prefHeight="26.0" prefWidth="42.0" promptText="Day" />
             <TextField fx:id="ExitMonth" layoutX="191.0" layoutY="336.0" prefHeight="26.0" prefWidth="53.0" promptText="MM" />
             <TextField fx:id="ExitYear" layoutX="256.0" layoutY="336.0" prefHeight="26.0" prefWidth="50.0" promptText="Year" />
-            <CheckBox fx:id="preorder" layoutX="90.0" layoutY="272.0" mnemonicParsing="false" text="PreOrder" />
-            <CheckBox fx:id="OnSite" layoutX="199.0" layoutY="272.0" mnemonicParsing="false" onAction="#onsitecheck" text="OnSite" />
+            <CheckBox fx:id="preorder" layoutX="90.0" layoutY="272.0" mnemonicParsing="false" text="PreOrder" visible="false" />
+            <CheckBox fx:id="OnSite" layoutX="199.0" layoutY="272.0" mnemonicParsing="false" onAction="#onsitecheck" text="OnSite" visible="false" />
             <Label fx:id="enterlabel" layoutX="31.0" layoutY="303.0" prefHeight="18.0" prefWidth="34.0" text="Enter:" />
-            <Label layoutX="31.0" layoutY="340.0" prefHeight="18.0" prefWidth="94.0" text="Exit:" />
+            <Label layoutX="31.0" layoutY="340.0" prefHeight="18.0" prefWidth="27.0" text="Exit:" />
             <TextField fx:id="EnterDay" layoutX="139.0" layoutY="299.0" prefHeight="26.0" prefWidth="42.0" promptText="Day" />
             <ImageView fitHeight="57.0" fitWidth="60.0" layoutX="46.0" layoutY="43.0">
                <image>
@@ -72,6 +74,18 @@
                   <Image url="@../../../../images/1919283.png" />
                </image>
             </ImageView>
+            <MenuButton fx:id="menu" layoutX="125.0" layoutY="233.0" mnemonicParsing="false" text="MenuButton" />
+            <MenuButton fx:id="ParkLotIdMenu" layoutX="103.0" layoutY="195.0" mnemonicParsing="false" text="Select Parking Lot ID">
+               <items>
+                  <MenuItem fx:id="setPriceParkID1" mnemonicParsing="false" onAction="#setMenuPriceParkID1" text="1" />
+                  <MenuItem fx:id="setPriceParkID2" mnemonicParsing="false" onAction="#setMenuPriceParkID2" text="2" />
+                  <MenuItem fx:id="setPriceParkID3" mnemonicParsing="false" onAction="#setMenuPriceParkID3" text="3" />
+                  <MenuItem fx:id="setPriceParkID4" mnemonicParsing="false" onAction="#setMenuPriceParkID4" text="4" />
+                  <MenuItem fx:id="setPriceParkID5" mnemonicParsing="false" onAction="#setMenuPriceParkID5" text="5" />
+                  <MenuItem fx:id="setPriceParkID6" mnemonicParsing="false" onAction="#setMenuPriceParkID6" text="6" />
+                  <MenuItem fx:id="setPriceParkID7" mnemonicParsing="false" onAction="#setMenuPriceParkID7" text="7" />
+               </items>
+            </MenuButton>
          </children>
       </AnchorPane>
    </children>

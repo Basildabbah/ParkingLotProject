@@ -4,10 +4,7 @@ import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -35,7 +32,8 @@ public class loginassubscriber {
 
     @FXML
     private Button login;
-
+    @FXML
+    private PasswordField pass1;
     @FXML
     private Button loginadmin;
 
@@ -43,8 +41,28 @@ public class loginassubscriber {
     private Label loginasguest;
 
     @FXML
-    private TextField password;
+    private TextField pass;
+    @FXML
+    private CheckBox showpass;
+    @FXML
+    void showpass(ActionEvent event) {
+        if(showpass.isSelected()==true)
+        {
+            pass.setText(pass1.getText());
+            pass1.setVisible(false);
+            pass.setVisible(true);
+            System.out.println("yes selected"+pass.getText());
 
+        }
+        else
+        {
+            System.out.println("not selected"+pass.getText());
+            pass1.setText(pass.getText());
+            pass.setVisible(false);
+            pass1.setVisible(true);
+
+        }
+    }
     @FXML
     void Pricesfun(ActionEvent event) throws IOException {
         App.setRoot("prices");
@@ -71,9 +89,18 @@ public class loginassubscriber {
     }
     @FXML
     void loginbutton(ActionEvent event) throws IOException {
+        if(showpass.isSelected()==true)
+        {
 
+        }
+        if(showpass.isSelected()==false)
+        {
+            pass.setText(pass1.getText());
+        }
+        if(pass.getText()=="")pass.setStyle("-fx-border-color: red");
+        if(accountid.getText()=="")accountid.setStyle("-fx-border-color: red");
 
-        Message m=new Message("#loginsubscriber",accountid.getText(),password.getText());
+        Message m=new Message("#loginsubscriber",accountid.getText(),pass.getText());
         try {
             SimpleClient.getClient().sendToServer(m);
         } catch (IOException e) {
@@ -100,7 +127,7 @@ public class loginassubscriber {
             {
                 Subscribeboundry.idd=accountid.getText();
                 Subscribeboundry.type="Full";
-                Subscribeboundry.pass=password.getText();
+                Subscribeboundry.pass=pass.getText();
                 Subscribeboundry.firstname=c.getWarning().getObject7().toString();
                 Subscribeboundry.lastname=c.getWarning().getObject8().toString();
                 Subscribeboundry.email=c.getWarning().getObject9().toString();
@@ -116,7 +143,7 @@ public class loginassubscriber {
             {
                 Subscribeboundry.idd=accountid.getText();
                 Subscribeboundry.type="Regular";
-                Subscribeboundry.pass=password.getText();
+                Subscribeboundry.pass=pass.getText();
                 Subscribeboundry.firstname=c.getWarning().getObject7().toString();
                 Subscribeboundry.lastname=c.getWarning().getObject8().toString();
                 Subscribeboundry.email=c.getWarning().getObject9().toString();
