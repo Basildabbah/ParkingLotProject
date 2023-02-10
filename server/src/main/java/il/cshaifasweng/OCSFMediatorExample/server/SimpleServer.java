@@ -3969,7 +3969,7 @@ public class SimpleServer extends AbstractServer {
 			session.close();
 		}
 
-		if (msgString.startsWith("newCompliain")) {
+		/*if (msgString.startsWith("newCompliain")) {
 
 			String[] a = msgString.split("\\^");
 			Complaint c = new Complaint(a[1], Integer.parseInt(a[2]), 1);
@@ -3980,9 +3980,69 @@ public class SimpleServer extends AbstractServer {
 			session.getTransaction().commit();
 			session.close();
 
+		}*/
+		if (msgString.startsWith("newCompliain")) {
+
+			String[] a = msgString.split("\\^");
+			Complaint c = new Complaint(a[1], Integer.parseInt(((Message) msg).getObject1().toString()) ,Integer.parseInt(a[2]));
+			session = sessionFactory.openSession();
+//			if (!session.isConnected() || session == null)
+			session.beginTransaction();
+			session.flush();
+			session.save(c);
+			client.sendToClient(new Message("add compliant succ", c.getId()));
+			session.getTransaction().commit();
+			session.close();
+
+		}
+		if (((Message) msg).getMessage().startsWith("Gussetbring")) {
+
+			session = sessionFactory.openSession();
+			if (!session.isConnected() || session == null)
+				session.beginTransaction();
+			String[] a = msgString.split("\\^");
+			List<Complaint> c = getAll(Complaint.class);
+			List<Complaint> complaints = new ArrayList<Complaint>();
+
+			for (Complaint e : c) {
+				if (e.getId() == Integer.parseInt(a[1])) {
+					complaints.add(e);
+					System.out.println(e);
+				}
+			}
+			try {
+				client.sendToClient(new Message("complaints", complaints));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			session.getTransaction().commit();
+			session.close();
+		}
+		if (((Message) msg).getMessage().startsWith("bring")) {
+
+			session = sessionFactory.openSession();
+			if (!session.isConnected() || session == null)
+				session.beginTransaction();
+			String[] a = msgString.split("\\^");
+			List<Complaint> c = getAll(Complaint.class);
+			List<Complaint> complaints = new ArrayList<Complaint>();
+
+			for (Complaint e : c) {
+				if (e.getUserId() == Integer.parseInt(a[1])) {
+					complaints.add(e);
+					System.out.println(e);
+				}
+			}
+			try {
+				client.sendToClient(new Message("complaints", complaints));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			session.getTransaction().commit();
+			session.close();
 		}
 
-		if (((Message) msg).getMessage().startsWith("bring")) {
+	/*	if (((Message) msg).getMessage().startsWith("bring")) {
 
 			session = sessionFactory.openSession();
 			session.beginTransaction();
@@ -4003,7 +4063,7 @@ public class SimpleServer extends AbstractServer {
 			}
 			session.getTransaction().commit();
 			session.close();
-		}
+		}*/
 
 		if (((Message) msg).getMessage().startsWith("#response")) {
 			session = sessionFactory.openSession();
