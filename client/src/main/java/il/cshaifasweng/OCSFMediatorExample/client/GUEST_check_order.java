@@ -143,15 +143,13 @@ public class GUEST_check_order {
 
 
     @FXML
-    void GUEST_enter_park(ActionEvent event) {
-
+    void GUEST_enter_park(ActionEvent event) throws IOException {
+        App.setRoot("GUEST_enterparkinglot");
     }
-
     @FXML
-    void GUEST_exit_park(ActionEvent event) {
-
+    void GUEST_exit_park(ActionEvent event) throws IOException {
+        App.setRoot("GUEST_exitparkinglot");
     }
-
 
     @FXML
     void GUEST_cancel_order(ActionEvent event) throws IOException {

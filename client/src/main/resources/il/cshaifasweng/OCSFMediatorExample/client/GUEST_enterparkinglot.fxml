@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="1000.0" prefWidth="750.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.GUEST_enterparkinglot">
+   <children>
+      <Label layoutX="361.0" layoutY="134.0" prefHeight="46.0" prefWidth="254.0" text="Enter Parking Lot" textFill="#ffbf00">
+         <font>
+            <Font name="System Bold" size="31.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Label>
+      <Button fx:id="back" layoutX="245.0" layoutY="138.0" mnemonicParsing="false" onAction="#back" prefHeight="37.0" prefWidth="86.0" text="Back" />
+      <AnchorPane fx:id="ancherpane_enter" layoutX="269.0" layoutY="267.0" prefHeight="466.0" prefWidth="363.0" style="-fx-background-color: white;">
+         <children>
+            <Label layoutX="137.0" layoutY="42.0" text="Enter">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+            </Label>
+            <Label layoutX="31.0" layoutY="116.0" prefHeight="18.0" prefWidth="94.0" text="User Id:" />
+            <TextField fx:id="ID" layoutX="93.0" layoutY="112.0" prefHeight="26.0" prefWidth="211.0" promptText="Type Your ID Number" />
+            <Button fx:id="GuestOrder" layoutX="95.0" layoutY="374.0" mnemonicParsing="false" onAction="#OrderandEnter" prefHeight="26.0" prefWidth="165.0" style="-fx-background-color: #7272cb;" text="Order&amp;Enter">
+               <effect>
+                  <Blend mode="RED">
+                     <topInput>
+                        <DropShadow />
+                     </topInput>
+                  </Blend>
+               </effect>
+            </Button>
+            <Label layoutX="31.0" layoutY="199.0" prefHeight="18.0" prefWidth="94.0" text="Email:" />
+            <TextField fx:id="Email" layoutX="93.0" layoutY="195.0" prefHeight="26.0" prefWidth="211.0" promptText="Type Your Email" />
+            <Label layoutX="31.0" layoutY="156.0" prefHeight="18.0" prefWidth="94.0" text="Password:" />
+            <TextField fx:id="Password" layoutX="93.0" layoutY="152.0" prefHeight="26.0" prefWidth="211.0" promptText="Type Your Password" />
+            <Label layoutX="31.0" layoutY="236.0" prefHeight="18.0" prefWidth="94.0" text="parklotId:" />
+            <TextField fx:id="Date" layoutX="68.0" layoutY="424.0" promptText="Type Date:" visible="false" />
+            <TextField fx:id="ParkingLotId" layoutX="92.0" layoutY="232.0" prefHeight="26.0" prefWidth="208.0" promptText="Type Your Parking id" />
+            <TextField fx:id="CarNumber" layoutX="104.0" layoutY="271.0" prefHeight="26.0" prefWidth="199.0" promptText="Car Number" />
+            <Label layoutX="25.0" layoutY="284.0" prefHeight="18.0" prefWidth="94.0" text="Car Number:" />
+            <TextField fx:id="ExitHour" layoutX="78.0" layoutY="316.0" prefHeight="26.0" prefWidth="62.0" promptText="HH" />
+            <TextField fx:id="ExitDay" layoutX="152.0" layoutY="316.0" prefHeight="26.0" prefWidth="52.0" promptText="Day" />
+            <TextField fx:id="ExitMonth" layoutX="218.0" layoutY="316.0" prefHeight="26.0" prefWidth="53.0" promptText="MM" />
+            <TextField fx:id="ExitYear" layoutX="279.0" layoutY="316.0" prefHeight="26.0" prefWidth="50.0" promptText="Year" />
+            <Label layoutX="25.0" layoutY="320.0" prefHeight="18.0" prefWidth="94.0" text="Exit:" />
+            <ImageView fitHeight="74.0" fitWidth="94.0" layoutX="230.0" layoutY="14.0">
+               <image>
+                  <Image url="@../../../../images/2343894.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="74.0" fitWidth="94.0" layoutX="31.0" layoutY="14.0">
+               <image>
+                  <Image url="@../../../../images/2343894.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="218.0" layoutY="415.0" onMouseClicked="#AlreadyhaveAnOrder" prefHeight="18.0" prefWidth="140.0" text="Already Have An Order?" textFill="#2b00ff" underline="true" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

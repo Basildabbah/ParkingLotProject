@@ -452,6 +452,7 @@ public class Subscribeboundry {
     }
     @FXML
     void initialize() {
+
         addcar_subs.idd=idd;
         useridlabel.setText(idd);
         typelabel.setText(type);

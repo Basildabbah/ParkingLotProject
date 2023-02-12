@@ -749,10 +749,21 @@ public class SimpleServer extends AbstractServer {
 							}
 						}
 					}
-
-					//check if there is empty space
-					if (ParkingLot.getCapacity() - ParkingLot.getNumberOfInactiveParkings() - NumberOfOrdersInTheSameHours > 0)
+					int numberAlreadyParkingLot=0;
+					for (Order order1:ListOrders)
 					{
+						if(order1.getParkingLotId()==ParkingLotId)
+						{
+							if (order1.isAlreadyInParkingLot())
+							{
+								numberAlreadyParkingLot+=1;
+							}
+						}
+					}
+					//check if there is empty space
+					if (ParkingLot.getCapacity()- ParkingLot.getNumberOfInactiveParkings() - NumberOfOrdersInTheSameHours > 0 &&ParkingLot.getCapacity()- ParkingLot.getNumberOfInactiveParkings() - numberAlreadyParkingLot>0 )
+					{
+
 						for(Order Order: ListOrders)
 						{
 							//go through all orders in same Parking Lot
@@ -1397,9 +1408,53 @@ public class SimpleServer extends AbstractServer {
 									}
 								}
 							}
+/*		if(OnSite==true) {
+								int numberAlreadyParkingLot = 0;
+								for (Order order1 : ListOrders) {
 
+									if (order1.getParkingLotId() == ParkingLotId) {
+										if (order1.isAlreadyInParkingLot()) {
+											numberAlreadyParkingLot += 1;
+										}
+									}
+								}
+								if (ParkingLot.getCapacity() - ParkingLot.getNumberOfInactiveParkings() - numberAlreadyParkingLot > 0) {
+									FlagEmptySpot = 1;
+									//check if subscriber have enough hours
+									if (Subscriber.getRemainingHours() >= TotalHours) {
+										FlagRemainingHours = 1;
+										//go through all orders for this person and check if he got two orders in same day
+										for (Order Order : ListOrders) {
+											if (Order.getPersonId() == PersonID) {
+												if (Order.getEnterDay() == EnterDay) {
+													FlagDay = 0;
+												}
+											}
+										}
+									}
+								}
+							}*/
+							if(OnSite==true) {
+								int numberAlreadyParkingLot = 0;
+								for (Order order1 : ListOrders) {
+
+									if (order1.getParkingLotId() == ParkingLotId) {
+										if (order1.isAlreadyInParkingLot()) {
+											numberAlreadyParkingLot += 1;
+										}
+									}
+								}
+								if (ParkingLot.getCapacity()- ParkingLot.getNumberOfInactiveParkings() - NumberOfOrdersInTheSameHours > 0
+										&&ParkingLot.getCapacity()- ParkingLot.getNumberOfInactiveParkings() - numberAlreadyParkingLot>0 ) {
+									FlagEmptySpot = 1;
+									//check if subscriber have enough hours
+									if (Subscriber.getRemainingHours() >= TotalHours) {
+										FlagRemainingHours = 1;
+									}
+								}
+							}
 							//check if there's empty spots
-							if (ParkingLot.getCapacity() - ParkingLot.getNumberOfInactiveParkings() - NumberOfOrdersInTheSameHours > 0) {
+							else if (ParkingLot.getCapacity() - ParkingLot.getNumberOfInactiveParkings() - NumberOfOrdersInTheSameHours > 0) {
 								FlagEmptySpot = 1;
 								//check if subscriber have enough hours
 								if (Subscriber.getRemainingHours() >= TotalHours) {
@@ -1511,7 +1566,7 @@ public class SimpleServer extends AbstractServer {
 
 			Message message = new Message("FullSubscriberOrder_enter");
 			Message cpymsg = ((Message) msg);
-
+			System.out.println(cpymsg.getObject14().toString());
 			String TypeOfOrder = "FullSubscriberOrder";
 
 			List<ParkingLot> ListParkingLots = getAll(ParkingLot.class);
@@ -1559,7 +1614,7 @@ public class SimpleServer extends AbstractServer {
 			int CarNumber = Integer.parseInt(CarNumberString);
 
 			String Email = cpymsg.getObject15().toString();
-
+			System.out.println(Email);
 			int TotalHours = HoursBetweenDates(EnterHour ,EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear);
 
 			int Payment=TotalHours;
@@ -1595,9 +1650,52 @@ public class SimpleServer extends AbstractServer {
 									}
 								}
 							}
+/*		if(OnSite==true) {
+								int numberAlreadyParkingLot = 0;
+								for (Order order1 : ListOrders) {
 
+									if (order1.getParkingLotId() == ParkingLotId) {
+										if (order1.isAlreadyInParkingLot()) {
+											numberAlreadyParkingLot += 1;
+										}
+									}
+								}
+								if (ParkingLot.getCapacity() - ParkingLot.getNumberOfInactiveParkings() - numberAlreadyParkingLot > 0) {
+									FlagEmptySpot = 1;
+									//check if subscriber have enough hours
+									if (Subscriber.getRemainingHours() >= TotalHours) {
+										FlagRemainingHours = 1;
+										//go through all orders for this person and check if he got two orders in same day
+										for (Order Order : ListOrders) {
+											if (Order.getPersonId() == PersonID) {
+												if (Order.getEnterDay() == EnterDay) {
+													FlagDay = 0;
+												}
+											}
+										}
+									}
+								}
+							}*/
+							if(OnSite==true) {
+								int numberAlreadyParkingLot = 0;
+								for (Order order1 : ListOrders) {
+
+									if (order1.getParkingLotId() == ParkingLotId) {
+										if (order1.isAlreadyInParkingLot()) {
+											numberAlreadyParkingLot += 1;
+										}
+									}
+								}
+								if (ParkingLot.getCapacity()- ParkingLot.getNumberOfInactiveParkings() - NumberOfOrdersInTheSameHours > 0 &&ParkingLot.getCapacity()- ParkingLot.getNumberOfInactiveParkings() - numberAlreadyParkingLot>0 ) {
+									FlagEmptySpot = 1;
+									//check if subscriber have enough hours
+									if (Subscriber.getRemainingHours() >= TotalHours) {
+										FlagRemainingHours = 1;
+									}
+								}
+							}
 							//check if there's empty spots
-							if (ParkingLot.getCapacity() - ParkingLot.getNumberOfInactiveParkings() - NumberOfOrdersInTheSameHours > 0) {
+							else if (ParkingLot.getCapacity() - ParkingLot.getNumberOfInactiveParkings() - NumberOfOrdersInTheSameHours > 0) {
 								FlagEmptySpot = 1;
 								//check if subscriber have enough hours
 								if (Subscriber.getRemainingHours() >= TotalHours) {
@@ -1628,6 +1726,7 @@ public class SimpleServer extends AbstractServer {
 
 				Order NewOrder = new Order(MaxOrderId, TypeOfOrder, EnterHour, EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear, ParkingLotId, PersonID, Password);
 				//NewOrder.setParkinglot(park1);
+				//////////////////////////////////////
 				Calendar cal = Calendar.getInstance();
 				cal.set(Calendar.YEAR, EnterYear);
 				cal.set(Calendar.MONTH, EnterMonth-1);
@@ -1654,6 +1753,7 @@ public class SimpleServer extends AbstractServer {
 				;
 				String dateString1 = formatter.format(date1);
 				NewOrder.setExitTime(dateString1);
+				///////////////////////////////
 				NewOrder.setSubId(PersonID);
 
 				NewOrder.setCarNumber(CarNumber);

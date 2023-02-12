@@ -193,13 +193,12 @@ public class GUEST_create_order {
     }
 
     @FXML
-    void GUEST_enter_park(ActionEvent event) {
-
+    void GUEST_enter_park(ActionEvent event) throws IOException {
+        App.setRoot("GUEST_enterparkinglot");
     }
-
     @FXML
-    void GUEST_exit_park(ActionEvent event) {
-
+    void GUEST_exit_park(ActionEvent event) throws IOException {
+        App.setRoot("GUEST_exitparkinglot");
     }
 
     @FXML
@@ -242,11 +241,9 @@ public class GUEST_create_order {
     void loginfun(ActionEvent event) throws IOException {
         App.setRoot("loginadmin");
     }
-
-
-
     @FXML
     void initialize() {
+        preorder.setSelected( true);
         EventBus.getDefault().register(this);
     }
     @Subscribe
@@ -275,7 +272,7 @@ public class GUEST_create_order {
                 }
         );
     }
-    @Subscribe
+    /*@Subscribe
     public void setLabelshow4(GuestOnSiteOrderEvent Response) throws IOException {
         Platform.runLater(() ->
                 {
@@ -300,6 +297,6 @@ public class GUEST_create_order {
                     }
                 }
         );
-    }
+    }*/
 
 }

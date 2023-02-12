@@ -143,7 +143,7 @@ public class SUB_create_order {
 
                 if (type.equals("Regular") && preorder.isSelected() == true) {
                     boolean OnSite = false;
-                    Message m = new Message("#RegularSubscriberOrder", EnterHour.getText(), EnterDay.getText(), EnterMonth.getText(), EnterYear.getText(), ExitHour.getText(), ExitDay.getText(), ExitMonth.getText(), ExitYear.getText(), ParkLotIdMenu.getText(), ID.getText(), Password.getText(), idd, OnSite, menu.getText(), Email.getText());
+                    Message m = new Message("#RegularSubscriberOrder", EnterHour.getText(), EnterDay.getText(), EnterMonth.getText(), EnterYear.getText(), ExitHour.getText(), ExitDay.getText(), ExitMonth.getText(), ExitYear.getText(), ParkLotIdMenu.getText(), ID.getText(), Password.getText(), idd, OnSite, menu.getText(),email);
                     try {
                         SimpleClient.getClient().sendToServer(m);
                     } catch (IOException e) {
@@ -165,8 +165,8 @@ public class SUB_create_order {
                     int Year = Date4.getYear();
 
                     boolean OnSite = true;
-
-                    Message m = new Message("#RegularSubscriberOrder", Hour, Day, Month, Year, ExitHour.getText(), ExitDay.getText(), ExitMonth.getText(), ExitYear.getText(), ParkingLotId.getText(), ID.getText(), Password.getText(), idd, OnSite, CarNumber.getText(), Email.getText());
+                    String type="OnSite";
+                    Message m = new Message("#RegularSubscriberOrder", Hour, Day, Month, Year, ExitHour.getText(), ExitDay.getText(), ExitMonth.getText(), ExitYear.getText(), ParkingLotId.getText(), ID.getText(), Password.getText(), idd, OnSite, CarNumber.getText(), email,type);
 
                     try {
                         SimpleClient.getClient().sendToServer(m);
@@ -201,8 +201,8 @@ public class SUB_create_order {
                     int Year = Date4.getYear();
 
                     boolean OnSite = true;
-
-                    Message m = new Message("#FullSubscriberOrder", Hour, Day, Month, Year, ExitHour.getText(), ExitDay.getText(), ExitMonth.getText(), ExitYear.getText(), ParkingLotId.getText(), ID.getText(), Password.getText(), idd, OnSite, CarNumber.getText(), email);
+                    String type="OnSite";
+                    Message m = new Message("#FullSubscriberOrder", Hour, Day, Month, Year, ExitHour.getText(), ExitDay.getText(), ExitMonth.getText(), ExitYear.getText(), ParkingLotId.getText(), ID.getText(), Password.getText(), idd, OnSite, CarNumber.getText(), email,type);
 
                     try {
                         SimpleClient.getClient().sendToServer(m);
