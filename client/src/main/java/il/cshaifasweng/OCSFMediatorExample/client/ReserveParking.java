@@ -4,9 +4,7 @@ import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -56,6 +54,11 @@ static int  ret_ = -1;
     @FXML
     private TextField EnterYear;
 
+    @FXML
+    private Label label_cancel_reservation;
+
+    @FXML
+    private Label label_reservation;
     @FXML
     private TextField ExitDay;
 
@@ -124,27 +127,136 @@ static int  ret_ = -1;
 
     @FXML
     void CancelOrder(ActionEvent event) {
-        Message m = new Message("#CancelReservation", ID_Cancel.getText(), Password_Cancel.getText(), NumberOfOrder_Cancel.getText());
-        try {
-            SimpleClient.getClient().sendToServer(m);
-        } catch (IOException e) {
-            e.printStackTrace();
+        int cancelcheck=0;
+        NumberOfOrder_Cancel.setStyle("-fx-border-color: white");
+        Password_Cancel.setStyle("-fx-border-color: white");
+        ID_Cancel.setStyle("-fx-border-color: white");
+        if(!ID_Cancel.getText().matches("\\d+")) {
+            ID_Cancel.setStyle("-fx-border-color: red");
+            label_cancel_reservation.setText("Wrong Data: ID contains letters");
+            cancelcheck++;
+        }
+        if(!NumberOfOrder_Cancel.getText().matches("\\d+")) {
+            NumberOfOrder_Cancel.setStyle("-fx-border-color: red");
+            label_cancel_reservation.setText("Wrong Data: NumberOfOrder contains letters");
+            cancelcheck++;
+        }
+        if (ID_Cancel.getText().equals("")) {
+            ID_Cancel.setStyle("-fx-border-color: red");
+            label_cancel_reservation.setText("Fill All Input");
+            cancelcheck++;
+        }
+        if (Password_Cancel.getText().equals("")) {
+            Password_Cancel.setStyle("-fx-border-color: red");
+            label_cancel_reservation.setText("Fill All Input");
+            cancelcheck++;
+        }
+        if (NumberOfOrder_Cancel.getText().equals("")) {
+            NumberOfOrder_Cancel.setStyle("-fx-border-color: red");
+            label_cancel_reservation.setText("Fill All Input");
+            cancelcheck++;
+        }
+        if (cancelcheck>0) {
+            label_cancel_reservation.setVisible(true);
+        }
+        if (cancelcheck==0) {
+            label_cancel_reservation.setVisible(false);
+            Message m = new Message("#CancelReservation", ID_Cancel.getText(), Password_Cancel.getText(), NumberOfOrder_Cancel.getText());
+            try {
+                SimpleClient.getClient().sendToServer(m);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     @FXML
     void GuestOrder(ActionEvent event) {
-        if (GuestType.getText().equals("PreOrder")) {
+        ID.setStyle("-fx-border-color: white");
+        ExitYear.setStyle("-fx-border-color: white");
+        EnterYear.setStyle("-fx-border-color: white");
+        CarNumber.setStyle("-fx-border-color: white");
+        Password.setStyle("-fx-border-color: white");
+        Email.setStyle("-fx-border-color: white");
+
+        int check=0;
+        if(!ExitYear.getText().matches("\\d+"))
+        {
+            ExitYear.setStyle("-fx-border-color: red");
+            label_reservation.setText("Wrong Data: ExitYear contains letters");
+            check++;
+        }
+        if(!EnterYear.getText().matches("\\d+"))
+        {
+            EnterYear.setStyle("-fx-border-color: red");
+            label_reservation.setText("Wrong Data: EnterYear contains letters");
+            check++;
+        }
+        if(!CarNumber.getText().matches("\\d+"))
+        {
+            CarNumber.setStyle("-fx-border-color: red");
+            label_reservation.setText("Wrong Data: CarNumber contains letters");
+            check++;
+        }
+        if(!ID.getText().matches("\\d+"))
+        {
+            ID.setStyle("-fx-border-color: red");
+            label_reservation.setText("Wrong Data: ID contains letters");
+            check++;
+        }
+        if (ID.getText().equals(""))
+        {
+            ID.setStyle("-fx-border-color: red");
+            label_reservation.setText("Fill All Input");
+            check++;
+        }
+        if (CarNumber.getText().equals(""))
+        {
+            CarNumber.setStyle("-fx-border-color: red");
+            label_reservation.setText("Fill All Input");
+            check++;
+        }
+        if (Email.getText().equals(""))
+        {
+            Email.setStyle("-fx-border-color: red");
+            label_reservation.setText("Fill All Input");
+            check++;
+        }
+        if (Password.getText().equals(""))
+        {
+            Password.setStyle("-fx-border-color: red");
+            label_reservation.setText("Fill All Input");
+            check++;
+        }
+        if (EnterYear.getText().equals(""))
+        {
+            EnterYear.setStyle("-fx-border-color: red");
+            label_reservation.setText("Fill All Input");
+            check++;
+        }
+        if (ExitYear.getText().equals(""))
+        {
+            ExitYear.setStyle("-fx-border-color: red");
+            label_reservation.setText("Fill All Input");
+            check++;
+        }
+
+        if (check>0)
+        {
+            label_reservation.setVisible(true);
+        }
+        if (check==0 &&GuestType.getText().equals("PreOrder")) {
 
             boolean OnSite = false;
 
-            Message m = new Message("#Reservation", EnterHour.getText(), EnterDay.getText(), EnterMonth.getText(), EnterYear.getText(), ExitHour.getText(), ExitDay.getText(), ExitMonth.getText(), ExitYear.getText(), ParkingLotId.getText(), ID.getText(), Password.getText(),OnSite,CarNumber.getText(),Email.getText());
+            Message m = new Message("#Reservation", ENTER_hoursmenu.getText(), ENTER_daymenu.getText(), Enter_Monthmenu.getText(), EnterYear.getText(), Exit_hoursmenu.getText(), Exit_daymenu.getText(), Exit_Monthmenu.getText(), ExitYear.getText(), ParkLotIdMenu.getText(), ID.getText(), Password.getText(),OnSite,CarNumber.getText(),Email.getText());
 
             try {
                 SimpleClient.getClient().sendToServer(m);
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            label_reservation.setVisible(false);
         }
 /*
         if (GuestType.getText().equals("OnSite")) {
@@ -249,10 +361,7 @@ static int  ret_ = -1;
 //		*************************************************************************************
 //		*************************************************************************************
 
-    @FXML
-    void initialize() {
-        EventBus.getDefault().register(this);
-    }
+
 
 //		*************************************************************************************
 //      1 CheckReserveStatusEvent
@@ -393,6 +502,119 @@ static int  ret_ = -1;
 //		*************************************************************************************
 
 
+    @FXML
+    private MenuButton ENTER_hoursmenu=new MenuButton();
+    @FXML
+    private MenuButton Exit_hoursmenu=new MenuButton();
+    @FXML
+    private MenuButton ENTER_daymenu=new MenuButton();
+    @FXML
+    private MenuButton Exit_daymenu=new MenuButton();
+    @FXML
+    private MenuButton Exit_Monthmenu=new MenuButton();
+    @FXML
+    private MenuButton Enter_Monthmenu=new MenuButton();
+    @FXML
+    private MenuButton ParkLotIdMenu;
+    @FXML
+    void initialize() {
+        for (int i=0;i<25;i++)
+        {
+            String tmp="";
+            tmp+=i;
+            MenuItem x = new MenuItem(tmp);
+            ENTER_hoursmenu.getItems().addAll(x);
+            String tmp2=tmp;
+            x.setOnAction(actionEvent -> ENTER_hoursmenu.setText(tmp2));
+        }
+        for (int i=0;i<25;i++)
+        {
+            String tmp="";
+            tmp+=i;
+            MenuItem x = new MenuItem(tmp);
+            Exit_hoursmenu.getItems().addAll(x);
+            String tmp2=tmp;
+            x.setOnAction(actionEvent -> Exit_hoursmenu.setText(tmp2));
+        }
+        for (int i=1;i<29;i++)
+        {
+            String tmp="";
+            tmp+=i;
+            MenuItem x = new MenuItem(tmp);
+            ENTER_daymenu.getItems().addAll(x);
+            String tmp2=tmp;
+            x.setOnAction(actionEvent -> ENTER_daymenu.setText(tmp2));
+        }
+        for (int i=1;i<29;i++)
+        {
+            String tmp="";
+            tmp+=i;
+            MenuItem x = new MenuItem(tmp);
+            Exit_daymenu.getItems().addAll(x);
+            String tmp2=tmp;
+            x.setOnAction(actionEvent -> Exit_daymenu.setText(tmp2));
+        }
+        for (int i=1;i<13;i++)
+        {
+            String tmp="";
+            tmp+=i;
+            MenuItem x = new MenuItem(tmp);
+            Enter_Monthmenu.getItems().addAll(x);
+            String tmp2=tmp;
+            x.setOnAction(actionEvent -> Enter_Monthmenu.setText(tmp2));
+        }
+        for (int i=1;i<13;i++)
+        {
+            String tmp="";
+            tmp+=i;
+            MenuItem x = new MenuItem(tmp);
+            Exit_Monthmenu.getItems().addAll(x);
+            String tmp2=tmp;
+            x.setOnAction(actionEvent -> Exit_Monthmenu.setText(tmp2));
+        }
+        label_cancel_reservation.setVisible(false);
+        EventBus.getDefault().register(this);
+    }
+    @FXML
+    void setMenuPriceParkID1(ActionEvent event) {
+        ParkLotIdMenu.setText("1");
+
+    }
+
+    @FXML
+    void setMenuPriceParkID2(ActionEvent event) {
+        ParkLotIdMenu.setText("2");
+
+    }
+
+    @FXML
+    void setMenuPriceParkID3(ActionEvent event) {
+        ParkLotIdMenu.setText("3");
+
+    }
+
+    @FXML
+    void setMenuPriceParkID4(ActionEvent event) {
+        ParkLotIdMenu.setText("4");
+
+    }
+
+    @FXML
+    void setMenuPriceParkID5(ActionEvent event) {
+        ParkLotIdMenu.setText("5");
+
+    }
+
+    @FXML
+    void setMenuPriceParkID6(ActionEvent event) {
+        ParkLotIdMenu.setText("6");
+
+    }
+
+    @FXML
+    void setMenuPriceParkID7(ActionEvent event) {
+        ParkLotIdMenu.setText("7");
+    }
 }
 
 //		*************************************************************************************

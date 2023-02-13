@@ -11,6 +11,11 @@ import java.io.IOException;
 public class ChainManagerBoundary {
     public static String name;
     public static String idd;
+    static String type;
+    public static String pass;
+    public static String firstname;
+    static String lastname;
+    public static String email;
     @FXML
     private Button CurrentParkingLotStatus;
     @FXML
@@ -50,7 +55,23 @@ public class ChainManagerBoundary {
         App.setRoot("home");
     }
     @FXML
+    private Label firstlabel;
+
+    @FXML
+    private Label lastlabel;
+    @FXML
+    private Label emaillabel;
+    @FXML
+    private Label typelabel;
+
+    @FXML
+    private Label useridlabel;
+    @FXML
     void initialize() {
-        userid.setText(userid.getText()+idd);
+        emaillabel.setText(email);
+        firstlabel.setText(firstname);
+        lastlabel.setText(lastname);
+        useridlabel.setText(idd);
+        typelabel.setText("Chain Manager");
     }
 }

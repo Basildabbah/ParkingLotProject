@@ -4,6 +4,8 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Blend?>
@@ -246,8 +248,8 @@
                               <TextField fx:id="Password" layoutX="93.0" layoutY="152.0" prefHeight="26.0" prefWidth="211.0" promptText="Type Your Password" />
                               <Label layoutX="31.0" layoutY="236.0" prefHeight="18.0" prefWidth="94.0" text="parklotId:" />
                               <TextField fx:id="Date" layoutX="68.0" layoutY="424.0" promptText="Type Date:" visible="false" />
-                              <TextField fx:id="ParkingLotId" layoutX="92.0" layoutY="232.0" prefHeight="26.0" prefWidth="208.0" promptText="Type Your Parking id" />
-                              <TextField fx:id="CarNumber" layoutX="104.0" layoutY="271.0" prefHeight="26.0" prefWidth="199.0" promptText="Car Number" />
+                              <TextField fx:id="ParkingLotId" layoutX="92.0" layoutY="232.0" prefHeight="26.0" prefWidth="208.0" promptText="Type Your Parking id" visible="false" />
+                              <TextField fx:id="CarNumber" layoutX="100.0" layoutY="280.0" prefHeight="26.0" prefWidth="199.0" promptText="Car Number" />
                               <Label layoutX="25.0" layoutY="284.0" prefHeight="18.0" prefWidth="94.0" text="Car Number:" />
                               <Label layoutX="31.0" layoutY="308.0" prefHeight="18.0" prefWidth="94.0" text="Type:" visible="false" />
                               <TextField fx:id="EnterHour" layoutX="70.0" layoutY="334.0" prefHeight="26.0" prefWidth="60.0" promptText="HH" />
@@ -272,6 +274,17 @@
                                     <Image url="@../../../../images/2343894.png" />
                                  </image>
                               </ImageView>
+                              <MenuButton fx:id="ParkLotIdMenu" layoutX="107.0" layoutY="232.0" mnemonicParsing="false" text="Select Parking Lot ID">
+                                 <items>
+                                    <MenuItem fx:id="setPriceParkID1" mnemonicParsing="false" onAction="#setMenuPriceParkID1" text="1" />
+                                    <MenuItem fx:id="setPriceParkID2" mnemonicParsing="false" onAction="#setMenuPriceParkID2" text="2" />
+                                    <MenuItem fx:id="setPriceParkID3" mnemonicParsing="false" onAction="#setMenuPriceParkID3" text="3" />
+                                    <MenuItem fx:id="setPriceParkID4" mnemonicParsing="false" onAction="#setMenuPriceParkID4" text="4" />
+                                    <MenuItem fx:id="setPriceParkID5" mnemonicParsing="false" onAction="#setMenuPriceParkID5" text="5" />
+                                    <MenuItem fx:id="setPriceParkID6" mnemonicParsing="false" onAction="#setMenuPriceParkID6" text="6" />
+                                    <MenuItem fx:id="setPriceParkID7" mnemonicParsing="false" onAction="#setMenuPriceParkID7" text="7" />
+                                 </items>
+                              </MenuButton>
                            </children>
                         </AnchorPane>
                      </children></AnchorPane>

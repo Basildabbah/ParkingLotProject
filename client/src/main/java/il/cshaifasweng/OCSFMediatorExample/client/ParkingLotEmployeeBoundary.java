@@ -12,7 +12,12 @@ import static il.cshaifasweng.OCSFMediatorExample.client.ReserveParking.setRet_;
 public class ParkingLotEmployeeBoundary {
     public static String idd;
     public static String parking_id;
-
+    public static String name;
+    static String type;
+    public static String pass;
+    public static String firstname;
+    static String lastname;
+    public static String email;
     @FXML
     private Button ReserveParking;
 
@@ -60,7 +65,26 @@ public class ParkingLotEmployeeBoundary {
     }
     @FXML
     void parkingnotactivefun(ActionEvent event) throws IOException {
-
         App.setRoot("InactiveParkings");
     }
+    @FXML
+    void initialize() {
+        emaillabel.setText(email);
+        firstlabel.setText(firstname);
+        lastlabel.setText(lastname);
+        useridlabel.setText(idd);
+        typelabel.setText(type);
+    }
+    @FXML
+    private Label firstlabel;
+
+    @FXML
+    private Label lastlabel;
+    @FXML
+    private Label emaillabel;
+    @FXML
+    private Label typelabel;
+
+    @FXML
+    private Label useridlabel;
 }

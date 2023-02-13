@@ -153,6 +153,16 @@ public class loginadmin {
                 try {
                     ParkingLotEmployeeBoundary.idd=id.getText();
                     ParkingLotEmployeeBoundary.parking_id=c.getWarning().getObject2().toString();
+                   /*        emaillabel.setText(email);
+        firstlabel.setText(firstname);
+        lastlabel.setText(lastname);
+        useridlabel.setText(idd);
+        typelabel.setText(type);*/
+                    ParkingLotEmployeeBoundary.email=c.getWarning().getObject5().toString();
+                    ParkingLotEmployeeBoundary.firstname=c.getWarning().getObject6().toString();
+                    ParkingLotEmployeeBoundary.lastname=c.getWarning().getObject7().toString();
+                    ParkingLotEmployeeBoundary.type=c.getWarning().getObject8().toString();
+
                     App.setRoot("ParkingLotEmployeeBoundary");
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -168,6 +178,15 @@ public class loginadmin {
                 try {
                     ChainManagerBoundary.name=id.getText();
                     ChainManagerBoundary.idd=id.getText();
+                    /*				message.setObject10(p.getId());
+					message.setObject11(p.getFirstName());
+					message.setObject12(p.getLastName());
+					message.setObject13(p.getEmail());*/
+                    ChainManagerBoundary.idd=c.getWarning().getObject10().toString();
+                    ChainManagerBoundary.firstname=c.getWarning().getObject11().toString();
+                    ChainManagerBoundary.lastname=c.getWarning().getObject12().toString();
+                    ChainManagerBoundary.email=c.getWarning().getObject13().toString();
+
                     App.setRoot("ChainManagerBoundary");
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -188,6 +207,10 @@ public class loginadmin {
             if (c.getWarning().getObject1().equals("yes parkinglotmanagers"))
             {
                 ParkingLotManagerBoundary.idd=id.getText();
+                ParkingLotManagerBoundary.email=c.getWarning().getObject5().toString();
+                ParkingLotManagerBoundary.firstname=c.getWarning().getObject6().toString();
+                ParkingLotManagerBoundary.lastname=c.getWarning().getObject7().toString();
+                ParkingLotManagerBoundary.type=c.getWarning().getObject8().toString();
                 try {
                     System.out.println("aaaaaaaaaa");
                     ParkingLotManagerBoundary.idd_parking_lot=c.getWarning().getObject2().toString();

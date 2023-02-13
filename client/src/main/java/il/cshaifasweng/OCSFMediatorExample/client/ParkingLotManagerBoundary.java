@@ -72,5 +72,28 @@ public class ParkingLotManagerBoundary {
     void initialize() {
         userid.setText(userid.getText()+idd);
         Displayreportofmanager.idd_parking_lot=idd_parking_lot;
+        emaillabel.setText(email);
+        firstlabel.setText(firstname);
+        lastlabel.setText(lastname);
+        useridlabel.setText(idd);
+        typelabel.setText(type);
     }
+    @FXML
+    private Label firstlabel;
+
+    @FXML
+    private Label lastlabel;
+    @FXML
+    private Label emaillabel;
+    @FXML
+    private Label typelabel;
+
+    @FXML
+    private Label useridlabel;
+    public static String name;
+    static String type;
+    public static String pass;
+    public static String firstname;
+    static String lastname;
+    public static String email;
 }

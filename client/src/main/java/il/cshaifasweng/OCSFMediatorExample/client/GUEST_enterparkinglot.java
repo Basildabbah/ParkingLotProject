@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -81,9 +82,9 @@ public class GUEST_enterparkinglot {
 
                 LocalDate Date4 = LocalDate.now();
                 int Year = Date4.getYear();
-
+            System.out.println("date1.after(new Date()");
                 boolean OnSite = true;
-                Message m = new Message("#GuestOnSiteOrder", Hour, Day, Month, Year, ExitHour.getText(), ExitDay.getText(), ExitMonth.getText(), ExitYear.getText(), ParkingLotId.getText(), ID.getText(), Password.getText(), ID.getText(), OnSite, CarNumber.getText(), Email.getText());
+                Message m = new Message("#GuestOnSiteOrder_enter", Hour, Day, Month, Year, ExitHour.getText(), ExitDay.getText(), ExitMonth.getText(), ExitYear.getText(), ParkLotIdMenu.getText(), ID.getText(), Password.getText(), ID.getText(), OnSite, CarNumber.getText(), Email.getText());
 
                 try {
                     SimpleClient.getClient().sendToServer(m);
@@ -113,7 +114,7 @@ public class GUEST_enterparkinglot {
     public void setLabelshow4(GuestOnSiteOrderEvent Response) throws IOException {
         Platform.runLater(() ->
                 {
-                    if (Response.getWarning().getMessage().equals("GuestOnSiteOrder")) {
+                    if (Response.getWarning().getMessage().equals("GuestOnSiteOrder_enter")) {
                         String Response1 = Response.getWarning().getObject1().toString();
                         if (Response1.equals("The Parking Lot is Full, Please Choose Another Parking Lot")) {
                             Alert alert = new Alert(Alert.AlertType.WARNING,
@@ -123,7 +124,7 @@ public class GUEST_enterparkinglot {
                         }
                         if (Response1.equals("Your Order Confirmed")) {
                             try {
-                                SimpleClient.getClient().sendToServer(new Message("#enterparkinglot", Integer.parseInt(ParkingLotId.getText()) ,
+                                SimpleClient.getClient().sendToServer(new Message("#enterparkinglot", Integer.parseInt(ParkLotIdMenu.getText()) ,
                                         Integer.parseInt(CarNumber.getText()) , Integer.parseInt(ID.getText())));
                             } catch (IOException e){
                                 e.printStackTrace();
@@ -133,5 +134,45 @@ public class GUEST_enterparkinglot {
                 }
         );
     }
+    @FXML
+    void setMenuPriceParkID1(ActionEvent event) {
+        ParkLotIdMenu.setText("1");
 
+    }
+
+    @FXML
+    void setMenuPriceParkID2(ActionEvent event) {
+        ParkLotIdMenu.setText("2");
+
+    }
+
+    @FXML
+    void setMenuPriceParkID3(ActionEvent event) {
+        ParkLotIdMenu.setText("3");
+
+    }
+
+    @FXML
+    void setMenuPriceParkID4(ActionEvent event) {
+        ParkLotIdMenu.setText("4");
+
+    }
+
+    @FXML
+    void setMenuPriceParkID5(ActionEvent event) {
+        ParkLotIdMenu.setText("5");
+
+    }
+
+    @FXML
+    void setMenuPriceParkID6(ActionEvent event) {
+        ParkLotIdMenu.setText("6");
+
+    }
+    @FXML
+    private MenuButton ParkLotIdMenu;
+    @FXML
+    void setMenuPriceParkID7(ActionEvent event) {
+        ParkLotIdMenu.setText("7");
+    }
 }
