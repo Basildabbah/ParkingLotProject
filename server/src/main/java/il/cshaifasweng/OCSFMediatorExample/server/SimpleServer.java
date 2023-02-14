@@ -416,8 +416,8 @@ public class SimpleServer extends AbstractServer {
 						 , int ExitHour, int ExitDay
 						, int ExitMonth, int ExitYear,int ParkingLotId, int PersonId, String Password*/
 						CanceledOrder t=new CanceledOrder(order.getOrderId(),order.getTypeOfOrder(),order.getEnterHour(),order.getEnterDay()
-						,order.getEnterMonth(),order.getEnterYear(),order.getExitHour(),order.getExitDay(),order.getExitMonth(),order.getExitYear()
-						,order.getParkingLotId(),order.getPersonId(),order.getPassword());
+								,order.getEnterMonth(),order.getEnterYear(),order.getExitHour(),order.getExitDay(),order.getExitMonth(),order.getExitYear()
+								,order.getParkingLotId(),order.getPersonId(),order.getPassword());
 						session.save(t);
 						session.delete(order);
 					}

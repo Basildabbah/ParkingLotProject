@@ -134,7 +134,7 @@ public class GUEST_send_complain {
 
     @FXML
     void GUEST_enter_park(ActionEvent event) throws IOException {
-            App.setRoot("GUEST_enterparkinglot");
+        App.setRoot("GUEST_enterparkinglot");
     }
     @FXML
     void GUEST_exit_park(ActionEvent event) throws IOException {
@@ -184,21 +184,22 @@ public class GUEST_send_complain {
         if (id.getText().isEmpty()  || password_Complain.getText().isEmpty())
         {
             Alert alert = new Alert(Alert.AlertType.WARNING,
-                    String.format("you have to fill all the fileds")
+                    String.format(" you have to fill all the fileds")
             );
             alert.show();
         }
-        if(textC.getText().length()<5){
+        else   if(textC.getText().length()<5){
             Alert alert = new Alert(Alert.AlertType.WARNING,
                     String.format("you have to fill at least 5 letters")
             );
             alert.show();
         }
-        try {
-            SimpleClient.getClient().sendToServer(new Message("newCompliain^"+textC.getText()+"^" +id.getText(),parking_id.getText(),1,password_Complain.getText()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        else {
+            try {
+                SimpleClient.getClient().sendToServer(new Message("newCompliain^"+textC.getText()+"^" +id.getText(),parking_id.getText(),1,password_Complain.getText()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }}
     }
     @FXML
     void initialize() {
@@ -263,21 +264,21 @@ public class GUEST_send_complain {
                 alert.show();
             } else{
                 complainnum.setText(complainnum.getText() + " " + e.getWarning().getObject1().toString());
-            complainnum.setVisible(true);
+                complainnum.setVisible(true);
 
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION,
-                    String.format("Your Complain Number is: %s\nTimestamp: %s\n",
-                            e.getWarning().getObject1(),
-                            e.getWarning().getTime().toString())
-            );
-            alert.show();
-            try {
-                App.setRoot("home");
-            } catch (IOException ex) {
-                ex.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION,
+                        String.format("Your Complain Number is: %s\nTimestamp: %s\n",
+                                e.getWarning().getObject1(),
+                                e.getWarning().getTime().toString())
+                );
+                alert.show();
+                try {
+                    App.setRoot("home");
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
-        }
         });
 
     }
