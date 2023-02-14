@@ -127,6 +127,12 @@ public class NewComplaint1 {
     }
     @FXML
     void send(ActionEvent event) {
+        if(textC.getText().length()<5){
+            Alert alert = new Alert(Alert.AlertType.WARNING,
+                    String.format("you have to fill at least 5 letters")
+            );
+            alert.show();
+        }
         try {
 
             SimpleClient.getClient().sendToServer(new Message("newCompliain^"+textC.getText()+"^" +idd,parking_id.getText(),0));

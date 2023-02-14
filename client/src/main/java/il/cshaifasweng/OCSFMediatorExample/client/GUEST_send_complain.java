@@ -188,6 +188,12 @@ public class GUEST_send_complain {
             );
             alert.show();
         }
+        if(textC.getText().length()<5){
+            Alert alert = new Alert(Alert.AlertType.WARNING,
+                    String.format("you have to fill at least 5 letters")
+            );
+            alert.show();
+        }
         try {
             SimpleClient.getClient().sendToServer(new Message("newCompliain^"+textC.getText()+"^" +id.getText(),parking_id.getText(),1,password_Complain.getText()));
         } catch (IOException e) {
