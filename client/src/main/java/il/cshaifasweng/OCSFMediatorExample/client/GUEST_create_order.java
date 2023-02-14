@@ -140,7 +140,7 @@ public class GUEST_create_order {
 
             boolean OnSite = false;
 
-            Message m = new Message("#GuestPreOrder", EnterHour.getText(), EnterDay.getText(), EnterMonth.getText(), EnterYear.getText(), ExitHour.getText(), ExitDay.getText(), ExitMonth.getText(), ExitYear.getText(), ParkingLotId.getText(), ID.getText(), Password.getText(), OnSite, CarNumber.getText(), Email.getText());
+            Message m = new Message("#GuestPreOrder", EnterHour.getText(), EnterDay.getText(), EnterMonth.getText(), EnterYear.getText(), ExitHour.getText(), ExitDay.getText(), ExitMonth.getText(), ExitYear.getText(), ParkLotIdMenu.getText(), ID.getText(), Password.getText(), OnSite, CarNumber.getText(), Email.getText());
 
             try {
                 SimpleClient.getClient().sendToServer(m);
@@ -165,7 +165,7 @@ public class GUEST_create_order {
 
             boolean OnSite = true;
 
-            Message m = new Message("#GuestOnSiteOrder", Hour, Day, Month, Year, ExitHour.getText(), ExitDay.getText(), ExitMonth.getText(), ExitYear.getText(), ParkingLotId.getText(), ID.getText(), Password.getText(), OnSite, CarNumber.getText(), Email.getText());
+            Message m = new Message("#GuestOnSiteOrder", Hour, Day, Month, Year, ExitHour.getText(), ExitDay.getText(), ExitMonth.getText(), ExitYear.getText(), ParkLotIdMenu.getText(), ID.getText(), Password.getText(), OnSite, CarNumber.getText(), Email.getText());
 
             try {
                 SimpleClient.getClient().sendToServer(m);
@@ -193,13 +193,12 @@ public class GUEST_create_order {
     }
 
     @FXML
-    void GUEST_enter_park(ActionEvent event) {
-
+    void GUEST_enter_park(ActionEvent event) throws IOException {
+        App.setRoot("GUEST_enterparkinglot");
     }
-
     @FXML
-    void GUEST_exit_park(ActionEvent event) {
-
+    void GUEST_exit_park(ActionEvent event) throws IOException {
+        App.setRoot("GUEST_exitparkinglot");
     }
 
     @FXML
@@ -242,11 +241,9 @@ public class GUEST_create_order {
     void loginfun(ActionEvent event) throws IOException {
         App.setRoot("loginadmin");
     }
-
-
-
     @FXML
     void initialize() {
+        preorder.setSelected( true);
         EventBus.getDefault().register(this);
     }
     @Subscribe
@@ -275,7 +272,48 @@ public class GUEST_create_order {
                 }
         );
     }
-    @Subscribe
+    @FXML
+    void setMenuPriceParkID1(ActionEvent event) {
+        ParkLotIdMenu.setText("1");
+
+    }
+
+    @FXML
+    void setMenuPriceParkID2(ActionEvent event) {
+        ParkLotIdMenu.setText("2");
+
+    }
+
+    @FXML
+    void setMenuPriceParkID3(ActionEvent event) {
+        ParkLotIdMenu.setText("3");
+
+    }
+
+    @FXML
+    void setMenuPriceParkID4(ActionEvent event) {
+        ParkLotIdMenu.setText("4");
+
+    }
+
+    @FXML
+    void setMenuPriceParkID5(ActionEvent event) {
+        ParkLotIdMenu.setText("5");
+
+    }
+
+    @FXML
+    void setMenuPriceParkID6(ActionEvent event) {
+        ParkLotIdMenu.setText("6");
+
+    }
+    @FXML
+    private MenuButton ParkLotIdMenu;
+    @FXML
+    void setMenuPriceParkID7(ActionEvent event) {
+        ParkLotIdMenu.setText("7");
+    }
+    /*@Subscribe
     public void setLabelshow4(GuestOnSiteOrderEvent Response) throws IOException {
         Platform.runLater(() ->
                 {
@@ -300,6 +338,6 @@ public class GUEST_create_order {
                     }
                 }
         );
-    }
+    }*/
 
 }

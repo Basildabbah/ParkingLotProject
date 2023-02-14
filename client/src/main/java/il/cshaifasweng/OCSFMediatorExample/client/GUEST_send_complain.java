@@ -133,13 +133,12 @@ public class GUEST_send_complain {
     private TextField password_Complain;
 
     @FXML
-    void GUEST_enter_park(ActionEvent event) {
-
+    void GUEST_enter_park(ActionEvent event) throws IOException {
+            App.setRoot("GUEST_enterparkinglot");
     }
-
     @FXML
-    void GUEST_exit_park(ActionEvent event) {
-
+    void GUEST_exit_park(ActionEvent event) throws IOException {
+        App.setRoot("GUEST_exitparkinglot");
     }
     @FXML
     void park1(ActionEvent event) {

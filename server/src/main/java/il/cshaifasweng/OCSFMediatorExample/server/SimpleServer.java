@@ -433,6 +433,160 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 		}
+		if (msgString.equals("#CancelReservation")) {
+
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+
+			Message message = new Message("CancelReservation");
+			Message cpymsg = ((Message) msg);
+
+			List<Order> ListOrders = getAll(Order.class);
+			List<RegularSubscriber> ListRegularSubscriber = getAll(RegularSubscriber.class);
+			List<FullSubscriber> ListFullSubscriber = getAll(FullSubscriber.class);
+			List<ParkingLot> ListParkingLot = getAll(ParkingLot.class);
+			List<Car> ListCar = getAll(Car.class);
+			List<CanceledOrder> tt = getAll(CanceledOrder.class);
+
+			String PersonIdString = cpymsg.getObject1().toString();
+			int PersonId=Integer.parseInt(PersonIdString);
+
+			String Password = cpymsg.getObject2().toString();
+
+			String NumberOfOrderString = cpymsg.getObject3().toString();
+			int NumberOfOrder=Integer.parseInt(NumberOfOrderString);
+
+			int FlagCancelOrder=0;
+
+			int TotalHours=0;
+
+			int Refund=0;
+
+			int CarNumber=0;
+
+			//Authenicate
+			for(Order order : ListOrders)
+			{
+				if(order.getOrderId()==NumberOfOrder)
+				{
+					if(order.getPersonId()==PersonId && order.getPassword().equals(Password))
+						FlagCancelOrder=1;
+				}
+			}
+
+			if(FlagCancelOrder==0)
+				message.setObject1("One Of The Details is Not Right");
+
+			if(FlagCancelOrder==1)
+			{
+				message.setObject1("Your Order Has Been Canceled");
+				for(Order order : ListOrders)
+				{
+					if (order.getOrderId()==NumberOfOrder)
+					{
+						for(Car car : ListCar)
+						{
+							if (car.getCarNumber()==order.getCarNumber())
+								session.delete(car);
+						}
+
+						TotalHours=HoursBetweenDates(order.getEnterHour(),order.getEnterDay(),order.getEnterMonth(),order.getEnterYear(),order.getExitHour(),order.getExitDay(),order.getExitMonth(),order.getExitYear());
+
+						if(order.getTypeOfOrder().equals("GuestPreOrder"))
+						{
+							System.out.println("canceorderguestpreorder");
+							//***************************************
+
+							int i = order.getParkingLotId() - 1;
+							List<Prices> PricesList = getAll(Prices.class); // my prices is a list that includes all prices of all parking lots
+
+							List<String> Prices = PricesList.get(i).getValueNote();
+							String price12 = Prices.get(1); // guest pre order
+							String arr[] = price12.split(" ");
+							int price2 = Integer.parseInt(arr[0]);
+
+							//***************************************
+
+							Refund=TotalHours*price2;
+							message.setObject2("The Refund in Money is: ");
+							message.setObject3(Refund);
+						}
+
+						if(order.getTypeOfOrder().equals("GuestOnSiteOrder"))
+						{
+							//***************************************
+
+							int i = order.getParkingLotId() - 1;
+							List<Prices> PricesList = getAll(Prices.class); // my prices is a list that includes all prices of all parking lots
+
+							List<String> Prices = PricesList.get(i).getValueNote();
+							String price12 = Prices.get(0); // guest on site
+							String arr[] = price12.split(" ");
+							int price1 = Integer.parseInt(arr[0]);
+
+							//***************************************
+
+							Refund=TotalHours*price1;
+							message.setObject2("The Refund in Money is: ");
+							message.setObject3(Refund);
+						}
+
+						if(order.getTypeOfOrder().equals("RegularSubscriberOrder"))
+						{
+							for(RegularSubscriber Subscriber : ListRegularSubscriber)
+							{
+								if(Subscriber.getId()==PersonId)
+								{
+									Subscriber.setRemainingHours(Subscriber.getRemainingHours()+TotalHours);
+									session.update(Subscriber);
+								}
+							}
+							message.setObject2("The Refund in Hours is: ");
+							message.setObject3(TotalHours);
+						}
+
+						if(order.getTypeOfOrder().equals("FullSubscriberOrder"))
+						{
+							for(FullSubscriber Subscriber : ListFullSubscriber)
+							{
+								if(Subscriber.getId()==PersonId)
+								{
+									Subscriber.setRemainingHours(Subscriber.getRemainingHours()+TotalHours);
+									session.update(Subscriber);
+								}
+							}
+							message.setObject2("The Refund in Hours is: ");
+							message.setObject3(TotalHours);
+						}
+						for (ParkingLot parkingLot:ListParkingLot)
+						{
+							if(parkingLot.getId()==order.getParkingLotId())
+							{
+								parkingLot.setNumberOfOrders(parkingLot.getNumberOfOrders()-1);
+								session.update(parkingLot);
+							}
+						}
+						/*int OrderId,String TypeOfOrder,int EnterHour, int EnterDay, int EnterMonth, int EnterYear
+						 , int ExitHour, int ExitDay
+						, int ExitMonth, int ExitYear,int ParkingLotId, int PersonId, String Password*/
+						CanceledOrder t=new CanceledOrder(order.getOrderId(),order.getTypeOfOrder(),order.getEnterHour(),order.getEnterDay()
+								,order.getEnterMonth(),order.getEnterYear(),order.getExitHour(),order.getExitDay(),order.getExitMonth(),order.getExitYear()
+								,order.getParkingLotId(),order.getPersonId(),order.getPassword());
+						session.save(t);
+						session.delete(order);
+					}
+				}
+			}
+
+			session.getTransaction().commit();
+			session.close();
+			try {
+				client.sendToClient(message);
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 
 //		*************************************************************************************
 //		3
@@ -604,8 +758,8 @@ public class SimpleServer extends AbstractServer {
 				NewOrder.setCarNumber(CarNumber);
 				NewOrder.setEmail(Email);
 
-				Car NewCar = new Car(CarNumber);
-				session.save(NewCar);
+				/*Car NewCar = new Car(CarNumber);
+				session.save(NewCar);*/
 
 				//NewOrder.setParkinglot(park1);
 
@@ -641,7 +795,209 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 		}
+		if (msgString.equals("#Reservation")){
 
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+
+			Message message = new Message("Reservation");
+			Message cpymsg = ((Message) msg);
+
+//***************************************
+
+			int i = Integer.parseInt(cpymsg.getObject9().toString()) - 1; // parking lot id object 1
+			List<Prices> PricesList = getAll(Prices.class); // my prices is a list that includes all prices of all parking lots
+
+			List<String> Prices = PricesList.get(i).getValueNote();
+			String price12 = Prices.get(1); // guest pre order
+			String arr[] = price12.split(" ");
+			int price2 = Integer.parseInt(arr[0]);
+
+//***************************************
+
+			String TypeOfOrder = "GuestPreOrder";
+
+			List<ParkingLot> ListParkingLots = getAll(ParkingLot.class);
+			List<Order> ListOrders = getAll(Order.class);
+
+			String EnterHourString = cpymsg.getObject1().toString();
+			int EnterHour=Integer.parseInt(EnterHourString);
+
+			String EnterDayString = cpymsg.getObject2().toString();
+			int EnterDay=Integer.parseInt(EnterDayString);
+
+			String EnterMonthString = cpymsg.getObject3().toString();
+			int EnterMonth=Integer.parseInt(EnterMonthString);
+
+			String EnterYearString = cpymsg.getObject4().toString();
+			int EnterYear=Integer.parseInt(EnterYearString);
+
+			String ExitHourString = cpymsg.getObject5().toString();
+			int ExitHour=Integer.parseInt(ExitHourString);
+
+			String ExitDayString = cpymsg.getObject6().toString();
+			int ExitDay=Integer.parseInt(ExitDayString);
+
+			String ExitMonthString = cpymsg.getObject7().toString();
+			int ExitMonth=Integer.parseInt(ExitMonthString);
+
+			String ExitYearString = cpymsg.getObject8().toString();
+			int ExitYear=Integer.parseInt(ExitYearString);
+
+			String ParkingLotIdString = cpymsg.getObject9().toString();
+			int ParkingLotId=Integer.parseInt(ParkingLotIdString);
+
+			String IDString = cpymsg.getObject10().toString();
+			int ID=Integer.parseInt(IDString);
+
+			String Password = cpymsg.getObject11().toString();
+
+			boolean OnSite = (boolean)cpymsg.getObject12();
+
+			String CarNumberString = cpymsg.getObject13().toString();
+			int CarNumber = Integer.parseInt(CarNumberString);
+
+			String Email = cpymsg.getObject14().toString();
+
+
+			int TotalHours = HoursBetweenDates(EnterHour,EnterDay,EnterMonth,EnterYear,ExitHour,ExitDay,ExitMonth,ExitYear);
+
+			int NumberOfOrdersInTheSameHours=0;
+			int MaxOrderId=0;
+			int Payment=0;
+			int FlagOrder=1;
+
+			ParkingLot park1 = null;
+
+			for (ParkingLot ParkingLot : ListParkingLots)
+			{
+				//Check which ParkingLot in ListParkingLot has the same Id
+				if(ParkingLot.getId()==ParkingLotId)
+				{
+					park1 = ParkingLot;
+					for(Order Order: ListOrders)
+					{
+						//go through all orders in same Parking Lot
+						if(Order.getParkingLotId() == ParkingLotId )
+						{
+							//check how many orders between the two dates
+							if(Order.getEnterYear() <= ExitYear && Order.getExitYear()>=EnterYear)
+							{
+								if(Order.getEnterMonth() <= ExitMonth && Order.getExitMonth()>=EnterMonth)
+								{
+									if(Order.getEnterDay() <= ExitDay && Order.getExitDay()>=EnterDay)
+									{
+										if(Order.getEnterHour() <= ExitHour && Order.getExitHour()>=EnterHour)
+										{
+											//sum all orders in same parking lot in same hours
+											NumberOfOrdersInTheSameHours++;
+										}
+									}
+								}
+							}
+						}
+					}
+
+					//check if there is empty space
+					if (ParkingLot.getCapacity() - ParkingLot.getNumberOfInactiveParkings() - NumberOfOrdersInTheSameHours > 0)
+					{
+						Payment = TotalHours * price2;
+
+						for(Order Order: ListOrders)
+						{
+							//go through all orders in same Parking Lot
+							if(Order.getOrderId() > MaxOrderId )
+							{
+								MaxOrderId = Order.getOrderId();
+							}
+						}
+						MaxOrderId++;
+						FlagOrder=1;
+					}
+					else
+					{
+						FlagOrder=0;
+					}
+				}
+			}
+
+			if (FlagOrder==0)
+			{
+				message.setObject1("The Parking Lot is Full, Please Choose Another Parking Lot");
+				System.out.println("The Parking Lot is Full, Please Choose Another Parking Lot");
+			}
+
+			if(FlagOrder==1)
+			{
+				Order NewOrder = new Order(MaxOrderId,TypeOfOrder,EnterHour,EnterDay,EnterMonth,EnterYear,ExitHour,ExitDay,ExitMonth,ExitYear,ParkingLotId,ID,Password);
+				Calendar cal = Calendar.getInstance();
+				cal.set(Calendar.YEAR, EnterYear);
+				cal.set(Calendar.MONTH, EnterMonth-1);
+				cal.set(Calendar.DAY_OF_MONTH, EnterDay);
+				cal.set(Calendar.HOUR_OF_DAY, EnterHour);
+				cal.set(Calendar.MINUTE, 0);
+				cal.set(Calendar.SECOND, 0);
+
+				Date date = cal.getTime();
+
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String dateString = formatter.format(date);
+				NewOrder.setEntryTime(dateString);
+				///////////////////////////////
+				Calendar cal1 = Calendar.getInstance();
+				cal1.set(Calendar.YEAR, ExitYear);
+				cal1.set(Calendar.MONTH, ExitMonth-1);
+				cal1.set(Calendar.DAY_OF_MONTH, ExitDay);
+				cal1.set(Calendar.HOUR_OF_DAY, ExitHour);
+				cal1.set(Calendar.MINUTE, 0);
+				cal1.set(Calendar.SECOND, 0);
+
+				Date date1 = cal1.getTime();
+				;
+				String dateString1 = formatter.format(date1);
+				NewOrder.setExitTime(dateString1);
+				NewOrder.setSubId(-1);
+
+				NewOrder.setCarNumber(CarNumber);
+				NewOrder.setEmail(Email);
+
+				/*Car NewCar = new Car(CarNumber);
+				session.save(NewCar);*/
+
+				//NewOrder.setParkinglot(park1);
+
+			/*	if(OnSite==true)
+					NewOrder.setAlreadyInParkingLot(true);
+				else
+					NewOrder.setAlreadyInParkingLot(false);
+*/
+				session.save(NewOrder);
+
+				message.setObject1("Your Order Confirmed");
+				message.setObject2(MaxOrderId);
+				message.setObject3(Payment);
+
+				for (ParkingLot ParkingLot:ListParkingLots)
+				{
+					if(ParkingLot.getId()==ParkingLotId)
+					{
+						ParkingLot.setNumberOfOrders(ParkingLot.getNumberOfOrders()+1);
+						session.update(ParkingLot);
+					}
+				}
+			}
+
+			session.getTransaction().commit();
+			session.close();
+			try
+			{
+				client.sendToClient(message);
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
 //		*************************************************************************************
 //		4
 //		*************************************************************************************
@@ -749,10 +1105,21 @@ public class SimpleServer extends AbstractServer {
 							}
 						}
 					}
-
-					//check if there is empty space
-					if (ParkingLot.getCapacity() - ParkingLot.getNumberOfInactiveParkings() - NumberOfOrdersInTheSameHours > 0)
+					int numberAlreadyParkingLot=0;
+					for (Order order1:ListOrders)
 					{
+						if(order1.getParkingLotId()==ParkingLotId)
+						{
+							if (order1.isAlreadyInParkingLot())
+							{
+								numberAlreadyParkingLot+=1;
+							}
+						}
+					}
+					//check if there is empty space
+					if (ParkingLot.getCapacity()- ParkingLot.getNumberOfInactiveParkings() - NumberOfOrdersInTheSameHours > 0 &&ParkingLot.getCapacity()- ParkingLot.getNumberOfInactiveParkings() - numberAlreadyParkingLot>0 )
+					{
+
 						for(Order Order: ListOrders)
 						{
 							//go through all orders in same Parking Lot
@@ -811,8 +1178,8 @@ public class SimpleServer extends AbstractServer {
 				NewOrder.setCarNumber(CarNumber);
 				NewOrder.setEmail(Email);
 
-				Car NewCar = new Car(CarNumber);
-				session.save(NewCar);
+			/*	Car NewCar = new Car(CarNumber);
+				session.save(NewCar);*/
 
 
 				//NewOrder.setParkinglot(park1);
@@ -848,7 +1215,232 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 		}
+		if (msgString.equals("#GuestOnSiteOrder_enter"))
+		{
 
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+
+			Message message = new Message("GuestOnSiteOrder_enter");
+			Message cpymsg = ((Message) msg);
+			System.out.println("Hour "+cpymsg.getObject1());
+			System.out.println("Day "+cpymsg.getObject2());
+			System.out.println("month "+cpymsg.getObject3());
+			System.out.println("year "+cpymsg.getObject4());
+			System.out.println("exit Hour "+cpymsg.getObject5());
+			System.out.println("exit day "+cpymsg.getObject6());
+			System.out.println("exit month "+cpymsg.getObject7());
+			System.out.println("exit year "+cpymsg.getObject8());
+			System.out.println("ParkLotIdMenu   "+cpymsg.getObject9());
+			System.out.println("ID   "+cpymsg.getObject10());
+			System.out.println("Password   "+cpymsg.getObject11());
+			System.out.println("ID   "+cpymsg.getObject12());
+			System.out.println("OnSite   "+cpymsg.getObject13());
+			System.out.println("CarNumber   "+cpymsg.getObject14());
+			System.out.println("email   "+cpymsg.getObject15());
+//***************************************
+
+			int i = Integer.parseInt(cpymsg.getObject9().toString()) - 1; // parking lot id object 1
+			List<Prices> PricesList = getAll(Prices.class); // my prices is a list that includes all prices of all parking lots
+
+			List<String> Prices = PricesList.get(i).getValueNote();
+			String price12 = Prices.get(0);
+			String arr[] = price12.split(" ");
+			int price1 = Integer.parseInt(arr[0]);
+
+//***************************************
+
+			String TypeOfOrder = "GuestOnSiteOrder";
+
+			List<ParkingLot> ListParkingLots = getAll(ParkingLot.class);
+			List<Order> ListOrders = getAll(Order.class);
+
+			String EnterHourString = cpymsg.getObject1().toString();
+			int EnterHour=Integer.parseInt(EnterHourString);
+
+			String EnterDayString = cpymsg.getObject2().toString();
+			int EnterDay=Integer.parseInt(EnterDayString);
+
+			String EnterMonthString = cpymsg.getObject3().toString();
+			int EnterMonth=Integer.parseInt(EnterMonthString);
+
+			String EnterYearString = cpymsg.getObject4().toString();
+			int EnterYear=Integer.parseInt(EnterYearString);
+
+			String ExitHourString = cpymsg.getObject5().toString();
+			int ExitHour=Integer.parseInt(ExitHourString);
+
+			String ExitDayString = cpymsg.getObject6().toString();
+			int ExitDay=Integer.parseInt(ExitDayString);
+
+			String ExitMonthString = cpymsg.getObject7().toString();
+			int ExitMonth=Integer.parseInt(ExitMonthString);
+
+			String ExitYearString = cpymsg.getObject8().toString();
+			int ExitYear=Integer.parseInt(ExitYearString);
+
+			String ParkingLotIdString = cpymsg.getObject9().toString();
+			int ParkingLotId=Integer.parseInt(ParkingLotIdString);
+
+			String IDString = cpymsg.getObject10().toString();
+			int ID=Integer.parseInt(IDString);
+
+			String Password = cpymsg.getObject11().toString();
+
+			boolean OnSite = (boolean)cpymsg.getObject12();
+
+			String CarNumberString = cpymsg.getObject13().toString();
+			int CarNumber = Integer.parseInt(CarNumberString);
+
+			String Email = cpymsg.getObject14().toString();
+
+			int TotalHours = HoursBetweenDates(EnterHour,EnterDay,EnterMonth,EnterYear,ExitHour,ExitDay,ExitMonth,ExitYear);
+
+			int NumberOfOrdersInTheSameHours=0;
+			int MaxOrderId=0;
+			int Payment=0;
+			int FlagOrder=0;
+
+			ParkingLot park1 = null;
+
+			for (ParkingLot ParkingLot : ListParkingLots)
+			{
+				//Check which ParkingLot in ListParkingLot has the same Id
+				if(ParkingLot.getId()==ParkingLotId)
+				{
+					park1 = ParkingLot;
+					for(Order Order: ListOrders)
+					{
+						//go through all orders in same Parking Lot
+						if(Order.getParkingLotId() == ParkingLotId )
+						{
+							//check how many orders between the two dates
+							if(Order.getEnterYear() <= ExitYear && Order.getExitYear()>=EnterYear)
+							{
+								if(Order.getEnterMonth() <= ExitMonth && Order.getExitMonth()>=EnterMonth)
+								{
+									if(Order.getEnterDay() <= ExitDay && Order.getExitDay()>=EnterDay)
+									{
+										if(Order.getEnterHour() <= ExitHour && Order.getExitHour()>=EnterHour)
+										{
+											//sum all orders in same parking lot in same hours
+											NumberOfOrdersInTheSameHours++;
+										}
+									}
+								}
+							}
+						}
+					}
+					int numberAlreadyParkingLot=0;
+					for (Order order1:ListOrders)
+					{
+						if(order1.getParkingLotId()==ParkingLotId)
+						{
+							if (order1.isAlreadyInParkingLot())
+							{
+								numberAlreadyParkingLot+=1;
+							}
+						}
+					}
+					//check if there is empty space
+					if (ParkingLot.getCapacity()- ParkingLot.getNumberOfInactiveParkings() - NumberOfOrdersInTheSameHours > 0 &&ParkingLot.getCapacity()- ParkingLot.getNumberOfInactiveParkings() - numberAlreadyParkingLot>0 )
+					{
+
+						for(Order Order: ListOrders)
+						{
+							//go through all orders in same Parking Lot
+							if(Order.getOrderId() > MaxOrderId )
+							{
+								MaxOrderId = Order.getOrderId();
+							}
+						}
+						FlagOrder=1;
+						Payment = TotalHours * price1;
+						MaxOrderId++;
+					}
+					else
+					{
+						FlagOrder=0;
+					}
+				}
+			}
+
+			if (FlagOrder==0)
+			{
+				message.setObject1("The Parking Lot is Full, Please Choose Another Parking Lot");
+			}
+
+			if(FlagOrder==1)
+			{
+				Order NewOrder = new Order(MaxOrderId,TypeOfOrder,EnterHour,EnterDay,EnterMonth,EnterYear,ExitHour,ExitDay,ExitMonth,ExitYear,ParkingLotId,ID,Password);
+				Calendar cal = Calendar.getInstance();
+				cal.set(Calendar.YEAR, EnterYear);
+				cal.set(Calendar.MONTH, EnterMonth-1);
+				cal.set(Calendar.DAY_OF_MONTH, EnterDay);
+				cal.set(Calendar.HOUR_OF_DAY, EnterHour);
+				cal.set(Calendar.MINUTE, 0);
+				cal.set(Calendar.SECOND, 0);
+
+				Date date = cal.getTime();
+
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String dateString = formatter.format(date);
+				NewOrder.setEntryTime(dateString);
+				///////////////////////////////
+				Calendar cal1 = Calendar.getInstance();
+				cal1.set(Calendar.YEAR, ExitYear);
+				cal1.set(Calendar.MONTH, ExitMonth-1);
+				cal1.set(Calendar.DAY_OF_MONTH, ExitDay);
+				cal1.set(Calendar.HOUR_OF_DAY, ExitHour);
+				cal1.set(Calendar.MINUTE, 0);
+				cal1.set(Calendar.SECOND, 0);
+
+				Date date1 = cal1.getTime();
+				;
+				String dateString1 = formatter.format(date1);
+				NewOrder.setExitTime(dateString1);
+				NewOrder.setSubId(-1);
+
+				NewOrder.setCarNumber(CarNumber);
+				NewOrder.setEmail(Email);
+
+			/*	Car NewCar = new Car(CarNumber);
+				session.save(NewCar);*/
+
+
+				//NewOrder.setParkinglot(park1);
+			/*	if(OnSite==true)
+					NewOrder.setAlreadyInParkingLot(true);
+				else
+					NewOrder.setAlreadyInParkingLot(false);
+*/
+				session.save(NewOrder);
+
+				message.setObject1("Your Order Confirmed");
+				message.setObject2(MaxOrderId);
+				message.setObject3(Payment);
+
+				for (ParkingLot ParkingLot : ListParkingLots)
+				{
+					//Check which ParkingLot in ListParkingLot has the same Id
+					if (ParkingLot.getId() == ParkingLotId) {
+						ParkingLot.setNumberOfOrders(ParkingLot.getNumberOfOrders()+1);
+						session.update(ParkingLot);
+					}
+				}
+			}
+
+			session.getTransaction().commit();
+			session.close();
+			try
+			{
+				client.sendToClient(message);
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
 //		*************************************************************************************
 //		5
 //		*************************************************************************************
@@ -1258,8 +1850,8 @@ public class SimpleServer extends AbstractServer {
 				NewOrder.setCarNumber(CarNumber);
 				NewOrder.setEmail(Email);
 
-				Car NewCar = new Car(CarNumber);
-				session.save(NewCar);
+			/*	Car NewCar = new Car(CarNumber);
+				session.save(NewCar);*/
 
 			/*	if(OnSite==true)
 					NewOrder.setAlreadyInParkingLot(true);
@@ -1397,9 +1989,53 @@ public class SimpleServer extends AbstractServer {
 									}
 								}
 							}
+/*		if(OnSite==true) {
+								int numberAlreadyParkingLot = 0;
+								for (Order order1 : ListOrders) {
 
+									if (order1.getParkingLotId() == ParkingLotId) {
+										if (order1.isAlreadyInParkingLot()) {
+											numberAlreadyParkingLot += 1;
+										}
+									}
+								}
+								if (ParkingLot.getCapacity() - ParkingLot.getNumberOfInactiveParkings() - numberAlreadyParkingLot > 0) {
+									FlagEmptySpot = 1;
+									//check if subscriber have enough hours
+									if (Subscriber.getRemainingHours() >= TotalHours) {
+										FlagRemainingHours = 1;
+										//go through all orders for this person and check if he got two orders in same day
+										for (Order Order : ListOrders) {
+											if (Order.getPersonId() == PersonID) {
+												if (Order.getEnterDay() == EnterDay) {
+													FlagDay = 0;
+												}
+											}
+										}
+									}
+								}
+							}*/
+							if(OnSite==true) {
+								int numberAlreadyParkingLot = 0;
+								for (Order order1 : ListOrders) {
+
+									if (order1.getParkingLotId() == ParkingLotId) {
+										if (order1.isAlreadyInParkingLot()) {
+											numberAlreadyParkingLot += 1;
+										}
+									}
+								}
+								if (ParkingLot.getCapacity()- ParkingLot.getNumberOfInactiveParkings() - NumberOfOrdersInTheSameHours > 0
+										&&ParkingLot.getCapacity()- ParkingLot.getNumberOfInactiveParkings() - numberAlreadyParkingLot>0 ) {
+									FlagEmptySpot = 1;
+									//check if subscriber have enough hours
+									if (Subscriber.getRemainingHours() >= TotalHours) {
+										FlagRemainingHours = 1;
+									}
+								}
+							}
 							//check if there's empty spots
-							if (ParkingLot.getCapacity() - ParkingLot.getNumberOfInactiveParkings() - NumberOfOrdersInTheSameHours > 0) {
+							else if (ParkingLot.getCapacity() - ParkingLot.getNumberOfInactiveParkings() - NumberOfOrdersInTheSameHours > 0) {
 								FlagEmptySpot = 1;
 								//check if subscriber have enough hours
 								if (Subscriber.getRemainingHours() >= TotalHours) {
@@ -1463,8 +2099,8 @@ public class SimpleServer extends AbstractServer {
 				NewOrder.setCarNumber(CarNumber);
 				NewOrder.setEmail(Email);
 
-				Car NewCar = new Car(CarNumber);
-				session.save(NewCar);
+			/*	Car NewCar = new Car(CarNumber);
+				session.save(NewCar);*/
 
 			/*	if(OnSite==true)
 					NewOrder.setAlreadyInParkingLot(true);
@@ -1511,7 +2147,7 @@ public class SimpleServer extends AbstractServer {
 
 			Message message = new Message("FullSubscriberOrder_enter");
 			Message cpymsg = ((Message) msg);
-
+			System.out.println(cpymsg.getObject14().toString());
 			String TypeOfOrder = "FullSubscriberOrder";
 
 			List<ParkingLot> ListParkingLots = getAll(ParkingLot.class);
@@ -1559,7 +2195,7 @@ public class SimpleServer extends AbstractServer {
 			int CarNumber = Integer.parseInt(CarNumberString);
 
 			String Email = cpymsg.getObject15().toString();
-
+			System.out.println(Email);
 			int TotalHours = HoursBetweenDates(EnterHour ,EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear);
 
 			int Payment=TotalHours;
@@ -1595,9 +2231,52 @@ public class SimpleServer extends AbstractServer {
 									}
 								}
 							}
+/*		if(OnSite==true) {
+								int numberAlreadyParkingLot = 0;
+								for (Order order1 : ListOrders) {
 
+									if (order1.getParkingLotId() == ParkingLotId) {
+										if (order1.isAlreadyInParkingLot()) {
+											numberAlreadyParkingLot += 1;
+										}
+									}
+								}
+								if (ParkingLot.getCapacity() - ParkingLot.getNumberOfInactiveParkings() - numberAlreadyParkingLot > 0) {
+									FlagEmptySpot = 1;
+									//check if subscriber have enough hours
+									if (Subscriber.getRemainingHours() >= TotalHours) {
+										FlagRemainingHours = 1;
+										//go through all orders for this person and check if he got two orders in same day
+										for (Order Order : ListOrders) {
+											if (Order.getPersonId() == PersonID) {
+												if (Order.getEnterDay() == EnterDay) {
+													FlagDay = 0;
+												}
+											}
+										}
+									}
+								}
+							}*/
+							if(OnSite==true) {
+								int numberAlreadyParkingLot = 0;
+								for (Order order1 : ListOrders) {
+
+									if (order1.getParkingLotId() == ParkingLotId) {
+										if (order1.isAlreadyInParkingLot()) {
+											numberAlreadyParkingLot += 1;
+										}
+									}
+								}
+								if (ParkingLot.getCapacity()- ParkingLot.getNumberOfInactiveParkings() - NumberOfOrdersInTheSameHours > 0 &&ParkingLot.getCapacity()- ParkingLot.getNumberOfInactiveParkings() - numberAlreadyParkingLot>0 ) {
+									FlagEmptySpot = 1;
+									//check if subscriber have enough hours
+									if (Subscriber.getRemainingHours() >= TotalHours) {
+										FlagRemainingHours = 1;
+									}
+								}
+							}
 							//check if there's empty spots
-							if (ParkingLot.getCapacity() - ParkingLot.getNumberOfInactiveParkings() - NumberOfOrdersInTheSameHours > 0) {
+							else if (ParkingLot.getCapacity() - ParkingLot.getNumberOfInactiveParkings() - NumberOfOrdersInTheSameHours > 0) {
 								FlagEmptySpot = 1;
 								//check if subscriber have enough hours
 								if (Subscriber.getRemainingHours() >= TotalHours) {
@@ -1628,6 +2307,7 @@ public class SimpleServer extends AbstractServer {
 
 				Order NewOrder = new Order(MaxOrderId, TypeOfOrder, EnterHour, EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear, ParkingLotId, PersonID, Password);
 				//NewOrder.setParkinglot(park1);
+				//////////////////////////////////////
 				Calendar cal = Calendar.getInstance();
 				cal.set(Calendar.YEAR, EnterYear);
 				cal.set(Calendar.MONTH, EnterMonth-1);
@@ -1654,13 +2334,14 @@ public class SimpleServer extends AbstractServer {
 				;
 				String dateString1 = formatter.format(date1);
 				NewOrder.setExitTime(dateString1);
+				///////////////////////////////
 				NewOrder.setSubId(PersonID);
 
 				NewOrder.setCarNumber(CarNumber);
 				NewOrder.setEmail(Email);
 
-				Car NewCar = new Car(CarNumber);
-				session.save(NewCar);
+				/*Car NewCar = new Car(CarNumber);
+				session.save(NewCar);*/
 
 			/*	if(OnSite==true)
 					NewOrder.setAlreadyInParkingLot(true);
@@ -2225,7 +2906,10 @@ public class SimpleServer extends AbstractServer {
 					session.save(p);
 					session.update(p);
 					message.setObject1("yes Chain Manager");
-
+					message.setObject10(p.getId());
+					message.setObject11(p.getFirstName());
+					message.setObject12(p.getLastName());
+					message.setObject13(p.getEmail());
 				}
 
 			}
@@ -2244,6 +2928,10 @@ public class SimpleServer extends AbstractServer {
 					session.update(p);
 					message.setObject1("yes parkinglotmanagers");
 					message.setObject2(p.getParkinglot().getId());
+					message.setObject5(p.getEmail());
+					message.setObject6(p.getFirstName());
+					message.setObject7(p.getLastName());
+					message.setObject8(p.getParkinglot().getId());
 				}
 			}
 
@@ -2264,6 +2952,12 @@ public class SimpleServer extends AbstractServer {
 					session.update(p);
 					message.setObject1("yes parkinglotemployee");
 					message.setObject2(p.getParkinglot().getId());
+					message.setObject5(p.getEmail());
+					message.setObject6(p.getFirstName());
+					message.setObject7(p.getLastName());
+					message.setObject8(p.getParkinglot().getId());
+
+
 				}
 			}
 			int l=0;
@@ -2758,6 +3452,7 @@ public class SimpleServer extends AbstractServer {
 			int idddd = (int) msg1.getObject3();
 			System.out.println(parkingLotId);
 			System.out.println(carNumber);
+			System.out.println(idddd);
 			boolean itshisorder = false;
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 			LocalDateTime now = LocalDateTime.now();
@@ -2808,13 +3503,17 @@ public class SimpleServer extends AbstractServer {
 //						}
 //					}
 					//in case he has an order but the parking lot is full as well
+					System.out.println("idddddddd        "+ idddd);
 					for (Order order : getAll(Order.class)) {
 						if (order.getCarNumber() == carNumber && order.getParkingLotId() == parkingLotId && order.getPersonId() == idddd) {
+							System.out.println("hello friend");
 							itshisorder = true;
 							break;
 						}
 					}
 					if (itshisorder == false) {
+						System.out.println("hello____ friend");
+
 						try {
 							client.sendToClient(new Message("#CarIdNoOrder"));
 						} catch (IOException e) {
@@ -3418,7 +4117,13 @@ public class SimpleServer extends AbstractServer {
 								e.printStackTrace();
 							}
 						}
+
 						else {
+							boolean T=false;
+							if (matrix3d[parkingLotRow][parkingLotCol][parkingLotDepth] ==2)
+							{
+								T=true;
+							}
 							matrix3d[parkingLotRow][parkingLotCol][parkingLotDepth] = 2;
 							int index2 = 0;  // Index into 1D array
 							for (int i = 0; i < rows; i++) {
@@ -3429,7 +4134,9 @@ public class SimpleServer extends AbstractServer {
 									}
 								}
 							}
-							parkingLot.setNumberOfInactiveParkings(parkingLot.getNumberOfInactiveParkings()+1);
+							if (T==false) {
+								parkingLot.setNumberOfInactiveParkings(parkingLot.getNumberOfInactiveParkings() + 1);
+							}
 							parkingLot.setMatrix(matrix1d);
 							session.update(parkingLot);
 							try {
@@ -3482,7 +4189,9 @@ public class SimpleServer extends AbstractServer {
 								}
 							}
 						}
+						boolean T=false;
 						if(matrix3d[parkingLotRow][parkingLotCol][parkingLotDepth] == 2){
+							T=true;
 							matrix3d[parkingLotRow][parkingLotCol][parkingLotDepth] = 0;
 						}
 						int index2 = 0;  // Index into 1D array
@@ -3495,7 +4204,9 @@ public class SimpleServer extends AbstractServer {
 							}
 						}
 						parkingLot.setMatrix(matrix1d);
-						parkingLot.setNumberOfInactiveParkings(parkingLot.getNumberOfInactiveParkings()-1);
+						if (T==true) {
+							parkingLot.setNumberOfInactiveParkings(parkingLot.getNumberOfInactiveParkings() - 1);
+						}
 						session.update(parkingLot);
 						try {
 							client.sendToClient(new Message("#ActiveSuccess"));
@@ -3568,7 +4279,7 @@ public class SimpleServer extends AbstractServer {
 			session.getTransaction().commit();
 			session.close();
 		}
-		if (msgString.equals("#CancelReservation")) {
+		/*if (msgString.equals("#CancelReservation")) {
 
 			session = sessionFactory.openSession();
 			session.beginTransaction();
@@ -3716,13 +4427,13 @@ public class SimpleServer extends AbstractServer {
 			}
 
 
-		}
+		}*/
 
 //		*************************************************************************************
 //		3
 //		*************************************************************************************
 
-		if (msgString.equals("#Reservation")) {
+		/*if (msgString.equals("#Reservation")) {
 
 			session = sessionFactory.openSession();
 			session.beginTransaction();
@@ -3904,7 +4615,7 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
+		}*/
 		//		*************************************************************************************
 //		*************************************************************************************
 		if (msgString.equals("#newsubscribe")) {
@@ -3969,7 +4680,7 @@ public class SimpleServer extends AbstractServer {
 			session.close();
 		}
 
-		if (msgString.startsWith("newCompliain")) {
+		/*if (msgString.startsWith("newCompliain")) {
 
 			String[] a = msgString.split("\\^");
 			Complaint c = new Complaint(a[1], Integer.parseInt(a[2]), 1);
@@ -3980,9 +4691,69 @@ public class SimpleServer extends AbstractServer {
 			session.getTransaction().commit();
 			session.close();
 
+		}*/
+		if (msgString.startsWith("newCompliain")) {
+
+			String[] a = msgString.split("\\^");
+			Complaint c = new Complaint(a[1], Integer.parseInt(((Message) msg).getObject1().toString()) ,Integer.parseInt(a[2]));
+			session = sessionFactory.openSession();
+//			if (!session.isConnected() || session == null)
+			session.beginTransaction();
+			session.flush();
+			session.save(c);
+			client.sendToClient(new Message("add compliant succ", c.getId()));
+			session.getTransaction().commit();
+			session.close();
+
+		}
+		if (((Message) msg).getMessage().startsWith("Gussetbring")) {
+
+			session = sessionFactory.openSession();
+			if (!session.isConnected() || session == null)
+				session.beginTransaction();
+			String[] a = msgString.split("\\^");
+			List<Complaint> c = getAll(Complaint.class);
+			List<Complaint> complaints = new ArrayList<Complaint>();
+
+			for (Complaint e : c) {
+				if (e.getId() == Integer.parseInt(a[1])) {
+					complaints.add(e);
+					System.out.println(e);
+				}
+			}
+			try {
+				client.sendToClient(new Message("complaints", complaints));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			session.getTransaction().commit();
+			session.close();
+		}
+		if (((Message) msg).getMessage().startsWith("bring")) {
+
+			session = sessionFactory.openSession();
+			if (!session.isConnected() || session == null)
+				session.beginTransaction();
+			String[] a = msgString.split("\\^");
+			List<Complaint> c = getAll(Complaint.class);
+			List<Complaint> complaints = new ArrayList<Complaint>();
+
+			for (Complaint e : c) {
+				if (e.getUserId() == Integer.parseInt(a[1])) {
+					complaints.add(e);
+					System.out.println(e);
+				}
+			}
+			try {
+				client.sendToClient(new Message("complaints", complaints));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			session.getTransaction().commit();
+			session.close();
 		}
 
-		if (((Message) msg).getMessage().startsWith("bring")) {
+	/*	if (((Message) msg).getMessage().startsWith("bring")) {
 
 			session = sessionFactory.openSession();
 			session.beginTransaction();
@@ -4003,7 +4774,7 @@ public class SimpleServer extends AbstractServer {
 			}
 			session.getTransaction().commit();
 			session.close();
-		}
+		}*/
 
 		if (((Message) msg).getMessage().startsWith("#response")) {
 			session = sessionFactory.openSession();

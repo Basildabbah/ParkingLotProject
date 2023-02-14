@@ -168,7 +168,7 @@ public class CurrentPicture2Controller {
         BufferedImage bImage = SwingFXUtils.fromFXImage(wi, null);
         try {
             Calendar cal = Calendar.getInstance();
-            String fileName = "Status_" + + CurparkChainmanager.plid + "/" +
+            String fileName = "Status" + "PL_"+ CurparkChainmanager.plid + "," +
                     cal.get(Calendar.YEAR) + "-" +
                     cal.get(Calendar.MONTH) + "-" +
                     cal.get(Calendar.DAY_OF_MONTH)+ "-" +
@@ -178,7 +178,7 @@ public class CurrentPicture2Controller {
             File currentDirectory = new File(System.getProperty("user.dir"));
             File parentDirectory = currentDirectory.getParentFile();
             System.out.println(currentDirectory);
-            FileOutputStream fos = new FileOutputStream(parentDirectory + "\\\\PLstatus\\\\" + fileName);
+            FileOutputStream fos = new FileOutputStream(currentDirectory + "\\\\PLstatus\\\\" + fileName);
             Document document = new Document();
             PdfWriter.getInstance(document, fos);
             document.open();

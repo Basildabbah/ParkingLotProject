@@ -34,6 +34,10 @@ public class SimpleClient extends AbstractClient {
 		if(((Message) msg).getMessage().equals("GuestOnSiteOrder")) {
 			EventBus.getDefault().post(new GuestOnSiteOrderEvent(message));
 		}
+		if(((Message) msg).getMessage().equals("GuestOnSiteOrder_enter")) {
+			System.out.println("asdfghjk");
+			EventBus.getDefault().post(new GuestOnSiteOrderEvent(message));
+		}
 		if(((Message) msg).getMessage().equals("RegularSubscriberOrder")) {
 			EventBus.getDefault().post(new RegularSubscriberOrderEvent(message));
 		}

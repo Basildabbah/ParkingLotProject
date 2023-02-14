@@ -2,6 +2,8 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,7 +14,7 @@
    <children>
       <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #7293ab;" AnchorPane.bottomAnchor="216.0" AnchorPane.topAnchor="90.0">
          <children>
-            <AnchorPane prefHeight="591.0" prefWidth="859.0" AnchorPane.bottomAnchor="216.0" AnchorPane.leftAnchor="52.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane layoutX="-65.0" prefHeight="591.0" prefWidth="859.0" AnchorPane.bottomAnchor="216.0" AnchorPane.leftAnchor="-65.0" AnchorPane.rightAnchor="187.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Label layoutX="338.0" layoutY="144.0" prefHeight="46.0" prefWidth="108.0" text="Old Prices" textFill="#ffe300" visible="false">
                      <font>
@@ -72,12 +74,12 @@
                         <Font name="System Italic" size="12.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="Row" layoutX="476.0" layoutY="220.0" onAction="#Rowtxt" promptText="Enter Row Number (0-2)" AnchorPane.leftAnchor="471.0" AnchorPane.rightAnchor="235.0">
+                  <TextField fx:id="Row" layoutX="476.0" layoutY="220.0" onAction="#Rowtxt" promptText="Enter Row Number (0-2)" visible="false" AnchorPane.leftAnchor="471.0" AnchorPane.rightAnchor="235.0">
                      <font>
                         <Font name="System Italic" size="12.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="Depth" layoutX="476.0" layoutY="322.0" onAction="#Depthtxt" promptText="Enter Depth Number (0-2)" AnchorPane.leftAnchor="471.0" AnchorPane.rightAnchor="235.0">
+                  <TextField fx:id="Depth" layoutX="476.0" layoutY="322.0" onAction="#Depthtxt" promptText="Enter Depth Number (0-2)" visible="false" AnchorPane.leftAnchor="471.0" AnchorPane.rightAnchor="235.0">
                      <font>
                         <Font name="System Italic" size="12.0" />
                      </font>
@@ -129,6 +131,20 @@
                         </Button>
                      </children>
                   </AnchorPane>
+                  <MenuButton fx:id="ParkLotIdMenu" layoutX="471.0" layoutY="220.0" mnemonicParsing="false" text="Select Row Number">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#setMenuPriceParkID0" text="0" />
+                        <MenuItem mnemonicParsing="false" onAction="#setMenuPriceParkID1" text="1" />
+                        <MenuItem mnemonicParsing="false" onAction="#setMenuPriceParkID2" text="2" />
+                     </items>
+                  </MenuButton>
+                  <MenuButton fx:id="ParkLotIdMenu1" layoutX="479.0" layoutY="323.0" mnemonicParsing="false" text="Select Depth Number">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#setMenuPriceParkID00" text="0" />
+                        <MenuItem mnemonicParsing="false" onAction="#setMenuPriceParkID11" text="1" />
+                        <MenuItem mnemonicParsing="false" onAction="#setMenuPriceParkID22" text="2" />
+                     </items>
+                  </MenuButton>
                </children>
             </AnchorPane>
          </children>

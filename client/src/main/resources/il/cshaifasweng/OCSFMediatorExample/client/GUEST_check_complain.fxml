@@ -230,7 +230,10 @@
                                     <Font name="System Bold" size="30.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="31.0" layoutY="116.0" prefHeight="18.0" prefWidth="94.0" text="User Id:" />
+                              <Label layoutX="31.0" layoutY="116.0" prefHeight="18.0" prefWidth="94.0" text="Complain ID:">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Label>
                               <Button fx:id="bring" layoutX="112.0" layoutY="388.0" mnemonicParsing="false" onAction="#bring" prefHeight="26.0" prefWidth="211.0" style="-fx-background-color: #7272cb;" text="Bring">
                                  <effect>
                                     <Blend mode="RED">
