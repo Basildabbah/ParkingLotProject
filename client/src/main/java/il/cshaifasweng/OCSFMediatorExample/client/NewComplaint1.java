@@ -133,13 +133,12 @@ public class NewComplaint1 {
             );
             alert.show();
         }
-        else {
         try {
 
             SimpleClient.getClient().sendToServer(new Message("newCompliain^"+textC.getText()+"^" +idd,parking_id.getText(),0));
         } catch (IOException e) {
             e.printStackTrace();
-        }}
+        }
     }
 
     @FXML
@@ -212,7 +211,7 @@ public class NewComplaint1 {
 
     @FXML
     void Back(ActionEvent event) throws IOException {
-        App.setRoot("subscribeboundry");
+    App.setRoot("subscribeboundry");
     }
 
 
@@ -226,7 +225,7 @@ public class NewComplaint1 {
     public void onEvent(NewComplaintEvent e){
         Platform.runLater(()-> {
             complainnum.setText(complainnum.getText()+" "+e.getWarning().getObject1().toString());
-            complainnum.setVisible(true);
+             complainnum.setVisible(true);
 
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION,

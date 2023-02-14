@@ -21,6 +21,8 @@ public class Complaint implements Serializable {
 
     private String response;
 
+    private LocalDateTime date;
+
     private int parkingLotId;
 
     private String status;
