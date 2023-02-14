@@ -19,8 +19,8 @@
 <?import javafx.scene.text.Font?>
 
 <SplitPane dividerPositions="0.1724759615384615" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.GUEST_send_complain">
-  <items>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="750.0" prefWidth="341.0" style="-fx-background-color: #517188;">
+   <items>
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="750.0" prefWidth="341.0" style="-fx-background-color: #517188;">
          <children>
             <Label alignment="CENTER" layoutX="-15.0" layoutY="65.0" prefHeight="62.0" prefWidth="199.0" text="Parking Lots" textFill="#991010" wrapText="true">
                <font>
@@ -136,11 +136,11 @@
                </effect>
             </Button>
          </children></AnchorPane>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="750.0" prefWidth="634.0" style="-fx-background-color:#7293ab;">
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="750.0" prefWidth="634.0" style="-fx-background-color:#7293ab;">
          <children>
             <SplitPane dividerPositions="0.16452991452991453" orientation="VERTICAL" prefHeight="750.0" prefWidth="823.0">
-              <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="133.0" prefWidth="822.0" style="-fx-background-color: #517188;">
+               <items>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="133.0" prefWidth="822.0" style="-fx-background-color: #517188;">
                      <children>
                         <ButtonBar layoutX="14.0" layoutY="46.0" prefHeight="40.0" prefWidth="737.0">
                            <buttons>
@@ -222,7 +222,7 @@
                            </buttons>
                         </ButtonBar>
                      </children></AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="457.0" prefWidth="822.0" style="-fx-background-color:#7293ab;">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="457.0" prefWidth="822.0" style="-fx-background-color:#7293ab;">
                      <children>
                         <AnchorPane layoutX="97.0" layoutY="44.0" prefHeight="496.0" prefWidth="578.0" style="-fx-background-color: white;">
                            <children>
@@ -243,14 +243,14 @@
                               </Button>
                               <Label layoutX="21.0" layoutY="178.0" prefHeight="18.0" prefWidth="94.0" />
                               <TextField fx:id="Date111" layoutX="68.0" layoutY="424.0" promptText="Type Date:" visible="false" />
-                              <TextField fx:id="id" layoutX="228.0" layoutY="111.0" prefHeight="26.0" prefWidth="148.0" promptText="Type Your ID" text="-1" />
+                              <TextField fx:id="id" layoutX="228.0" layoutY="99.0" prefHeight="26.0" prefWidth="148.0" promptText="Type Your ID" />
                               <TextField fx:id="parkingid" layoutX="291.0" layoutY="99.0" promptText="parkingId" visible="false" />
-                              <TextArea fx:id="textC" layoutX="183.0" layoutY="224.0" prefHeight="177.0" prefWidth="314.0" promptText="Type Your Complain Text" text="&#10;&#10;&#10;&#10;">
+                              <TextArea fx:id="textC" layoutX="183.0" layoutY="224.0" prefHeight="177.0" prefWidth="314.0" promptText="Type Your Complain Text">
                                  <font>
                                     <Font size="14.0" />
                                  </font></TextArea>
                               <Label fx:id="complainnum" layoutX="107.0" layoutY="384.0" text="Your Complain Number is:" textFill="#10f700" visible="false" />
-                              <SplitMenuButton fx:id="parking_id" layoutX="229.0" layoutY="174.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" text="Choose ParkLot Id">
+                              <SplitMenuButton fx:id="parking_id" layoutX="229.0" layoutY="183.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" text="Choose ParkLot Id">
                                  <items>
                                     <MenuItem fx:id="park1" mnemonicParsing="false" onAction="#park1" text="Park 1" />
                                     <MenuItem fx:id="park2" mnemonicParsing="false" onAction="#park2" text="Park 2" />
@@ -271,22 +271,28 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="25.0" layoutY="178.0" prefHeight="18.0" prefWidth="163.0" text="ParkLot Id">
+                              <Label layoutX="25.0" layoutY="187.0" prefHeight="18.0" prefWidth="163.0" text="ParkLot Id:">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="25.0" layoutY="115.0" prefHeight="18.0" prefWidth="163.0" text="USER ID:">
+                              <Label layoutX="25.0" layoutY="103.0" prefHeight="18.0" prefWidth="163.0" text="User ID:">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
+                              <Label layoutX="25.0" layoutY="145.0" prefHeight="18.0" prefWidth="163.0" text="password:">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="password_Complain" layoutX="227.0" layoutY="142.0" promptText="your password for order" />
                            </children>
                         </AnchorPane>
                      </children></AnchorPane>
-              </items>
+               </items>
             </SplitPane>
          </children>
       </AnchorPane>
-  </items>
+   </items>
 </SplitPane>

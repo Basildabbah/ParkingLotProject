@@ -129,10 +129,12 @@ public class GUEST_send_complain {
     private CheckBox OnSite;
     @FXML
     private Label enterlabel;
+    @FXML
+    private TextField password_Complain;
 
     @FXML
     void GUEST_enter_park(ActionEvent event) throws IOException {
-            App.setRoot("GUEST_enterparkinglot");
+        App.setRoot("GUEST_enterparkinglot");
     }
     @FXML
     void GUEST_exit_park(ActionEvent event) throws IOException {
@@ -179,12 +181,25 @@ public class GUEST_send_complain {
 
     @FXML
     void send(ActionEvent event) {
+        if (id.getText().isEmpty()  || password_Complain.getText().isEmpty())
+        {
+            Alert alert = new Alert(Alert.AlertType.WARNING,
+                    String.format("you have to fill all the fileds")
+            );
+            alert.show();
+        }
+      else   if(textC.getText().length()<5){
+            Alert alert = new Alert(Alert.AlertType.WARNING,
+                    String.format("you have to fill at least 5 letters")
+            );
+            alert.show();
+        }
+        else {
         try {
-
-            SimpleClient.getClient().sendToServer(new Message("newCompliain^"+textC.getText()+"^" +id.getText(),parking_id.getText()));
+            SimpleClient.getClient().sendToServer(new Message("newCompliain^"+textC.getText()+"^" +id.getText(),parking_id.getText(),1,password_Complain.getText()));
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }}
     }
     @FXML
     void initialize() {
@@ -242,21 +257,29 @@ public class GUEST_send_complain {
     @Subscribe
     public void onEvent(NewComplaintEvent e){
         Platform.runLater(()-> {
-            complainnum.setText(complainnum.getText()+" "+e.getWarning().getObject1().toString());
-            complainnum.setVisible(true);
+            if (Integer.parseInt(e.getWarning().getObject1().toString()) == -1) {
+                Alert alert = new Alert(Alert.AlertType.ERROR,
+                        String.format("the password not exist")
+                );
+                alert.show();
+            } else{
+                complainnum.setText(complainnum.getText() + " " + e.getWarning().getObject1().toString());
+                complainnum.setVisible(true);
 
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION,
-                    String.format("Your Complain Number is: %s\nTimestamp: %s\n",
-                            e.getWarning().getObject1(),
-                            e.getWarning().getTime().toString())
-            );
-            alert.show();
-            try {
-                App.setRoot("home");
-            } catch (IOException ex) {
-                ex.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION,
+                        String.format("Your Complain Number is: %s\nTimestamp: %s\n",
+                                e.getWarning().getObject1(),
+                                e.getWarning().getTime().toString())
+                );
+                alert.show();
+                try {
+                    App.setRoot("home");
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
+
     }
 }

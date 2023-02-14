@@ -1,9 +1,11 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
 import lombok.Data;
+import net.bytebuddy.asm.Advice;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -26,14 +28,15 @@ public class Complaint implements Serializable {
     private double refund;
 
     private int userId;
+    private LocalDateTime date;
 
     public Complaint() {
     }
-
     public Complaint(String complaintMessage,int parkingLotId , int userid) {
         this.complaintMessage = complaintMessage;
         this.parkingLotId = parkingLotId;
         this.status = "no response yet";
         this.userId = userid;
+        this.date=LocalDateTime.now();
     }
 }

@@ -1249,60 +1249,47 @@ public class SimpleServer extends AbstractServer {
 			int price1 = Integer.parseInt(arr[0]);
 
 //***************************************
-
 			String TypeOfOrder = "GuestOnSiteOrder";
-
 			List<ParkingLot> ListParkingLots = getAll(ParkingLot.class);
 			List<Order> ListOrders = getAll(Order.class);
-
 			String EnterHourString = cpymsg.getObject1().toString();
 			int EnterHour=Integer.parseInt(EnterHourString);
-
 			String EnterDayString = cpymsg.getObject2().toString();
 			int EnterDay=Integer.parseInt(EnterDayString);
-
 			String EnterMonthString = cpymsg.getObject3().toString();
 			int EnterMonth=Integer.parseInt(EnterMonthString);
-
 			String EnterYearString = cpymsg.getObject4().toString();
 			int EnterYear=Integer.parseInt(EnterYearString);
-
 			String ExitHourString = cpymsg.getObject5().toString();
 			int ExitHour=Integer.parseInt(ExitHourString);
-
 			String ExitDayString = cpymsg.getObject6().toString();
 			int ExitDay=Integer.parseInt(ExitDayString);
-
 			String ExitMonthString = cpymsg.getObject7().toString();
 			int ExitMonth=Integer.parseInt(ExitMonthString);
-
 			String ExitYearString = cpymsg.getObject8().toString();
 			int ExitYear=Integer.parseInt(ExitYearString);
-
 			String ParkingLotIdString = cpymsg.getObject9().toString();
 			int ParkingLotId=Integer.parseInt(ParkingLotIdString);
-
 			String IDString = cpymsg.getObject10().toString();
 			int ID=Integer.parseInt(IDString);
-
 			String Password = cpymsg.getObject11().toString();
-
-			boolean OnSite = (boolean)cpymsg.getObject12();
-
-			String CarNumberString = cpymsg.getObject13().toString();
+			//boolean OnSite = (boolean)cpymsg.getObject12();
+			System.out.println("13");
+			String CarNumberString = cpymsg.getObject14().toString();
+			System.out.println("13.5");
+			System.out.println(CarNumberString);
 			int CarNumber = Integer.parseInt(CarNumberString);
-
-			String Email = cpymsg.getObject14().toString();
+			System.out.println("14");
+			String Email = cpymsg.getObject15().toString();
 
 			int TotalHours = HoursBetweenDates(EnterHour,EnterDay,EnterMonth,EnterYear,ExitHour,ExitDay,ExitMonth,ExitYear);
-
+			System.out.println("15");
 			int NumberOfOrdersInTheSameHours=0;
 			int MaxOrderId=0;
 			int Payment=0;
 			int FlagOrder=0;
-
+			System.out.println("16");
 			ParkingLot park1 = null;
-
 			for (ParkingLot ParkingLot : ListParkingLots)
 			{
 				//Check which ParkingLot in ListParkingLot has the same Id
@@ -4693,15 +4680,42 @@ public class SimpleServer extends AbstractServer {
 
 		}*/
 		if (msgString.startsWith("newCompliain")) {
-
-			String[] a = msgString.split("\\^");
-			Complaint c = new Complaint(a[1], Integer.parseInt(((Message) msg).getObject1().toString()) ,Integer.parseInt(a[2]));
+			Message msg2=((Message) msg);
 			session = sessionFactory.openSession();
-//			if (!session.isConnected() || session == null)
 			session.beginTransaction();
-			session.flush();
-			session.save(c);
-			client.sendToClient(new Message("add compliant succ", c.getId()));
+			int flag=1;
+			System.out.println("here");
+			if(Integer.parseInt(msg2.getObject2().toString())==1){
+				System.out.println("here1");
+				List<Order> orders=getAll(Order.class);
+				System.out.println("here2");
+				for(Order o1:orders)
+				{
+					System.out.println(flag);
+					if(o1.getPassword()!=null && o1.getPassword().equals(msg2.getObject3().toString())){
+						flag=0;
+						System.out.println("find password");
+					}
+				}
+				if(flag==1)
+				{
+					System.out.println("pass not found");
+					flag=0;
+					client.sendToClient(new Message("add compliant succ",-1));
+				}
+				else
+					flag=1;
+			}
+			if (flag==1) {
+				String[] a = msgString.split("\\^");
+				Complaint c = new Complaint(a[1], Integer.parseInt(msg2.getObject1().toString()), Integer.parseInt(a[2]));
+
+				session.flush();
+				session.save(c);
+
+				client.sendToClient(new Message("add compliant succ", c.getId()));
+
+			}
 			session.getTransaction().commit();
 			session.close();
 

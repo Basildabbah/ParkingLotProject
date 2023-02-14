@@ -84,7 +84,9 @@ public class GUEST_enterparkinglot {
                 int Year = Date4.getYear();
             System.out.println("date1.after(new Date()");
                 boolean OnSite = true;
-                Message m = new Message("#GuestOnSiteOrder_enter", Hour, Day, Month, Year, ExitHour.getText(), ExitDay.getText(), ExitMonth.getText(), ExitYear.getText(), ParkLotIdMenu.getText(), ID.getText(), Password.getText(), ID.getText(), OnSite, CarNumber.getText(), Email.getText());
+                Message m = new Message("#GuestOnSiteOrder_enter", Hour, Day, Month, Year, ExitHour.getText(), ExitDay.getText(),
+                        ExitMonth.getText(), ExitYear.getText(), ParkLotIdMenu.getText(), ID.getText(), Password.getText(), ID.getText(),
+                        OnSite, CarNumber.getText(), Email.getText());
 
                 try {
                     SimpleClient.getClient().sendToServer(m);
