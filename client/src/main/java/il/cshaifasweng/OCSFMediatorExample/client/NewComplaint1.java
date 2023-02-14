@@ -129,7 +129,7 @@ public class NewComplaint1 {
     void send(ActionEvent event) {
         try {
 
-            SimpleClient.getClient().sendToServer(new Message("newCompliain^"+textC.getText()+"^" +idd,parking_id.getText()));
+            SimpleClient.getClient().sendToServer(new Message("newCompliain^"+textC.getText()+"^" +idd,parking_id.getText(),0));
         } catch (IOException e) {
             e.printStackTrace();
         }

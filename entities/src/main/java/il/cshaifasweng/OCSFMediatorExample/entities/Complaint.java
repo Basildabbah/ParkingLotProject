@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -18,6 +19,8 @@ public class Complaint implements Serializable {
     private String complaintMessage;
 
     private String response;
+
+    private LocalDateTime date;
 
     private int parkingLotId;
 
@@ -35,5 +38,6 @@ public class Complaint implements Serializable {
         this.parkingLotId = parkingLotId;
         this.status = "no response yet";
         this.userId = userid;
+        this.date=LocalDateTime.now();
     }
 }

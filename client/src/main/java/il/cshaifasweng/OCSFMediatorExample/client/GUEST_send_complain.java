@@ -129,6 +129,8 @@ public class GUEST_send_complain {
     private CheckBox OnSite;
     @FXML
     private Label enterlabel;
+    @FXML
+    private TextField password_Complain;
 
     @FXML
     void GUEST_enter_park(ActionEvent event) {
@@ -180,9 +182,15 @@ public class GUEST_send_complain {
 
     @FXML
     void send(ActionEvent event) {
+        if (id.getText().isEmpty()  || password_Complain.getText().isEmpty())
+        {
+            Alert alert = new Alert(Alert.AlertType.WARNING,
+                    String.format("you have to fill all the fileds")
+            );
+            alert.show();
+        }
         try {
-
-            SimpleClient.getClient().sendToServer(new Message("newCompliain^"+textC.getText()+"^" +id.getText(),parking_id.getText()));
+            SimpleClient.getClient().sendToServer(new Message("newCompliain^"+textC.getText()+"^" +id.getText(),parking_id.getText(),1,password_Complain.getText()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -243,7 +251,13 @@ public class GUEST_send_complain {
     @Subscribe
     public void onEvent(NewComplaintEvent e){
         Platform.runLater(()-> {
-            complainnum.setText(complainnum.getText()+" "+e.getWarning().getObject1().toString());
+            if (Integer.parseInt(e.getWarning().getObject1().toString()) == -1) {
+                Alert alert = new Alert(Alert.AlertType.ERROR,
+                        String.format("the password not exist")
+                );
+                alert.show();
+            } else{
+                complainnum.setText(complainnum.getText() + " " + e.getWarning().getObject1().toString());
             complainnum.setVisible(true);
 
 
@@ -258,6 +272,8 @@ public class GUEST_send_complain {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
+        }
         });
+
     }
 }

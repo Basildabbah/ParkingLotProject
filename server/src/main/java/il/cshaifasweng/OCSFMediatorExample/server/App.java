@@ -21,6 +21,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
 import java.io.IOException;
+import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -152,6 +153,8 @@ public class App
         String threeMinutesFromNowString = threeMinutesFromNow.format(formatter);
 
         Order order = new Order(10 , parkingLot1 , oneMinutesFromNowString , threeMinutesFromNowString, "a@homtail.com" , 149);
+        Order order2 =new Order(11,"aa",12,12,12,12,12,12,12,12,7,11,"123");
+        session.save(order2);
         session.save(order);
 
 
@@ -339,6 +342,8 @@ public class App
         session.beginTransaction();
         List<Order> x=getAll(Order.class);
         LocalDateTime t=LocalDateTime.now();
+        Time x1=new Time(4,5,6);
+
         for (Order xi:x) {
             if (xi.getSubId() == 0 && !xi.isAlreadyInParkingLot() && xi.getEnterHour() == t.getHour() && xi.getEnterYear() == t.getYear() && xi.getEnterDay() == t.getDayOfMonth() && xi.getEnterMonth() == t.getMonthValue())
                 SendEmail.SendEmail(xi.getEmail(), "Customer didn't arrive! ", "hello, we would like to alert you that you have ordered a parking spot from hour:  " + xi.getEnterHour() + " to hour:  " + xi.getExitHour() + " ,the order will be cancelled if you didnt arrive in 30 minutes! Thank you ");
