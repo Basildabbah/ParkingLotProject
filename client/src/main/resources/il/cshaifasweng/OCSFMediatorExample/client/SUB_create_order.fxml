@@ -52,18 +52,18 @@
             <TextField fx:id="CarNumber" layoutX="99.0" layoutY="233.0" prefHeight="26.0" prefWidth="199.0" promptText="Car Number" visible="false" />
             <Label layoutX="31.0" layoutY="237.0" prefHeight="18.0" prefWidth="94.0" text="Car Number:" />
             <Label layoutX="31.0" layoutY="272.0" prefHeight="18.0" prefWidth="94.0" text="Type:" visible="false" />
-            <TextField fx:id="EnterHour" layoutX="70.0" layoutY="299.0" prefHeight="26.0" prefWidth="60.0" promptText="HH" />
-            <TextField fx:id="EnterMonth" layoutX="192.0" layoutY="299.0" prefHeight="26.0" prefWidth="52.0" promptText="MM" />
-            <TextField fx:id="EnterYear" layoutX="255.0" layoutY="299.0" prefHeight="26.0" prefWidth="52.0" promptText="Year" />
-            <TextField fx:id="ExitHour" layoutX="68.0" layoutY="336.0" prefHeight="26.0" prefWidth="62.0" promptText="HH" />
-            <TextField fx:id="ExitDay" layoutX="139.0" layoutY="336.0" prefHeight="26.0" prefWidth="42.0" promptText="Day" />
-            <TextField fx:id="ExitMonth" layoutX="191.0" layoutY="336.0" prefHeight="26.0" prefWidth="53.0" promptText="MM" />
-            <TextField fx:id="ExitYear" layoutX="256.0" layoutY="336.0" prefHeight="26.0" prefWidth="50.0" promptText="Year" />
+            <TextField fx:id="EnterHour" layoutX="107.0" layoutY="299.0" prefHeight="26.0" prefWidth="60.0" promptText="HH" />
+            <TextField fx:id="EnterMonth" layoutX="224.0" layoutY="299.0" prefHeight="26.0" prefWidth="52.0" promptText="MM" />
+            <TextField fx:id="EnterYear" layoutX="287.0" layoutY="299.0" prefHeight="26.0" prefWidth="52.0" promptText="Year" />
+            <TextField fx:id="ExitHour" layoutX="106.0" layoutY="336.0" prefHeight="26.0" prefWidth="62.0" promptText="HH" />
+            <TextField fx:id="ExitDay" layoutX="174.0" layoutY="336.0" prefHeight="26.0" prefWidth="42.0" promptText="Day" />
+            <TextField fx:id="ExitMonth" layoutX="223.0" layoutY="336.0" prefHeight="26.0" prefWidth="53.0" promptText="MM" />
+            <TextField fx:id="ExitYear" layoutX="288.0" layoutY="336.0" prefHeight="26.0" prefWidth="50.0" promptText="Year" />
             <CheckBox fx:id="preorder" layoutX="90.0" layoutY="272.0" mnemonicParsing="false" text="PreOrder" visible="false" />
             <CheckBox fx:id="OnSite" layoutX="199.0" layoutY="272.0" mnemonicParsing="false" onAction="#onsitecheck" text="OnSite" visible="false" />
-            <Label fx:id="enterlabel" layoutX="31.0" layoutY="303.0" prefHeight="18.0" prefWidth="34.0" text="Enter:" />
-            <Label layoutX="31.0" layoutY="340.0" prefHeight="18.0" prefWidth="27.0" text="Exit:" />
-            <TextField fx:id="EnterDay" layoutX="139.0" layoutY="299.0" prefHeight="26.0" prefWidth="42.0" promptText="Day" />
+            <Label fx:id="enterlabel" layoutX="14.0" layoutY="303.0" prefHeight="18.0" prefWidth="34.0" text="Enter:" />
+            <Label layoutX="17.0" layoutY="340.0" prefHeight="18.0" prefWidth="27.0" text="Exit:" />
+            <TextField fx:id="EnterDay" layoutX="174.0" layoutY="299.0" prefHeight="26.0" prefWidth="42.0" promptText="Day" />
             <ImageView fitHeight="57.0" fitWidth="60.0" layoutX="46.0" layoutY="43.0">
                <image>
                   <Image url="@../../../../images/1919283.png" />
@@ -86,6 +86,8 @@
                   <MenuItem fx:id="setPriceParkID7" mnemonicParsing="false" onAction="#setMenuPriceParkID7" text="7" />
                </items>
             </MenuButton>
+            <TextField fx:id="ExitMin" layoutX="61.0" layoutY="336.0" prefHeight="26.0" prefWidth="34.0" promptText="mm" />
+            <TextField fx:id="EnterMin" layoutX="61.0" layoutY="299.0" prefHeight="26.0" prefWidth="34.0" promptText="mm" />
          </children>
       </AnchorPane>
    </children>

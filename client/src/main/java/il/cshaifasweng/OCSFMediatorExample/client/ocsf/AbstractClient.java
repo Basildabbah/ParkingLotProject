@@ -138,7 +138,7 @@ public abstract class AbstractClient implements Runnable
       input = new ObjectInputStream(clientSocket.getInputStream());
     }
     catch (IOException ex)
-    // All three of the above must be closed when there is a failure
+    // All three of the above must be clzzosed when there is a failure
     // to create any of them
     {
       try

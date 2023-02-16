@@ -21,7 +21,18 @@ public class SimpleClient extends AbstractClient {
 
 		//		*************************************************************************************
 //		*************************************************************************************
-
+		if(((Message) msg).getMessage().equals("total_complains_number_init")) {
+			EventBus.getDefault().post(new total_complain_number_initEVENT(message));
+		}
+		if(((Message) msg).getMessage().equals("total_complains_number")) {
+			EventBus.getDefault().post(new total_complain_numberEVENT(message));
+		}
+		if(((Message) msg).getMessage().equals("total_order_number")) {
+			EventBus.getDefault().post(new total_order_numberEVENT(message));
+		}
+		if(((Message) msg).getMessage().equals("total_cancelorder_number")) {
+			EventBus.getDefault().post(new total_cancelorder_numberEVENT(message));
+		}
 		if(((Message) msg).getMessage().equals("CheckOrderStatus")) {
 			EventBus.getDefault().post(new CheckOrderStatusEvent(message));
 		}

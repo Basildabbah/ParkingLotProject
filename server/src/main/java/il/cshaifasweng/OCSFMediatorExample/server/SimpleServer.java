@@ -40,6 +40,7 @@ public class SimpleServer extends AbstractServer {
 		Configuration configuration = new Configuration();
 		configuration.addAnnotatedClass(Admin.class);
 		configuration.addAnnotatedClass(CanceledOrder.class);
+		configuration.addAnnotatedClass(totalordertest.class);
 		configuration.addAnnotatedClass(Car.class);
 		configuration.addAnnotatedClass(Complaint.class);
 		configuration.addAnnotatedClass(OneTimeCustomer.class);
@@ -53,6 +54,7 @@ public class SimpleServer extends AbstractServer {
 		configuration.addAnnotatedClass(Prices.class);
 		configuration.addAnnotatedClass(ChainManager.class);
 		configuration.addAnnotatedClass(review.class);
+		configuration.addAnnotatedClass(totalordertest.class);
 
 		ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
 		return configuration.buildSessionFactory(serviceRegistry);
@@ -332,8 +334,8 @@ public class SimpleServer extends AbstractServer {
 					{
 						for(Car car : ListCar)
 						{
-							if (car.getCarNumber()==order.getCarNumber())
-								session.delete(car);
+							if (car.getCarNumber()==order.getCarNumber()){}
+							//	session.delete(car);
 						}
 
 						TotalHours=HoursBetweenDates(order.getEnterHour(),order.getEnterDay(),order.getEnterMonth(),order.getEnterYear(),order.getExitHour(),order.getExitDay(),order.getExitMonth(),order.getExitYear());
@@ -486,8 +488,8 @@ public class SimpleServer extends AbstractServer {
 					{
 						for(Car car : ListCar)
 						{
-							if (car.getCarNumber()==order.getCarNumber())
-								session.delete(car);
+							if (car.getCarNumber()==order.getCarNumber()){}
+								//session.delete(car);
 						}
 
 						TotalHours=HoursBetweenDates(order.getEnterHour(),order.getEnterDay(),order.getEnterMonth(),order.getEnterYear(),order.getExitHour(),order.getExitDay(),order.getExitMonth(),order.getExitYear());
@@ -726,6 +728,18 @@ public class SimpleServer extends AbstractServer {
 
 			if(FlagOrder==1)
 			{
+				/********************************************************************/
+				List<totalordertest> totalordertest1 = getAll(totalordertest.class);
+				for (totalordertest totalordertest2:totalordertest1)
+				{
+					if (totalordertest2.getId()==ParkingLotId)
+					{
+						System.out.println("id is +"+ totalordertest2.getId());
+						totalordertest2.setGuest(1+totalordertest2.getGuest());
+						session.update(totalordertest2);
+					}
+				}
+				/********************************************************************/
 				Order NewOrder = new Order(MaxOrderId,TypeOfOrder,EnterHour,EnterDay,EnterMonth,EnterYear,ExitHour,ExitDay,ExitMonth,ExitYear,ParkingLotId,ID,Password);
 				Calendar cal = Calendar.getInstance();
 				cal.set(Calendar.YEAR, EnterYear);
@@ -1146,6 +1160,18 @@ public class SimpleServer extends AbstractServer {
 
 			if(FlagOrder==1)
 			{
+				/********************************************************************/
+				List<totalordertest> totalordertest1 = getAll(totalordertest.class);
+				for (totalordertest totalordertest2:totalordertest1)
+				{
+					if (totalordertest2.getId()==ParkingLotId)
+					{
+						System.out.println("id is +"+ totalordertest2.getId());
+						totalordertest2.setGuest(1+totalordertest2.getGuest());
+						session.update(totalordertest2);
+					}
+				}
+				/********************************************************************/
 				Order NewOrder = new Order(MaxOrderId,TypeOfOrder,EnterHour,EnterDay,EnterMonth,EnterYear,ExitHour,ExitDay,ExitMonth,ExitYear,ParkingLotId,ID,Password);
 				Calendar cal = Calendar.getInstance();
 				cal.set(Calendar.YEAR, EnterYear);
@@ -1359,6 +1385,18 @@ public class SimpleServer extends AbstractServer {
 
 			if(FlagOrder==1)
 			{
+				/********************************************************************/
+				List<totalordertest> totalordertest1 = getAll(totalordertest.class);
+				for (totalordertest totalordertest2:totalordertest1)
+				{
+					if (totalordertest2.getId()==ParkingLotId)
+					{
+						System.out.println("id is +"+ totalordertest2.getId());
+						totalordertest2.setGuest(1+totalordertest2.getGuest());
+						session.update(totalordertest2);
+					}
+				}
+				/********************************************************************/
 				Order NewOrder = new Order(MaxOrderId,TypeOfOrder,EnterHour,EnterDay,EnterMonth,EnterYear,ExitHour,ExitDay,ExitMonth,ExitYear,ParkingLotId,ID,Password);
 				Calendar cal = Calendar.getInstance();
 				cal.set(Calendar.YEAR, EnterYear);
@@ -1597,6 +1635,7 @@ public class SimpleServer extends AbstractServer {
 						session.update(Subscriber);
 					}
 				}
+
 				Order NewOrder = new Order(MaxOrderId, TypeOfOrder, EnterHour, EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear, ParkingLotId, PersonID, Password);
 				//NewOrder.setParkinglot(park1);
 				Calendar cal = Calendar.getInstance();
@@ -1639,7 +1678,18 @@ public class SimpleServer extends AbstractServer {
 					NewOrder.setAlreadyInParkingLot(false);
 */
 				session.save(NewOrder);
-
+				/********************************************************************/
+				List<totalordertest> totalordertest1 = getAll(totalordertest.class);
+				for (totalordertest totalordertest2:totalordertest1)
+				{
+					if (totalordertest2.getId()==ParkingLotId)
+					{
+						System.out.println("id is +"+ totalordertest2.getId());
+						totalordertest2.setReg(1+totalordertest2.getReg());
+						session.update(totalordertest2);
+					}
+				}
+				/********************************************************************/
 				message.setObject1("Your Order Confirmed");
 				message.setObject2(MaxOrderId);
 				message.setObject3(TotalHours);
@@ -1804,6 +1854,18 @@ public class SimpleServer extends AbstractServer {
 						session.update(Subscriber);
 					}
 				}
+				/********************************************************************/
+				List<totalordertest> totalordertest1 = getAll(totalordertest.class);
+				for (totalordertest totalordertest2:totalordertest1)
+				{
+					if (totalordertest2.getId()==ParkingLotId)
+					{
+						System.out.println("id is +"+ totalordertest2.getId());
+						totalordertest2.setReg(1+totalordertest2.getReg());
+						session.update(totalordertest2);
+					}
+				}
+				/********************************************************************/
 				Order NewOrder = new Order(MaxOrderId, TypeOfOrder, EnterHour, EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear, ParkingLotId, PersonID, Password);
 				//NewOrder.setParkinglot(park1);
 				Calendar cal = Calendar.getInstance();
@@ -1964,6 +2026,7 @@ public class SimpleServer extends AbstractServer {
 								//go through all orders in same Parking Lot
 								if (Order.getParkingLotId() == ParkingLotId) {
 									//check how many orders between the two dates
+
 									if (Order.getEnterYear() <= ExitYear && Order.getExitYear() >= EnterYear) {
 										if (Order.getEnterMonth() <= ExitMonth && Order.getExitMonth() >= EnterMonth) {
 											if (Order.getEnterDay() <= ExitDay && Order.getExitDay() >= EnterDay) {
@@ -2050,7 +2113,18 @@ public class SimpleServer extends AbstractServer {
 						session.update(Subscriber);
 					}
 				}
-
+				/********************************************************************/
+				List<totalordertest> totalordertest1 = getAll(totalordertest.class);
+				for (totalordertest totalordertest2:totalordertest1)
+				{
+					if (totalordertest2.getId()==ParkingLotId)
+					{
+						System.out.println("id is +"+ totalordertest2.getId());
+						totalordertest2.setFull(1+totalordertest2.getFull());
+						session.update(totalordertest2);
+					}
+				}
+				/********************************************************************/
 				Order NewOrder = new Order(MaxOrderId, TypeOfOrder, EnterHour, EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear, ParkingLotId, PersonID, Password);
 				//NewOrder.setParkinglot(park1);
 				//////////////////////////////////////
@@ -2129,6 +2203,7 @@ public class SimpleServer extends AbstractServer {
 		}
 		if (msgString.equals("#FullSubscriberOrder_enter")){
 
+
 			session = sessionFactory.openSession();
 			session.beginTransaction();
 
@@ -2140,7 +2215,9 @@ public class SimpleServer extends AbstractServer {
 			List<ParkingLot> ListParkingLots = getAll(ParkingLot.class);
 			List<FullSubscriber> ListFullSubscriber = getAll(FullSubscriber.class);
 			List<Order> ListOrders = getAll(Order.class);
-
+			/********************************************************************/
+			List<totalordertest> totalordertest1 = getAll(totalordertest.class);
+			/********************************************************************/
 			String EnterHourString = cpymsg.getObject1().toString();
 			int EnterHour = Integer.parseInt(EnterHourString);
 
@@ -2291,7 +2368,17 @@ public class SimpleServer extends AbstractServer {
 						session.update(Subscriber);
 					}
 				}
-
+				/********************************************************************/
+			    for (totalordertest totalordertest2:totalordertest1)
+				{
+					if (totalordertest2.getId()==ParkingLotId)
+					{
+						System.out.println("id is +"+ totalordertest2.getId());
+						totalordertest2.setFull(1+totalordertest2.getFull());
+						session.update(totalordertest2);
+					}
+				}
+				/********************************************************************/
 				Order NewOrder = new Order(MaxOrderId, TypeOfOrder, EnterHour, EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear, ParkingLotId, PersonID, Password);
 				//NewOrder.setParkinglot(park1);
 				//////////////////////////////////////
@@ -3035,9 +3122,270 @@ public class SimpleServer extends AbstractServer {
 		}
 
 
+		if (msgString.equals("#total_order_number")) {
 
+			session = sessionFactory.openSession();
+			session.beginTransaction();
 
+			Message message = new Message("total_order_number");
+			Message cpymsg=((Message) msg);
 
+			List<Complaint> tmp = getAll(Complaint.class);
+			List<CanceledOrder> tmp2 = getAll(CanceledOrder.class);
+			List<Order> tmp3 = getAll(Order.class);
+			List<totalordertest> tmp4 = getAll(totalordertest.class);
+			List<Integer> parkinglot_order1 = new ArrayList<>();
+			List<Integer> parkinglot_order2 = new ArrayList<>();
+			List<Integer> parkinglot_order3 = new ArrayList<>();
+			List<Integer> parkinglot_order4 = new ArrayList<>();
+			List<Integer> parkinglot_order5 = new ArrayList<>();
+			List<Integer> parkinglot_order6 = new ArrayList<>();
+			List<Integer> parkinglot_order7 = new ArrayList<>();
+			int c=0;
+			for (Order x : tmp3) {
+				c++;
+			}
+			message.setObject4(c);
+			int c2=1;
+			for (totalordertest tete:tmp4)
+			{
+				if (c2==1)
+				{
+					c2++;
+					parkinglot_order1.add(tete.getFull());
+					parkinglot_order1.add(tete.getGuest());
+					parkinglot_order1.add(tete.getReg());
+
+				}
+			}
+			c2=1;
+			for (totalordertest tete:tmp4)
+			{
+				if (c2==2)
+				{
+					c2++;
+					parkinglot_order2.add(tete.getFull());
+					parkinglot_order2.add(tete.getGuest());
+					parkinglot_order2.add(tete.getReg());
+
+				}c2++;
+			}
+			c2=1;
+			for (totalordertest tete:tmp4)
+			{
+				if (c2==3)
+				{
+					c2++;
+					parkinglot_order3.add(tete.getFull());
+					parkinglot_order3.add(tete.getGuest());
+					parkinglot_order3.add(tete.getReg());
+
+				}c2++;
+			}
+			c2=1;
+			for (totalordertest tete:tmp4)
+			{
+				if (c2==4)
+				{
+					c2++;
+					parkinglot_order4.add(tete.getFull());
+					parkinglot_order4.add(tete.getGuest());
+					parkinglot_order4.add(tete.getReg());
+
+				}c2++;
+			}
+			c2=1;
+			for (totalordertest tete:tmp4)
+			{
+				if (c2==5)
+				{
+					c2++;
+					parkinglot_order5.add(tete.getFull());
+					parkinglot_order5.add(tete.getGuest());
+					parkinglot_order5.add(tete.getReg());
+
+				}c2++;
+			}
+			c2=1;
+			for (totalordertest tete:tmp4)
+			{
+				if (c2==6)
+				{
+					c2++;
+					parkinglot_order6.add(tete.getFull());
+					parkinglot_order6.add(tete.getGuest());
+					parkinglot_order6.add(tete.getReg());
+
+				}c2++;
+			}
+			c2=1;
+			for (totalordertest tete:tmp4)
+			{
+				if (c2==7)
+				{
+					c2++;
+					parkinglot_order7.add(tete.getFull());
+					parkinglot_order7.add(tete.getGuest());
+					parkinglot_order7.add(tete.getReg());
+
+				}c2++;
+			}
+			c2=0;
+			message.setObject9(parkinglot_order1);
+			message.setObject10(parkinglot_order2);
+			message.setObject11(parkinglot_order3);
+			message.setObject12(parkinglot_order4);
+			message.setObject13(parkinglot_order5);
+			message.setObject14(parkinglot_order6);
+			message.setObject15(parkinglot_order7);
+			//System.out.println("Park "+j+"  "+ parkinglot_arrival);
+
+			c=0;
+			for (CanceledOrder x : tmp2) {
+				c++;
+			}
+			message.setObject3(c);
+			c=0;
+			for (Complaint x : tmp) {
+				c++;
+			}
+			System.out.println("aasdadadsada");
+			message.setObject1("total_complains_number");
+			message.setObject2(c);
+			try {
+				client.sendToClient(message);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			session.getTransaction().commit();
+			session.close();
+		}
+		if (msgString.equals("#total_complains_number_init")) {
+
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+
+			Message message = new Message("total_complains_number_init");
+			Message cpymsg=((Message) msg);
+			int c=0;
+			List<Complaint> com = getAll(Complaint.class);
+			List<Order> ord = getAll(Order.class);
+			List<CanceledOrder> canord = getAll(CanceledOrder.class);
+			for(Complaint compl:com)
+			{
+				c++;
+			}
+			message.setObject1(c);
+			c=0;
+			for(Order ord1:ord)
+			{
+				c++;
+			}
+			message.setObject2(c);
+			c=0;
+			for(CanceledOrder ord11:canord)
+			{
+				c++;
+			}
+			message.setObject3(c);
+			try {
+				client.sendToClient(message);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			session.getTransaction().commit();
+			session.close();
+		}
+
+		if (msgString.equals("#total_complains_number")) {
+
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+
+			Message message = new Message("total_complains_number");
+			Message cpymsg=((Message) msg);
+
+			List<Complaint> tmp = getAll(Complaint.class);
+			int c=0;
+			int c1,c2,c3,c4,c5,c6,c7=0;
+			c1=c2=c3=c4=c5=c6=c7;
+			for (Complaint x : tmp) {
+				if (x.getParkingLotId()==1)
+				{
+					c1++;
+				}
+				if (x.getParkingLotId()==2)
+				{
+					c2++;
+				}
+				if (x.getParkingLotId()==3)
+				{
+					c3++;
+				}
+				if (x.getParkingLotId()==4)
+				{
+					c4++;
+				}
+				if (x.getParkingLotId()==5)
+				{
+					c5++;
+				}
+				if (x.getParkingLotId()==6)
+				{
+					c6++;
+				}
+				if (x.getParkingLotId()==7)
+				{
+					c7++;
+				}
+			}
+			message.setObject1("total_complains_number");
+			message.setObject2(c);
+			message.setObject15(c1);
+			message.setObject14(c2);
+			message.setObject13(c3);
+			message.setObject12(c4);
+			message.setObject11(c5);
+			message.setObject10(c6);
+			message.setObject9(c7);
+			try {
+				client.sendToClient(message);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			session.getTransaction().commit();
+			session.close();
+		}
+		if (msgString.equals("#total_cancelorder_number")) {
+
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+
+			Message message = new Message("total_cancelorder_number");
+			Message cpymsg=((Message) msg);
+			List<CanceledOrder> tmp = getAll(CanceledOrder.class);
+			List<totalordertest> pmt = getAll(totalordertest.class);
+			int c=0;
+			for (CanceledOrder tmp2:tmp)
+			{
+				c++;
+			}
+			int c2=0;
+			for (totalordertest pmt2:pmt)
+			{
+				c2=c2+pmt2.getFull()+pmt2.getReg()+pmt2.getGuest();
+			}
+			message.setObject11(c);
+			message.setObject12(c2);
+
+			try {
+				client.sendToClient(message);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			session.getTransaction().commit();
+			session.close();
+		}
 
 		if (msgString.equals("#logoutlotmanager")) {
 			session = sessionFactory.openSession();

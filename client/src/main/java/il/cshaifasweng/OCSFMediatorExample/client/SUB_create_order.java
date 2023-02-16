@@ -83,7 +83,11 @@ public class SUB_create_order {
 
     @FXML
     private TextField ExitYear;
+    @FXML
+    private TextField EnterMin;
 
+    @FXML
+    private TextField ExitMin;
     @FXML
     private TextField ID;
 

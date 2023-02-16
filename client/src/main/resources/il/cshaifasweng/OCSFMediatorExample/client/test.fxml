@@ -1,18 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="1000.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.test">
-   <children>
-      <Button fx:id="but" layoutX="192.0" layoutY="87.0" mnemonicParsing="false" onAction="#but" text="Button" />
-      <TableView fx:id="table" layoutX="118.0" layoutY="152.0" prefHeight="200.0" prefWidth="200.0">
-        <columns>
-          <TableColumn fx:id="id" prefWidth="75.0" text="id" />
-        </columns>
-      </TableView>
-   </children>
+<AnchorPane prefHeight="1000.0" prefWidth="750.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.test">
+    <children>
+        <Button layoutX="31.0" layoutY="68.0" mnemonicParsing="false" onAction="#back" prefHeight="26.0" prefWidth="79.0" text="Back" />
+        <PieChart fx:id="pie" layoutX="241.0" layoutY="184.0" prefHeight="474.0" prefWidth="480.0" style="-fx-border-color: gray;" stylesheets="@stylesheet.css" />
+      <BarChart fx:id="bc" layoutX="212.0" layoutY="175.0" prefHeight="443.0" prefWidth="523.0" visible="false">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" fx:id="xAxis" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="yAxis" side="LEFT" />
+        </yAxis>
+      </BarChart>
+      <AnchorPane layoutX="14.0" layoutY="136.0" prefHeight="522.0" prefWidth="200.0" style="-fx-background-color: gray;">
+         <children>
+            <AnchorPane layoutX="17.0" layoutY="14.0" prefHeight="130.0" prefWidth="166.0" style="-fx-background-color: #6b99b6;">
+               <children>
+                  <ImageView fitHeight="135.0" fitWidth="140.0" layoutX="11.0" layoutY="-2.0">
+                     <image>
+                        <Image url="@../../../../images/blue-geometric-circle-icon-png-transparent-background-free-download-16071--freeiconspng.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="label_total_earn" layoutX="50.0" layoutY="39.0" prefHeight="26.0" prefWidth="62.0" text="10000$" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="37.0" layoutY="66.0" prefHeight="26.0" prefWidth="113.0" text="TOTAL EARN" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="16.0" layoutY="171.0" prefHeight="72.0" prefWidth="166.0" style="-fx-background-color: #6b99b6;">
+               <children>
+                  <Label fx:id="label_total_complains" layoutX="76.0" layoutY="14.0" prefHeight="26.0" prefWidth="62.0" text="10000$" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="16.0" layoutY="45.0" prefHeight="26.0" prefWidth="143.0" text="Total Complains" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="17.0" layoutY="256.0" prefHeight="72.0" prefWidth="166.0" style="-fx-background-color: #6b99b6;">
+               <children>
+                  <Label layoutX="26.0" layoutY="45.0" prefHeight="26.0" prefWidth="114.0" text="Active Orders" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="label_total_active_order" alignment="CENTER" layoutX="52.0" layoutY="14.0" prefHeight="26.0" prefWidth="62.0" text="10" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="17.0" layoutY="345.0" prefHeight="72.0" prefWidth="166.0" style="-fx-background-color: #6b99b6;">
+               <children>
+                  <Label layoutX="26.0" layoutY="36.0" prefHeight="26.0" prefWidth="114.0" text="Cancel Orders" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="label_total_cancel_order" alignment="CENTER" layoutX="52.0" layoutY="14.0" prefHeight="26.0" prefWidth="62.0" text="10" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="17.0" layoutY="428.0" prefHeight="72.0" prefWidth="166.0" style="-fx-background-color: #6b99b6;">
+               <children>
+                  <Label fx:id="label_total_late_arrival" alignment="CENTER" layoutX="52.0" layoutY="14.0" prefHeight="26.0" prefWidth="62.0" text="10" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="31.0" layoutY="45.0" prefHeight="26.0" prefWidth="104.0" text="Late Arrival" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <Button layoutX="142.0" layoutY="109.0" mnemonicParsing="false" onAction="#Complains" prefHeight="26.0" prefWidth="114.0" text="Total Complains" />
+      <Button layoutX="268.0" layoutY="109.0" mnemonicParsing="false" onAction="#Orders" prefHeight="26.0" prefWidth="87.0" text="Total Orders" />
+      <Button layoutX="365.0" layoutY="109.0" mnemonicParsing="false" onAction="#Cancelorder" prefHeight="26.0" prefWidth="125.0" text="Total Cancel Orders" />
+    </children>
 </AnchorPane>

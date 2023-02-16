@@ -12,8 +12,18 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Displayreportofchain {
+    //plz dont delete the function "test"
+    @FXML
+    public void test(ActionEvent actionEvent) throws IOException {
+
+        App.setRoot("test");
+    }
 
     @FXML
     private MenuItem ComplaintsReport;
@@ -65,7 +75,10 @@ public class Displayreportofchain {
                 e.printStackTrace();
             }
         }
-
+       /* from year,from month...
+        to year,to month....*/
+       // Date x=new Date(2020,12,2,5,2);
+      //  System.out.println("aaaaaaaaaaaaa            "+x);
         if (type.getText().equals("ComplaintsReport")) {
             Message m = new Message("#ComplaintsReport", parking_id.getText());
            try {
@@ -204,6 +217,8 @@ public class Displayreportofchain {
         EventBus.getDefault().register(this);
     }
 
+
+
     @Subscribe
     public void setLabelshow1(InvalidSpotsReportEvent Response) throws IOException {
         Platform.runLater(() ->
@@ -284,4 +299,5 @@ public class Displayreportofchain {
                 }
         );
     }
+
 }

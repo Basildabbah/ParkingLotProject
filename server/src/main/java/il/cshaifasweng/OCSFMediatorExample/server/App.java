@@ -1,19 +1,11 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
-import javax.mail.*;
-import javax.mail.Message;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.util.Duration;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -76,6 +68,7 @@ public class App
         configuration.addAnnotatedClass(ParkingLotManager.class);
         configuration.addAnnotatedClass(ParkingLotEmployee.class);
         configuration.addAnnotatedClass(ChainManager.class);
+        configuration.addAnnotatedClass(totalordertest.class);
 
         configuration.addAnnotatedClass(review.class);
 
@@ -86,6 +79,24 @@ public class App
         return configuration.buildSessionFactory(serviceRegistry);
     }
     private static void initializeData() throws Exception {
+        /******************************************************************/
+        totalordertest totalordertest1=new totalordertest();
+        totalordertest totalordertest2=new totalordertest();
+        totalordertest totalordertest3=new totalordertest();
+        totalordertest totalordertest4=new totalordertest();
+        totalordertest totalordertest5=new totalordertest();
+        totalordertest totalordertest6=new totalordertest();
+        totalordertest totalordertest7=new totalordertest();
+        session.save(totalordertest1);
+        session.save(totalordertest2);
+        session.save(totalordertest3);
+        session.save(totalordertest4);
+        session.save(totalordertest5);
+        session.save(totalordertest6);
+        session.save(totalordertest7);
+
+        /******************************************************************/
+
         String secretKey = "1234567812345678";
         review l1=new review("messiiiiiii","very bad","1");
         session.save(l1);

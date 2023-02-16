@@ -92,7 +92,11 @@ public class GUEST_create_order {
 
     @FXML
     private TextField Password;
+    @FXML
+    private TextField EnterMin;
 
+    @FXML
+    private TextField ExitMin;
     @FXML
     private Button Prices;
 

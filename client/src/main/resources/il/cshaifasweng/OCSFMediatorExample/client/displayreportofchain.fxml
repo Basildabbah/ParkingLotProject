@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="1000.0" prefWidth="750.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Displayreportofchain">
    <children>
       <Button layoutX="437.0" layoutY="449.0" mnemonicParsing="false" onAction="#Back" prefHeight="34.0" prefWidth="94.0" text="Back">
@@ -72,5 +71,10 @@
             <Image url="@../../../../images/938-9383200_png-file-svg-view-report-icon-png.png" />
          </image>
       </ImageView>
+      <Button layoutX="167.0" layoutY="449.0" mnemonicParsing="false" onAction="#test" prefHeight="34.0" prefWidth="94.0" text="test">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
