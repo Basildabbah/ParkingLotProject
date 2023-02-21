@@ -12,7 +12,10 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.hibernate.Session;
@@ -4357,25 +4360,79 @@ public class SimpleServer extends AbstractServer {
 						try {
 							String lala="";
 							boolean late=false;
+							int number=1;
+							double price=-1;
 							for (Order order : getAll(Order.class)) {
 								if (order.getCarNumber() == carNumber && order.getTypeOfOrder().equals("GuestOnSiteOrder")) {
 									lala=order.getEntryTime();
 									if (order.getLateArrival()==1)late=true;
 									LocalDateTime now2 = LocalDateTime.now();
 									LocalDateTime otherDate = LocalDateTime.parse(lala, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-									Duration duration = Duration.between(now2, otherDate);
-									long hours = duration.toHours();
-									long roundedHours = (long) Math.ceil(hours);
+									Duration duration = Duration.between(otherDate,now2);
+									//long hours = duration.toMinutes();
+
+									long minutes = ChronoUnit.MINUTES.between(otherDate,now2);
+									System.out.println("minutes before "+minutes);
+
+									long hours = (long) Math.ceil((double) minutes / 60);
+									System.out.println("hour before "+hours);
+									for (Prices hola : getAll(Prices.class))
+									{
+										if (hola.getId()==order.getParkingLotId())
+										{
+
+											Pattern pattern = Pattern.compile("\\d+"); // regex to match one or more digits
+											Matcher matcher = pattern.matcher(hola.getValueNote().get(1));
+											if (matcher.find()) {
+												String numberStr = matcher.group(); // extract the matched string
+												 number = Integer.parseInt(numberStr); // convert string to integer
+												System.out.println(number); // output the extracted number
+											}
+
+										}
+									}
+									 price=number*hours;
 								}
 								if (order.getCarNumber() == carNumber && order.getTypeOfOrder().equals("GuestPreOrder")) {
+									lala=order.getEntryTime();
+									if (order.getLateArrival()==1)late=true;
+									LocalDateTime now2 = LocalDateTime.now();
+									LocalDateTime otherDate = LocalDateTime.parse(lala, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+									Duration duration = Duration.between(otherDate,now2);
+									//long hours = duration.toMinutes();
 
+									long minutes = ChronoUnit.MINUTES.between(otherDate,now2);
+									System.out.println("minutes before "+minutes);
+
+									long hours = (long) Math.ceil((double) minutes / 60);
+									System.out.println("hour before "+hours);
+									for (Prices hola : getAll(Prices.class))
+									{
+										if (hola.getId()==order.getParkingLotId())
+										{
+
+											Pattern pattern = Pattern.compile("\\d+"); // regex to match one or more digits
+											Matcher matcher = pattern.matcher(hola.getValueNote().get(0));
+											if (matcher.find()) {
+												String numberStr = matcher.group(); // extract the matched string
+												number = Integer.parseInt(numberStr); // convert string to integer
+												System.out.println(number); // output the extracted number
+											}
+
+										}
+									}
+									if (late==true)
+									{
+										price=number*hours;
+										price=price*120/100;
+									}
+									else
+									price=number*hours;
 								}
 							}
-
-
-
-
-							client.sendToClient(new Message("#CarExited"));
+							String tmp="";
+							tmp+=price;
+							client.sendToClient(new Message("#CarExited",tmp));
 						} catch (IOException e) {
 							e.printStackTrace();
 						}

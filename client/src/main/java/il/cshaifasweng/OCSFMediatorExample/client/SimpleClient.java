@@ -221,7 +221,10 @@ public class SimpleClient extends AbstractClient {
 		}
 		if ((msgString.equals("#CarExited"))){
 			System.out.println("sclientada");
+			if (message.getObject1().equals("-1"))
 			EventBus.getDefault().post(new MessageWaInfEvent((Message) (new Message("Your car has been exited from the parking lot"))));
+			else
+				EventBus.getDefault().post(new MessageWaInfEvent((Message) (new Message("Your car has been exited from the parking lot \n You have paid : "+ message.getObject1().toString()))));
 		}
 		if ((msgString.equals("#NumberOfColIsWrong"))){
 			System.out.println("sclientada");
