@@ -83,5 +83,6 @@ public class RegularSubscriber implements Serializable {
         carList.remove(car);
         remainingHours-=54;
         this.numberOfCars--;
+        if (remainingHours<0)remainingHours=0;
     }
 }

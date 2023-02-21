@@ -138,7 +138,7 @@
             <Label fx:id="loginasguest" layoutX="5.0" layoutY="394.0" onMouseClicked="#loginguest" prefHeight="18.0" prefWidth="116.0" text="Login As Guest" textFill="#3c00ff" underline="true" />
             <CheckBox fx:id="regular" layoutX="225.0" layoutY="279.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="80.0" text="Regular" />
             <CheckBox fx:id="full" layoutX="129.0" layoutY="279.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="80.0" text="Full" />
-            <Label layoutX="22.0" layoutY="279.0" prefHeight="18.0" prefWidth="159.0" text="Choose Type:" />
+            <Label layoutX="22.0" layoutY="279.0" prefHeight="18.0" prefWidth="80.0" text="Choose Type:" />
             <TextField fx:id="id" layoutX="91.0" layoutY="66.0" prefHeight="26.0" prefWidth="211.0" promptText="Type Your User id" />
             <Label layoutX="22.0" layoutY="70.0" prefHeight="18.0" prefWidth="94.0" text="User Id:" />
          </children>

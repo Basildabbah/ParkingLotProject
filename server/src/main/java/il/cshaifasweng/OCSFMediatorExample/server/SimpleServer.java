@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.security.Key;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -4354,6 +4355,26 @@ public class SimpleServer extends AbstractServer {
 						}
 					} else {
 						try {
+							String lala="";
+							boolean late=false;
+							for (Order order : getAll(Order.class)) {
+								if (order.getCarNumber() == carNumber && order.getTypeOfOrder().equals("GuestOnSiteOrder")) {
+									lala=order.getEntryTime();
+									if (order.getLateArrival()==1)late=true;
+									LocalDateTime now2 = LocalDateTime.now();
+									LocalDateTime otherDate = LocalDateTime.parse(lala, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+									Duration duration = Duration.between(now2, otherDate);
+									long hours = duration.toHours();
+									long roundedHours = (long) Math.ceil(hours);
+								}
+								if (order.getCarNumber() == carNumber && order.getTypeOfOrder().equals("GuestPreOrder")) {
+
+								}
+							}
+
+
+
+
 							client.sendToClient(new Message("#CarExited"));
 						} catch (IOException e) {
 							e.printStackTrace();

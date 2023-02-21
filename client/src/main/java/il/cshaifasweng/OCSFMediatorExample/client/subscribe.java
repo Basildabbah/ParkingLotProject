@@ -116,8 +116,15 @@ public class subscribe {
             id.setStyle("-fx-border-color: red");
 
         }
+        if(!visa.getText().matches("\\d+"))
+        {
+            visa.setStyle("-fx-border-color: red");
+
+        }
        else if(full.isSelected()&&regular.isSelected())
         {
+            invaild.setText("Choose One Type");
+            invaild.setVisible(true);
            full.setSelected(false);
            regular.setSelected(false);
         }
@@ -157,13 +164,26 @@ public class subscribe {
                 invaild.setText("id is used before,Change it");
             if(c.getWarning().getObject1().toString().equals("yes"))
             {
-                Subscribeboundry.idd=id.getText().toString();
-                Alert alert = new Alert(Alert.AlertType.INFORMATION,
-                        String.format("Success: %s\nTimestamp: %s\n",
-                                c.getWarning().getObject1(),
-                                c.getWarning().getTime().toString())
-                );
-                alert.show();
+                if (full.isSelected()==true) {
+                    Subscribeboundry.idd = id.getText().toString();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION,
+                            String.format("Success: %s\n You Will Pay: %s\n",
+                                    c.getWarning().getObject1(),
+                                    "400 $")
+                    );
+
+                    alert.show();
+                }
+                if (regular.isSelected()==true) {
+                    Subscribeboundry.idd = id.getText().toString();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION,
+                            String.format("Success: %s\n You Will Pay: %s\n",
+                                    c.getWarning().getObject1(),
+                                    "300 $")
+                    );
+
+                    alert.show();
+                }
                 try {
                     App.setRoot("loginassubscriber");
 
