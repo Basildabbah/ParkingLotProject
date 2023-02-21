@@ -27,6 +27,8 @@ public class Message implements Serializable {
 	private Object object14;
 	private Object object15;
 	private Object object16;
+	private Object object17;
+	private Object object18;
 	private LocalTime time;
 	private Object list;
 
@@ -251,7 +253,27 @@ public class Message implements Serializable {
 		this.object15 = obj15;
 		this.object16 = obj16;
 	}
-
+	public Message(String msg, Object obj1, Object obj2, Object obj3, Object obj4, Object obj5, Object obj6 ,Object obj7,Object obj8,Object obj9,Object obj10,Object obj11,Object obj12,Object obj13,Object obj14,Object obj15,Object obj16,Object obj17,Object obj18) {
+		this.message = msg;
+		this.object1 = obj1;
+		this.object2 = obj2;
+		this.object3 = obj3;
+		this.object4 = obj4;
+		this.object5=obj5;
+		this.object6=obj6;
+		this.object7 = obj7;
+		this.object8 = obj8;
+		this.object9= obj9;
+		this.object10 = obj10;
+		this.object11 = obj11;
+		this.object12 = obj12;
+		this.object13 = obj13;
+		this.object14 = obj14;
+		this.object15 = obj15;
+		this.object16 = obj16;
+		this.object17 = obj17;
+		this.object18 = obj18;
+	}
 	public LocalTime getTime() {
 		return time;
 	}
@@ -358,13 +380,19 @@ public class Message implements Serializable {
 	public void setObject14(Object object14) {
 		this.object14 = object14;
 	}
-
+	public Object getObject17(){ return object17; }
+	public Object getObject18(){ return object18; }
 	public Object getObject15(){ return object15; }
 	public Object getObject16(){ return object16; }
 	public void setObject15(Object object15) {
 		this.object15 = object15;
 	}
-
+	public void setObject17(Object object17) {
+		this.object17 = object17;
+	}
+	public void setObject18(Object object18) {
+		this.object18 = object18;
+	}
 	public String toString() {
 		return this.message;
 	}

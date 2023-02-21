@@ -144,7 +144,7 @@ public class GUEST_create_order {
 
             boolean OnSite = false;
 
-            Message m = new Message("#GuestPreOrder", EnterHour.getText(), EnterDay.getText(), EnterMonth.getText(), EnterYear.getText(), ExitHour.getText(), ExitDay.getText(), ExitMonth.getText(), ExitYear.getText(), ParkLotIdMenu.getText(), ID.getText(), Password.getText(), OnSite, CarNumber.getText(), Email.getText());
+            Message m = new Message("#GuestPreOrder", EnterHour.getText(), EnterDay.getText(), EnterMonth.getText(), EnterYear.getText(), ExitHour.getText(), ExitDay.getText(), ExitMonth.getText(), ExitYear.getText(), ParkLotIdMenu.getText(), ID.getText(), Password.getText(), OnSite, CarNumber.getText(), Email.getText(),"","",EnterMin.getText(),ExitMin.getText());
 
             try {
                 SimpleClient.getClient().sendToServer(m);

@@ -38,7 +38,8 @@ public class GUEST_enterparkinglot {
 
     @FXML
     private TextField ExitYear;
-
+    @FXML
+    private TextField ExitMin;
     @FXML
     private Button GuestOrder;
 
@@ -82,11 +83,13 @@ public class GUEST_enterparkinglot {
 
                 LocalDate Date4 = LocalDate.now();
                 int Year = Date4.getYear();
+               LocalTime Date5 = LocalTime.now();
+                  int EnterMin = Date5.getMinute();
             System.out.println("date1.after(new Date()");
                 boolean OnSite = true;
                 Message m = new Message("#GuestOnSiteOrder_enter", Hour, Day, Month, Year, ExitHour.getText(), ExitDay.getText(),
                         ExitMonth.getText(), ExitYear.getText(), ParkLotIdMenu.getText(), ID.getText(), Password.getText(), ID.getText(),
-                        OnSite, CarNumber.getText(), Email.getText());
+                        OnSite, CarNumber.getText(), Email.getText(),"",EnterMin,ExitMin.getText());
 
                 try {
                     SimpleClient.getClient().sendToServer(m);

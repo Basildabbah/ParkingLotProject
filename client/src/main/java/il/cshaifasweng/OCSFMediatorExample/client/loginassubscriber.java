@@ -138,6 +138,14 @@ public class loginassubscriber {
                     e.printStackTrace();
                 }
 
+                Message m=new Message("#checkifneedtorenewsubs",accountid.getText());
+                try {
+                    SimpleClient.getClient().sendToServer(m);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
             }
             if (c.getWarning().getObject1().equals("yes regular_subscriber"))
             {

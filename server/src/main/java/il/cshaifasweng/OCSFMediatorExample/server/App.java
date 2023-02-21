@@ -112,7 +112,7 @@ public class App
         ParkingLot parkingLot2 = new ParkingLot(3, 4, 3, new byte[4*4*4]);
         ParkingLot parkingLot3 = new ParkingLot(3, 4, 3, new byte[4*4*4]);
         parkingLot1.setNumberOfInactiveParkings(68);
-
+        parkingLot1.setEmptySpots(4);
 
         byte[] matrix1d = parkingLot1.getMatrix();  // Get the one-dimensional matrix
 

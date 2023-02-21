@@ -37,6 +37,8 @@ public class SUB_enterparkinglot {
     private TextField ExitHour;
 
     @FXML
+    private TextField ExitMin;
+    @FXML
     private TextField ExitMonth;
 
     @FXML
@@ -110,9 +112,11 @@ public class SUB_enterparkinglot {
                 LocalDate Date4 = LocalDate.now();
                 int Year = Date4.getYear();
 
+                LocalTime  Date5= LocalTime .now();
+                int EnterMin = Date5.getMinute();
                 boolean OnSite = true;
 
-                Message m = new Message("#RegularSubscriberOrder_enter", Hour, Day, Month, Year, ExitHour.getText(), ExitDay.getText(), ExitMonth.getText(), ExitYear.getText(), ParkingLotId.getText(), ID.getText(), Password.getText(), idd, OnSite, CarNumber.getText(), Email.getText());
+                Message m = new Message("#RegularSubscriberOrder_enter", Hour, Day, Month, Year, ExitHour.getText(), ExitDay.getText(), ExitMonth.getText(), ExitYear.getText(), ParkingLotId.getText(), ID.getText(), Password.getText(), idd, OnSite, CarNumber.getText(), Email.getText(),"",EnterMin,ExitMin.getText());
 
                 try {
                     SimpleClient.getClient().sendToServer(m);
@@ -132,10 +136,11 @@ public class SUB_enterparkinglot {
 
                 LocalDate Date4 = LocalDate.now();
                 int Year = Date4.getYear();
-
+                LocalTime  Date5= LocalTime .now();
+                int EnterMin = Date5.getMinute();
                 boolean OnSite = true;
                 System.out.println(ParkingLotId.getText()+"    "+ CarNumber.getText()+"    "+ ID.getText());
-                Message m = new Message("#FullSubscriberOrder_enter", Hour, Day, Month, Year, ExitHour.getText(), ExitDay.getText(), ExitMonth.getText(), ExitYear.getText(), ParkingLotId.getText(), ID.getText(), Password.getText(), idd, OnSite, CarNumber.getText(), Email.getText());
+                Message m = new Message("#FullSubscriberOrder_enter", Hour, Day, Month, Year, ExitHour.getText(), ExitDay.getText(), ExitMonth.getText(), ExitYear.getText(), ParkingLotId.getText(), ID.getText(), Password.getText(), idd, OnSite, CarNumber.getText(), Email.getText(),"",EnterMin,ExitMin.getText());
 
                 try {
                     SimpleClient.getClient().sendToServer(m);

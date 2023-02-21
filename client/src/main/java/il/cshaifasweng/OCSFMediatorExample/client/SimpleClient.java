@@ -5,6 +5,8 @@ import org.greenrobot.eventbus.EventBus;
 import il.cshaifasweng.OCSFMediatorExample.client.ocsf.AbstractClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 
+import java.util.ArrayList;
+
 
 public class SimpleClient extends AbstractClient {
 
@@ -23,6 +25,9 @@ public class SimpleClient extends AbstractClient {
 //		*************************************************************************************
 		if(((Message) msg).getMessage().equals("total_complains_number_init")) {
 			EventBus.getDefault().post(new total_complain_number_initEVENT(message));
+		}
+		if(((Message) msg).getMessage().equals("checkifneedtorenewsubs")) {
+			EventBus.getDefault().post(new checkifneedtorenewsubs(message));
 		}
 		if(((Message) msg).getMessage().equals("total_complains_number")) {
 			EventBus.getDefault().post(new total_complain_numberEVENT(message));
@@ -199,7 +204,16 @@ public class SimpleClient extends AbstractClient {
 			EventBus.getDefault().post(new needmycarsEVENT(message));
 		}
 		if ((msgString.equals("#SendToAlternative"))){
-			System.out.println("stillnotready....");
+			ArrayList<Integer> x=(ArrayList<Integer>)message.getObject1();
+			StringBuilder sb = new StringBuilder();
+			sb.append("Sorry for the inconvenience but this parking lot is currently at max capacity , here are the available parking lots at the moment:\n");
+			for (Integer lot :x) {
+				sb.append("Parking Lot ").append(lot).append("\n");
+			}
+
+			String message2 = sb.toString();
+			EventBus.getDefault().post(new MessageWaErEvent((Message) (new Message(message2))));
+
 		}
 		if ((msgString.equals("#CarIsNotInParkingLot"))){
 			System.out.println("sclientada");

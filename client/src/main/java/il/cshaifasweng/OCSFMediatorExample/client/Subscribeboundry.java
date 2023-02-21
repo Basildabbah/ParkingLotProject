@@ -158,7 +158,8 @@ public class Subscribeboundry {
 
     @FXML
     private Label enterlabel;
-
+    @FXML
+    private Label renewlabel;
     @FXML
     private Button enterpark;
 
@@ -199,6 +200,7 @@ public class Subscribeboundry {
         );
         Optional<ButtonType> result = x.showAndWait();
         if (result.get() == ButtonType.OK){
+            renewlabel.setVisible(false);
             try {
                 SimpleClient.getClient().sendToServer(new Message("#renewsub", Integer.parseInt(idd)));
             } catch (IOException e){
@@ -637,6 +639,13 @@ public class Subscribeboundry {
                       //  System.out.println(y);
                     }
 
+    }
+    @Subscribe
+    public void setLabelshow5(checkifneedtorenewsubs Response) throws IOException {
+        if (Response.getWarning().getObject8().toString().equals("renew")) {
+            renewlabel.setText("Your subscription will expire in less than 7 days.");
+            renewlabel.setVisible(true);
+        }
     }
     public static List<String> cars=null;
 }

@@ -50,7 +50,29 @@ public class Order {
 
     private int CarNumber;
 
+    private int EnterMinute;
+
+    private int ExitMinute;
     public Order() {
+    }
+
+    public Order(int OrderId,String TypeOfOrder,int EnterHour, int EnterDay, int EnterMonth, int EnterYear , int ExitHour, int ExitDay, int ExitMonth, int ExitYear,int ParkingLotId, int PersonId, String Password,int etermin,int exitmin) {
+        this.OrderId = OrderId;
+        this.TypeOfOrder = TypeOfOrder;
+        this.EnterHour = EnterHour;
+        this.EnterDay = EnterDay;
+        this.EnterMonth = EnterMonth;
+        this.EnterYear = EnterYear;
+        this.ExitHour = ExitHour;
+        this.ExitDay = ExitDay;
+        this.ExitMonth = ExitMonth;
+        this.ExitYear = ExitYear;
+        this.ParkingLotId = ParkingLotId;
+        this.PersonId = PersonId;
+        this.Password = Password;
+        this.id = OrderId;
+        this.EnterMinute=etermin;
+        this.ExitMinute=exitmin;
     }
 
     public Order(int OrderId,String TypeOfOrder,int EnterHour, int EnterDay, int EnterMonth, int EnterYear , int ExitHour, int ExitDay, int ExitMonth, int ExitYear,int ParkingLotId, int PersonId, String Password) {
@@ -69,7 +91,6 @@ public class Order {
         this.Password = Password;
         this.id = OrderId;
     }
-
     public void setParkinglot(ParkingLot parkinglot) {
         this.parkinglot = parkinglot;
         parkinglot.getAllOrders().add(this);

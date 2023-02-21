@@ -19,6 +19,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+import org.hibernate.type.LocalDateType;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -46,6 +47,7 @@ public class SimpleServer extends AbstractServer {
 		configuration.addAnnotatedClass(OneTimeCustomer.class);
 		configuration.addAnnotatedClass(OnSiteCustomer.class);
 		configuration.addAnnotatedClass(Order.class);
+		configuration.addAnnotatedClass(inactivenumber.class);
 		configuration.addAnnotatedClass(ParkingLot.class);
 		configuration.addAnnotatedClass(RegularSubscriber.class);
 		configuration.addAnnotatedClass(ParkingLotManager.class);
@@ -658,7 +660,11 @@ public class SimpleServer extends AbstractServer {
 
 			String Email = cpymsg.getObject14().toString();
 
+			String ExitMint = cpymsg.getObject18().toString();
+			int ExitMin = Integer.parseInt(ExitMint);
 
+			String EnterMint = cpymsg.getObject17().toString();
+			int EnterMin = Integer.parseInt(EnterMint);
 			int TotalHours = HoursBetweenDates(EnterHour,EnterDay,EnterMonth,EnterYear,ExitHour,ExitDay,ExitMonth,ExitYear);
 
 			int NumberOfOrdersInTheSameHours=0;
@@ -686,10 +692,11 @@ public class SimpleServer extends AbstractServer {
 								{
 									if(Order.getEnterDay() <= ExitDay && Order.getExitDay()>=EnterDay)
 									{
-										if(Order.getEnterHour() <= ExitHour && Order.getExitHour()>=EnterHour)
-										{
-											//sum all orders in same parking lot in same hours
-											NumberOfOrdersInTheSameHours++;
+										if (Order.getEnterHour() <= ExitHour && Order.getExitHour() >= EnterHour) {
+											if (Order.getEnterMinute() <= ExitMin && Order.getExitMinute() >= EnterMin) {
+												//sum all orders in same parking lot in same hours
+												NumberOfOrdersInTheSameHours++;
+											}
 										}
 									}
 								}
@@ -740,13 +747,13 @@ public class SimpleServer extends AbstractServer {
 					}
 				}
 				/********************************************************************/
-				Order NewOrder = new Order(MaxOrderId,TypeOfOrder,EnterHour,EnterDay,EnterMonth,EnterYear,ExitHour,ExitDay,ExitMonth,ExitYear,ParkingLotId,ID,Password);
+				Order NewOrder = new Order(MaxOrderId,TypeOfOrder,EnterHour,EnterDay,EnterMonth,EnterYear,ExitHour,ExitDay,ExitMonth,ExitYear,ParkingLotId,ID,Password,EnterMin,ExitMin);
 				Calendar cal = Calendar.getInstance();
 				cal.set(Calendar.YEAR, EnterYear);
 				cal.set(Calendar.MONTH, EnterMonth-1);
 				cal.set(Calendar.DAY_OF_MONTH, EnterDay);
 				cal.set(Calendar.HOUR_OF_DAY, EnterHour);
-				cal.set(Calendar.MINUTE, 0);
+				cal.set(Calendar.MINUTE, EnterMin);
 				cal.set(Calendar.SECOND, 0);
 
 				Date date = cal.getTime();
@@ -760,7 +767,7 @@ public class SimpleServer extends AbstractServer {
 				cal1.set(Calendar.MONTH, ExitMonth-1);
 				cal1.set(Calendar.DAY_OF_MONTH, ExitDay);
 				cal1.set(Calendar.HOUR_OF_DAY, ExitHour);
-				cal1.set(Calendar.MINUTE, 0);
+				cal1.set(Calendar.MINUTE, ExitMin);
 				cal1.set(Calendar.SECOND, 0);
 
 				Date date1 = cal1.getTime();
@@ -1081,7 +1088,11 @@ public class SimpleServer extends AbstractServer {
 			int CarNumber = Integer.parseInt(CarNumberString);
 
 			String Email = cpymsg.getObject14().toString();
+			String ExitMint = cpymsg.getObject18().toString();
+			int ExitMin = Integer.parseInt(ExitMint);
 
+			String EnterMint = cpymsg.getObject17().toString();
+			int EnterMin = Integer.parseInt(EnterMint);
 			int TotalHours = HoursBetweenDates(EnterHour,EnterDay,EnterMonth,EnterYear,ExitHour,ExitDay,ExitMonth,ExitYear);
 
 			int NumberOfOrdersInTheSameHours=0;
@@ -1109,10 +1120,11 @@ public class SimpleServer extends AbstractServer {
 								{
 									if(Order.getEnterDay() <= ExitDay && Order.getExitDay()>=EnterDay)
 									{
-										if(Order.getEnterHour() <= ExitHour && Order.getExitHour()>=EnterHour)
-										{
-											//sum all orders in same parking lot in same hours
-											NumberOfOrdersInTheSameHours++;
+										if (Order.getEnterHour() <= ExitHour && Order.getExitHour() >= EnterHour) {
+											if (Order.getEnterMinute() <= ExitMin && Order.getExitMinute() >= EnterMin) {
+												//sum all orders in same parking lot in same hours
+												NumberOfOrdersInTheSameHours++;
+											}
 										}
 									}
 								}
@@ -1172,13 +1184,13 @@ public class SimpleServer extends AbstractServer {
 					}
 				}
 				/********************************************************************/
-				Order NewOrder = new Order(MaxOrderId,TypeOfOrder,EnterHour,EnterDay,EnterMonth,EnterYear,ExitHour,ExitDay,ExitMonth,ExitYear,ParkingLotId,ID,Password);
+				Order NewOrder = new Order(MaxOrderId,TypeOfOrder,EnterHour,EnterDay,EnterMonth,EnterYear,ExitHour,ExitDay,ExitMonth,ExitYear,ParkingLotId,ID,Password,EnterMin,ExitMin);
 				Calendar cal = Calendar.getInstance();
 				cal.set(Calendar.YEAR, EnterYear);
 				cal.set(Calendar.MONTH, EnterMonth-1);
 				cal.set(Calendar.DAY_OF_MONTH, EnterDay);
 				cal.set(Calendar.HOUR_OF_DAY, EnterHour);
-				cal.set(Calendar.MINUTE, 0);
+				cal.set(Calendar.MINUTE, EnterMin);
 				cal.set(Calendar.SECOND, 0);
 
 				Date date = cal.getTime();
@@ -1192,7 +1204,7 @@ public class SimpleServer extends AbstractServer {
 				cal1.set(Calendar.MONTH, ExitMonth-1);
 				cal1.set(Calendar.DAY_OF_MONTH, ExitDay);
 				cal1.set(Calendar.HOUR_OF_DAY, ExitHour);
-				cal1.set(Calendar.MINUTE, 0);
+				cal1.set(Calendar.MINUTE, ExitMin);
 				cal1.set(Calendar.SECOND, 0);
 
 				Date date1 = cal1.getTime();
@@ -1307,7 +1319,11 @@ public class SimpleServer extends AbstractServer {
 			int CarNumber = Integer.parseInt(CarNumberString);
 			System.out.println("14");
 			String Email = cpymsg.getObject15().toString();
+			String ExitMint = cpymsg.getObject18().toString();
+			int ExitMin = Integer.parseInt(ExitMint);
 
+			String EnterMint = cpymsg.getObject17().toString();
+			int EnterMin = Integer.parseInt(EnterMint);
 			int TotalHours = HoursBetweenDates(EnterHour,EnterDay,EnterMonth,EnterYear,ExitHour,ExitDay,ExitMonth,ExitYear);
 			System.out.println("15");
 			int NumberOfOrdersInTheSameHours=0;
@@ -1334,10 +1350,11 @@ public class SimpleServer extends AbstractServer {
 								{
 									if(Order.getEnterDay() <= ExitDay && Order.getExitDay()>=EnterDay)
 									{
-										if(Order.getEnterHour() <= ExitHour && Order.getExitHour()>=EnterHour)
-										{
-											//sum all orders in same parking lot in same hours
-											NumberOfOrdersInTheSameHours++;
+										if (Order.getEnterHour() <= ExitHour && Order.getExitHour() >= EnterHour) {
+											if (Order.getEnterMinute() <= ExitMin && Order.getExitMinute() >= EnterMin) {
+												//sum all orders in same parking lot in same hours
+												NumberOfOrdersInTheSameHours++;
+											}
 										}
 									}
 								}
@@ -1397,13 +1414,13 @@ public class SimpleServer extends AbstractServer {
 					}
 				}
 				/********************************************************************/
-				Order NewOrder = new Order(MaxOrderId,TypeOfOrder,EnterHour,EnterDay,EnterMonth,EnterYear,ExitHour,ExitDay,ExitMonth,ExitYear,ParkingLotId,ID,Password);
+				Order NewOrder = new Order(MaxOrderId,TypeOfOrder,EnterHour,EnterDay,EnterMonth,EnterYear,ExitHour,ExitDay,ExitMonth,ExitYear,ParkingLotId,ID,Password,EnterMin,ExitMin);
 				Calendar cal = Calendar.getInstance();
 				cal.set(Calendar.YEAR, EnterYear);
 				cal.set(Calendar.MONTH, EnterMonth-1);
 				cal.set(Calendar.DAY_OF_MONTH, EnterDay);
 				cal.set(Calendar.HOUR_OF_DAY, EnterHour);
-				cal.set(Calendar.MINUTE, 0);
+				cal.set(Calendar.MINUTE, EnterMin);
 				cal.set(Calendar.SECOND, 0);
 
 				Date date = cal.getTime();
@@ -1417,7 +1434,7 @@ public class SimpleServer extends AbstractServer {
 				cal1.set(Calendar.MONTH, ExitMonth-1);
 				cal1.set(Calendar.DAY_OF_MONTH, ExitDay);
 				cal1.set(Calendar.HOUR_OF_DAY, ExitHour);
-				cal1.set(Calendar.MINUTE, 0);
+				cal1.set(Calendar.MINUTE, ExitMin);
 				cal1.set(Calendar.SECOND, 0);
 
 				Date date1 = cal1.getTime();
@@ -1561,6 +1578,12 @@ public class SimpleServer extends AbstractServer {
 
 			String Email = cpymsg.getObject15().toString();
 
+
+			String ExitMint = cpymsg.getObject18().toString();
+			int ExitMin = Integer.parseInt(ExitMint);
+
+			String EnterMint = cpymsg.getObject17().toString();
+			int EnterMin = Integer.parseInt(EnterMint);
 			int TotalHours = HoursBetweenDates(EnterHour ,EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear);
 
 			int Payment=TotalHours;
@@ -1589,8 +1612,10 @@ public class SimpleServer extends AbstractServer {
 										if (Order.getEnterMonth() <= ExitMonth && Order.getExitMonth() >= EnterMonth) {
 											if (Order.getEnterDay() <= ExitDay && Order.getExitDay() >= EnterDay) {
 												if (Order.getEnterHour() <= ExitHour && Order.getExitHour() >= EnterHour) {
-													//sum all orders in same parking lot in same hours
-													NumberOfOrdersInTheSameHours++;
+													if (Order.getEnterMinute() <= ExitMin && Order.getExitMinute() >= EnterMin) {
+														//sum all orders in same parking lot in same hours
+														NumberOfOrdersInTheSameHours++;
+													}
 												}
 											}
 										}
@@ -1636,14 +1661,14 @@ public class SimpleServer extends AbstractServer {
 					}
 				}
 
-				Order NewOrder = new Order(MaxOrderId, TypeOfOrder, EnterHour, EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear, ParkingLotId, PersonID, Password);
+				Order NewOrder = new Order(MaxOrderId, TypeOfOrder, EnterHour, EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear, ParkingLotId, PersonID, Password,EnterMin,ExitMin);
 				//NewOrder.setParkinglot(park1);
 				Calendar cal = Calendar.getInstance();
 				cal.set(Calendar.YEAR, EnterYear);
 				cal.set(Calendar.MONTH, EnterMonth-1);
 				cal.set(Calendar.DAY_OF_MONTH, EnterDay);
 				cal.set(Calendar.HOUR_OF_DAY, EnterHour);
-				cal.set(Calendar.MINUTE, 0);
+				cal.set(Calendar.MINUTE, EnterMin);
 				cal.set(Calendar.SECOND, 0);
 
 				Date date = cal.getTime();
@@ -1657,7 +1682,7 @@ public class SimpleServer extends AbstractServer {
 				cal1.set(Calendar.MONTH, ExitMonth-1);
 				cal1.set(Calendar.DAY_OF_MONTH, ExitDay);
 				cal1.set(Calendar.HOUR_OF_DAY, ExitHour);
-				cal1.set(Calendar.MINUTE, 0);
+				cal1.set(Calendar.MINUTE, ExitMin);
 				cal1.set(Calendar.SECOND, 0);
 
 				Date date1 = cal1.getTime();
@@ -1779,7 +1804,11 @@ public class SimpleServer extends AbstractServer {
 			int CarNumber = Integer.parseInt(CarNumberString);
 
 			String Email = cpymsg.getObject15().toString();
+			String ExitMint = cpymsg.getObject18().toString();
+			int ExitMin = Integer.parseInt(ExitMint);
 
+			String EnterMint = cpymsg.getObject17().toString();
+			int EnterMin = Integer.parseInt(EnterMint);
 			int TotalHours = HoursBetweenDates(EnterHour ,EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear);
 
 			int Payment=TotalHours;
@@ -1808,8 +1837,10 @@ public class SimpleServer extends AbstractServer {
 										if (Order.getEnterMonth() <= ExitMonth && Order.getExitMonth() >= EnterMonth) {
 											if (Order.getEnterDay() <= ExitDay && Order.getExitDay() >= EnterDay) {
 												if (Order.getEnterHour() <= ExitHour && Order.getExitHour() >= EnterHour) {
-													//sum all orders in same parking lot in same hours
-													NumberOfOrdersInTheSameHours++;
+													if (Order.getEnterMinute() <= ExitMin && Order.getExitMinute() >= EnterMin) {
+														//sum all orders in same parking lot in same hours
+														NumberOfOrdersInTheSameHours++;
+													}
 												}
 											}
 										}
@@ -1866,14 +1897,14 @@ public class SimpleServer extends AbstractServer {
 					}
 				}
 				/********************************************************************/
-				Order NewOrder = new Order(MaxOrderId, TypeOfOrder, EnterHour, EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear, ParkingLotId, PersonID, Password);
+				Order NewOrder = new Order(MaxOrderId, TypeOfOrder, EnterHour, EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear, ParkingLotId, PersonID, Password,EnterMin,ExitMin);
 				//NewOrder.setParkinglot(park1);
 				Calendar cal = Calendar.getInstance();
 				cal.set(Calendar.YEAR, EnterYear);
 				cal.set(Calendar.MONTH, EnterMonth-1);
 				cal.set(Calendar.DAY_OF_MONTH, EnterDay);
 				cal.set(Calendar.HOUR_OF_DAY, EnterHour);
-				cal.set(Calendar.MINUTE, 0);
+				cal.set(Calendar.MINUTE, EnterMin);
 				cal.set(Calendar.SECOND, 0);
 
 				Date date = cal.getTime();
@@ -1887,7 +1918,7 @@ public class SimpleServer extends AbstractServer {
 				cal1.set(Calendar.MONTH, ExitMonth-1);
 				cal1.set(Calendar.DAY_OF_MONTH, ExitDay);
 				cal1.set(Calendar.HOUR_OF_DAY, ExitHour);
-				cal1.set(Calendar.MINUTE, 0);
+				cal1.set(Calendar.MINUTE, ExitMin);
 				cal1.set(Calendar.SECOND, 0);
 
 				Date date1 = cal1.getTime();
@@ -2004,7 +2035,11 @@ public class SimpleServer extends AbstractServer {
 			String Email = cpymsg.getObject15().toString();
 			System.out.println(Email);
 			int TotalHours = HoursBetweenDates(EnterHour ,EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear);
+			String ExitMint = cpymsg.getObject18().toString();
+			int ExitMin = Integer.parseInt(ExitMint);
 
+			String EnterMint = cpymsg.getObject17().toString();
+			int EnterMin = Integer.parseInt(EnterMint);
 			int Payment=TotalHours;
 			int NumberOfOrdersInTheSameHours = 0;
 			int MaxOrderId = 0;
@@ -2014,7 +2049,7 @@ public class SimpleServer extends AbstractServer {
 			int FlagOrder = 0;
 
 			ParkingLot park1 = null;
-
+			System.out.println("hohohoh");
 			for (FullSubscriber Subscriber : ListFullSubscriber) {
 				if (Subscriber.getSubscriptionId() == SubscriptionId) {
 					FlagSubscriber = 1;
@@ -2031,8 +2066,10 @@ public class SimpleServer extends AbstractServer {
 										if (Order.getEnterMonth() <= ExitMonth && Order.getExitMonth() >= EnterMonth) {
 											if (Order.getEnterDay() <= ExitDay && Order.getExitDay() >= EnterDay) {
 												if (Order.getEnterHour() <= ExitHour && Order.getExitHour() >= EnterHour) {
-													//sum all orders in same parking lot in same hours
-													NumberOfOrdersInTheSameHours++;
+													if (Order.getEnterMinute() <= ExitMin && Order.getExitMinute() >= EnterMin) {
+														//sum all orders in same parking lot in same hours
+														NumberOfOrdersInTheSameHours++;
+													}
 												}
 											}
 										}
@@ -2125,7 +2162,7 @@ public class SimpleServer extends AbstractServer {
 					}
 				}
 				/********************************************************************/
-				Order NewOrder = new Order(MaxOrderId, TypeOfOrder, EnterHour, EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear, ParkingLotId, PersonID, Password);
+				Order NewOrder = new Order(MaxOrderId, TypeOfOrder, EnterHour, EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear, ParkingLotId, PersonID, Password,EnterMin,ExitMin);
 				//NewOrder.setParkinglot(park1);
 				//////////////////////////////////////
 				Calendar cal = Calendar.getInstance();
@@ -2133,7 +2170,7 @@ public class SimpleServer extends AbstractServer {
 				cal.set(Calendar.MONTH, EnterMonth-1);
 				cal.set(Calendar.DAY_OF_MONTH, EnterDay);
 				cal.set(Calendar.HOUR_OF_DAY, EnterHour);
-				cal.set(Calendar.MINUTE, 0);
+				cal.set(Calendar.MINUTE, EnterMin);
 				cal.set(Calendar.SECOND, 0);
 
 				Date date = cal.getTime();
@@ -2147,7 +2184,7 @@ public class SimpleServer extends AbstractServer {
 				cal1.set(Calendar.MONTH, ExitMonth-1);
 				cal1.set(Calendar.DAY_OF_MONTH, ExitDay);
 				cal1.set(Calendar.HOUR_OF_DAY, ExitHour);
-				cal1.set(Calendar.MINUTE, 0);
+				cal1.set(Calendar.MINUTE, ExitMin);
 				cal1.set(Calendar.SECOND, 0);
 
 				Date date1 = cal1.getTime();
@@ -2261,7 +2298,11 @@ public class SimpleServer extends AbstractServer {
 			String Email = cpymsg.getObject15().toString();
 			System.out.println(Email);
 			int TotalHours = HoursBetweenDates(EnterHour ,EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear);
+			String ExitMint = cpymsg.getObject18().toString();
+			int ExitMin = Integer.parseInt(ExitMint);
 
+			String EnterMint = cpymsg.getObject17().toString();
+			int EnterMin = Integer.parseInt(EnterMint);
 			int Payment=TotalHours;
 			int NumberOfOrdersInTheSameHours = 0;
 			int MaxOrderId = 0;
@@ -2287,8 +2328,10 @@ public class SimpleServer extends AbstractServer {
 										if (Order.getEnterMonth() <= ExitMonth && Order.getExitMonth() >= EnterMonth) {
 											if (Order.getEnterDay() <= ExitDay && Order.getExitDay() >= EnterDay) {
 												if (Order.getEnterHour() <= ExitHour && Order.getExitHour() >= EnterHour) {
-													//sum all orders in same parking lot in same hours
-													NumberOfOrdersInTheSameHours++;
+													if (Order.getEnterMinute() <= ExitMin && Order.getExitMinute() >= EnterMin) {
+														//sum all orders in same parking lot in same hours
+														NumberOfOrdersInTheSameHours++;
+													}
 												}
 											}
 										}
@@ -2379,7 +2422,7 @@ public class SimpleServer extends AbstractServer {
 					}
 				}
 				/********************************************************************/
-				Order NewOrder = new Order(MaxOrderId, TypeOfOrder, EnterHour, EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear, ParkingLotId, PersonID, Password);
+				Order NewOrder = new Order(MaxOrderId, TypeOfOrder, EnterHour, EnterDay, EnterMonth, EnterYear, ExitHour, ExitDay, ExitMonth, ExitYear, ParkingLotId, PersonID, Password,EnterMin,ExitMin);
 				//NewOrder.setParkinglot(park1);
 				//////////////////////////////////////
 				Calendar cal = Calendar.getInstance();
@@ -2387,7 +2430,7 @@ public class SimpleServer extends AbstractServer {
 				cal.set(Calendar.MONTH, EnterMonth-1);
 				cal.set(Calendar.DAY_OF_MONTH, EnterDay);
 				cal.set(Calendar.HOUR_OF_DAY, EnterHour);
-				cal.set(Calendar.MINUTE, 0);
+				cal.set(Calendar.MINUTE, EnterMin);
 				cal.set(Calendar.SECOND, 0);
 
 				Date date = cal.getTime();
@@ -2401,7 +2444,7 @@ public class SimpleServer extends AbstractServer {
 				cal1.set(Calendar.MONTH, ExitMonth-1);
 				cal1.set(Calendar.DAY_OF_MONTH, ExitDay);
 				cal1.set(Calendar.HOUR_OF_DAY, ExitHour);
-				cal1.set(Calendar.MINUTE, 0);
+				cal1.set(Calendar.MINUTE, ExitMin);
 				cal1.set(Calendar.SECOND, 0);
 
 				Date date1 = cal1.getTime();
@@ -2441,8 +2484,23 @@ public class SimpleServer extends AbstractServer {
 			if (FlagSubscriber == 0)
 				message.setObject1("The Subscription Number is Wrong");
 			else
-			if (FlagEmptySpot == 0)
+			if (FlagEmptySpot == 0) {
 				message.setObject1("The ParkingLot is Full");
+				try {
+					ArrayList<Integer> hii=new ArrayList<Integer>();
+					for (ParkingLot hi : getAll(ParkingLot.class)) {
+						System.out.println(hi.getId()+" "+hi.getCapacity()+" "+hi.getEmptySpots()+" "+hi.getNumberOfInactiveParkings());
+						if (hi.getEmptySpots()>0)
+						{
+							System.out.println("hii is  "+ hi.getId());
+							hii.add(hi.getId());
+						}
+					}
+					client.sendToClient(new Message("#SendToAlternative",hii));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 			else
 			if (FlagRemainingHours == 0)
 				message.setObject1("You Don't Have Enough Hours");
@@ -2458,7 +2516,47 @@ public class SimpleServer extends AbstractServer {
 //		*************************************************************************************
 //		*************************************************************************************
 
+		if (msgString.equals("#checkifneedtorenewsubs")) {
 
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+
+			Message message = new Message("checkifneedtorenewsubs");
+			Message cpymsg=((Message) msg);
+
+			List<FullSubscriber> listfull = getAll(FullSubscriber.class);
+			String subs = cpymsg.getObject1().toString();
+			int subscribid=Integer.parseInt(subs);
+			Date x=new Date(2023,2,2);
+			System.out.println(x);
+			for (FullSubscriber t:listfull)
+			{
+				if (t.getSubscriberId()==subscribid)
+				{
+					Date xx=new Date(2023,t.getSubscriptionExpiryDate().getMonthValue()-1,t.getSubscriptionExpiryDate().getDayOfMonth());
+					System.out.println(xx);
+
+					int diff = x.compareTo(xx);
+					if (diff>0)
+					{
+						message.setObject8("renew");
+					}
+					else
+					{
+						message.setObject8("ok");
+					}
+				}
+			}
+
+			System.out.println(message.getMessage().toString());
+			try {
+				client.sendToClient(message);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			session.getTransaction().commit();
+			session.close();
+		}
 
 
 		if (msgString.equals("#InvalidSpotsReport")) {
@@ -2469,20 +2567,38 @@ public class SimpleServer extends AbstractServer {
 			Message message = new Message("InvalidSpotsReport");
 			Message cpymsg=((Message) msg);
 
-			List<ParkingLot> listparkinglot = getAll(ParkingLot.class);
+			List<inactivenumber> listparkinglot = getAll(inactivenumber.class);
 
 			String ParkIDString = cpymsg.getObject1().toString();
 			int ParkID=Integer.parseInt(ParkIDString);
+			String fromyea = cpymsg.getObject2().toString();
+			int fromyear=Integer.parseInt(fromyea);
+			String frommont = cpymsg.getObject3().toString();
+			int frommonth=Integer.parseInt(frommont);
+			String fromda = cpymsg.getObject4().toString();
+			int fromday=Integer.parseInt(fromda);
 
+			String toyea = cpymsg.getObject5().toString();
+			int toyear=Integer.parseInt(toyea);
+			String tomont = cpymsg.getObject6().toString();
+			int tomonth=Integer.parseInt(tomont);
+			String toda = cpymsg.getObject7().toString();
+			int today=Integer.parseInt(toda);
+			Date datefrom=new Date(fromyear,frommonth,fromday);
+			Date dateto=new Date(toyear,tomonth,today);
 			int InActiveSpots=0;
 
-			for (ParkingLot parkinglot1 : listparkinglot) {
-				if(parkinglot1.getId() == ParkID )
+			for (inactivenumber parkinglot1 : listparkinglot) {
+				if(parkinglot1.getParkingLotId() == ParkID )
 				{
-					InActiveSpots = parkinglot1.getNumberOfInactiveParkings();
+					Date datesql=new Date(parkinglot1.getDate().getYear(),parkinglot1.getDate().getMonthValue(),parkinglot1.getDate().getDayOfMonth());
+					if ((datefrom.compareTo(datesql)<0&&dateto.compareTo(datesql)>0)||(datefrom.compareTo(datesql)==0||dateto.compareTo(datesql)==0))
+					{
+						InActiveSpots++;
+					}
 				}
 			}
-
+			System.out.println("InActiveSpots  "+InActiveSpots);
 			message.setObject1(InActiveSpots);
 			message.setObject2(ParkID);
 
@@ -2504,20 +2620,41 @@ public class SimpleServer extends AbstractServer {
 			Message message = new Message("ComplaintsReport");
 			Message cpymsg=((Message) msg);
 
-			List<ParkingLot> listparkinglot = getAll(ParkingLot.class);
+			List<Complaint> listparkinglot = getAll(Complaint.class);
 
 			String ParkIDString = cpymsg.getObject1().toString();
 			int ParkID=Integer.parseInt(ParkIDString);
+			String fromyea = cpymsg.getObject2().toString();
+			int fromyear=Integer.parseInt(fromyea);
+			String frommont = cpymsg.getObject3().toString();
+			int frommonth=Integer.parseInt(frommont);
+			String fromda = cpymsg.getObject4().toString();
+			int fromday=Integer.parseInt(fromda);
+
+			String toyea = cpymsg.getObject5().toString();
+			int toyear=Integer.parseInt(toyea);
+			String tomont = cpymsg.getObject6().toString();
+			int tomonth=Integer.parseInt(tomont);
+			String toda = cpymsg.getObject7().toString();
+			int today=Integer.parseInt(toda);
+
 
 			int NumberOfComplaints=0;
+			Date datefrom=new Date(fromyear,frommonth,fromday);
+			Date dateto=new Date(toyear,tomonth,today);
 
-			for (ParkingLot parkinglot1 : listparkinglot) {
-				if(parkinglot1.getId() == ParkID )
-				{
-					NumberOfComplaints = parkinglot1.getNumberOfComplaints();
+
+			for (Complaint parkinglot1 : listparkinglot) {
+				if (parkinglot1.getParkingLotId()==ParkID){
+					Date datesql=new Date(parkinglot1.getDate().getYear(),parkinglot1.getDate().getMonthValue(),parkinglot1.getDate().getDayOfMonth());
+					if ((datefrom.compareTo(datesql)<0&&dateto.compareTo(datesql)>0)||(datefrom.compareTo(datesql)==0||dateto.compareTo(datesql)==0))
+					{
+						NumberOfComplaints++;
+					}
 				}
-			}
 
+			}
+			//System.out.println(NumberOfComplaints);
 			message.setObject1(NumberOfComplaints);
 			message.setObject2(ParkID);
 
@@ -2544,44 +2681,53 @@ public class SimpleServer extends AbstractServer {
 
 			String ParkIDString = cpymsg.getObject1().toString();
 			int ParkID=Integer.parseInt(ParkIDString);
+			String fromyea = cpymsg.getObject2().toString();
+			int fromyear=Integer.parseInt(fromyea);
+			String frommont = cpymsg.getObject3().toString();
+			int frommonth=Integer.parseInt(frommont);
+			String fromda = cpymsg.getObject4().toString();
+			int fromday=Integer.parseInt(fromda);
+
+			String toyea = cpymsg.getObject5().toString();
+			int toyear=Integer.parseInt(toyea);
+			String tomont = cpymsg.getObject6().toString();
+			int tomonth=Integer.parseInt(tomont);
+			String toda = cpymsg.getObject7().toString();
+			int today=Integer.parseInt(toda);
+
+			Date datefrom=new Date(fromyear,frommonth,fromday);
+			Date dateto=new Date(toyear,tomonth,today);
 
 			int NumberOfOrders=0;
 			int c1=0,c2=0,c3=0,c4=0;
 
 			for (Order order1 : listordertype) {
-				if (order1.getParkingLotId() == ParkID)
-				{
-					if(order1.getTypeOfOrder().equals("FullSubscriberOrder")) {
-						c1++;
+				if (order1.getParkingLotId() == ParkID) {
+					Date datesql = new Date(order1.getEnterYear(), order1.getEnterMonth(), order1.getEnterDay());
+					if ((datefrom.compareTo(datesql) < 0 && dateto.compareTo(datesql) > 0) || (datefrom.compareTo(datesql) == 0 || dateto.compareTo(datesql) == 0)) {
+						if (order1.getTypeOfOrder().equals("FullSubscriberOrder")) {
+							c1++;
 
-					}
-					if(order1.getTypeOfOrder().equals("GuestOnSiteOrder")) {
-						c3++;
+						}
+						if (order1.getTypeOfOrder().equals("GuestOnSiteOrder")) {
+							c3++;
 
-					}
-					if(order1.getTypeOfOrder().equals("GuestPreOrder")) {
-						c2++;
+						}
+						if (order1.getTypeOfOrder().equals("GuestPreOrder")) {
+							c2++;
 
+						}
+						if (order1.getTypeOfOrder().equals("RegularSubscriberOrder")) {
+							c4++;
+						}
 					}
-					if(order1.getTypeOfOrder().equals("RegularSubscriberOrder")) {
-						c4++;
-					}
-						   /*parkinglot1.setNumberOfOrders(10);
-						   session.update(parkinglot1);
-						   NumberOfOrders = parkinglot1.getNumberOfOrders();*/
 				}
 			}
-
-
-			/*message.setObject1(NumberOfOrders);*/
 			message.setObject2(ParkID);
 			message.setObject3(c1);
 			message.setObject4(c2);
 			message.setObject5(c3);
 			message.setObject6(c4);
-
-
-
 
 			try {
 				client.sendToClient(message);
@@ -2599,51 +2745,63 @@ public class SimpleServer extends AbstractServer {
 
 			session = sessionFactory.openSession();
 			session.beginTransaction();
-
+			System.out.println("hi1");
 			Message message = new Message("Stats");
 			Message cpymsg = ((Message) msg);
 
-			List<Order> listorder = getAll(Order.class);
-			List<CanceledOrder> listCanceledOrder = getAll(CanceledOrder.class);
 
-			LocalDate Date2 = LocalDate.now();
-			int Day = Date2.getDayOfMonth();
+			List<Order> ordererer = getAll(Order.class);
+			List<CanceledOrder> CanceledOrderordererer = getAll(CanceledOrder.class);
+			String ParkIDString = cpymsg.getObject1().toString();
+			int ParkID=Integer.parseInt(ParkIDString);
+			String fromyea = cpymsg.getObject2().toString();
+			int fromyear=Integer.parseInt(fromyea);
+			String frommont = cpymsg.getObject3().toString();
+			int frommonth=Integer.parseInt(frommont);
+			String fromda = cpymsg.getObject4().toString();
+			int fromday=Integer.parseInt(fromda);
 
-			String ParkIdString = cpymsg.getObject1().toString();
-			int ParkId = Integer.parseInt(ParkIdString);
+			String toyea = cpymsg.getObject5().toString();
+			int toyear=Integer.parseInt(toyea);
+			String tomont = cpymsg.getObject6().toString();
+			int tomonth=Integer.parseInt(tomont);
+			String toda = cpymsg.getObject7().toString();
+			int today=Integer.parseInt(toda);
 
-			int countcanceledorder = 0;
-			int countactiveorder = 0;
-			int countlatearrive = 0;
+			int c1=0;int c2=0;
+			int c3=0;
+			Date datefrom=new Date(fromyear,frommonth,fromday);
+			Date dateto=new Date(toyear,tomonth,today);
 
-			for (Order order1 : listorder) {
-				if (order1.getParkingLotId() == ParkId) {
-					if (order1.getEnterDay() == Day ) {
-						if (order1.isAlreadyInParkingLot() == true) {
-							countactiveorder++;
+			for (Order parkinglot1 : ordererer) {
+				if (parkinglot1.getParkingLotId() == ParkID) {
+					Date datesql = new Date(parkinglot1.getEnterYear(), parkinglot1.getEnterMonth(), parkinglot1.getEnterDay());
+					if ((datefrom.compareTo(datesql) < 0 && dateto.compareTo(datesql) > 0) || (datefrom.compareTo(datesql) == 0 || dateto.compareTo(datesql) == 0)) {
+						c1++;
+						if (parkinglot1.getLateArrival()==1)
+						{
+							c3++;
 						}
-						if (order1.getLateArrival() == 1) {
-							countlatearrive++;
-						}
+					}
+
+				}
+			}
+			for (CanceledOrder parkinglot1 : CanceledOrderordererer) {
+				if (parkinglot1.getParkingLotId() == ParkID) {
+					Date datesql = new Date(parkinglot1.getEnterYear(), parkinglot1.getEnterMonth(), parkinglot1.getEnterDay());
+					if ((datefrom.compareTo(datesql) < 0 && dateto.compareTo(datesql) > 0) || (datefrom.compareTo(datesql) == 0 || dateto.compareTo(datesql) == 0)) {
+						c2++;
 					}
 				}
 			}
-			for (CanceledOrder order2 : listCanceledOrder) {
-				if (order2.getParkingLotId() == ParkId) {
-					if (Day == order2.getDayOfCancel()) {
-						countcanceledorder++;
-					}
-				}
-			}
-			message.setObject1(ParkId);
-			message.setObject2(countactiveorder);
-			message.setObject3(countcanceledorder);
-			message.setObject4(countlatearrive);
-
 
 			try {
+				message.setObject1(ParkID);
+				message.setObject2(c1);
+				message.setObject3(c2);
+				message.setObject4(c3);
 				client.sendToClient(message);
-			} catch (IOException e) {
+			}	 catch (IOException e) {
 				e.printStackTrace();
 			}
 			session.getTransaction().commit();
@@ -3857,7 +4015,14 @@ public class SimpleServer extends AbstractServer {
 					} else if (((parkingLot.getDepth() * parkingLot.getNumberOfColumns() * parkingLot.getNumberOfRows())
 							- currentOrders.size() - parkingLot.getNumberOfInactiveParkings() <= 0)) {
 						try {
-							client.sendToClient(new Message("#SendToAlternative"));
+							ArrayList<Integer> hii=new ArrayList<Integer>();
+							for (ParkingLot hi : getAll(ParkingLot.class)) {
+								if (hi.getCapacity()-(hi.getEmptySpots()+hi.getNumberOfInactiveParkings())>0)
+								{
+									hii.add(hi.getId());
+								}
+							}
+							client.sendToClient(new Message("#SendToAlternative",hii));
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
@@ -3872,6 +4037,11 @@ public class SimpleServer extends AbstractServer {
 						for (Order order : getAll(Order.class)) {
 							if (order.getCarNumber() == carNumber) {
 								order.setAlreadyInParkingLot(true);
+								LocalDateTime dateTime = LocalDateTime.parse(order.getEntryTime(), formatter);
+								LocalDateTime now1 = LocalDateTime.now();
+								if (dateTime.isBefore(now1)) {
+									order.setLateArrival(1);
+								}
 								session.update(order);
 							}
 						}
@@ -4470,9 +4640,15 @@ public class SimpleServer extends AbstractServer {
 								}
 							}
 							if (T==false) {
+								parkingLot.setEmptySpots(parkingLot.getEmptySpots()-1);
 								parkingLot.setNumberOfInactiveParkings(parkingLot.getNumberOfInactiveParkings() + 1);
+								/****/
+								inactivenumber halo=new inactivenumber(parkingLot.getId());
+								session.save(halo);
+								/****/
 							}
 							parkingLot.setMatrix(matrix1d);
+						//	parkingLot.setEmptySpots(parkingLot.getEmptySpots()+1);
 							session.update(parkingLot);
 							try {
 								client.sendToClient(new Message("#InactiveSuccess"));
@@ -4540,6 +4716,7 @@ public class SimpleServer extends AbstractServer {
 						}
 						parkingLot.setMatrix(matrix1d);
 						if (T==true) {
+							parkingLot.setEmptySpots(parkingLot.getEmptySpots()+1);
 							parkingLot.setNumberOfInactiveParkings(parkingLot.getNumberOfInactiveParkings() - 1);
 						}
 						session.update(parkingLot);

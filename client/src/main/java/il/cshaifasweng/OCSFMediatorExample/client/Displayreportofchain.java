@@ -4,10 +4,7 @@ import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.SplitMenuButton;
+import javafx.scene.control.*;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -24,7 +21,10 @@ public class Displayreportofchain {
 
         App.setRoot("test");
     }
-
+    @FXML
+    private DatePicker fromdate;
+    @FXML
+    private DatePicker todate;
     @FXML
     private MenuItem ComplaintsReport;
 
@@ -68,7 +68,8 @@ public class Displayreportofchain {
     @FXML
     void ShowReportfun(ActionEvent event) {
         if (type.getText().equals("InvalidSpotsReport")) {
-            Message m = new Message("#InvalidSpotsReport", parking_id.getText());
+            Message m = new Message("#InvalidSpotsReport", parking_id.getText(),fromdate.getValue().getYear(),fromdate.getValue().getMonthValue()
+                    , fromdate.getValue().getDayOfMonth(),todate.getValue().getYear(),todate.getValue().getMonthValue(),todate.getValue().getDayOfMonth());
             try {
                 SimpleClient.getClient().sendToServer(m);
             } catch (IOException e) {
@@ -80,16 +81,20 @@ public class Displayreportofchain {
        // Date x=new Date(2020,12,2,5,2);
       //  System.out.println("aaaaaaaaaaaaa            "+x);
         if (type.getText().equals("ComplaintsReport")) {
-            Message m = new Message("#ComplaintsReport", parking_id.getText());
+            Message m = new Message("#ComplaintsReport", parking_id.getText(),fromdate.getValue().getYear(),fromdate.getValue().getMonthValue()
+                   , fromdate.getValue().getDayOfMonth(),todate.getValue().getYear(),todate.getValue().getMonthValue(),todate.getValue().getDayOfMonth()  );
            try {
                 SimpleClient.getClient().sendToServer(m);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
+/*        System.out.println(fromdate.getValue().getYear());
+        System.out.println(fromdate.getValue().getMonthValue());
+        System.out.println(fromdate.getValue().getDayOfMonth());*/
         if (type.getText().equals("OrdersReport")) {
-            Message m = new Message("#OrdersReport", parking_id.getText());
+            Message m = new Message("#OrdersReport", parking_id.getText(),fromdate.getValue().getYear(),fromdate.getValue().getMonthValue()
+                    , fromdate.getValue().getDayOfMonth(),todate.getValue().getYear(),todate.getValue().getMonthValue(),todate.getValue().getDayOfMonth());
            try {
                 SimpleClient.getClient().sendToServer(m);
             } catch (IOException e) {
@@ -203,8 +208,8 @@ public class Displayreportofchain {
     }
     @FXML
     void ShowStatisticsfun(ActionEvent event) {
-        Message m = new Message("#Stats", parking_id1.getText());
-        System.out.println(parking_id1.getText());
+        Message m = new Message("#Stats", parking_id1.getText(),fromdate.getValue().getYear(),fromdate.getValue().getMonthValue()
+                , fromdate.getValue().getDayOfMonth(),todate.getValue().getYear(),todate.getValue().getMonthValue(),todate.getValue().getDayOfMonth());
         try {
             SimpleClient.getClient().sendToServer(m);
         } catch (IOException e) {

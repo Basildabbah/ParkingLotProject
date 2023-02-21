@@ -147,7 +147,7 @@ public class SUB_create_order {
 
                 if (type.equals("Regular") && preorder.isSelected() == true) {
                     boolean OnSite = false;
-                    Message m = new Message("#RegularSubscriberOrder", EnterHour.getText(), EnterDay.getText(), EnterMonth.getText(), EnterYear.getText(), ExitHour.getText(), ExitDay.getText(), ExitMonth.getText(), ExitYear.getText(), ParkLotIdMenu.getText(), ID.getText(), Password.getText(), idd, OnSite, menu.getText(),email);
+                    Message m = new Message("#RegularSubscriberOrder", EnterHour.getText(), EnterDay.getText(), EnterMonth.getText(), EnterYear.getText(), ExitHour.getText(), ExitDay.getText(), ExitMonth.getText(), ExitYear.getText(), ParkLotIdMenu.getText(), ID.getText(), Password.getText(), idd, OnSite, menu.getText(),email,"",EnterMin.getText(),ExitMin.getText());
                     try {
                         SimpleClient.getClient().sendToServer(m);
                     } catch (IOException e) {
@@ -182,7 +182,7 @@ public class SUB_create_order {
                 if (type.equals("Full") && preorder.isSelected() == true) {
                     boolean OnSite = false;
                     System.out.println(Subscribeboundry.email);
-                    Message m = new Message("#FullSubscriberOrder", EnterHour.getText(), EnterDay.getText(), EnterMonth.getText(), EnterYear.getText(), ExitHour.getText(), ExitDay.getText(), ExitMonth.getText(), ExitYear.getText(), ParkLotIdMenu.getText(), ID.getText(), Password.getText(), idd, OnSite, menu.getText(), Subscribeboundry.email);
+                    Message m = new Message("#FullSubscriberOrder", EnterHour.getText(), EnterDay.getText(), EnterMonth.getText(), EnterYear.getText(), ExitHour.getText(), ExitDay.getText(), ExitMonth.getText(), ExitYear.getText(), ParkLotIdMenu.getText(), ID.getText(), Password.getText(), idd, OnSite, menu.getText(), Subscribeboundry.email,"",EnterMin.getText(),ExitMin.getText());
 
                     try {
                         SimpleClient.getClient().sendToServer(m);
