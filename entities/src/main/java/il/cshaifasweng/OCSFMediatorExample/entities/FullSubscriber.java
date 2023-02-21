@@ -80,5 +80,8 @@ public class FullSubscriber implements Serializable {
 
     public void removeCar(Car car){
         carList.remove(car);
+        remainingHours-=54;
+        this.numberOfCars--;
+
     }
 }
