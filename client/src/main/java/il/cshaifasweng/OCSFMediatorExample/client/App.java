@@ -37,7 +37,7 @@ public class App extends Application {
     	EventBus.getDefault().register(this);
     	client = SimpleClient.getClient();
     	client.openConnection();
-        scene = new Scene(loadFXML("displayreportofchain"), 1000, 750);
+        scene = new Scene(loadFXML("home"), 1000, 750);
         stage.setScene(scene);
         stage.show();
     }

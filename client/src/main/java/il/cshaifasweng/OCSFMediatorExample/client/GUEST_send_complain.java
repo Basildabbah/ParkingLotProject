@@ -268,7 +268,7 @@ public class GUEST_send_complain {
 
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION,
-                        String.format("Your Complain Number is: %s\nTimestamp: %s\n",
+                        String.format("Your Complain Number is: %s\nTimestamp: %s\n We will Respond in 24 hour",
                                 e.getWarning().getObject1(),
                                 e.getWarning().getTime().toString())
                 );

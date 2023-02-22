@@ -108,18 +108,19 @@ public class Displayreportofchain {
 /*        System.out.println(fromdate.getValue().getYear());
         System.out.println(fromdate.getValue().getMonthValue());
         System.out.println(fromdate.getValue().getDayOfMonth());*/
-      /*  if (type.getText().equals("OrdersReport")) {
-            Message m = new Message("#OrdersReport", parking_id.getText(),fromdate.getValue().getYear(),fromdate.getValue().getMonthValue()
-                    , fromdate.getValue().getDayOfMonth(),todate.getValue().getYear(),todate.getValue().getMonthValue(),todate.getValue().getDayOfMonth());
+       if (type.getText().equals("OrdersReport")) {
+         /*  Message m = new Message("#OrdersReport", parking_id.getText(), fromdate.getValue().getYear(), fromdate.getValue().getMonthValue()
+                   , fromdate.getValue().getDayOfMonth(), todate.getValue().getYear(), todate.getValue().getMonthValue(), todate.getValue().getDayOfMonth());
            try {
-                SimpleClient.getClient().sendToServer(m);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }*/
-        App.setRoot("displayreportofchain_ReportORDER");
-        System.out.println(parking_id.getText());
-        System.out.println(type.getText());
+               SimpleClient.getClient().sendToServer(m);
+           } catch (IOException e) {
+               e.printStackTrace();
+           }*/
+
+           App.setRoot("displayreportofchain_ReportORDER");
+           System.out.println(parking_id.getText());
+           System.out.println(type.getText());
+       }
     }
     @FXML
     void ComplaintsReport(ActionEvent event) {

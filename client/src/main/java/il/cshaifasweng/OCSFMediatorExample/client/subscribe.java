@@ -156,6 +156,7 @@ public class subscribe {
     @Subscribe
     public void setLabelshow(new_subscirber_EVENT c)throws IOException {
         Platform.runLater(()->{
+            EventBus.getDefault().unregister(this);
             System.out.println("as");
             invaild.setVisible(true);
             if(c.getWarning().getObject1().toString().equals("email is used before"))
@@ -199,5 +200,6 @@ public class subscribe {
     @FXML
     void initialize() {
         EventBus.getDefault().register(this);
+
     }
 }

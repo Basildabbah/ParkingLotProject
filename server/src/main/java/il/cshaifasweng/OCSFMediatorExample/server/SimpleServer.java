@@ -314,7 +314,7 @@ public class SimpleServer extends AbstractServer {
 
 			int TotalHours=0;
 
-			int Refund=0;
+			double Refund=0;
 
 			int CarNumber=0;
 
@@ -362,6 +362,22 @@ public class SimpleServer extends AbstractServer {
 							//***************************************
 
 							Refund=TotalHours*price2;
+							LocalDateTime now=LocalDateTime.now();
+							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+							LocalDateTime dateTime = LocalDateTime.parse(order.getEntryTime(), formatter);
+							long diffInHours = ChronoUnit.HOURS.between(now, dateTime);
+							if ( diffInHours >3) {
+								Refund *=0.9;
+							}
+							else if ( diffInHours>1 ) {
+								Refund *=0.5;
+							}
+							else if ( diffInHours>0 ) {
+								Refund *=0.1;
+							}
+							else {
+								Refund =0;
+							}
 							message.setObject2("The Refund in Money is: ");
 							message.setObject3(Refund);
 						}
@@ -379,8 +395,23 @@ public class SimpleServer extends AbstractServer {
 							int price1 = Integer.parseInt(arr[0]);
 
 							//***************************************
-
-							Refund=TotalHours*price1;
+							Refund = TotalHours * price1;
+							LocalDateTime now=LocalDateTime.now();
+							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+							LocalDateTime dateTime = LocalDateTime.parse(order.getEntryTime(), formatter);
+							long diffInHours = ChronoUnit.HOURS.between(now, dateTime);
+							if ( diffInHours >3) {
+								Refund *=0.9;
+							}
+							else if ( diffInHours>1 ) {
+								Refund *=0.5;
+							}
+							else if ( diffInHours>0 ) {
+								Refund *=0.1;
+							}
+							else {
+								Refund =0;
+							}
 							message.setObject2("The Refund in Money is: ");
 							message.setObject3(Refund);
 						}
@@ -2819,7 +2850,14 @@ public class SimpleServer extends AbstractServer {
 			message.setObject5(c3);
 			message.setObject6(c4);
 			message.setObject7(complaints);
-			System.out.println(complaints);
+
+			System.out.println("c1");
+			System.out.println(c1+" "+c2+" "+c3+" "+c4);
+			int y=c1+c2+c3+c4;
+			String yy="";
+			yy+=y;
+			message.setObject8(yy);
+
 			try {
 				client.sendToClient(message);
 			} catch (IOException e) {
@@ -4130,6 +4168,7 @@ public class SimpleServer extends AbstractServer {
 								order.setAlreadyInParkingLot(true);
 								LocalDateTime dateTime = LocalDateTime.parse(order.getEntryTime(), formatter);
 								LocalDateTime now1 = LocalDateTime.now();
+								dateTime.plusMinutes(5);
 								if (dateTime.isBefore(now1)) {
 									order.setLateArrival(1);
 								}

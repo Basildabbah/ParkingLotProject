@@ -116,6 +116,17 @@ public class displayreportofchain_ReportORDER {
 
                     ObservableList<Order> list = FXCollections.observableList((ArrayList<Order>) Response.getWarning().getObject7());
                     table2.setItems(list);
+                    System.out.println( Response.getWarning().getObject8());
+                    parknumber1.setText((String) Response.getWarning().getObject8());
+                    double x1= Double.parseDouble(parknumber1.getText());
+                    double x2=Double.parseDouble(parknumber11.getText());
+                    //System.out.println("x is "+x);
+                    //System.out.println("xx is "+xx);
+                    double x3=x1/x2;
+                    x3=x3*100;
+                    String x4="";
+                    x4+=x3;
+                    parknumber111.setText(x4);
 
                 }
         );

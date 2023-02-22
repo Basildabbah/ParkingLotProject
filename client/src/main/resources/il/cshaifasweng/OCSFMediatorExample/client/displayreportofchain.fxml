@@ -13,19 +13,19 @@
 
 <AnchorPane prefHeight="1000.0" prefWidth="750.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Displayreportofchain">
    <children>
-      <Button layoutX="437.0" layoutY="449.0" mnemonicParsing="false" onAction="#Back" prefHeight="34.0" prefWidth="94.0" text="Back">
+      <Button layoutX="89.0" layoutY="200.0" mnemonicParsing="false" onAction="#Back" prefHeight="34.0" prefWidth="94.0" text="Back">
          <font>
             <Font size="23.0" />
          </font>
       </Button>
-      <SplitMenuButton fx:id="type" layoutX="274.0" layoutY="319.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="146.0" text="Report Type">
+      <SplitMenuButton fx:id="type" layoutX="273.0" layoutY="278.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="146.0" text="Report Type">
         <items>
           <MenuItem fx:id="InvalidSpotsReport" mnemonicParsing="false" onAction="#InvalidSpotsReport" text="InvalidSpotsReport" />
           <MenuItem fx:id="ComplaintsReport" mnemonicParsing="false" onAction="#ComplaintsReport" text="ComplaintsReport" />
             <MenuItem fx:id="OrdersReport" mnemonicParsing="false" onAction="#OrdersReport" text="OrdersReport" />
         </items>
       </SplitMenuButton>
-      <SplitMenuButton fx:id="parking_id" layoutX="274.0" layoutY="265.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" text="Choose ParkLot Id">
+      <SplitMenuButton fx:id="parking_id" layoutX="274.0" layoutY="265.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" text="Choose ParkLot Id" visible="false">
          <items>
             <MenuItem fx:id="park1" mnemonicParsing="false" onAction="#park1" text="Park 1" />
             <MenuItem fx:id="park2" mnemonicParsing="false" onAction="#park2" text="Park 2" />
@@ -36,13 +36,13 @@
             <MenuItem fx:id="park7" mnemonicParsing="false" onAction="#park7" text="Park 7" />
          </items>
       </SplitMenuButton>
-      <Button fx:id="ShowReportfun" layoutX="293.0" layoutY="365.0" mnemonicParsing="false" onAction="#ShowReportfun" text="Show Report" />
+      <Button fx:id="ShowReportfun" layoutX="289.0" layoutY="319.0" mnemonicParsing="false" onAction="#ShowReportfun" text="Show Report" />
       <Label layoutX="293.0" layoutY="208.0" prefHeight="18.0" prefWidth="76.0" text="Report">
          <font>
             <Font size="23.0" />
          </font>
       </Label>
-      <SplitMenuButton fx:id="parking_id1" layoutX="522.0" layoutY="265.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" text="Choose ParkLot Id">
+      <SplitMenuButton fx:id="parking_id1" layoutX="522.0" layoutY="265.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" text="Choose ParkLot Id" visible="false">
          <items>
             <MenuItem fx:id="park11" mnemonicParsing="false" onAction="#park11" text="Park 1" />
             <MenuItem fx:id="park22" mnemonicParsing="false" onAction="#park22" text="Park 2" />
@@ -58,7 +58,7 @@
             <Font size="23.0" />
          </font>
       </Label>
-      <Button fx:id="ShowReportfun1" layoutX="553.0" layoutY="319.0" mnemonicParsing="false" onAction="#ShowStatisticsfun" text="Show Report" />
+      <Button fx:id="ShowReportfun1" layoutX="553.0" layoutY="278.0" mnemonicParsing="false" onAction="#ShowStatisticsfun" text="Show Report" />
       <Label alignment="CENTER" layoutX="369.0" layoutY="118.0" prefHeight="62.0" prefWidth="199.0" text="Parking Lots" textFill="#991010" wrapText="true">
          <font>
             <Font name="Californian FB Italic" size="28.0" />
@@ -72,12 +72,12 @@
             <Image url="@../../../../images/938-9383200_png-file-svg-view-report-icon-png.png" />
          </image>
       </ImageView>
-      <Button layoutX="167.0" layoutY="449.0" mnemonicParsing="false" onAction="#test" prefHeight="34.0" prefWidth="94.0" text="test">
+      <Button layoutX="89.0" layoutY="475.0" mnemonicParsing="false" onAction="#test" prefHeight="34.0" prefWidth="146.0" text="Report 2">
          <font>
             <Font size="23.0" />
          </font>
       </Button>
-      <DatePicker fx:id="fromdate" layoutX="60.0" layoutY="86.0" promptText="From Date" />
-      <DatePicker fx:id="todate" layoutX="60.0" layoutY="180.0" promptText="To Date" />
+      <DatePicker fx:id="fromdate" layoutX="60.0" layoutY="86.0" promptText="From Date" visible="false" />
+      <DatePicker fx:id="todate" layoutX="60.0" layoutY="180.0" promptText="To Date" visible="false" />
    </children>
 </AnchorPane>
