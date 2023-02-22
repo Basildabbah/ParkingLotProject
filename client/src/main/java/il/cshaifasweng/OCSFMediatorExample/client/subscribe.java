@@ -164,25 +164,28 @@ public class subscribe {
                 invaild.setText("id is used before,Change it");
             if(c.getWarning().getObject1().toString().equals("yes"))
             {
-                if (full.isSelected()==true) {
-                    Subscribeboundry.idd = id.getText().toString();
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION,
-                            String.format("Success: %s\n You Will Pay: %s\n",
-                                    c.getWarning().getObject1(),
-                                    "400 $")
-                    );
 
-                    alert.show();
-                }
-                if (regular.isSelected()==true) {
-                    Subscribeboundry.idd = id.getText().toString();
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION,
-                            String.format("Success: %s\n You Will Pay: %s\n",
-                                    c.getWarning().getObject1(),
-                                    "300 $")
-                    );
+                    if (c.getWarning().getObject2().toString().equals("full")) {
+                        System.out.println("ajajaja");
+                        Subscribeboundry.idd = id.getText().toString();
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION,
+                                String.format("Success: %s\n You Will Pay: %s\n",
+                                        c.getWarning().getObject1(),
+                                        "400 $")
+                        );
 
-                    alert.show();
+                        alert.show();
+                    }
+                    if (c.getWarning().getObject2().toString().equals("regular")) {
+                        Subscribeboundry.idd = id.getText().toString();
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION,
+                                String.format("Success: %s\n You Will Pay: %s\n",
+                                        c.getWarning().getObject1(),
+                                        "300 $")
+                        );
+
+                        alert.show();
+
                 }
                 try {
                     App.setRoot("loginassubscriber");

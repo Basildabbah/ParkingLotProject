@@ -5325,7 +5325,8 @@ public class SimpleServer extends AbstractServer {
 			}
 			if (flag==1)
 			{
-				client.sendToClient(new Message("yes","yes"));
+				System.out.println(msg1.getObject7().toString());
+				client.sendToClient(new Message("yes","yes",msg1.getObject7().toString()));
 			}
 			session.getTransaction().commit();
 			session.close();
