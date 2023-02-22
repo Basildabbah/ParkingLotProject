@@ -108,7 +108,7 @@ public class Displayreportofchain {
 /*        System.out.println(fromdate.getValue().getYear());
         System.out.println(fromdate.getValue().getMonthValue());
         System.out.println(fromdate.getValue().getDayOfMonth());*/
-        if (type.getText().equals("OrdersReport")) {
+      /*  if (type.getText().equals("OrdersReport")) {
             Message m = new Message("#OrdersReport", parking_id.getText(),fromdate.getValue().getYear(),fromdate.getValue().getMonthValue()
                     , fromdate.getValue().getDayOfMonth(),todate.getValue().getYear(),todate.getValue().getMonthValue(),todate.getValue().getDayOfMonth());
            try {
@@ -116,8 +116,8 @@ public class Displayreportofchain {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-
+        }*/
+        App.setRoot("displayreportofchain_ReportORDER");
         System.out.println(parking_id.getText());
         System.out.println(type.getText());
     }
@@ -260,32 +260,7 @@ public class Displayreportofchain {
                 }
         );
     }
-    @Subscribe
-    public void setLabelshow3(OrdersReportEvent Response) throws IOException {
-        Platform.runLater(() ->
-                {
 
-                    if (Response.getWarning().getMessage().equals("OrdersReport")) {
-                        /*String Response1 = Response.getWarning().getObject1().toString();*/
-                        String Response2 = Response.getWarning().getObject2().toString();
-                        String Response3 = Response.getWarning().getObject3().toString();
-                        String Response4 = Response.getWarning().getObject4().toString();
-                        String Response5 = Response.getWarning().getObject5().toString();
-                        String Response6 = Response.getWarning().getObject6().toString();
-
-/*
-                        Alert alert = new Alert(Alert.AlertType.WARNING,
-                                String.format("The Number of Orders in ParkingLot %s is: %s",Response2,Response1));
-                        alert.show();*/
-                        Alert alert = new Alert(Alert.AlertType.WARNING,
-                                String.format("The Number of Orders in ParkingLot %s: \n" + "For FullSubscriber is: %s \n" + "For GuestPreOrder is: %s \n" + "For GuestOnSiteOrder is: %s \n" + "For RegularSubscriber is: %s", Response2, Response3, Response4, Response5, Response6));
-
-                        alert.show();
-                    }
-
-                }
-        );
-    }
    /* @Subscribe
     public void setLabelshow4(StatsEvent Response) throws IOException {
         Platform.runLater(() ->

@@ -1,6 +1,8 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
 import lombok.Data;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import javax.persistence.*;
@@ -8,7 +10,8 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "orders")
-public class Order {
+public class Order implements Serializable {
+    private static final long serialVersionUID = 4412085390748840422L;
 
     @Id
     private int id;

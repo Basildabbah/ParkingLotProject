@@ -2741,7 +2741,7 @@ public class SimpleServer extends AbstractServer {
 
 			Message message = new Message("OrdersReport");
 			Message cpymsg=((Message) msg);
-
+			List<Order> complaints = new ArrayList<Order>();
 			List<Order> listordertype = getAll(Order.class);
 
 			String ParkIDString = cpymsg.getObject1().toString();
@@ -2772,18 +2772,43 @@ public class SimpleServer extends AbstractServer {
 					if ((datefrom.compareTo(datesql) < 0 && dateto.compareTo(datesql) > 0) || (datefrom.compareTo(datesql) == 0 || dateto.compareTo(datesql) == 0)) {
 						if (order1.getTypeOfOrder().equals("FullSubscriberOrder")) {
 							c1++;
-
+							complaints.add(order1);
 						}
+
+					}
+				}
+			}
+			for (Order order1 : listordertype) {
+				if (order1.getParkingLotId() == ParkID) {
+					Date datesql = new Date(order1.getEnterYear(), order1.getEnterMonth(), order1.getEnterDay());
+					if ((datefrom.compareTo(datesql) < 0 && dateto.compareTo(datesql) > 0) || (datefrom.compareTo(datesql) == 0 || dateto.compareTo(datesql) == 0)) {
+
 						if (order1.getTypeOfOrder().equals("GuestOnSiteOrder")) {
 							c3++;
-
+							complaints.add(order1);
 						}
+
+					}
+				}
+			}
+			for (Order order1 : listordertype) {
+				if (order1.getParkingLotId() == ParkID) {
+					Date datesql = new Date(order1.getEnterYear(), order1.getEnterMonth(), order1.getEnterDay());
+					if ((datefrom.compareTo(datesql) < 0 && dateto.compareTo(datesql) > 0) || (datefrom.compareTo(datesql) == 0 || dateto.compareTo(datesql) == 0)) {
 						if (order1.getTypeOfOrder().equals("GuestPreOrder")) {
 							c2++;
-
+							complaints.add(order1);
 						}
+					}
+				}
+			}
+			for (Order order1 : listordertype) {
+				if (order1.getParkingLotId() == ParkID) {
+					Date datesql = new Date(order1.getEnterYear(), order1.getEnterMonth(), order1.getEnterDay());
+					if ((datefrom.compareTo(datesql) < 0 && dateto.compareTo(datesql) > 0) || (datefrom.compareTo(datesql) == 0 || dateto.compareTo(datesql) == 0)) {
 						if (order1.getTypeOfOrder().equals("RegularSubscriberOrder")) {
 							c4++;
+							complaints.add(order1);
 						}
 					}
 				}
@@ -2793,7 +2818,8 @@ public class SimpleServer extends AbstractServer {
 			message.setObject4(c2);
 			message.setObject5(c3);
 			message.setObject6(c4);
-
+			message.setObject7(complaints);
+			System.out.println(complaints);
 			try {
 				client.sendToClient(message);
 			} catch (IOException e) {
