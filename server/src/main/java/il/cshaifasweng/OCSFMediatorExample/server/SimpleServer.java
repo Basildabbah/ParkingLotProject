@@ -2672,7 +2672,68 @@ public class SimpleServer extends AbstractServer {
 			session.close();
 		}
 
+		if (msgString.equals("#displayreportofchain_COMPLAIN")) {
 
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+
+			Message message = new Message("displayreportofchain_COMPLAIN");
+			Message cpymsg=((Message) msg);
+
+			List<Complaint> listparkinglot = getAll(Complaint.class);
+			List<Complaint> complaints = new ArrayList<Complaint>();
+
+			String ParkIDString = cpymsg.getObject1().toString();
+			int ParkID=Integer.parseInt(ParkIDString);
+			String fromyea = cpymsg.getObject2().toString();
+			int fromyear=Integer.parseInt(fromyea);
+			String frommont = cpymsg.getObject3().toString();
+			int frommonth=Integer.parseInt(frommont);
+			String fromda = cpymsg.getObject4().toString();
+			int fromday=Integer.parseInt(fromda);
+
+			String toyea = cpymsg.getObject5().toString();
+			int toyear=Integer.parseInt(toyea);
+			String tomont = cpymsg.getObject6().toString();
+			int tomonth=Integer.parseInt(tomont);
+			String toda = cpymsg.getObject7().toString();
+			int today=Integer.parseInt(toda);
+			String h = cpymsg.getObject8().toString();
+			double hh=Double.parseDouble(h);
+
+			double NumberOfComplaints=0;
+			Date datefrom=new Date(fromyear,frommonth,fromday);
+			Date dateto=new Date(toyear,tomonth,today);
+
+
+			for (Complaint parkinglot1 : listparkinglot) {
+				if (parkinglot1.getParkingLotId()==ParkID){
+					Date datesql=new Date(parkinglot1.getDate().getYear(),parkinglot1.getDate().getMonthValue(),parkinglot1.getDate().getDayOfMonth());
+					if ((datefrom.compareTo(datesql)<0&&dateto.compareTo(datesql)>0)||(datefrom.compareTo(datesql)==0||dateto.compareTo(datesql)==0))
+					{
+						NumberOfComplaints++;
+						complaints.add(parkinglot1);
+					}
+				}
+
+			}
+			//System.out.println(NumberOfComplaints);
+			message.setObject1(complaints);
+			System.out.println("NumberOfComplaints  "+NumberOfComplaints);
+			System.out.println("diff day is "+hh);
+			System.out.println("avg is "+(NumberOfComplaints/hh));
+			message.setObject2(NumberOfComplaints);
+			message.setObject3(hh);
+			message.setObject4((NumberOfComplaints/hh));
+			message.setObject5(ParkID);
+			try {
+				client.sendToClient(message);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			session.getTransaction().commit();
+			session.close();
+		}
 		if (msgString.equals("#OrdersReport")) {
 
 			session = sessionFactory.openSession();

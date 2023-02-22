@@ -168,6 +168,11 @@ public class SimpleClient extends AbstractClient {
 			System.out.println("hereeeee");
 			EventBus.getDefault().post(new ResponseComplaintEvent(message));
 		}
+		if(message.getMessage().equals("displayreportofchain_COMPLAIN")) {
+
+			EventBus.getDefault().post(new displayreportofchain_COMPLAIN_EVENT(message));
+		}
+
 		if(message.getMessage().equals("2allComplaints")) {
 			System.out.println("refresh in simple client");
 			EventBus.getDefault().post(new RefreshComplaintsEvent(message));

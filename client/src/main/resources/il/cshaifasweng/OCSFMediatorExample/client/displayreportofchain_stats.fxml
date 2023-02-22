@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="1500.0" prefWidth="933.0" style="-fx-background-color: #7293ab;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.displayreportofchain_stats">
+   <children>
+      <Button fx:id="back" layoutX="105.0" layoutY="133.0" mnemonicParsing="false" onAction="#Back" prefHeight="34.0" prefWidth="94.0" text="Back">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Button>
+      <Label alignment="CENTER" layoutX="284.0" layoutY="88.0" prefHeight="62.0" prefWidth="199.0" text="Parking Lots" textFill="#991010" wrapText="true">
+         <font>
+            <Font name="Californian FB Italic" size="28.0" />
+         </font>
+         <effect>
+            <Bloom />
+         </effect>
+      </Label>
+      <Label layoutX="105.0" layoutY="630.0" prefHeight="18.0" prefWidth="46.0" />
+      <DatePicker fx:id="fromdate" layoutX="245.0" layoutY="208.0" promptText="From Date" />
+      <DatePicker fx:id="todate" layoutX="468.0" layoutY="208.0" prefHeight="26.0" prefWidth="175.0" promptText="To Date" />
+      <SplitMenuButton fx:id="parking_id1" layoutX="260.0" layoutY="271.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" text="Choose ParkLot Id">
+         <items>
+            <MenuItem fx:id="park11" mnemonicParsing="false" onAction="#park11" text="Park 1" />
+            <MenuItem fx:id="park22" mnemonicParsing="false" onAction="#park22" text="Park 2" />
+            <MenuItem fx:id="park33" mnemonicParsing="false" onAction="#park33" text="Park 3" />
+            <MenuItem fx:id="park44" mnemonicParsing="false" onAction="#park44" text="Park 4" />
+            <MenuItem fx:id="park55" mnemonicParsing="false" onAction="#park55" text="Park 5" />
+            <MenuItem fx:id="park66" mnemonicParsing="false" onAction="#park66" text="Park 6" />
+            <MenuItem fx:id="park77" mnemonicParsing="false" onAction="#park77" text="Park 7" />
+         </items>
+      </SplitMenuButton>
+      <Button fx:id="ShowReportfun1" layoutX="503.0" layoutY="271.0" mnemonicParsing="false" onAction="#ShowStatisticsfun" text="Show Stats" />
+      <AnchorPane layoutX="84.0" layoutY="403.0" prefHeight="195.0" prefWidth="246.0" style="-fx-background-color: white;">
+         <children>
+            <Label layoutX="14.0" layoutY="33.0" prefHeight="18.0" prefWidth="81.0" text="Park Number :" />
+            <Label layoutX="11.0" layoutY="70.0" prefHeight="18.0" prefWidth="165.0" text="Number of CancelOrders are:" />
+            <Label layoutX="11.0" layoutY="106.0" prefHeight="18.0" prefWidth="154.0" text="Number of days:" />
+            <Label layoutX="11.0" layoutY="141.0" prefHeight="18.0" prefWidth="140.0" text="daily Cancel(AVG%):" />
+            <Label fx:id="parknumber" layoutX="177.0" layoutY="33.0" prefHeight="18.0" prefWidth="61.0" text="park num" />
+            <Label fx:id="parknumber1" layoutX="177.0" layoutY="70.0" prefHeight="18.0" prefWidth="61.0" text="park num" />
+            <Label fx:id="parknumber11" layoutX="177.0" layoutY="106.0" prefHeight="18.0" prefWidth="61.0" text="park num" />
+            <Label fx:id="parknumber111" layoutX="177.0" layoutY="141.0" prefHeight="18.0" prefWidth="61.0" text="park num" />
+         </children>
+      </AnchorPane>
+      <Label alignment="CENTER" layoutX="99.0" layoutY="340.0" prefHeight="62.0" prefWidth="199.0" text="Cacncel Orders:" textFill="#991010" wrapText="true">
+         <font>
+            <Font name="Californian FB Italic" size="28.0" />
+         </font>
+         <effect>
+            <Bloom />
+         </effect>
+      </Label>
+      <Label alignment="CENTER" layoutX="406.0" layoutY="340.0" prefHeight="62.0" prefWidth="199.0" text="Active Order:" textFill="#991010" wrapText="true">
+         <font>
+            <Font name="Californian FB Italic" size="28.0" />
+         </font>
+         <effect>
+            <Bloom />
+         </effect>
+      </Label>
+      <AnchorPane layoutX="380.0" layoutY="403.0" prefHeight="195.0" prefWidth="246.0" style="-fx-background-color: white;">
+         <children>
+            <Label layoutX="14.0" layoutY="33.0" prefHeight="18.0" prefWidth="81.0" text="Park Number :" />
+            <Label layoutX="11.0" layoutY="70.0" prefHeight="18.0" prefWidth="165.0" text="Number of ActiveOrders are:" />
+            <Label layoutX="11.0" layoutY="106.0" prefHeight="18.0" prefWidth="154.0" text="Number of days:" />
+            <Label layoutX="11.0" layoutY="141.0" prefHeight="18.0" prefWidth="140.0" text="daily Active(AVG%):" />
+            <Label fx:id="parknumber2" layoutX="177.0" layoutY="33.0" prefHeight="18.0" prefWidth="61.0" text="park num" />
+            <Label fx:id="parknumber22" layoutX="177.0" layoutY="70.0" prefHeight="18.0" prefWidth="61.0" text="park num" />
+            <Label fx:id="parknumber222" layoutX="177.0" layoutY="106.0" prefHeight="18.0" prefWidth="61.0" text="park num" />
+            <Label fx:id="parknumber2222" layoutX="177.0" layoutY="141.0" prefHeight="18.0" prefWidth="61.0" text="park num" />
+         </children>
+      </AnchorPane>
+      <Label alignment="CENTER" layoutX="676.0" layoutY="340.0" prefHeight="62.0" prefWidth="199.0" text="Late Arrival:" textFill="#991010" wrapText="true">
+         <font>
+            <Font name="Californian FB Italic" size="28.0" />
+         </font>
+         <effect>
+            <Bloom />
+         </effect>
+      </Label>
+      <AnchorPane layoutX="653.0" layoutY="403.0" prefHeight="195.0" prefWidth="246.0" style="-fx-background-color: white;">
+         <children>
+            <Label layoutX="14.0" layoutY="33.0" prefHeight="18.0" prefWidth="81.0" text="Park Number :" />
+            <Label layoutX="11.0" layoutY="70.0" prefHeight="18.0" prefWidth="165.0" text="Number of Late Arrival are:" />
+            <Label layoutX="11.0" layoutY="106.0" prefHeight="18.0" prefWidth="154.0" text="Number of days:" />
+            <Label layoutX="11.0" layoutY="141.0" prefHeight="18.0" prefWidth="140.0" text="daily Late(AVG%):" />
+            <Label fx:id="parknumber3" layoutX="177.0" layoutY="33.0" prefHeight="18.0" prefWidth="61.0" text="park num" />
+            <Label fx:id="parknumber33" layoutX="177.0" layoutY="70.0" prefHeight="18.0" prefWidth="61.0" text="park num" />
+            <Label fx:id="parknumber333" layoutX="177.0" layoutY="106.0" prefHeight="18.0" prefWidth="61.0" text="park num" />
+            <Label fx:id="parknumber3333" layoutX="177.0" layoutY="141.0" prefHeight="18.0" prefWidth="61.0" text="park num" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
